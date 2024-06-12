@@ -1,8 +1,5 @@
 {
-    "dart.flutterTestAdditionalArgs": [
-        "--no-sound-null-safety"
-    ],
-    "dart.flutterRunAdditionalArgs": [
-        "--no-sound-null-safety",
-    ],
+  "dart.flutterSdkPath": ".fvm/versions/3.22.2",
+  "conventionalCommits.autoCommit": false,
+  "conventionalCommits.gitmoji": false,
 }
