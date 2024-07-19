@@ -1,8 +1,3 @@
-.lock
-moodle
-*.zip
-test/env.dart
-
 # Miscellaneous
 *.class
 *.log
@@ -13,6 +8,7 @@ test/env.dart
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -31,13 +27,9 @@ test/env.dart
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.packages
 .pub-cache/
 .pub/
 /build/
-
-# Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols

@@ -1,14 +1,52 @@
-include: package:flutter_lints/flutter.yaml
+include: package:flutterando_analysis/flutter.yaml
+
+analyzer:
+  plugins:
+    - architecture_linter
+
+architecture_linter:
+  excludes:
+    - "**.g.dart"
+
+  lint_severity: error
+
+  layers:
+    - &infra
+      name: "Infrastructure"
+      path: "(infra)"
+    - &domain
+      name: "Domain"
+      path: "(domain)"
+    - &presentation
+      name: "Presentation"
+      path: "(presentation)"
+    - &utils
+      name: "Utils"
+      path: "(utils)"
+
+  layers_config:
+    - layer: *domain
+      severity: error
+    - layer: *infra
+      severity: error
+    - layer: *presentation
+      severity: error
+    - layer: *utils
+      severity: error
+  banned_imports:
+    - layer: *domain
+      banned:
+        - *presentation
+        - *infra
+        - *utils
+    - layer: *infra
+      banned:
+        - *presentation
+    - layer: *presentation
+      banned:
+        - *infra
 
 linter:
   rules:
-    prefer_const_constructors: true
+    package_api_docs: true
     public_member_api_docs: true
-    avoid_dynamic_calls: true
-    avoid_slow_async_io: true
-    avoid_type_to_string: true
-    avoid_types_as_parameter_names: true
-    cancel_subscriptions: true
-    close_sinks: true
-    comment_references: true
-    deprecated_member_use_from_same_package: true

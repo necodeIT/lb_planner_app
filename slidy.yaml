@@ -1,0 +1,20 @@
+slidy: "1"
+variables:
+  customMessage: "Complete" # Gets  ${Local.var.customMessage}
+
+scripts:
+  clean:
+    name: "Clean"
+    description: "Clean project and re-fetch packages"
+    steps:
+      - run: flutter clean
+      - run: flutter pub get
+  generate:
+    name: "Generate"
+    steps:
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - run: flutter gen-l10n
+  translate:
+    name: "Translate"
+    description: "Generate translations strings from arb files"
+    run: flutter gen-l10n

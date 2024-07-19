@@ -1,31 +1,51 @@
-# LB Planner
+# LB Planner (App)
 
-LB Planner is an application designed to help students plan and organize their self-taught studying by tracking and managing their modules. It provides an easy-to-use interface that allows users to stay on top of their academic goals. For more information, please visit our [website](https://projekte.tgm.ac.at/lb-planner/).
+This is the source code for the frontend of LB Planner.
 
-## Compile Instructions
+## Development
 
-1. Clone the repository to your local machine.
-2. Ensure that you have [FVM](https://fvm.app/docs/getting_started/installation/) installed on your machine.
-3. Navigate to the project directory in the terminal.
-4. Run `fvm use` to select the Flutter version.
-5. Run `fvm flutter pub get` to install the required dependencies.
-6. To build the application for release on macOS, run `fvm flutter build macos --release --no-sound-null-safety`. The built application can be found in the `build/macos/Build/Products/Release/` directory.
-7. To build the application for release on Windows, run `fvm flutter build windows --release --no-sound-null-safety`. The built application can be found in the `build\windows\runner\Release\` directory.
-8. To build the application for release on Linux, run `fvm flutter build linux --release --no-sound-null-safety`. The built application can be found in the `build/linux/release/bundle/` directory.
+### Prerequisites
 
-Note: LB Planner uses `--no-sound-null-safety` because some of the third-party packages used in the app do not yet support Flutter's null safety feature. If you encounter any issues while compiling or running the application, please refer to the official [Flutter documentation](https://flutter.dev/docs) or the [FVM documentation](https://fvm.app) for troubleshooting tips.
+- Flutter Version Manager (fvm): [Installation Guide](https://fvm.app/docs/getting_started/installation)
+  - You may want to set an alias for flutter to fvm in your shell configuration file.
 
-## Contributors
-LB Planner was created by [McQuenji](https://github.com/bmceachnie), [Muhi](https://github.com/mkocagoel), [Riedler](https://github.com/RiedleroD), [Bishow B](https://github.com/officialbishowb) and [Can Polat](https://github.com/cpolat-tgm). We would like to extend our appreciation to the following external contributors for their contributions to the project:
+    ```bash
+    alias flutter="fvm flutter"
+    alias dart="fvm dart"
+    ```
 
-- [Blobi blob](https://github.com/Blobii) for helping with the design
-- [jszuecs-tgm](https://github.com/Jszuecs) for helping with documentation on the website
-- [sproshut](https://github.com/sproshut) for "Workflow for automated build" ([#11](https://github.com/necodeIT/lb_planner/pull/11))
-- [melli736](https://github.com/melli736) for helping with macOS testing & development
-- [mariusthaler](https://github.com/mariusthaler) for macOS testing
+- VsCode
 
-If you would like to contribute to the project, please feel free to contact us at lb-planner@tgm.ac.at or create a pull request.
+### Setup
 
-## License
+1. Once you've cloned the repository open it in VsCode
+2. If not already, install the recommended extensions.
+   - VsCode should prompt you upon opening the project.
+3. Run `fvm use` to install the flutter version used for this project.
+4. Restart VsCode so that it recognizes the flutter version.
 
-LB Planner is licensed under the [Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
+### Tools
+
+- Use [slidy](https://pub.dev/packages/slidy) to generate modules and files within those modules.
+- `slidy run translate` to generate the dart code for the translation files.
+- `slidy run generate` to run all generators.
+- `slidy run clean` to clean the project and refetch dependencies.
+
+### Guidelines
+
+Coding style is enforced as defined per the [Effective Dart](https://dart.dev/guides/language/effective-dart) guidelines and the [analysis_options.yaml](analysis_options.yaml) file.
+
+#### Architecture
+
+- LB Planner uses `flutter_modular` and adheres to [Clean Dart](https://github.com/Flutterando/Clean-Dart/blob/master/README_en.md) principles (a port of Clean Architecture to Dart).
+- The project is divided into modules, each module representing a feature or a group of features (e.g. `auth`, `home`, `settings`).
+- Each module has its own `domain`, `infra`, and `presentation` layers.
+  - **Domain**: Defines contracts logic and entities.
+  - **Infra**: Implements the contracts defined in the domain layer.
+  - **Presentation**: Contains the UI and business logic.
+
+#### Commits
+
+- Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages.
+- It is recommended to use the [Conventional Commits VsCode extension](https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits) to help you write conventional commit messages.
+  - You should be prompted to install this extension upon opening the project.

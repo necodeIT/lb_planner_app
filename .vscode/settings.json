@@ -1,5 +1,8 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.22.2",
   "conventionalCommits.autoCommit": false,
+  "conventionalCommits.promptCI": true,
   "conventionalCommits.gitmoji": false,
+  "conventionalCommits.promptBody": false,
+  "conventionalCommitBuilder.autoCommit": false,
+  "dart.flutterSdkPath": ".fvm/versions/3.22.2"
 }
