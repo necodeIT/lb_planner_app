@@ -15,6 +15,11 @@ This is the source code for the frontend of LB Planner.
     ```
 
 - VsCode
+- slidy (optional): [Installation Guide](https://pub.dev/packages/slidy)
+
+  ```bash
+  dart pub global activate slidy
+  ```
 
 ### Setup
 
@@ -26,7 +31,6 @@ This is the source code for the frontend of LB Planner.
 
 ### Tools
 
-- Use [slidy](https://pub.dev/packages/slidy) to generate modules and files within those modules.
 - `slidy run translate` to generate the dart code for the translation files.
 - `slidy run generate` to run all generators.
 - `slidy run clean` to clean the project and refetch dependencies.
