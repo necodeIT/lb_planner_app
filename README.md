@@ -31,6 +31,18 @@ This is the source code for the frontend of LB Planner.
 
 ### Tools
 
+- [flutter_modular_bricks](https://github.com/mcquenji/flutter_modular_bricks): A tool to generate boilerplate code for flutter_modular.
+  - `mason make module` to create a new module.
+  - `mason make service` to create a new service.
+  - `mason make service-impl` to implement a service.
+  - `mason make datasource` to create a new datasource.
+  - `mason make datasource-impl` to implement a datasource.
+  - `mason make repo` to create a new repository.
+  - `mason make widget` to create a new widget.
+  - `mason make screen` to create a new screen.
+  - `mason make model` to create a new model.
+  - `mason make util` to create a new utility group.
+
 - `slidy run translate` to generate the dart code for the translation files.
 - `slidy run generate` to run all generators.
 - `slidy run clean` to clean the project and refetch dependencies.
@@ -41,7 +53,7 @@ Coding style is enforced as defined per the [Effective Dart](https://dart.dev/gu
 
 #### Architecture
 
-- LB Planner uses `flutter_modular` and adheres to [Clean Dart](https://github.com/Flutterando/Clean-Dart/blob/master/README_en.md) principles (a port of Clean Architecture to Dart).
+- LB Planner uses `flutter_modular` and adheres to [Clean Dart](https://github.com/mcquenji/Clean-Dart) principles (a port of Clean Architecture to Dart).
 - The project is divided into modules, each module representing a feature or a group of features (e.g. `auth`, `home`, `settings`).
 - Each module has its own `domain`, `infra`, and `presentation` layers.
   - **Domain**: Defines contracts logic and entities.

@@ -21,9 +21,18 @@ class AuthException implements Exception {
   /// The webservice that failed to authenticate.
   final Webservice webservice;
 
+  /// The message for the exception.
+  ///
+  /// Defaults to [_defaultMessage] if not provided in the constructor.
+  late final String Function(Object reason, Webservice) message;
+
   /// An exception thrown when [AuthService.authenticate] fails.
-  AuthException(this.reason, this.webservice);
+  AuthException(this.reason, this.webservice, {String Function(Object reason, Webservice)? message}) {
+    this.message = message ?? _defaultMessage;
+  }
+
+  String _defaultMessage(Object reason, Webservice webservice) => 'AuthException: Failed to authenticate user for ${webservice.name}: $reason';
 
   @override
-  String toString() => 'AuthException: Failed to authenticate user for ${webservice.name}: $reason';
+  String toString() => message(reason, webservice);
 }

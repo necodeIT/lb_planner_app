@@ -1,4 +1,5 @@
 import 'package:either_dart/either.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Utility functions for [Either<List<JSON>, JSON>].
@@ -28,4 +29,18 @@ extension ApiServiceResponseUtils on Either<List<JSON>, JSON> {
 
   /// Returns `true` if the response is a list of JSON objects.
   bool get isList => isLeft;
+
+  /// Asserts that [isJson] is `true` and throws an exception if not.
+  void assertJson() {
+    if (!isJson) {
+      throw ApiServiceException('Response is array but expected single object', null, null);
+    }
+  }
+
+  /// Asserts that [isList] is `true` and throws an exception if not.
+  void assertList() {
+    if (!isList) {
+      throw ApiServiceException('Response is object but expected array', null, null);
+    }
+  }
 }

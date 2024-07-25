@@ -18,6 +18,6 @@ Map<String, dynamic> _$$TokenImplToJson(_$TokenImpl instance) =>
     };
 
 const _$WebserviceEnumMap = {
-  Webservice.moodleMobileAPI: 'moodleMobileAPI',
-  Webservice.lb_plannerAPI: 'lb_plannerAPI',
+  Webservice.moodle_mobile_app: 'moodle_mobile_app',
+  Webservice.lb_planner_api: 'lb_planner_api',
 };

@@ -1,4 +1,4 @@
-import 'package:either_dart/src/either.dart';
+import 'package:either_dart/either.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -18,6 +18,16 @@ class MoodleApiService extends ApiService {
   @override
   Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, required JSON body, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body $body"}");
+
+    body.removeWhere((key, value) {
+      final remove = value == null;
+
+      if (remove) {
+        log('Removing null value for key $key');
+      }
+
+      return remove;
+    });
 
     body['wstoken'] = token;
     body['moodlewsrestformat'] = 'json';
@@ -44,6 +54,14 @@ class MoodleApiService extends ApiService {
       final jsonList = (response.body as List<dynamic>).map((dynamic e) => e as JSON).toList();
 
       return Left(jsonList);
+    }
+
+    if (response.body['exception'] != null) {
+      final e = ApiServiceException(response.body['message'], response.statusCode, response.body);
+
+      log('Error calling function $function', e);
+
+      throw e;
     }
 
     return Right(response.body);

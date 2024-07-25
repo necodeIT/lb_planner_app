@@ -31,3 +31,11 @@ bricks:
     git:
       url: https://github.com/mcquenji/flutter_modular_bricks
       path: widget
+  repo:
+    git:
+      url: https://github.com/mcquenji/flutter_modular_bricks
+      path: repo
+  util:
+    git:
+      url: https://github.com/mcquenji/flutter_modular_bricks
+      path: util
