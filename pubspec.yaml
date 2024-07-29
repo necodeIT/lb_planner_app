@@ -15,8 +15,11 @@ dependencies:
   either_dart: ^1.0.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_modular: ^6.3.4
   freezed_annotation: ^2.4.4
+  intl: any
   json_annotation: ^4.9.0
   mcquenji_core:
     git:

@@ -15,18 +15,16 @@ class AuthModule extends Module {
       ];
 
   @override
-  void binds(Injector i) {
-    i
-      ..add<AuthService>(MoodleAuthService.new)
-      ..addRepository(AuthRepository.new);
-  }
+  void binds(Injector i) => i
+    ..add<AuthService>(MoodleAuthService.new)
+    ..addRepository(AuthRepository.new)
+    ..addRepository(UserRepository.new);
 
   @override
-  void exportedBinds(Injector i) {
-    i
-      ..add<AuthService>(MoodleAuthService.new)
-      ..addRepository(AuthRepository.new);
-  }
+  void exportedBinds(Injector i) => i
+    ..add<AuthService>(MoodleAuthService.new)
+    ..addRepository(UserRepository.new)
+    ..addRepository(AuthRepository.new);
 
   @override
   void routes(RouteManager r) {}

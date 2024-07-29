@@ -5,5 +5,5 @@
   "conventionalCommits.promptBody": false,
   "conventionalCommitBuilder.autoCommit": false,
   "dart.flutterSdkPath": ".fvm/versions/3.22.2",
-  "dart.lineLength": 150,
+  "dart.lineLength": 150
 }

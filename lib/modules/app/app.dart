@@ -3,6 +3,7 @@ library lb_planner.modules.app;
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/domain/services/api_service.dart';
 import 'package:lb_planner/modules/app/infra/services/moodle_api_service.dart';
+import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 export 'domain/domain.dart';
@@ -13,6 +14,7 @@ class AppModule extends Module {
   @override
   List<Module> get imports => [
         CoreModule(),
+        AuthModule(),
       ];
 
   @override
@@ -26,5 +28,7 @@ class AppModule extends Module {
   }
 
   @override
-  void routes(RouteManager r) {}
+  void routes(RouteManager r) {
+    r.module('/auth', module: AuthModule());
+  }
 }

@@ -42,6 +42,7 @@ This is the source code for the frontend of LB Planner.
   - `mason make screen` to create a new screen.
   - `mason make model` to create a new model.
   - `mason make util` to create a new utility group.
+  - `mason make guard` to create a new route guard
 
 - `slidy run translate` to generate the dart code for the translation files.
 - `slidy run generate` to run all generators.

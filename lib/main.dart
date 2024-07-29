@@ -14,6 +14,8 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // todo offline check
+
     return MaterialApp.router(
       title: kAppName,
       routeInformationParser: Modular.routeInformationParser,
