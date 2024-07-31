@@ -1,5 +1,5 @@
 name: lb_planner
-description: "A new Flutter project."
+description: "An application to plan your moodle assignments."
 
 publish_to: "none"
 
@@ -24,6 +24,9 @@ dependencies:
   mcquenji_core:
     git:
       url: https://github.com/mcquenji/mcquenji_core.git
+  mcquenji_local_storage:
+    git:
+      url: https://github.com/mcquenji/mcquenji_local_storage.git
   path: ^1.9.0
   result_dart: ^1.1.1
 
