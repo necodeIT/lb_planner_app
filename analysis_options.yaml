@@ -55,3 +55,6 @@ linter:
     package_names: true
     lines_longer_than_80_chars: false
     sort_pub_dependencies: true
+    join_return_with_assignment: true
+    prefer_for_elements_to_map_fromIterable: true
+    # yet to be released: document_ignores: true

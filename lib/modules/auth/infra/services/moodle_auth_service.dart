@@ -1,6 +1,5 @@
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/app/app.dart';
-import 'package:lb_planner/modules/app/utils/utils.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -71,19 +70,23 @@ class MoodleAuthService extends AuthService {
     log('Verifying token for ${token.webservice.name}');
 
     try {
-      final response = await _apiService.callFunction(
+      final respone = await _apiService.callFunction(
         function: '',
         token: token.token,
         body: {},
       );
 
-      if (response.isList) {
-        log('Token verification failed', response.asList);
+      log('API call succeeded, this should not happen', respone);
+
+      return true; // this will never be reached
+    } on ApiServiceException catch (e, stack) {
+      final body = e.data;
+
+      if (body == null) {
+        log('Token verification failed', e, stack);
 
         return false;
       }
-
-      final body = response.asJson;
 
       final errorCode = body['errorcode'] as String?;
 
@@ -99,9 +102,19 @@ class MoodleAuthService extends AuthService {
         return false;
       }
 
-      log('Token verified');
+      if (errorCode == 'invalidrecord') {
+        // The 'invalidrecord' error code indicates that the token is valid, but
+        // the specific record being accessed does not exist because we passed
+        // an empty function name. This means the token itself has passed the
+        // verification step and thus is valid.
+        log('Token verified');
 
-      return true;
+        return true;
+      }
+
+      log('Unknown errorcode. Assuming token is invalid', body);
+
+      return false;
     } catch (e, stack) {
       log('Token verification failed', e, stack);
 

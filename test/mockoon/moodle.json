@@ -1,6 +1,6 @@
 {
   "uuid": "97cdddc1-5742-4527-8c6b-cd7cced1ea4e",
-  "lastMigration": 28,
+  "lastMigration": 32,
   "name": "Moodle",
   "endpointPrefix": "",
   "latency": 0,
@@ -46,7 +46,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "76ac84fe-1131-4379-a93f-8bfa4c27c5c5",
@@ -72,7 +73,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "de9ad632-c640-4f63-bf83-6aa3a5b56c26",
@@ -112,7 +114,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "6bde0ae0-8375-43b4-8795-ef8a4eb24fab",
@@ -159,7 +162,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "0cff1e26-fa9c-46b0-8407-dedcbc50e65b",
@@ -234,7 +238,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "d8416d16-4f80-40e0-bcad-c87adff1bc82",
@@ -252,10 +257,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -303,7 +308,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "c0b34d03-9b43-4e7e-b1f8-47c2b1d4a358",
@@ -343,7 +349,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "3044ea34-9257-4174-a213-51f2b0f81cad",
@@ -361,7 +368,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "79762ed7-bb79-4ec6-a664-2dd2e32e18b2",
@@ -387,7 +395,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "cc689ec3-4683-4f9e-adce-a0ccbc027f17",
@@ -413,7 +422,8 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         },
         {
           "uuid": "6a85c1e8-a259-473e-8bfd-df232b42e35a",
@@ -439,10 +449,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -476,10 +486,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     }
   ],
@@ -528,5 +538,6 @@
       "value": ""
     }
   ],
-  "data": []
+  "data": [],
+  "callbacks": []
 }

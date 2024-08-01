@@ -1,6 +1,6 @@
 {
   "uuid": "f514ba10-d160-44c6-a80e-032591872344",
-  "lastMigration": 28,
+  "lastMigration": 32,
   "name": "Files",
   "endpointPrefix": "",
   "latency": 0,
@@ -10,7 +10,6 @@
     {
       "uuid": "ccf80dde-3239-4826-905a-ec92f8fa3a0d",
       "name": "Installers",
-      "collapsed": false,
       "children": [
         {
           "type": "route",
@@ -51,10 +50,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -80,10 +79,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -109,10 +108,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     }
   ],
@@ -148,5 +147,6 @@
       "value": ""
     }
   ],
-  "data": []
+  "data": [],
+  "callbacks": []
 }

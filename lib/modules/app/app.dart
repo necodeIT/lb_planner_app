@@ -8,22 +8,17 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
+export 'utils/utils.dart';
 
 /// Root module of the application.
 class AppModule extends Module {
   @override
   List<Module> get imports => [
         CoreModule(),
-        AuthModule(),
       ];
 
   @override
   void binds(Injector i) {
-    i.add<ApiService>(MoodleApiService.new);
-  }
-
-  @override
-  void exportedBinds(Injector i) {
     i.add<ApiService>(MoodleApiService.new);
   }
 

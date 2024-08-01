@@ -1,6 +1,6 @@
 {
   "uuid": "6bdd2121-a200-448f-b0f2-1da50b972fdc",
-  "lastMigration": 28,
+  "lastMigration": 32,
   "name": "Public API",
   "endpointPrefix": "api",
   "latency": 0,
@@ -31,10 +31,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     }
   ],
@@ -75,5 +75,6 @@
       "value": ""
     }
   ],
-  "data": []
+  "data": [],
+  "callbacks": []
 }

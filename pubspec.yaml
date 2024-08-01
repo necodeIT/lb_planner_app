@@ -21,6 +21,7 @@ dependencies:
   freezed_annotation: ^2.4.4
   intl: any
   json_annotation: ^4.9.0
+  logging: ^1.2.0
   mcquenji_core:
     git:
       url: https://github.com/mcquenji/mcquenji_core.git
@@ -40,6 +41,7 @@ dev_dependencies:
   flutterando_analysis: ^0.0.2
   freezed: ^2.5.2
   json_serializable: ^6.8.0
+  test: ^1.25.2
 
 flutter:
   uses-material-design: true

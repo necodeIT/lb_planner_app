@@ -1,6 +1,6 @@
 {
   "uuid": "47a565f8-73b1-4ccd-b14c-19f721b843d4",
-  "lastMigration": 28,
+  "lastMigration": 32,
   "name": "Unit Tests",
   "endpointPrefix": "",
   "latency": 0,
@@ -10,7 +10,6 @@
     {
       "uuid": "5c820f64-1036-44b0-94ff-074aaf61ddc3",
       "name": "Network Service Tests",
-      "collapsed": true,
       "children": [
         {
           "type": "route",
@@ -71,10 +70,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -100,10 +99,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -129,10 +128,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -163,10 +162,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -192,10 +191,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -221,10 +220,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -255,10 +254,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     },
     {
@@ -284,10 +283,10 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id"
+          "crudKey": "id",
+          "callbacks": []
         }
       ],
-      "enabled": true,
       "responseMode": null
     }
   ],
@@ -328,5 +327,6 @@
       "value": ""
     }
   ],
-  "data": []
+  "data": [],
+  "callbacks": []
 }
