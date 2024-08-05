@@ -119,7 +119,7 @@
         },
         {
           "uuid": "6bde0ae0-8375-43b4-8795-ef8a4eb24fab",
-          "body": "{\n  \"userid\": 0,\n  \"username\": \"debug\",\n  \"firstname\": \"Debug\",\n  \"lastname\": \"Mode\",\n  \"theme\": \"Light\",\n  \"lang\":\"en\",\n  \"profileimageurl\": \"https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg\",\n  \"planid\":0,\n  \"colorblindness\":\"none\",\n  \"displaytaskcount\":1,\n  \"capabilities\":12,\n  \"vintage\": \"5AHIT\"\n}",
+          "body": "{\n  \"userid\": 0,\n  \"username\": \"debug\",\n  \"firstname\": \"Debug\",\n  \"lastname\": \"Mode\",\n  \"theme\": \"Light\",\n  \"lang\": \"en\",\n  \"profileimageurl\": \"https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg\",\n  \"planid\": 0,\n  \"colorblindness\": \"none\",\n  \"displaytaskcount\": 1,\n  \"capabilities\": 12,\n  \"vintage\": \"5AHIT\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "local_lbplanner_user_get_user",
@@ -166,9 +166,105 @@
           "callbacks": []
         },
         {
-          "uuid": "0cff1e26-fa9c-46b0-8407-dedcbc50e65b",
-          "body": "{\n  \"userid\": 0,\n  \"username\": \"debug\",\n  \"firstname\": \"Debug\",\n  \"lastname\": \"Mode\",\n  \"theme\": \"Light\",\n  \"lang\":\"en\",\n  \"profileimageurl\": \"https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg\",\n  \"planid\":0,\n  \"colorblindness\":\"none\",\n  \"displaytaskcount\":1,\n  \"capabilities\":12,\n  \"vintage\": \"5AHIT\"\n}",
+          "uuid": "e9755e9e-682b-47ac-8427-5a61756587f7",
+          "body": "{\n  \"userid\": 0,\n  \"username\": \"debug\",\n  \"firstname\": \"Debug\",\n  \"lastname\": \"Mode\",\n  \"theme\": \"Light\",\n  \"lang\": \"en\",\n  \"profileimageurl\": \"https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg\",\n  \"planid\": 0,\n  \"colorblindness\": \"none\",\n  \"displaytaskcount\": 1,\n  \"capabilities\": 12,\n  \"vintage\": \"5AHIT\"\n}",
           "latency": 0,
+          "statusCode": 200,
+          "label": "local_lbplanner_user_register_user",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "wsfunction",
+              "value": "local_lbplanner_user_register_user",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "moodlewsrestformat",
+              "value": "json",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "wstoken",
+              "value": "DpWjCjT5oaV7JFwQuwZgwMC53BcY2A",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "userid",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ff7e1975-f340-4f2a-9813-7c3e94742019",
+          "body": "",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "local_lbplanner_user_delete_user",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "wsfunction",
+              "value": "local_lbplanner_user_delete_user",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "moodlewsrestformat",
+              "value": "json",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "wstoken",
+              "value": "DpWjCjT5oaV7JFwQuwZgwMC53BcY2A",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "userid",
+              "value": "",
+              "invert": false,
+              "operator": "null"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "0cff1e26-fa9c-46b0-8407-dedcbc50e65b",
+          "body": "{\n  \"userid\": 0,\n  \"username\": \"debug\",\n  \"firstname\": \"Debug\",\n  \"lastname\": \"Mode\",\n  \"theme\": \"Dark\",\n  \"lang\": \"en\",\n  \"profileimageurl\": \"https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg\",\n  \"planid\": 0,\n  \"colorblindness\": \"none\",\n  \"displaytaskcount\": 1,\n  \"capabilities\": 12,\n  \"vintage\": \"5AHIT\"\n}",
+          "latency": 1500,
           "statusCode": 200,
           "label": "local_lbplanner_user_update_user",
           "headers": [],
@@ -208,7 +304,7 @@
             {
               "target": "body",
               "modifier": "theme",
-              "value": "Light",
+              "value": "Dark",
               "invert": false,
               "operator": "equals"
             },
@@ -229,9 +325,9 @@
             {
               "target": "body",
               "modifier": "userid",
-              "value": "",
+              "value": "0",
               "invert": false,
-              "operator": "null"
+              "operator": "equals"
             }
           ],
           "rulesOperator": "AND",

@@ -49,6 +49,10 @@ class MoodleApiService extends ApiService {
 
     log("$function returned ${redact ? "[redacted body]" : "body ${response.body}"}");
 
+    if (response.body == null) {
+      return const Right({});
+    }
+
     if (response.body is List) {
       // convert List<dynamic> to List<JSON>
       final jsonList = (response.body as List<dynamic>).map((dynamic e) => e as JSON).toList();

@@ -1,9 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
+import 'package:logging/logging.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Logger.root.level = Level.ALL;
+
+  // False positive as it's wrapped in a kDebugMode check
+  // ignore: avoid_print
+  if (kDebugMode) Logger.root.onRecord.listen(print);
+
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
 

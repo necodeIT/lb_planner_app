@@ -33,6 +33,7 @@ dependencies:
 
 dev_dependencies:
   architecture_linter: ^0.2.2
+  bloc_test: ^9.1.7
   build_runner: ^2.4.11
   flutter_gen: ^5.6.0
   flutter_lints: ^3.0.0
@@ -42,6 +43,10 @@ dev_dependencies:
   freezed: ^2.5.2
   json_serializable: ^6.8.0
   test: ^1.25.2
+
+dependency_overrides:
+  mcquenji_local_storage:
+    path: ../mcquenji_local_storage
 
 flutter:
   uses-material-design: true
