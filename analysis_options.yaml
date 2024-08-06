@@ -38,7 +38,6 @@ architecture_linter:
       banned:
         - *presentation
         - *infra
-        - *utils
     - layer: *infra
       banned:
         - *presentation
