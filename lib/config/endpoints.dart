@@ -26,3 +26,6 @@ const kMoodleServerAdress = String.fromEnvironment('MOODLE_ENDPOINT', defaultVal
 /// flutter build [os] --dart-define=LB_PLANNER_ENDPOINT=`VALUE`
 /// ```
 const kLBPlannerWebsiteAdress = String.fromEnvironment('LB_PLANNER_ENDPOINT', defaultValue: 'http://localhost:6008');
+
+/// The interval in milliseconds to refresh data from the server at.
+const kRefreshInterval = int.fromEnvironment('REFRESH_INTERVAL', defaultValue: 10000);

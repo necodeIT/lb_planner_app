@@ -16,5 +16,5 @@ abstract class InvitesDatasource extends Datasource {
   Future<void> declineInvite(String token, int id);
 
   /// Invites the user with the given [userId] to the plan of the user associated with the given [token].
-  Future<void> inviteUser(String token, int userId);
+  Future<PlanInvite> inviteUser(String token, int userId);
 }

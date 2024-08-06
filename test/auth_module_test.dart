@@ -30,7 +30,7 @@ final defaultUser = User.fromJson(
 );
 
 List<User> get defaultUsers {
-  final serde = Modular.get<IGenericJsonSerializer<List<User>>>();
+  final serde = Modular.get<LocalStorageSerializer<List<User>>>();
 
   return serde.deserialize(
     // #region json response pasted from mockoon

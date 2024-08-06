@@ -26,8 +26,7 @@ class AuthModule extends Module {
     ..addRepository<AuthRepository>(AuthRepository.new)
     ..addRepository<UserRepository>(UserRepository.new)
     ..addSerde<Token>(fromJson: Token.fromJson, toJson: (t) => t.toJson())
-    ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson())
-    ..setupLocalStorage();
+    ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson());
 
   @override
   void routes(RouteManager r) {}

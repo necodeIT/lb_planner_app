@@ -1,10 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 import 'domain/domain.dart';
-import 'presentation/presentation.dart';
 import 'infra/infra.dart';
-import 'utils/utils.dart';
+import 'presentation/presentation.dart';
 
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
@@ -15,13 +15,15 @@ class CalendarModule extends Module {
   @override
   List<Module> get imports => [
         CoreModule(),
+        AppModule(),
       ];
 
   @override
-  void binds(Injector i) {}
-
-  @override
-  void exportedBinds(Injector i) {}
+  void binds(Injector i) => i
+    ..add<InvitesDatasource>(StdInvitesDatasource.new)
+    ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
+    ..add<PlanDatasource>(StdPlanDatasource.new)
+    ..addRepository<CalenarPlanRepository>(CalenarPlanRepository.new);
 
   @override
   void routes(RouteManager r) {}
