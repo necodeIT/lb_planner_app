@@ -1,3 +1,59 @@
 {
-    "@@locale": "en"
+    "@@locale": "en",
+    "notification_newUser": "Welcome, {username}!\n\nIf you happen to face any issues, please let us know.",
+    "@notification_newUser": {
+        "description": "notification_new_user",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_invite": "You have been invited by {inviter} to join their plan",
+    "@notification_invite": {
+        "description": "notification_invite",
+        "placeholders": {
+            "inviter": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_invite_accept": "Join",
+    "notification_invite_decline": "Decline",
+    "notification_inviteAccepted": "{username} has accepted your invitation",
+    "@notification_inviteAccepted": {
+        "description": "notification_invite_accepted",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_inviteDeclined": "{username} has declined your invitation",
+    "@notification_inviteDeclined": {
+        "description": "notification_invite_declined",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_planRemoved": "{username} has removed you from their plan.\nNo worries, we've got you covered! A new plan has been created for you with all the same data and settings.",
+    "@notification_planRemoved": {
+        "description": "notification_plan_removed",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_planLeft": "{username} has left your plan. You can invite them back anytime.",
+    "@notification_planLeft": {
+        "description": "notification_plan_left",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    }
 }

@@ -35,4 +35,18 @@ extension TokenExt on Set<Token> {
   bool has(Webservice service) {
     return any((token) => token.webservice == service);
   }
+
+  /// Returns the [Token] for the given [service].
+  Token token(Webservice service) {
+    return firstWhere(
+      (token) => token.webservice == service,
+      orElse: () => throw AuthException(
+        '',
+        service,
+        message: (reason, webservice) {
+          return 'AuthException: No token found for ${webservice.name}';
+        },
+      ),
+    );
+  }
 }

@@ -7,27 +7,23 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 /// UI state controller for the current user.
 class UserRepository extends Repository<AsyncValue<User>> {
   final AuthRepository _auth;
-  late final StreamSubscription _authSubscription;
   final UserDatasource _userDatasource;
 
   int _handlers = 0;
 
-  /// If this is `true` [_onAuthChange] is currently running.
+  /// `true` if the repository is currently handling an auth change.
   @visibleForTesting
   bool get isHandlingAuthChange => _handlers > 0;
 
   /// UI state controller for the current user.
   UserRepository(this._auth, this._userDatasource) : super(AsyncValue.loading()) {
-    _authSubscription = _auth.listen(
-      (state) => state.when(
-        data: _onAuthChange,
-        loading: loading,
-        error: error,
-      ),
-    );
+    watchAsync(_auth);
   }
 
-  Future<void> _onAuthChange(Set<Token> tokens) async {
+  @override
+  FutureOr<void> build(Type trigger) async {
+    final tokens = _auth.state.requireData;
+
     _handlers++;
 
     log('Received new tokens, refetching user ($_handlers queued)');
@@ -115,10 +111,4 @@ class UserRepository extends Repository<AsyncValue<User>> {
   Future<void> setLanguage(String lang) => _updateUser(
         state.requireData.copyWith(language: lang),
       );
-
-  @override
-  void dispose() {
-    super.dispose();
-    _authSubscription.cancel();
-  }
 }

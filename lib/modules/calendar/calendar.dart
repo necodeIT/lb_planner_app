@@ -23,7 +23,7 @@ class CalendarModule extends Module {
     ..add<InvitesDatasource>(StdInvitesDatasource.new)
     ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
     ..add<PlanDatasource>(StdPlanDatasource.new)
-    ..addRepository<CalenarPlanRepository>(CalenarPlanRepository.new);
+    ..addRepository<CalendarPlanRepository>(CalendarPlanRepository.new);
 
   @override
   void routes(RouteManager r) {}

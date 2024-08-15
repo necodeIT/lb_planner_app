@@ -29,5 +29,7 @@ class AuthModule extends Module {
     ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson());
 
   @override
-  void routes(RouteManager r) {}
+  void routes(RouteManager r) {
+    r.child('/', child: (_) => const LoginScreen());
+  }
 }

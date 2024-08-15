@@ -17,7 +17,7 @@ import 'package:json_annotation/json_annotation.dart';
 ///   const MyClass(this.timestamp);
 /// }
 /// ```
-class UnixTimestampConverter extends JsonConverter<DateTime, int> {
+class UnixTimestampConverter extends JsonConverter<DateTime?, int?> {
   /// Implements serialization and deserialization for [DateTime] from and to [int].
   ///
   /// Usage:
@@ -34,12 +34,16 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
   const UnixTimestampConverter();
 
   @override
-  DateTime fromJson(int json) {
+  DateTime? fromJson(int? json) {
+    if (json == null) return null;
+
     return DateTime.fromMillisecondsSinceEpoch(json * 1000);
   }
 
   @override
-  int toJson(DateTime object) {
+  int? toJson(DateTime? object) {
+    if (object == null) return null;
+
     return object.millisecondsSinceEpoch ~/ 1000;
   }
 }

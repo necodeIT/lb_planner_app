@@ -1,1 +1,1 @@
-export 'calenar_plan_repository.dart';
+export 'calendar_plan_repository.dart';

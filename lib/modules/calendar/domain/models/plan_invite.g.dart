@@ -13,8 +13,7 @@ _$PlanInviteImpl _$$PlanInviteImplFromJson(Map<String, dynamic> json) =>
       planId: (json['planid'] as num).toInt(),
       invitedUserId: (json['inviteeid'] as num).toInt(),
       status: $enumDecode(_$PlanInviteStatusEnumMap, json['status']),
-      timestamp: const UnixTimestampConverter()
-          .fromJson((json['timestamp'] as num).toInt()),
+      timestamp: DateTime.parse(json['timestamp'] as String),
     );
 
 Map<String, dynamic> _$$PlanInviteImplToJson(_$PlanInviteImpl instance) =>
@@ -24,7 +23,7 @@ Map<String, dynamic> _$$PlanInviteImplToJson(_$PlanInviteImpl instance) =>
       'planid': instance.planId,
       'inviteeid': instance.invitedUserId,
       'status': _$PlanInviteStatusEnumMap[instance.status]!,
-      'timestamp': const UnixTimestampConverter().toJson(instance.timestamp),
+      'timestamp': instance.timestamp.toIso8601String(),
     };
 
 const _$PlanInviteStatusEnumMap = {

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,206 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 
-final defaultUser = User.fromJson(
-// #region json response pasted from mockoon
-  jsonDecode('''
-{
-  "userid": 0,
-  "username": "debug",
-  "firstname": "Debug",
-  "lastname": "Mode",
-  "theme": "Light",
-  "lang": "en",
-  "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-  "planid": 0,
-  "colorblindness": "none",
-  "displaytaskcount": 1,
-  "capabilities": 12,
-  "vintage": "5AHIT"
-}'''),
-// #endregion
-);
-
-List<User> get defaultUsers {
-  final serde = Modular.get<LocalStorageSerializer<List<User>>>();
-
-  return serde.deserialize(
-    // #region json response pasted from mockoon
-    jsonDecode('''
-{"List<User>":[
-  {
-    "userid": 0,
-    "username": "debug",
-    "firstname": "Debug",
-    "lastname": "Mode",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "5AHIT"
-  },
-  {
-    "userid": 42,
-    "username": "YyqAjYfaWq",
-    "firstname": "IRojInsAxk",
-    "lastname": "ucYWikirmR",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "ymZjpceUYP"
-  },
-  {
-    "userid": 61,
-    "username": "NeIMeDPuiA",
-    "firstname": "rXUhJXneOm",
-    "lastname": "gMtCoJQJii",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "IOuQRgkqnq"
-  },
-  {
-    "userid": 78,
-    "username": "ojgfnNZYAu",
-    "firstname": "LDpukveXVk",
-    "lastname": "tlGblsrFUs",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "PwLrDnZcOH"
-  },
-  {
-    "userid": 83,
-    "username": "ulpKGrCxLL",
-    "firstname": "qxVmYcwfci",
-    "lastname": "DlMJNFNWhR",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "ETktsLiFSA"
-  },
-  {
-    "userid": 68,
-    "username": "FZmOvWDCdy",
-    "firstname": "WHOoxyPeDp",
-    "lastname": "nyihMcqyub",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "qfkuaRoWxV"
-  },
-  {
-    "userid": 31,
-    "username": "cQQgLCGKkD",
-    "firstname": "CqzkExePIZ",
-    "lastname": "LqhMGlFUfo",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "NPiXeqfHMf"
-  },
-  {
-    "userid": 82,
-    "username": "YcICSCdpDw",
-    "firstname": "dwjXsfvWJX",
-    "lastname": "tONVbEnNzi",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "yXVpPOiGNq"
-  },
-  {
-    "userid": 22,
-    "username": "ZMrdFFvVhf",
-    "firstname": "UONzxNVJMg",
-    "lastname": "mXvhTpFQYz",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "nDznCPWZUH"
-  },
-  {
-    "userid": 8,
-    "username": "MZWSkKabCn",
-    "firstname": "CWSFpQxNxw",
-    "lastname": "DFiqznAVSV",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "wucVeDWtWL"
-  },
-  {
-    "userid": 20,
-    "username": "UIVDEzBimD",
-    "firstname": "eGBYQzvvcd",
-    "lastname": "DYueTuIkGZ",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "RHRbPuLLjb"
-  },
-  {
-    "userid": 17,
-    "username": "TTJtRvVXZp",
-    "firstname": "PCwNwYayeI",
-    "lastname": "SwonYCWtrH",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "CyulfvLfKN"
-  },
-  {
-    "userid": 66,
-    "username": "FVcEuWfusx",
-    "firstname": "nctmOvxqyu",
-    "lastname": "MTkcjDCLQx",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "wNZAxBVcdz"
-  },
-  {
-    "userid": 16,
-    "username": "JuiYXVBGHy",
-    "firstname": "UPvvMIMUXP",
-    "lastname": "WNsMNyUkFa",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "HPnkCrFHTR"
-  },
-  {
-    "userid": 91,
-    "username": "PESTQbECwy",
-    "firstname": "UZnIVNtcXO",
-    "lastname": "WifDyiTZPr",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "eOTyaVDtkv"
-  },
-  {
-    "userid": 76,
-    "username": "QQbkPdHAZi",
-    "firstname": "UCuZmrrepD",
-    "lastname": "cFiCLytdIh",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "BHcdDtMFJF"
-  },
-  {
-    "userid": 50,
-    "username": "iFpZQkjqhE",
-    "firstname": "DauIHrBZKr",
-    "lastname": "uhPInJxBVi",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "MrkJOWkOnJ"
-  },
-  {
-    "userid": 37,
-    "username": "CVhoHgyPkd",
-    "firstname": "ouHoVyUBUa",
-    "lastname": "PFTUswllWE",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "YmaVXqavmv"
-  },
-  {
-    "userid": 56,
-    "username": "mzMcfaxPqd",
-    "firstname": "joyaDYnIgl",
-    "lastname": "NOpExYaelc",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "bJacnSNfnv"
-  },
-  {
-    "userid": 42,
-    "username": "hrNTtGXAIV",
-    "firstname": "ycugXqoMjS",
-    "lastname": "FjVamjPTmh",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "pwtjDzSJaF"
-  },
-  {
-    "userid": 78,
-    "username": "LodiNlsALj",
-    "firstname": "fGyUdqUjtR",
-    "lastname": "VwADwDoFQk",
-    "profileimageurl": "https://i.pinimg.com/474x/13/3b/0a/133b0ab0142b8faf0e11ad289ff0749e.jpg",
-    "vintage": "gYnWEpQeye"
-  }
-]}
-'''),
-    // #endregion
-  );
-}
+import 'defaults.dart';
 
 Future<void> main() async {
   Logger.root.level = Level.ALL;
@@ -237,18 +36,7 @@ Future<void> main() async {
               Webservice.moodle_mobile_app,
             },
           ),
-          completion(
-            {
-              const Token(
-                webservice: Webservice.lb_planner_api,
-                token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-              ),
-              const Token(
-                webservice: Webservice.moodle_mobile_app,
-                token: 'JNR9LeuzJUOSlFJsmluTHMkmwvTGzh',
-              ),
-            },
-          ),
+          completion(defaultTokens),
           reason: 'The user should be able to authenticate with the correct login.',
         );
       });
@@ -276,10 +64,7 @@ Future<void> main() async {
 
         await expectLater(
           authService.verifyToken(
-            const Token(
-              webservice: Webservice.lb_planner_api,
-              token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-            ),
+            defaultTokens.token(Webservice.lb_planner_api),
           ),
           completion(true),
           reason: 'The token should be valid.',
@@ -315,21 +100,8 @@ Future<void> main() async {
           password: 'debug',
         ),
         expect: () => [
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.isLoading,
-            'isLoading',
-            true,
-          ),
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.isLoading,
-            'isLoading',
-            true,
-          ),
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.data,
-            'data',
-            isNotNull,
-          ),
+          isA<AsyncValue<Set<Token>>>().having((state) => state.isLoading, 'isLoading', true),
+          isA<AsyncValue<Set<Token>>>().having((state) => state.data, 'data', isNotNull),
         ],
         verify: (bloc) async {
           final storage = Modular.get<LocalStorageDatasource>();
@@ -342,18 +114,7 @@ Future<void> main() async {
 
           await expectLater(
             storage.read<Set<Token>>(),
-            completion(
-              {
-                const Token(
-                  webservice: Webservice.lb_planner_api,
-                  token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-                ),
-                const Token(
-                  webservice: Webservice.moodle_mobile_app,
-                  token: 'JNR9LeuzJUOSlFJsmluTHMkmwvTGzh',
-                ),
-              },
-            ),
+            completion(defaultTokens),
             reason: 'The tokens should be correctly stored in local storage.',
           );
         },
@@ -363,18 +124,7 @@ Future<void> main() async {
         setUp: () async {
           final storage = Modular.get<LocalStorageDatasource>();
 
-          await storage.write(
-            {
-              const Token(
-                webservice: Webservice.lb_planner_api,
-                token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-              ),
-              const Token(
-                webservice: Webservice.moodle_mobile_app,
-                token: 'JNR9LeuzJUOSlFJsmluTHMkmwvTGzh',
-              ),
-            },
-          );
+          await storage.write(defaultTokens);
         },
         build: () => Modular.get<AuthRepository>(),
         act: (repo) => repo.loadStoredTokens,
@@ -384,25 +134,10 @@ Future<void> main() async {
             'isLoading',
             true,
           ),
-          isA<AsyncValue<Set<Token>>>()
-              .having(
+          isA<AsyncValue<Set<Token>>>().having(
             (state) => state.data,
             'data',
-            isNotNull,
-          )
-              .having(
-            (state) => state.data,
-            'data',
-            {
-              const Token(
-                webservice: Webservice.lb_planner_api,
-                token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-              ),
-              const Token(
-                webservice: Webservice.moodle_mobile_app,
-                token: 'JNR9LeuzJUOSlFJsmluTHMkmwvTGzh',
-              ),
-            },
+            defaultTokens,
           ),
         ],
       );
@@ -427,18 +162,7 @@ Future<void> main() async {
         setUp: () async {
           final storage = Modular.get<LocalStorageDatasource>();
 
-          await storage.write(
-            {
-              const Token(
-                webservice: Webservice.lb_planner_api,
-                token: 'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
-              ),
-              const Token(
-                webservice: Webservice.moodle_mobile_app,
-                token: 'JNR9LeuzJUOSlFJsmluTHMkmwvTGzh',
-              ),
-            },
-          );
+          await storage.write(defaultTokens);
         },
         build: () => Modular.get<AuthRepository>(),
         act: (repo) async {
@@ -446,21 +170,9 @@ Future<void> main() async {
           await repo.logout();
         },
         expect: () => [
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.isLoading,
-            'isLoading',
-            true,
-          ),
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.data,
-            'data',
-            isNotNull,
-          ),
-          isA<AsyncValue<Set<Token>>>().having(
-            (state) => state.data,
-            'data',
-            isEmpty,
-          ),
+          isA<AsyncValue<Set<Token>>>().having((state) => state.isLoading, 'isLoading', true),
+          isA<AsyncValue<Set<Token>>>().having((state) => state.data, 'data', isNotNull),
+          isA<AsyncValue<Set<Token>>>().having((state) => state.data, 'data', isEmpty),
         ],
         verify: (bloc) async {
           final storage = Modular.get<LocalStorageDatasource>();
@@ -482,7 +194,7 @@ Future<void> main() async {
 
         await expectLater(
           userDatasource.getUser(
-            'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
+            defaultTokens[Webservice.lb_planner_api],
           ),
           completion(defaultUser),
         );
@@ -506,7 +218,7 @@ Future<void> main() async {
 
         await expectLater(
           userDatasource.updateUser(
-            'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
+            defaultTokens[Webservice.lb_planner_api],
             defaultUser.copyWith(themeName: 'Dark'),
           ),
           completion(
@@ -534,7 +246,7 @@ Future<void> main() async {
 
         await expectLater(
           userDatasource.deleteUser(
-            'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
+            defaultTokens[Webservice.lb_planner_api],
           ),
           completes,
         );
@@ -558,7 +270,7 @@ Future<void> main() async {
 
         await expectLater(
           userDatasource.registerUser(
-            'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
+            defaultTokens[Webservice.lb_planner_api],
           ),
           completion(defaultUser),
         );
@@ -585,7 +297,7 @@ Future<void> main() async {
 
         await expectLater(
           userDatasource.getUsers(
-            'DpWjCjT5oaV7JFwQuwZgwMC53BcY2A',
+            defaultTokens[Webservice.lb_planner_api],
           ),
           completion(defaultUsers),
         );
@@ -626,9 +338,6 @@ Future<void> main() async {
       },
       expect: () => [
         isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
         isA<AsyncValue<User>>().having((u) => u.data, 'data', defaultUser),
       ],
     );
@@ -652,9 +361,6 @@ Future<void> main() async {
         await repo.setTheme('Dark');
       },
       expect: () => [
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
-        isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
         isA<AsyncValue<User>>().having((u) => u.isLoading, 'isLoading', true),
         isA<AsyncValue<User>>().having((u) => u.data, 'data', defaultUser),
         isA<AsyncValue<User>>().having((u) => u.data, 'data', defaultUser.copyWith(themeName: 'Dark')),

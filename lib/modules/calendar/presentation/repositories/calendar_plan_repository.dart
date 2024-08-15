@@ -1,42 +1,51 @@
 import 'dart:async';
 
-import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository for managing a user's [CalendarPlan].
-class CalenarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
+class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   final PlanDatasource _plan;
   final DeadlinesDatasource _deadlines;
   final AuthRepository _auth;
   final ConnectivityService _connectivity;
-
-  late final StreamSubscription _authSubscription;
-
-  late final Timer _timer;
+  final TickRepository _ticks;
+  final MoodleTasksRepository _tasks;
 
   /// Repository for managing a user's [CalendarPlan].
-  CalenarPlanRepository(
+  CalendarPlanRepository(
     this._plan,
     this._deadlines,
     this._auth,
     this._connectivity,
-    this._authSubscription,
-    this._timer,
+    this._ticks,
+    this._tasks,
   ) : super(AsyncValue.loading()) {
-    _authSubscription = _auth.listen(
-      (event) => event.when(
-        data: _loadPlan,
-        loading: loading,
-        error: error,
-      ),
-    );
+    watchAsync(_auth);
+    watch(_ticks);
+    watchAsync(_tasks);
+  }
 
-    _timer = Timer.periodic(
-      const Duration(seconds: kRefreshInterval),
-      _refreshHandler,
-    );
+  @override
+  Future<void> build(Type trigger) async {
+    // We don't need to refresh the plan as it's only loosely connected to the tasks.
+    if (trigger == MoodleTasksRepository) {
+      log('Skipping refresh triggered by $trigger');
+
+      return;
+    }
+
+    if (!_ticks.state.isFirst) log('Refreshing plan...');
+
+    if (!_auth.state.hasData) {
+      log('Cannot fetch plan: No tokens provided.');
+
+      return;
+    }
+
+    await _loadPlan(_auth.state.requireData);
   }
 
   Future<void> _loadPlan(Set<Token> tokens) async {
@@ -59,18 +68,6 @@ class CalenarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       onData: (_) => log('Plan loaded.'),
       onError: (e, s) => log('Failed to load plan.', e, s),
     );
-  }
-
-  Future<void> _refreshHandler(Timer timer) async {
-    log('Refreshing plan...');
-
-    if (!state.hasData) {
-      log('Cannot refresh plan: No plan loaded.');
-
-      return;
-    }
-
-    await _loadPlan(_auth.state.requireData);
   }
 
   /// Clears the plan.
@@ -234,13 +231,24 @@ class CalenarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
   }
 
+  /// Returns a list of tasks that do not have an associated deadline.
+  List<MoodleTask> getUnplannedTasks() {
+    if (!state.hasData) {
+      log('Cannot get unplanned tasks: No plan loaded.');
+
+      return [];
+    }
+
+    return _tasks.state.requireData.where((task) {
+      return !state.requireData.deadlines.any((t) => t.id == task.id);
+    }).toList();
+  }
+
   @override
   void dispose() {
     super.dispose();
 
-    _authSubscription.cancel();
     _deadlines.dispose();
     _plan.dispose();
-    _timer.cancel();
   }
 }

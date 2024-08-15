@@ -9,19 +9,24 @@ import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   final AuthService _auth;
   final LocalStorageDatasource _localStorage;
+  final Ticks _ticks;
 
   /// A future that completes when tokens have been loaded from storage.
   @visibleForTesting
   late final Future<void> loadStoredTokens;
 
   /// UI state controller for authentication.
-  AuthRepository(this._auth, this._localStorage) : super(AsyncValue.loading()) {
+  AuthRepository(this._auth, this._localStorage, this._ticks) : super(AsyncValue.loading()) {
     loadStoredTokens = _authFromStorage();
   }
 
   Future<void> _authFromStorage() async {
     if (!await _localStorage.exists<Set<Token>>()) {
       log('No token found in storage');
+
+      // Pause as we don't want other repositories refreshing unnecessarily
+      // and there are no other repos that work when unauthenticated.
+      _ticks.pause();
 
       return;
     }
@@ -60,6 +65,9 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     if (!state.hasData) return;
 
+    // If authentication was successful, resume the ticks.
+    _ticks.resume();
+
     await _localStorage.write(state.requireData);
   }
 
@@ -68,7 +76,14 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     data({});
 
     await _localStorage.delete<Set<Token>>();
+
+    // Pause as we don't want other repositories refreshing unnecessarily
+    // and there are no other repos that work when unauthenticated.
+    _ticks.pause();
   }
+
+  /// `true` if the user is authenticated.
+  bool get isAuthenticated => state.hasData && state.requireData.isNotEmpty;
 
   @override
   void dispose() {
