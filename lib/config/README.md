@@ -36,13 +36,13 @@ This folder contains configuration files for the app. These files define various
 When building your Flutter app, you can customize these configurations by defining the necessary variables using the `--dart-define` option. This allows you to tailor the app's behavior for different environments or requirements.
 
 ```bash
-flutter build apk --dart-define=MOODLE_ENDPOINT=https://your-moodle-server.com --dart-define=LB_PLANNER_ENDPOINT=https://your-lb-planner.com --dart-define=REFRESH_INTERVAL=15000
+flutter build linux --dart-define=MOODLE_ENDPOINT=https://your-moodle-server.com --dart-define=LB_PLANNER_ENDPOINT=https://example.com --dart-define=REFRESH_INTERVAL=15000
 ```
 
 or for development:
 
 ```bash
-flutter run --dart-define=MOODLE_ENDPOINT=https://your-moodle-server.com --dart-define=LB_PLANNER_ENDPOINT=https://your-lb-planner.com --dart-define=REFRESH_INTERVAL=15000
+flutter run -d linux --dart-define=MOODLE_ENDPOINT=https://your-moodle-server.com --dart-define=LB_PLANNER_ENDPOINT=https://example.com --dart-define=REFRESH_INTERVAL=15000
 ```
 
 If you have [mockoon](../../test/mockoon/README.md) running on your machine you don't need to change the endpoints as they are already set to the mockoon server.
