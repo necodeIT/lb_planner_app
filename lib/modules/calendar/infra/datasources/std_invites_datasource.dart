@@ -1,5 +1,5 @@
-import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 
 /// Standard [InvitesDatasource] implementation.
 class StdInvitesDatasource extends InvitesDatasource {

@@ -1,5 +1,5 @@
-import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Fetches the user's notifications.
 abstract class NotificationsDatasource extends Datasource {

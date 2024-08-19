@@ -55,5 +55,27 @@
                 "type": "String"
             }
         }
+    },
+    "auth_accessHint": "You are not allowed to use {appname}. If you believe this is an error, please contact your Moodle administrator to request access.",
+    "@auth_accessHint": {
+        "description": "auth_accessHint",
+        "placeholders": {
+            "appname": {
+                "type": "String"
+            }
+        }
+    },
+    "auth_username": "Username",
+    "auth_password": "Password",
+    "auth_login": "Login",
+    "auth_invalidCredentials": "Invalid username or password",
+    "auth_version": "Version {version}",
+    "@auth_version": {
+        "description": "auth_version",
+        "placeholders": {
+            "version": {
+                "type": "String"
+            }
+        }
     }
 }

@@ -1,22 +1,18 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
-import 'domain/domain.dart';
 import 'presentation/presentation.dart';
-import 'infra/infra.dart';
-import 'utils/utils.dart';
-
-
 
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'utils/utils.dart';
 
-
 class DashboardModule extends Module {
-    @override
+  @override
   List<Module> get imports => [
         CoreModule(),
+        MoodleModule(),
       ];
 
   @override
@@ -26,5 +22,11 @@ class DashboardModule extends Module {
   void exportedBinds(Injector i) {}
 
   @override
-  void routes(RouteManager r) {}
+  void routes(RouteManager r) {
+    r.child(
+      '/',
+      child: (_) => const DashboardScreen(),
+      transition: TransitionType.downToUp,
+    );
+  }
 }

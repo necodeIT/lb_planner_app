@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:logging/logging.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +14,9 @@ void main() async {
 
   // False positive as it's wrapped in a kDebugMode check
   // ignore: avoid_print
-  if (kDebugMode) Logger.root.onRecord.listen(print);
+  if (kDebugMode) Logger.root.onRecord.listen(debugLogHandler);
+
+  Modular.setInitialRoute('/dashboard');
 
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
@@ -24,10 +28,16 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.watch<ThemeRepository>();
+
     return MaterialApp.router(
+      theme: theme.state,
       title: kAppName,
-      routeInformationParser: Modular.routeInformationParser,
-      routerDelegate: Modular.routerDelegate,
+      routerConfig: Modular.routerConfig,
+      onGenerateTitle: (context) => kAppName,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

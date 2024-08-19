@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.3"
+  animations:
+    dependency: "direct main"
+    description:
+      name: animations
+      sha256: d3d6dcfb218225bbe68e87ccf6378bbb2e32a94900722c5f81611dad089911cb
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.11"
   architecture_linter:
     dependency: "direct dev"
     description:
@@ -57,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  awesome_extensions:
+    dependency: "direct main"
+    description:
+      name: awesome_extensions
+      sha256: c6b56e76cf418428acafe9f51e514cf8f752116135125d16d8bde107932ec5ed
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.17"
   bloc:
     dependency: "direct main"
     description:
@@ -186,7 +202,7 @@ packages:
     source: hosted
     version: "4.10.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -313,6 +329,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.3"
+  figma_squircle:
+    dependency: "direct main"
+    description:
+      name: figma_squircle
+      sha256: "790b91a9505e90d246f6efe2fa065ff7fffe658c7b44fe9b5b20c7b0ad3818c0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.3"
   file:
     dependency: transitive
     description:
@@ -334,6 +358,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animate:
+    dependency: "direct main"
+    description:
+      name: flutter_animate
+      sha256: "7c8a6594a9252dad30cc2ef16e33270b6248c4dedc3b3d06c86c4f3f4dc05ae5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.0"
   flutter_bloc:
     dependency: transitive
     description:
@@ -379,11 +411,35 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.3.4"
+  flutter_shaders:
+    dependency: transitive
+    description:
+      name: flutter_shaders
+      sha256: "02750b545c01ff4d8e9bbe8f27a7731aa3778402506c67daa1de7f5fc3f4befe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
+  flutter_svg:
+    dependency: "direct main"
+    description:
+      name: flutter_svg
+      sha256: "7b4ca6cf3304575fe9c8ec64813c8d02ee41d2afe60bcfe0678bcb5375d596a2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.10+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_vector_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_vector_icons
+      sha256: "20a77e282f8cb438c8edcee4eec85d8497d5f4cbeb07d116e9d2d01c9edfc5e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -584,11 +640,9 @@ packages:
   mcquenji_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "961462bb314ad07e86cbd16fc68f33ec60781ffa"
-      url: "https://github.com/mcquenji/mcquenji_core.git"
-    source: git
+      path: "../mcquenji_core"
+      relative: true
+    source: path
     version: "1.1.0"
   mcquenji_local_storage:
     dependency: "direct main"
@@ -792,7 +846,7 @@ packages:
     source: hosted
     version: "1.3.0"
   result_dart:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: result_dart
       sha256: "3c69c864a08df0f413a86be211d07405e9a53cc1ac111e3cc8365845a0fb5288"
@@ -892,6 +946,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  sprung:
+    dependency: "direct main"
+    description:
+      name: sprung
+      sha256: "54322638f5e393d2b808175f7eadbaa4836a4425456e98d93c3d676dc56ebdf1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   stack_trace:
     dependency: transitive
     description:
@@ -1004,6 +1066,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.4.2"
+  vector_graphics:
+    dependency: "direct main"
+    description:
+      name: vector_graphics
+      sha256: "32c3c684e02f9bc0afb0ae0aa653337a2fe022e8ab064bcd7ffda27a74e288e3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.11+1"
   vector_graphics_codec:
     dependency: transitive
     description:

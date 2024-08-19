@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
 
 part 'task_aggregate.freezed.dart';

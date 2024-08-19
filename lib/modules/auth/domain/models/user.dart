@@ -87,6 +87,9 @@ class User with _$User {
 
   /// Returns `null` if this user i not valid i.e. [id] is `-1`.
   User? get validOrNull => id == -1 ? null : this;
+
+  /// Returns the full name of the user.
+  String get fullname => '$firstname $lastname';
 }
 
 const _langToLocale = {

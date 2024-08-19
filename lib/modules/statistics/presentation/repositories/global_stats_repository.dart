@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 

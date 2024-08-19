@@ -1,5 +1,4 @@
 import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -50,7 +49,7 @@ class MoodleAuthService extends AuthService {
       final token = json['token'] as String?;
 
       if (token == null) {
-        final e = AuthException(response.body, webservice);
+        final e = _parseError(json, webservice);
 
         log('Authentication failed', e);
 
@@ -65,13 +64,25 @@ class MoodleAuthService extends AuthService {
     return tokens;
   }
 
+  AuthException _parseError(JSON body, Webservice webservice) {
+    if (body['errorcode'] == 'invalidlogin') {
+      return AuthException('Invalid username or password', webservice);
+    }
+
+    if (body['errorcode'] == 'cannotcreatetoken') {
+      return AuthException(InsuffcientPermissionsReason(), webservice);
+    }
+
+    return AuthException('Unknown errorcode', webservice);
+  }
+
   @override
   Future<bool> verifyToken(Token token) async {
     log('Verifying token for ${token.webservice.name}');
 
     try {
       final respone = await _apiService.callFunction(
-        function: '',
+        function: 'tokenverify',
         token: token.token,
         body: {},
       );

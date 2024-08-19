@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository for managing a user's [CalendarPlan].

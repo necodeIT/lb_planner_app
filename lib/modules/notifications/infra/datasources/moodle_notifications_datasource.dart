@@ -1,4 +1,5 @@
 import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
 
 /// Standard implementation of the [NotificationsDatasource] using Moodle API.

@@ -1,5 +1,5 @@
-import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 
 /// Implementation of [UserDatasource] for Moodle.
 class MoodleUserDatasource extends UserDatasource {

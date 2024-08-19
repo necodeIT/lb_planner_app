@@ -9,15 +9,22 @@ environment:
   sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
+  animations: ^2.0.11
+  awesome_extensions: ^2.0.17
   bloc: ^8.1.4
+  collection: any
   color_blindness: ^0.2.0
   cupertino_icons: ^1.0.6
   either_dart: ^1.0.0
+  figma_squircle: ^0.5.3
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.0
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^6.3.4
+  flutter_svg: ^2.0.10+1
+  flutter_vector_icons: ^2.0.0
   freezed_annotation: ^2.4.4
   intl: any
   json_annotation: ^4.9.0
@@ -29,7 +36,8 @@ dependencies:
     git:
       url: https://github.com/mcquenji/mcquenji_local_storage.git
   path: ^1.9.0
-  result_dart: ^1.1.1
+  sprung: ^3.0.1
+  vector_graphics: any
 
 dev_dependencies:
   architecture_linter: ^0.2.2
@@ -44,11 +52,16 @@ dev_dependencies:
   json_serializable: ^6.8.0
   test: ^1.25.2
 
+dependency_overrides:
+  mcquenji_core:
+    path: ../mcquenji_core
+
 flutter:
   uses-material-design: true
   generate: true
   assets:
-    - assets/modules/auth/
+    - assets/logo.svg
+    - assets/auth/
 
 flutter_gen:
   output: lib/gen/assets/

@@ -3,7 +3,7 @@
   "lastMigration": 32,
   "name": "Moodle",
   "endpointPrefix": "",
-  "latency": 0,
+  "latency": 1000,
   "port": 6000,
   "hostname": "",
   "folders": [],

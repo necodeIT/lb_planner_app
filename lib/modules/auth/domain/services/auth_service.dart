@@ -36,3 +36,10 @@ class AuthException implements Exception {
   @override
   String toString() => message(reason, webservice);
 }
+
+/// If [AuthException.reason] is [InsuffcientPermissionsReason], the user does not have the
+/// required permissions to use the webservice and thus is not allowed to authenticate.
+class InsuffcientPermissionsReason {
+  @override
+  String toString() => 'Insufficient permissions: The user does not have the required permissions to use this webservice.';
+}

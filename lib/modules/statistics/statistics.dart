@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 import 'presentation/presentation.dart';
@@ -13,7 +13,7 @@ class StatisticsModule extends Module {
   @override
   List<Module> get imports => [
         CoreModule(),
-        AppModule(),
+        MoodleModule(),
       ];
 
   @override

@@ -103,9 +103,11 @@ class UserRepository extends Repository<AsyncValue<User>> {
   }
 
   /// Updates the user's theme.
-  Future<void> setTheme(String theme) => _updateUser(
-        state.requireData.copyWith(themeName: theme),
-      );
+  Future<void> setTheme(String theme) {
+    return _updateUser(
+      state.requireData.copyWith(themeName: theme),
+    );
+  }
 
   /// Updates the user's language.
   Future<void> setLanguage(String lang) => _updateUser(

@@ -27,6 +27,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       // Pause as we don't want other repositories refreshing unnecessarily
       // and there are no other repos that work when unauthenticated.
       _ticks.pause();
+      data({});
 
       return;
     }
@@ -53,6 +54,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     required String username,
     required String password,
   }) async {
+    log('Authenticating with username $username');
+
     emit(AsyncValue.loading());
 
     await guard(
@@ -64,6 +67,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     );
 
     if (!state.hasData) return;
+
+    log('Authentication successful');
 
     // If authentication was successful, resume the ticks.
     _ticks.resume();

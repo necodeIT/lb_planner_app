@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 import 'domain/domain.dart';
@@ -15,7 +15,7 @@ class CalendarModule extends Module {
   @override
   List<Module> get imports => [
         CoreModule(),
-        AppModule(),
+        MoodleModule(),
       ];
 
   @override
@@ -26,5 +26,7 @@ class CalendarModule extends Module {
     ..addRepository<CalendarPlanRepository>(CalendarPlanRepository.new);
 
   @override
-  void routes(RouteManager r) {}
+  void routes(RouteManager r) {
+    r.child('/', child: (_) => const CalendarScreen());
+  }
 }

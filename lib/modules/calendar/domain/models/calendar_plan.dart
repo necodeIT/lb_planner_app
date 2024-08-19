@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 
 part 'calendar_plan.freezed.dart';
 part 'calendar_plan.g.dart';
