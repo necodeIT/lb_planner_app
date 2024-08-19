@@ -18,8 +18,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   Future<void> build(Type trigger) async {
     final tokens = _auth.state.requireData;
 
-    // await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
-    data([]);
+    await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
   }
 
   /// Filters all [MoodleTask]s based on the provided criteria.
