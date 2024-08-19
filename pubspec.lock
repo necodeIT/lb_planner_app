@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.11"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "50e982d500bc863e1d703448afdbf9e5a72eb48840a4f766fa361ffd6877055f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   architecture_linter:
     dependency: "direct dev"
     description:
@@ -642,7 +650,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9966e2c674428a8b1a9efe8cd786a46629b342fa"
+      resolved-ref: "74ca3e4d786d4fbf2cc70f0e1331c68af4049290"
       url: "https://github.com/mcquenji/mcquenji_core.git"
     source: git
     version: "1.1.0"
