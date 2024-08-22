@@ -26,7 +26,7 @@ This is the source code for the frontend of LB Planner.
 1. Once you've cloned the repository open it in VsCode
 2. If not already, install the recommended extensions.
    - VsCode should prompt you upon opening the project.
-3. Run `fvm use` to install the flutter version used for this project.
+3. Run `fvm use && fvm flutter pub get` to install the flutter version used for this project.
 4. Restart VsCode so that it recognizes the flutter version.
 
 ### Tools
