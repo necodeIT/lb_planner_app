@@ -77,5 +77,11 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "dashboard_todaysTasks": "Today's tasks",
+    "dashboard_todaysTasks_noTasks": "You've nothing planned for today",
+    "dashboard_statusOverview": "Status overview",
+    "dashboard_burnDownChart": "Burn down chart",
+    "dashboard_exams": "Upcomming exams",
+    "dashboard_exams_noExams": "No exams scheduled in the near future"
 }

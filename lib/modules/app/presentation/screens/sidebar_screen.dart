@@ -15,16 +15,14 @@ class SidebarScreen extends StatelessWidget {
         children: [
           const Sidebar(),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(Spacing.mediumSpacing),
-              child: const Column(
-                children: [
-                  TitleBar(),
-                  Expanded(
-                    child: RouterOutlet(),
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: PaddingAll(Spacing.mediumSpacing).Bottom(0),
+                  child: const TitleBar(),
+                ),
+                const Expanded(child: RouterOutlet()),
+              ],
             ),
           ),
         ],

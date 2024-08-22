@@ -11,16 +11,30 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   final LocalStorageDatasource _localStorage;
   final Ticks _ticks;
 
+  static AsyncValue<Set<Token>>? _state;
+
   /// A future that completes when tokens have been loaded from storage.
   @visibleForTesting
   late final Future<void> loadStoredTokens;
 
   /// UI state controller for authentication.
-  AuthRepository(this._auth, this._localStorage, this._ticks) : super(AsyncValue.loading()) {
+  AuthRepository(this._auth, this._localStorage, this._ticks) : super(_state ?? AsyncValue.loading()) {
     loadStoredTokens = _authFromStorage();
   }
 
   Future<void> _authFromStorage() async {
+    if (_state != null && isAuthenticated) {
+      log('Global state present and user is authenticated, skipping storage check');
+      return;
+    }
+
+    if (_state != null && !isAuthenticated) {
+      log('Global state present, however user the is unauthenticated. Discarding state.');
+      _state = null;
+    }
+
+    loading();
+
     if (!await _localStorage.exists<Set<Token>>()) {
       log('No token found in storage');
 
@@ -38,7 +52,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       final valid = await _auth.verifyToken(token);
 
       if (!valid) {
-        log('Token $token is invalid. Setting state to empty.');
+        log('Token $token is invalid. Setting clearing state.');
 
         await logout();
 
@@ -78,6 +92,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
   /// Sign out.
   Future<void> logout() async {
+    log('Logging out');
+
     data({});
 
     await _localStorage.delete<Set<Token>>();
@@ -89,6 +105,13 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
   /// `true` if the user is authenticated.
   bool get isAuthenticated => state.hasData && state.requireData.isNotEmpty;
+
+  @override
+  void emit(AsyncValue<Set<Token>> state) {
+    super.emit(state);
+
+    _state = state;
+  }
 
   @override
   void dispose() {

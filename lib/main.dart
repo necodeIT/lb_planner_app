@@ -12,11 +12,13 @@ void main() async {
 
   Logger.root.level = Level.ALL;
 
+  DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
+
   // False positive as it's wrapped in a kDebugMode check
   // ignore: avoid_print
   if (kDebugMode) Logger.root.onRecord.listen(debugLogHandler);
 
-  Modular.setInitialRoute('/dashboard');
+  Modular.setInitialRoute('/dashboard/');
 
   runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }

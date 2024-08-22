@@ -1,3 +1,4 @@
+import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 
@@ -29,6 +30,17 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
     final templateTheme = ThemeData(brightness: themeBase.brightness);
 
     return ThemeData(
+      cardTheme: CardTheme(
+        color: themeBase.primaryColor,
+        elevation: 6,
+        margin: EdgeInsets.zero,
+        shape: SmoothRectangleBorder(
+          borderRadius: SmoothBorderRadius(
+            cornerRadius: 10,
+            cornerSmoothing: 0.5,
+          ),
+        ),
+      ),
       brightness: themeBase.brightness,
       useMaterial3: false,
       primaryColor: themeBase.secondaryColor,

@@ -9,11 +9,11 @@ class UserRepository extends Repository<AsyncValue<User>> {
   final AuthRepository _auth;
   final UserDatasource _userDatasource;
 
-  int _handlers = 0;
+  bool _isHandlingAuthChange = false;
 
   /// `true` if the repository is currently handling an auth change.
   @visibleForTesting
-  bool get isHandlingAuthChange => _handlers > 0;
+  bool get isHandlingAuthChange => _isHandlingAuthChange;
 
   /// UI state controller for the current user.
   UserRepository(this._auth, this._userDatasource) : super(AsyncValue.loading()) {
@@ -24,14 +24,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
   FutureOr<void> build(Type trigger) async {
     final tokens = _auth.state.requireData;
 
-    _handlers++;
-
-    log('Received new tokens, refetching user ($_handlers queued)');
-
-    // ! may want to implement this later as it may lead to some race conditions
-    // wait for the previous handler to finish (less than 1 as the current handler is already queued)
-    // await Future.doWhile(() => _handlers <= 1);
-    // log('Previous handler finished, proceeding');
+    _isHandlingAuthChange = true;
 
     loading();
 
@@ -48,7 +41,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
         ),
       );
 
-      _handlers--;
+      _isHandlingAuthChange = false;
 
       return;
     }
@@ -62,7 +55,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       data(user);
 
-      _handlers--;
+      _isHandlingAuthChange = false;
 
       return;
     } catch (e) {
@@ -81,7 +74,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       onData: (_) => log('User registered successfully'),
     );
 
-    _handlers--;
+    _isHandlingAuthChange = false;
   }
 
   Future<void> _updateUser(User patch) async {

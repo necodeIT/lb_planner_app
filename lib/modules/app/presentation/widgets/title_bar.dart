@@ -48,7 +48,6 @@ class TitleBar extends StatelessWidget {
                 ),
               ],
             ),
-            Spacing.largeVertical(),
           ],
         );
       },

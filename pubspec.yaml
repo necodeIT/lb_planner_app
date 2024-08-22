@@ -23,6 +23,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^6.3.4
+  flutter_staggered_animations: ^1.1.1
   flutter_svg: ^2.0.10+1
   flutter_vector_icons: ^2.0.0
   freezed_annotation: ^2.4.4
@@ -52,9 +53,9 @@ dev_dependencies:
   json_serializable: ^6.8.0
   test: ^1.25.2
 
-# dependency_overrides:
-#   mcquenji_core:
-#     path: ../mcquenji_core
+dependency_overrides:
+  mcquenji_core:
+    path: ../mcquenji_core
 
 flutter:
   uses-material-design: true

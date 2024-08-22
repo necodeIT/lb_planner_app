@@ -41,22 +41,20 @@ class AppModule extends Module {
         child: (_) => const SidebarScreen(),
         children: [
           ModuleRoute(
-            '/dashboard',
+            '/dashboard/',
             module: DashboardModule(),
-            customTransition: defaultTransition,
             transition: TransitionType.custom,
+            customTransition: defaultTransition,
           ),
           ModuleRoute(
-            '/calendar',
+            '/calendar/',
             module: CalendarModule(),
-            customTransition: defaultTransition,
-            transition: TransitionType.custom,
+            transition: TransitionType.noTransition,
           ),
           ModuleRoute(
-            '/settings',
+            '/settings/',
             module: SettingsModule(),
-            customTransition: defaultTransition,
-            transition: TransitionType.custom,
+            transition: TransitionType.noTransition,
           ),
         ],
         customTransition: defaultTransition,
@@ -64,7 +62,6 @@ class AppModule extends Module {
         guards: [
           AuthGuard(redirectTo: '/auth/'),
         ],
-        maintainState: false,
       );
   }
 }

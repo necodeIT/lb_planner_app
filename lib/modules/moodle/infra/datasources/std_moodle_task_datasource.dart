@@ -51,7 +51,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
         },
       );
 
-      response.assertJson();
+      response.assertList();
 
       log('Fetched ${response.asList.length} tasks');
 

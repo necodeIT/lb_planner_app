@@ -8,7 +8,8 @@
   "dart.lineLength": 150,
   "conventionalCommits.scopes": [
     "auth",
-    "calendar"
+    "calendar",
+    "moodle"
   ],
   "dart.flutterRunAdditionalArgs": [
     "--dart-define=MOODLE_ENDPOINT=https://projekte.tgm.ac.at/lbplaner4"

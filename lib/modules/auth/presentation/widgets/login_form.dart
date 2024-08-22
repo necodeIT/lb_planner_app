@@ -21,6 +21,9 @@ class _LoginFormState extends State<LoginForm> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final usernameFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
+
   bool loggingIn = false;
   bool showPassword = false;
 
@@ -56,6 +59,12 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       loggingIn = false;
     });
+
+    if (auth.state.hasError) {
+      return;
+    }
+
+    usernameFocusNode.requestFocus();
   }
 
   void togglePasswordVisibility() {
@@ -95,6 +104,8 @@ class _LoginFormState extends State<LoginForm> {
                 labelText: context.t.auth_username,
                 errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
               ),
+              focusNode: usernameFocusNode,
+              onSubmitted: (_) => passwordFocusNode.requestFocus(),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -113,6 +124,8 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
               ),
+              focusNode: passwordFocusNode,
+              onSubmitted: (_) => login(),
             ),
             if (auth.state.hasError) const SizedBox(height: 16) else const SizedBox(height: 40),
             ElevatedButton(
