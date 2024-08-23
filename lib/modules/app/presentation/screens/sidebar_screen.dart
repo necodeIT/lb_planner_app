@@ -21,7 +21,9 @@ class SidebarScreen extends StatelessWidget {
                   padding: PaddingAll(Spacing.mediumSpacing).Bottom(0),
                   child: const TitleBar(),
                 ),
-                const Expanded(child: RouterOutlet()),
+                const Expanded(
+                  child: RouterOutlet(),
+                ),
               ],
             ),
           ),

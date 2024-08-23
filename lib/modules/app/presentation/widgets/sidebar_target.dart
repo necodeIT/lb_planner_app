@@ -64,10 +64,10 @@ class _SidebarTargetState extends State<SidebarTarget> {
           width: 35,
           height: 35,
           curve: Curves.easeInOut,
-          duration: const Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 300),
           decoration: ShapeDecoration(
             color: isActive ? context.theme.colorScheme.primary : context.theme.scaffoldBackgroundColor,
-            shadows: kElevationToShadow[isActive || hover ? 3 : 0],
+            shadows: kElevationToShadow[isActive || hover ? 2 : 0],
             shape: SmoothRectangleBorder(
               borderRadius: SmoothBorderRadius(
                 cornerRadius: 10,

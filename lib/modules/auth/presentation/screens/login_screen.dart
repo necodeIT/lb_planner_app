@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
           Positioned(
             left: 20,
             bottom: 20,
-            child: Text(context.t.auth_version('0.0.0')).color(context.theme.colorScheme.onPrimary), // TODO: Replace with actual version
+            child: Text(context.t.auth_version('0.0.0')).color(context.theme.colorScheme.onPrimary), // TODO(mcquenji): Replace with actual version
           ),
           const Align(
             alignment: Alignment.centerRight,

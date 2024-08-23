@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -19,7 +21,12 @@ class CalendarModule extends Module {
       ];
 
   @override
-  void binds(Injector i) => i
+  void binds(Injector i) {
+    i.add<TitleBuilder>(() => (BuildContext context) => context.t.calendar_title);
+  }
+
+  @override
+  void exportedBinds(Injector i) => i
     ..add<InvitesDatasource>(StdInvitesDatasource.new)
     ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
     ..add<PlanDatasource>(StdPlanDatasource.new)
@@ -27,6 +34,11 @@ class CalendarModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child('/', child: (_) => const CalendarScreen());
+    r.child(
+      '/',
+      child: (_) => const CalendarScreen(),
+      transition: TransitionType.custom,
+      customTransition: defaultTransition,
+    );
   }
 }

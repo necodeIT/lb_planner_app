@@ -63,7 +63,7 @@ class UnixTimestampConverter extends JsonConverter<DateTime?, int?> {
 ///   const MyClass(this.enabled);
 /// }
 /// ```
-class BoolConverter extends JsonConverter<bool, int> {
+class BoolConverter extends JsonConverter<bool, num> {
   /// Implements serialization and deserialization for [bool] from and to [int].
   ///
   /// Usage:
@@ -80,12 +80,12 @@ class BoolConverter extends JsonConverter<bool, int> {
   const BoolConverter();
 
   @override
-  bool fromJson(int json) {
+  bool fromJson(num json) {
     return json == 1;
   }
 
   @override
-  int toJson(bool object) {
+  num toJson(bool object) {
     return object ? 1 : 0;
   }
 }
@@ -123,11 +123,19 @@ class HexColorConverter extends JsonConverter<Color, String> {
 
   @override
   Color fromJson(String json) {
-    return Color(int.parse(json, radix: 16));
+    // Credit: https://stackoverflow.com/a/50081214
+    final buffer = StringBuffer();
+    if (json.length == 6 || json.length == 7) buffer.write('ff');
+    buffer.write(json.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
   }
 
   @override
   String toJson(Color object) {
-    return object.value.toRadixString(16);
+    // Credit: https://stackoverflow.com/a/50081214
+    return '#${object.alpha.toRadixString(16).padLeft(2, '0')}'
+        '${object.red.toRadixString(16).padLeft(2, '0')}'
+        '${object.green.toRadixString(16).padLeft(2, '0')}'
+        '${object.blue.toRadixString(16).padLeft(2, '0')}';
   }
 }

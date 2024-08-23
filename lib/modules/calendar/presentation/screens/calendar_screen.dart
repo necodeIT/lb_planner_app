@@ -1,12 +1,17 @@
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/modules/calendar/calendar.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
+/// Renders the UI of the calendar feature.
 class CalendarScreen extends StatelessWidget {
+  /// Renders the UI of the calendar feature.
   const CalendarScreen({super.key});
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Padding(
+  //     padding: PaddingAll(),
+  //     child: const Text('Calendar').center(),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -25,6 +25,8 @@ class ThemeRepository extends Repository<ThemeData> {
 
   /// Sets the theme to the provided [themeBase].
   void setTheme(ThemeBase themeBase) {
+    log('Setting theme to ${themeBase.name}');
+
     emit(_generator.generateTheme(themeBase));
   }
 

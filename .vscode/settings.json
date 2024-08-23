@@ -4,12 +4,13 @@
   "conventionalCommits.gitmoji": false,
   "conventionalCommits.promptBody": false,
   "conventionalCommitBuilder.autoCommit": false,
-  "dart.flutterSdkPath": ".fvm/versions/3.22.2",
+  "dart.flutterSdkPath": ".fvm/versions/3.24.1",
   "dart.lineLength": 150,
   "conventionalCommits.scopes": [
     "auth",
     "calendar",
-    "moodle"
+    "moodle",
+    "settings"
   ],
   "dart.flutterRunAdditionalArgs": [
     "--dart-define=MOODLE_ENDPOINT=https://projekte.tgm.ac.at/lbplaner4"

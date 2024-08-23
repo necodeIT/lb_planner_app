@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
-/// Renders a burndown chart of the user's tasks.
-class BurndownChart extends StatelessWidget {
-  /// Renders a burndown chart of the user's tasks.
-  const BurndownChart({super.key});
+/// Displays the general settings of the app.
+class GeneralSettings extends StatelessWidget {
+  /// Displays the general settings of the app.
+  const GeneralSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,13 @@ class BurndownChart extends StatelessWidget {
         padding: PaddingAll(),
         child: Column(
           children: [
-            Text(context.t.dashboard_burnDownChart, style: context.textTheme.titleMedium?.bold).alignAtTopLeft(),
+            Text(
+              context.t.settings_general,
+              style: context.textTheme.titleMedium?.bold,
+            ).alignAtTopLeft(),
+            Expanded(
+              child: ListView(),
+            ),
           ],
         ),
       ),

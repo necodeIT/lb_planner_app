@@ -1,6 +1,7 @@
 library lb_planner.modules.app;
 
 import 'package:animations/animations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
@@ -49,12 +50,14 @@ class AppModule extends Module {
           ModuleRoute(
             '/calendar/',
             module: CalendarModule(),
-            transition: TransitionType.noTransition,
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
           ),
           ModuleRoute(
             '/settings/',
             module: SettingsModule(),
-            transition: TransitionType.noTransition,
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
           ),
         ],
         customTransition: defaultTransition,
@@ -91,6 +94,7 @@ final defaultTransition = CustomTransition(
       transitionType: SharedAxisTransitionType.vertical,
       animation: animation,
       secondaryAnimation: secondaryAnimation,
+      fillColor: Colors.transparent,
       child: child,
     );
   },

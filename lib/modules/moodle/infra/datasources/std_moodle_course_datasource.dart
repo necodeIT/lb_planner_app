@@ -1,4 +1,3 @@
-import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 
 /// Standard implementation of [MoodleCourseDatasource].
@@ -20,7 +19,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
         body: {},
       );
 
-      response.assertJson();
+      response.assertList();
 
       return response.asList.map(MoodleCourse.fromJson).toList();
     } catch (e, s) {
@@ -35,7 +34,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       final response = await _apiService.callFunction(
         token: token,
         function: 'local_lbplanner_courses_update_course',
-        body: course.toJson().remove('name'),
+        body: course.toJson()..remove('name'),
       );
 
       response.assertJson();

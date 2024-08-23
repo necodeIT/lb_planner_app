@@ -36,7 +36,6 @@ mixin _$MoodleCourse {
   String get shortname => throw _privateConstructorUsedError;
 
   /// Whether the user want's the app to track this course.
-  @BoolConverter()
   bool get enabled => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,7 +55,7 @@ abstract class $MoodleCourseCopyWith<$Res> {
       @HexColorConverter() Color color,
       String name,
       String shortname,
-      @BoolConverter() bool enabled});
+      bool enabled});
 }
 
 /// @nodoc
@@ -116,7 +115,7 @@ abstract class _$$MoodleCourseImplCopyWith<$Res>
       @HexColorConverter() Color color,
       String name,
       String shortname,
-      @BoolConverter() bool enabled});
+      bool enabled});
 }
 
 /// @nodoc
@@ -169,7 +168,7 @@ class _$MoodleCourseImpl extends _MoodleCourse {
       @HexColorConverter() required this.color,
       required this.name,
       required this.shortname,
-      @BoolConverter() required this.enabled})
+      required this.enabled})
       : super._();
 
   factory _$MoodleCourseImpl.fromJson(Map<String, dynamic> json) =>
@@ -196,7 +195,6 @@ class _$MoodleCourseImpl extends _MoodleCourse {
 
   /// Whether the user want's the app to track this course.
   @override
-  @BoolConverter()
   final bool enabled;
 
   @override
@@ -242,7 +240,7 @@ abstract class _MoodleCourse extends MoodleCourse {
       @HexColorConverter() required final Color color,
       required final String name,
       required final String shortname,
-      @BoolConverter() required final bool enabled}) = _$MoodleCourseImpl;
+      required final bool enabled}) = _$MoodleCourseImpl;
   const _MoodleCourse._() : super._();
 
   factory _MoodleCourse.fromJson(Map<String, dynamic> json) =
@@ -270,7 +268,6 @@ abstract class _MoodleCourse extends MoodleCourse {
   @override
 
   /// Whether the user want's the app to track this course.
-  @BoolConverter()
   bool get enabled;
   @override
   @JsonKey(ignore: true)

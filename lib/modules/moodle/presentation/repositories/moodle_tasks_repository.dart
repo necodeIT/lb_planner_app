@@ -1,4 +1,3 @@
-import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 

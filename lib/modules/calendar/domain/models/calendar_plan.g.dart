@@ -11,7 +11,7 @@ _$CalendarPlanImpl _$$CalendarPlanImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       id: (json['planid'] as num).toInt(),
       optionalTasksEnabled:
-          const BoolConverter().fromJson((json['enableek'] as num).toInt()),
+          const BoolConverter().fromJson(json['enableek'] as num),
       deadlines: (json['deadlines'] as List<dynamic>)
           .map((e) => PlanDeadline.fromJson(e as Map<String, dynamic>))
           .toList(),

@@ -1,5 +1,7 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:sprung/sprung.dart';
 
 /// Adds default animation to a list of widgets.
@@ -34,5 +36,27 @@ extension AnimateUtils on List<Widget> {
                   delay: delay + increment * i,
                 ),
     ];
+  }
+}
+
+/// Adds default animation to a widget.
+extension AnimateX on Widget {
+  /// Plays the default show animation for a route widget.
+  Animate show(
+    AnimationStagger stagger, {
+    Duration duration = const Duration(milliseconds: 500),
+  }) {
+    return animate().scale(duration: duration, delay: stagger.add(), curve: Curves.easeOutCubic);
+  }
+}
+
+/// Adds shimmer animation to a widget.
+extension ShimmerX on Widget {
+  /// Adds themed shimmer animation to a widget.
+  Widget applyShimmerThemed(BuildContext context) {
+    return applyShimmer(
+      baseColor: context.theme.colorScheme.onSurface.withOpacity(0.05),
+      highlightColor: context.theme.colorScheme.onSurface.withOpacity(0.1),
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 
@@ -25,7 +24,11 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
 
     final typography = Typography.material2021(colorScheme: colorScheme);
 
-    final textTheme = themeBase.brightness == Brightness.light ? typography.black : typography.white;
+    final textTheme = (themeBase.brightness == Brightness.light ? typography.black : typography.white).apply(
+      displayColor: themeBase.textColor,
+      bodyColor: themeBase.textColor,
+      decorationColor: themeBase.textColor,
+    );
 
     final templateTheme = ThemeData(brightness: themeBase.brightness);
 
@@ -34,12 +37,22 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         color: themeBase.primaryColor,
         elevation: 6,
         margin: EdgeInsets.zero,
-        shape: SmoothRectangleBorder(
-          borderRadius: SmoothBorderRadius(
-            cornerRadius: 10,
-            cornerSmoothing: 0.5,
-          ),
+        shape: squircle(),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        shape: squircle(radius: 3),
+        overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
+        checkColor: WidgetStateProperty.all<Color>(themeBase.onAccentColor),
+        side: BorderSide(color: themeBase.accentColor, width: 2),
+      ),
+      tooltipTheme: TooltipThemeData(
+        decoration: ShapeDecoration(
+          color: themeBase.primaryColor,
+          shape: squircle(radius: 5),
+          shadows: kElevationToShadow[4],
         ),
+        waitDuration: const Duration(seconds: 1),
+        textStyle: textTheme.bodySmall,
       ),
       brightness: themeBase.brightness,
       useMaterial3: false,
@@ -64,11 +77,7 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         thickness: WidgetStateProperty.all<double>(5),
       ),
       scaffoldBackgroundColor: themeBase.secondaryColor,
-      textTheme: textTheme.apply(
-        displayColor: themeBase.textColor,
-        bodyColor: themeBase.textColor,
-        decorationColor: themeBase.textColor,
-      ),
+      textTheme: textTheme,
       iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
           splashFactory: NoSplash.splashFactory,

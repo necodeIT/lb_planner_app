@@ -83,5 +83,12 @@
     "dashboard_statusOverview": "Status overview",
     "dashboard_burnDownChart": "Burn down chart",
     "dashboard_exams": "Upcomming exams",
-    "dashboard_exams_noExams": "No exams scheduled in the near future"
+    "dashboard_exams_noExams": "No exams scheduled in the near future",
+    "dashboard_title": "Dashboard",
+    "calendar_title": "Calendar",
+    "settings_title": "Settings",
+    "settings_general": "General",
+    "settings_general_deleteProfile": "Delete profile",
+    "settings_theme": "Theme",
+    "moodle_courseSelector_search": "Search courses"
 }

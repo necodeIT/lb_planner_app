@@ -1,4 +1,3 @@
-import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 
 /// Implementation of [UserDatasource] for Moodle.
@@ -55,7 +54,16 @@ class MoodleUserDatasource extends UserDatasource {
     final response = await _api.callFunction(
       function: 'local_lbplanner_user_update_user',
       token: token,
-      body: user.toJson(),
+      body: Map.fromEntries(
+        user.toJson().entries.where(
+              (e) => [
+                'lang',
+                'theme',
+                'colorblindness',
+                'displaytaskcount',
+              ].contains(e.key),
+            ),
+      ),
     );
 
     response.assertJson();

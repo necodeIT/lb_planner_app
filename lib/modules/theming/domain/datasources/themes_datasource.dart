@@ -1,6 +1,7 @@
-import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 
+/// A datasource providing all available themes.
 abstract class ThemesDatasource extends Datasource {
   @override
   String get name => 'Themes';

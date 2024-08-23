@@ -13,7 +13,7 @@ _$NotificationImpl _$$NotificationImplFromJson(Map<String, dynamic> json) =>
       readAt: const UnixTimestampConverter()
           .fromJson((json['timestamp_read'] as num?)?.toInt()),
       type: $enumDecode(_$NotificationTypeEnumMap, json['type']),
-      read: const BoolConverter().fromJson((json['status'] as num).toInt()),
+      read: const BoolConverter().fromJson(json['status'] as num),
       userId: (json['userid'] as num).toInt(),
     );
 

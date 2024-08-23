@@ -83,24 +83,7 @@ class StdThemesDatasource extends ThemesDatasource {
           errorColor: const Color(0xFFC26161),
           modulePendingColor: const Color(0xFFE0BAC0),
           icon: FontAwesome5Solid.tree,
-          name: '桜',
-        ),
-
-        // Pastel theme
-        ThemeBase(
-          primaryColor: const Color(0xFFC2F0C2),
-          secondaryColor: const Color(0xFFF2F2F2),
-          tertiaryColor: const Color(0xFFE0E0E0),
-          accentColor: const Color(0xFF89CFF0),
-          onAccentColor: const Color(0xFFffffff),
-          errorColor: const Color(0xFFF8D7DA),
-          moduleDoneColor: const Color(0xFFD4EDDA),
-          modulePendingColor: const Color(0xFFEDEDED),
-          moduleUploadedColor: const Color(0xFFFFE8A1),
-          textColor: const Color(0xFF000000),
-          name: 'Pastel',
-          icon: Icons.palette,
-          brightness: Brightness.light,
+          name: 'Sakura',
         ),
       ];
 }
