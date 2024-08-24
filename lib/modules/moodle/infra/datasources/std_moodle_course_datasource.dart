@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:lb_planner/modules/moodle/moodle.dart';
 
 /// Standard implementation of [MoodleCourseDatasource].
@@ -30,16 +32,20 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
 
   @override
   Future<MoodleCourse> updateCourse(String token, MoodleCourse course) async {
+    final data = course.toJson()..remove('name');
+
+    log(data);
+
+    log(jsonEncode(data));
+
     try {
-      final response = await _apiService.callFunction(
+      await _apiService.callFunction(
         token: token,
         function: 'local_lbplanner_courses_update_course',
-        body: course.toJson()..remove('name'),
+        body: data,
       );
 
-      response.assertJson();
-
-      return MoodleCourse.fromJson(response.asJson);
+      return course;
     } catch (e, s) {
       log('Failed to update course', e, s);
       rethrow;

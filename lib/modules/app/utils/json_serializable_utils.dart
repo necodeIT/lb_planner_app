@@ -44,9 +44,10 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
   }
 }
 
-/// Implements serialization and deserialization for [bool] from and to [int].
+/// {@template bool_converter}
+/// Implements serialization and deserialization for [bool] from [bool] and [int] and converts it to an [int].
 ///
-/// The integer is expected to be either 0 or 1.
+/// This is a workaround for moodle being special needs and expecting 1 and 0 as input but returning true and false as output.
 ///
 /// Usage:
 /// ```dart
@@ -59,25 +60,20 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
 ///   const MyClass(this.enabled);
 /// }
 /// ```
-class BoolConverter extends JsonConverter<bool, num> {
-  /// Implements serialization and deserialization for [bool] from and to [int].
-  ///
-  /// Usage:
-  /// ```dart
-  /// @JsonSerializable()
-  /// class MyClass {
-  ///   @JsonKey
-  ///   @BoolConverter()
-  ///   final bool enabled;
-  ///
-  ///   const MyClass(this.enabled);
-  /// }
-  /// ```
+/// {@endtemplate}
+class BoolConverter extends JsonConverter<bool, dynamic> {
+  /// {@macro bool_converter}
   const BoolConverter();
 
   @override
-  bool fromJson(num json) {
-    return json == 1;
+  bool fromJson(dynamic json) {
+    if (json is int) {
+      return json == 1;
+    } else if (json is bool) {
+      return json;
+    } else {
+      throw ArgumentError.value(json, 'json', 'Expected an int or a bool');
+    }
   }
 
   @override

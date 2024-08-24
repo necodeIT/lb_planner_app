@@ -39,7 +39,7 @@ mixin _$MoodleTask {
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @UnixTimestampConverter()
-  DateTime get deadline => throw _privateConstructorUsedError;
+  DateTime? get deadline => throw _privateConstructorUsedError;
 
   /// The URL to this task on the Moodle website.
   String get url => throw _privateConstructorUsedError;
@@ -66,7 +66,7 @@ abstract class $MoodleTaskCopyWith<$Res> {
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime deadline,
+      @UnixTimestampConverter() DateTime? deadline,
       String url});
 }
 
@@ -90,7 +90,7 @@ class _$MoodleTaskCopyWithImpl<$Res, $Val extends MoodleTask>
     Object? courseId = null,
     Object? status = null,
     Object? type = null,
-    Object? deadline = null,
+    Object? deadline = freezed,
     Object? url = null,
   }) {
     return _then(_value.copyWith(
@@ -114,10 +114,10 @@ class _$MoodleTaskCopyWithImpl<$Res, $Val extends MoodleTask>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as MoodleTaskType,
-      deadline: null == deadline
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ abstract class _$$MoodleTaskImplCopyWith<$Res>
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime deadline,
+      @UnixTimestampConverter() DateTime? deadline,
       String url});
 }
 
@@ -162,7 +162,7 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
     Object? courseId = null,
     Object? status = null,
     Object? type = null,
-    Object? deadline = null,
+    Object? deadline = freezed,
     Object? url = null,
   }) {
     return _then(_$MoodleTaskImpl(
@@ -186,10 +186,10 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as MoodleTaskType,
-      deadline: null == deadline
+      deadline: freezed == deadline
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -239,7 +239,7 @@ class _$MoodleTaskImpl extends _MoodleTask {
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
   @UnixTimestampConverter()
-  final DateTime deadline;
+  final DateTime? deadline;
 
   /// The URL to this task on the Moodle website.
   @override
@@ -294,7 +294,7 @@ abstract class _MoodleTask extends MoodleTask {
       @JsonKey(name: 'courseid') required final int courseId,
       required final MoodleTaskStatus status,
       required final MoodleTaskType type,
-      @UnixTimestampConverter() required final DateTime deadline,
+      @UnixTimestampConverter() required final DateTime? deadline,
       required final String url}) = _$MoodleTaskImpl;
   const _MoodleTask._() : super._();
 
@@ -326,7 +326,7 @@ abstract class _MoodleTask extends MoodleTask {
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
   @UnixTimestampConverter()
-  DateTime get deadline;
+  DateTime? get deadline;
 
   /// The URL to this task on the Moodle website.
   @override

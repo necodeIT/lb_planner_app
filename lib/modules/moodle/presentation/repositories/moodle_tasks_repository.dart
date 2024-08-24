@@ -51,9 +51,13 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
 
     return tasks.where((task) {
       if (courseId != null && task.courseId != courseId) return false;
-      if (deadlineDiff != null && task.deadline.difference(DateTime.now()) == deadlineDiff) return false;
-      if (minDeadlineDiff != null && task.deadline.difference(DateTime.now()) < minDeadlineDiff) return false;
-      if (maxDeadlineDiff != null && task.deadline.difference(DateTime.now()) > maxDeadlineDiff) return false;
+
+      if (task.deadline != null) {
+        if (deadlineDiff != null && task.deadline!.difference(DateTime.now()) == deadlineDiff) return false;
+        if (minDeadlineDiff != null && task.deadline!.difference(DateTime.now()) < minDeadlineDiff) return false;
+        if (maxDeadlineDiff != null && task.deadline!.difference(DateTime.now()) > maxDeadlineDiff) return false;
+      }
+
       if (status.isNotEmpty && !status.contains(task.status)) return false;
       if (type.isNotEmpty && !type.contains(task.type)) return false;
       if (query != null && !task.name.toLowerCase().contains(query.toLowerCase())) return false;

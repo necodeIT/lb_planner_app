@@ -28,7 +28,7 @@ class MoodleTask with _$MoodleTask {
     required MoodleTaskType type,
 
     /// The timestamp of when this task is due in seconds since the Unix epoch.
-    @UnixTimestampConverter() required DateTime deadline,
+    @UnixTimestampConverter() required DateTime? deadline,
 
     /// The URL to this task on the Moodle website.
     required String url,
