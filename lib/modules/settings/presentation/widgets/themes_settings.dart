@@ -31,6 +31,7 @@ class ThemesSettings extends StatelessWidget {
                   spacing: Spacing.mediumSpacing,
                   runSpacing: Spacing.mediumSpacing,
                   children: [
+                    ThemePreview(theme: themes.systemTheme()),
                     for (final theme in themes.getThemes()) ThemePreview(theme: theme),
                   ].show(
                     begin: .5,

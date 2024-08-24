@@ -33,12 +33,21 @@ class ThemeRepository extends Repository<ThemeData> {
   /// Sets the theme by [name].
   ///
   /// If the theme is not found, [ThemesDatasource.defaultTheme] will be used.
-  void setThemeByName(String name) => setTheme(
-        _themes.getThemes().firstWhere(
-              (element) => element.name == name,
-              orElse: () => _themes.defaultTheme,
-            ),
-      );
+  void setThemeByName(String name) {
+    if (name.toLowerCase() == 'default') {
+      log('Setting theme to system theme');
+
+      setTheme(_themes.systemTheme());
+      return;
+    }
+
+    setTheme(
+      _themes.getThemes().firstWhere(
+            (element) => element.name == name,
+            orElse: () => _themes.defaultTheme,
+          ),
+    );
+  }
 
   @override
   void dispose() {

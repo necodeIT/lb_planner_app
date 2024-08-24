@@ -27,9 +27,16 @@ class StdThemesDatasource extends ThemesDatasource {
       );
 
   @override
-  ThemeBase systemTheme() => ui.PlatformDispatcher.instance.platformBrightness == ui.Brightness.light
-      ? getThemes().firstWhere((element) => element.name == 'Light')
-      : getThemes().firstWhere((element) => element.name == 'Dark');
+  ThemeBase systemTheme() {
+    final theme = ui.PlatformDispatcher.instance.platformBrightness == ui.Brightness.light
+        ? getThemes().firstWhere((element) => element.name == 'Light')
+        : getThemes().firstWhere((element) => element.name == 'Dark');
+
+    return theme.copyWith(
+      name: 'default',
+      icon: Icons.brightness_auto,
+    );
+  }
 
   @override
   List<ThemeBase> getThemes() => [
