@@ -64,8 +64,12 @@ mixin _$User {
   /// The vintage of the user
   String get vintage => throw _privateConstructorUsedError;
 
+  /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -99,6 +103,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -197,6 +203,8 @@ class __$$UserImplCopyWithImpl<$Res>
   __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -377,7 +385,7 @@ class _$UserImpl extends _User {
             (identical(other.vintage, vintage) || other.vintage == vintage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -394,7 +402,9 @@ class _$UserImpl extends _User {
       displayTaskCountInt,
       vintage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
@@ -426,64 +436,66 @@ abstract class _User extends User {
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
-  @override
-
   /// The id of the user
+  @override
   @JsonKey(name: 'userid')
   int get id;
-  @override
 
   /// The username of the user
-  String get username;
   @override
+  String get username;
 
   /// The firstname of the user
-  String get firstname;
   @override
+  String get firstname;
 
   /// The lastname of the user
-  String get lastname;
   @override
+  String get lastname;
 
   /// A bitmask of the capabilities the user has
+  @override
   @JsonKey(name: 'capabilities')
   int get capabilitiesBitMask;
-  @override
 
   /// The name of the theme the user has selected
+  @override
   @JsonKey(name: 'theme')
   String get themeName;
-  @override
 
   /// The language the user has selected
+  @override
   @JsonKey(name: 'lang')
   String get language;
-  @override
 
   /// The url of the profile image
+  @override
   @JsonKey(name: 'profileimageurl')
   String get profileImageUrl;
-  @override
 
   /// The id of the plan the user is assigned to
+  @override
   @JsonKey(name: 'planid')
   int get planId;
-  @override
 
   /// The color blindness of the user as a string
+  @override
   @JsonKey(name: 'colorblindness')
   String get colorBlindnessString;
-  @override
 
   /// Whether to display the task count in the calendar view
+  @override
   @JsonKey(name: 'displaytaskcount')
   int get displayTaskCountInt;
-  @override
 
   /// The vintage of the user
-  String get vintage;
   @override
-  @JsonKey(ignore: true)
+  String get vintage;
+
+  /// Create a copy of User
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

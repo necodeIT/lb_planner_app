@@ -38,8 +38,12 @@ mixin _$CalendarPlan {
   /// A list of all [User]s participating in this plan and their respective access type.
   List<PlanMember> get members => throw _privateConstructorUsedError;
 
+  /// Serializes this CalendarPlan to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CalendarPlan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CalendarPlanCopyWith<CalendarPlan> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -68,6 +72,8 @@ class _$CalendarPlanCopyWithImpl<$Res, $Val extends CalendarPlan>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CalendarPlan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,6 +132,8 @@ class __$$CalendarPlanImplCopyWithImpl<$Res>
       _$CalendarPlanImpl _value, $Res Function(_$CalendarPlanImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CalendarPlan
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -234,7 +242,7 @@ class _$CalendarPlanImpl extends _CalendarPlan {
             const DeepCollectionEquality().equals(other._members, _members));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -244,7 +252,9 @@ class _$CalendarPlanImpl extends _CalendarPlan {
       const DeepCollectionEquality().hash(_deadlines),
       const DeepCollectionEquality().hash(_members));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CalendarPlan
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CalendarPlanImplCopyWith<_$CalendarPlanImpl> get copyWith =>
@@ -272,31 +282,33 @@ abstract class _CalendarPlan extends CalendarPlan {
   factory _CalendarPlan.fromJson(Map<String, dynamic> json) =
       _$CalendarPlanImpl.fromJson;
 
-  @override
-
   /// The name of this plan.
-  String get name;
   @override
+  String get name;
 
   /// The ID of this plan.
+  @override
   @JsonKey(name: 'planid')
   int get id;
-  @override
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
+  @override
   @JsonKey(name: 'enableek')
   @BoolConverter()
   bool get optionalTasksEnabled;
-  @override
 
   /// A list of deadlines planned by it's [members].
-  List<PlanDeadline> get deadlines;
   @override
+  List<PlanDeadline> get deadlines;
 
   /// A list of all [User]s participating in this plan and their respective access type.
-  List<PlanMember> get members;
   @override
-  @JsonKey(ignore: true)
+  List<PlanMember> get members;
+
+  /// Create a copy of CalendarPlan
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CalendarPlanImplCopyWith<_$CalendarPlanImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

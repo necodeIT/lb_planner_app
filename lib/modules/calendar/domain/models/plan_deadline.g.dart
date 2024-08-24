@@ -9,13 +9,15 @@ part of 'plan_deadline.dart';
 _$PlanDeadlineImpl _$$PlanDeadlineImplFromJson(Map<String, dynamic> json) =>
     _$PlanDeadlineImpl(
       id: (json['moduleid'] as num).toInt(),
-      start: DateTime.parse(json['deadlinestart'] as String),
-      end: DateTime.parse(json['deadlineend'] as String),
+      start: const UnixTimestampConverter()
+          .fromJson((json['deadlinestart'] as num).toInt()),
+      end: const UnixTimestampConverter()
+          .fromJson((json['deadlineend'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$PlanDeadlineImplToJson(_$PlanDeadlineImpl instance) =>
     <String, dynamic>{
       'moduleid': instance.id,
-      'deadlinestart': instance.start.toIso8601String(),
-      'deadlineend': instance.end.toIso8601String(),
+      'deadlinestart': const UnixTimestampConverter().toJson(instance.start),
+      'deadlineend': const UnixTimestampConverter().toJson(instance.end),
     };

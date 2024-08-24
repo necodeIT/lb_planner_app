@@ -28,8 +28,12 @@ mixin _$PlanMember {
   @JsonKey(name: 'accesstype')
   PlanMemberAccessType get accessType => throw _privateConstructorUsedError;
 
+  /// Serializes this PlanMember to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PlanMember
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlanMemberCopyWith<PlanMember> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$PlanMemberCopyWithImpl<$Res, $Val extends PlanMember>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlanMember
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -95,6 +101,8 @@ class __$$PlanMemberImplCopyWithImpl<$Res>
       _$PlanMemberImpl _value, $Res Function(_$PlanMemberImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlanMember
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -150,11 +158,13 @@ class _$PlanMemberImpl extends _PlanMember {
                 other.accessType == accessType));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, accessType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlanMember
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlanMemberImplCopyWith<_$PlanMemberImpl> get copyWith =>
@@ -178,18 +188,20 @@ abstract class _PlanMember extends PlanMember {
   factory _PlanMember.fromJson(Map<String, dynamic> json) =
       _$PlanMemberImpl.fromJson;
 
-  @override
-
   /// The ID of the [User].
+  @override
   @JsonKey(name: 'userid')
   int get id;
-  @override
 
   /// The access type of the member.
+  @override
   @JsonKey(name: 'accesstype')
   PlanMemberAccessType get accessType;
+
+  /// Create a copy of PlanMember
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlanMemberImplCopyWith<_$PlanMemberImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

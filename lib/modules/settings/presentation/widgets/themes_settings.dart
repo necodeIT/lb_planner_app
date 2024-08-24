@@ -26,13 +26,17 @@ class ThemesSettings extends StatelessWidget {
             ).alignAtTopLeft(),
             Spacing.mediumVertical(),
             Expanded(
-              child: Wrap(
-                spacing: Spacing.mediumSpacing,
-                runSpacing: Spacing.mediumSpacing,
-                children: [
-                  for (final theme in themes.getThemes()) ThemePreview(theme: theme),
-                ],
-              ).alignAtTopLeft(),
+              child: SingleChildScrollView(
+                child: Wrap(
+                  spacing: Spacing.mediumSpacing,
+                  runSpacing: Spacing.mediumSpacing,
+                  children: [
+                    for (final theme in themes.getThemes()) ThemePreview(theme: theme),
+                  ].show(
+                    begin: .5,
+                  ),
+                ).alignAtTopLeft(),
+              ),
             ),
           ],
         ),

@@ -25,11 +25,9 @@ class SettingsScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 2,
                         child: const GeneralSettings().stretch(),
                       ).show(stagger),
                       Expanded(
-                        flex: 3,
                         child: const ThemesSettings().stretch(),
                       ).show(stagger),
                     ].hSpaced(Spacing.mediumSpacing),

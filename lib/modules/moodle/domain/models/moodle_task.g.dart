@@ -13,7 +13,8 @@ _$MoodleTaskImpl _$$MoodleTaskImplFromJson(Map<String, dynamic> json) =>
       courseId: (json['courseid'] as num).toInt(),
       status: $enumDecode(_$MoodleTaskStatusEnumMap, json['status']),
       type: $enumDecode(_$MoodleTaskTypeEnumMap, json['type']),
-      deadline: DateTime.parse(json['deadline'] as String),
+      deadline: const UnixTimestampConverter()
+          .fromJson((json['deadline'] as num).toInt()),
       url: json['url'] as String,
     );
 
@@ -24,7 +25,7 @@ Map<String, dynamic> _$$MoodleTaskImplToJson(_$MoodleTaskImpl instance) =>
       'courseid': instance.courseId,
       'status': _$MoodleTaskStatusEnumMap[instance.status]!,
       'type': _$MoodleTaskTypeEnumMap[instance.type]!,
-      'deadline': instance.deadline.toIso8601String(),
+      'deadline': const UnixTimestampConverter().toJson(instance.deadline),
       'url': instance.url,
     };
 

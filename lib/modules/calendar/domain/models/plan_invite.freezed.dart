@@ -42,8 +42,12 @@ mixin _$PlanInvite {
   @UnixTimestampConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
 
+  /// Serializes this PlanInvite to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PlanInvite
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlanInviteCopyWith<PlanInvite> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,6 +77,8 @@ class _$PlanInviteCopyWithImpl<$Res, $Val extends PlanInvite>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlanInvite
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -137,6 +143,8 @@ class __$$PlanInviteImplCopyWithImpl<$Res>
       _$PlanInviteImpl _value, $Res Function(_$PlanInviteImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlanInvite
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,12 +248,14 @@ class _$PlanInviteImpl extends _PlanInvite {
                 other.timestamp == timestamp));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, inviterId, planId, invitedUserId, status, timestamp);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlanInvite
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlanInviteImplCopyWith<_$PlanInviteImpl> get copyWith =>
@@ -273,36 +283,38 @@ abstract class _PlanInvite extends PlanInvite {
   factory _PlanInvite.fromJson(Map<String, dynamic> json) =
       _$PlanInviteImpl.fromJson;
 
-  @override
-
   /// The ID of this invitation.
-  int get id;
   @override
+  int get id;
 
   /// The ID of the [User] who created this invite.
+  @override
   @JsonKey(name: 'inviterid')
   int get inviterId;
-  @override
 
   /// The ID of the [CalendarPlan] this invite is for.
+  @override
   @JsonKey(name: 'planid')
   int get planId;
-  @override
 
   /// The ID of the [User] who is invited.
+  @override
   @JsonKey(name: 'inviteeid')
   int get invitedUserId;
-  @override
 
   /// The status of this invite.
-  PlanInviteStatus get status;
   @override
+  PlanInviteStatus get status;
 
   /// The date and time this invite was created.
+  @override
   @UnixTimestampConverter()
   DateTime get timestamp;
+
+  /// Create a copy of PlanInvite
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlanInviteImplCopyWith<_$PlanInviteImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

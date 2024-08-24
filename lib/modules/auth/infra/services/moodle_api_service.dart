@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:either_dart/either.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
@@ -17,7 +19,7 @@ class MoodleApiService extends ApiService {
 
   @override
   Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, required JSON body, bool redact = false}) async {
-    log("Calling $function ${redact ? "with [redacted body]" : "with body $body"}");
+    log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
     body.removeWhere((key, value) {
       final remove = value == null;
@@ -47,7 +49,7 @@ class MoodleApiService extends ApiService {
       throw e;
     }
 
-    log("$function returned ${redact ? "[redacted body]" : "body ${response.body}"}");
+    log("$function returned ${redact ? "[redacted body]" : "body ${jsonEncode(response.body)}"}");
 
     if (response.body == null) {
       return const Right({});

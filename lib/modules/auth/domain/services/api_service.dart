@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:either_dart/either.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -27,5 +29,5 @@ class ApiServiceException implements Exception {
   ApiServiceException(this.message, this.statusCode, this.data);
 
   @override
-  String toString() => 'ApiServiceException: $message (status code: $statusCode) ${data ?? ""}';
+  String toString() => 'ApiServiceException: $message (status code: $statusCode) ${data != null ? jsonEncode(data) : ''}';
 }

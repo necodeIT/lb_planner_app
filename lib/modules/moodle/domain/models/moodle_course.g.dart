@@ -12,7 +12,7 @@ _$MoodleCourseImpl _$$MoodleCourseImplFromJson(Map<String, dynamic> json) =>
       color: const HexColorConverter().fromJson(json['color'] as String),
       name: json['name'] as String,
       shortname: json['shortname'] as String,
-      enabled: json['enabled'] as bool,
+      enabled: const BoolConverter().fromJson(json['enabled'] as num),
     );
 
 Map<String, dynamic> _$$MoodleCourseImplToJson(_$MoodleCourseImpl instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$$MoodleCourseImplToJson(_$MoodleCourseImpl instance) =>
       'color': const HexColorConverter().toJson(instance.color),
       'name': instance.name,
       'shortname': instance.shortname,
-      'enabled': instance.enabled,
+      'enabled': const BoolConverter().toJson(instance.enabled),
     };

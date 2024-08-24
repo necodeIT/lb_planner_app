@@ -34,8 +34,12 @@ mixin _$PlanDeadline {
   @UnixTimestampConverter()
   DateTime get end => throw _privateConstructorUsedError;
 
+  /// Serializes this PlanDeadline to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PlanDeadline
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PlanDeadlineCopyWith<PlanDeadline> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$PlanDeadlineCopyWithImpl<$Res, $Val extends PlanDeadline>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PlanDeadline
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -108,6 +114,8 @@ class __$$PlanDeadlineImplCopyWithImpl<$Res>
       _$PlanDeadlineImpl _value, $Res Function(_$PlanDeadlineImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PlanDeadline
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,11 +188,13 @@ class _$PlanDeadlineImpl extends _PlanDeadline {
             (identical(other.end, end) || other.end == end));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, start, end);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PlanDeadline
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PlanDeadlineImplCopyWith<_$PlanDeadlineImpl> get copyWith =>
@@ -212,25 +222,27 @@ abstract class _PlanDeadline extends PlanDeadline {
   factory _PlanDeadline.fromJson(Map<String, dynamic> json) =
       _$PlanDeadlineImpl.fromJson;
 
-  @override
-
   /// The ID of this deadline.
+  @override
   @JsonKey(name: 'moduleid')
   int get id;
-  @override
 
   /// The start date of this deadline.
+  @override
   @JsonKey(name: 'deadlinestart')
   @UnixTimestampConverter()
   DateTime get start;
-  @override
 
   /// The end date of this deadline.
+  @override
   @JsonKey(name: 'deadlineend')
   @UnixTimestampConverter()
   DateTime get end;
+
+  /// Create a copy of PlanDeadline
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PlanDeadlineImplCopyWith<_$PlanDeadlineImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -44,8 +44,12 @@ mixin _$MoodleTask {
   /// The URL to this task on the Moodle website.
   String get url => throw _privateConstructorUsedError;
 
+  /// Serializes this MoodleTask to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MoodleTask
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MoodleTaskCopyWith<MoodleTask> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,6 +80,8 @@ class _$MoodleTaskCopyWithImpl<$Res, $Val extends MoodleTask>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MoodleTask
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -146,6 +152,8 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
       _$MoodleTaskImpl _value, $Res Function(_$MoodleTaskImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MoodleTask
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -258,12 +266,14 @@ class _$MoodleTaskImpl extends _MoodleTask {
             (identical(other.url, url) || other.url == url));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, name, courseId, status, type, deadline, url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MoodleTask
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MoodleTaskImplCopyWith<_$MoodleTaskImpl> get copyWith =>
@@ -291,39 +301,41 @@ abstract class _MoodleTask extends MoodleTask {
   factory _MoodleTask.fromJson(Map<String, dynamic> json) =
       _$MoodleTaskImpl.fromJson;
 
-  @override
-
   /// The ID of this task.
+  @override
   @JsonKey(name: 'moduleid')
   int get id;
-  @override
 
   /// The name of this task.
-  String get name;
   @override
+  String get name;
 
   /// The ID of the [MoodleCourse] this task is part of.
+  @override
   @JsonKey(name: 'courseid')
   int get courseId;
-  @override
 
   /// The status of this task.
-  MoodleTaskStatus get status;
   @override
+  MoodleTaskStatus get status;
 
   /// The type of this task.
-  MoodleTaskType get type;
   @override
+  MoodleTaskType get type;
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
+  @override
   @UnixTimestampConverter()
   DateTime get deadline;
-  @override
 
   /// The URL to this task on the Moodle website.
-  String get url;
   @override
-  @JsonKey(ignore: true)
+  String get url;
+
+  /// Create a copy of MoodleTask
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MoodleTaskImplCopyWith<_$MoodleTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

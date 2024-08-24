@@ -35,8 +35,12 @@ mixin _$TypeAggregate {
   /// The number of tasks with [MoodleTaskType.none].
   int get none => throw _privateConstructorUsedError;
 
+  /// Serializes this TypeAggregate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TypeAggregate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TypeAggregateCopyWith<TypeAggregate> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$TypeAggregateCopyWithImpl<$Res, $Val extends TypeAggregate>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TypeAggregate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,6 +119,8 @@ class __$$TypeAggregateImplCopyWithImpl<$Res>
       _$TypeAggregateImpl _value, $Res Function(_$TypeAggregateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TypeAggregate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -201,12 +209,14 @@ class _$TypeAggregateImpl extends _TypeAggregate {
             (identical(other.none, none) || other.none == none));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, required, optional, compensation, exam, none);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TypeAggregate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TypeAggregateImplCopyWith<_$TypeAggregateImpl> get copyWith =>
@@ -232,28 +242,30 @@ abstract class _TypeAggregate extends TypeAggregate {
   factory _TypeAggregate.fromJson(Map<String, dynamic> json) =
       _$TypeAggregateImpl.fromJson;
 
-  @override
-
   /// The number of tasks with [MoodleTaskType.required].
-  int get required;
   @override
+  int get required;
 
   /// The number of tasks with [MoodleTaskType.optional].
-  int get optional;
   @override
+  int get optional;
 
   /// The number of tasks with [MoodleTaskType.compensation].
-  int get compensation;
   @override
+  int get compensation;
 
   /// The number of tasks with [MoodleTaskType.exam].
-  int get exam;
   @override
+  int get exam;
 
   /// The number of tasks with [MoodleTaskType.none].
-  int get none;
   @override
-  @JsonKey(ignore: true)
+  int get none;
+
+  /// Create a copy of TypeAggregate
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TypeAggregateImplCopyWith<_$TypeAggregateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
