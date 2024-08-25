@@ -53,24 +53,26 @@ class _CourseSelectorState extends State<CourseSelector> {
             ),
             Spacing.mediumVertical(),
             Expanded(
-              child: ListView(
-                children: [
-                  if (courses.state.hasData)
-                    for (final course in courses.filter(name: _searchController.text))
-                      CourseWidget(
-                        key: ValueKey(course.id),
-                        course: course,
-                      ),
-                  if (!courses.state.hasData)
-                    for (int i = 0; i < 5; i++)
-                      Container(
-                        height: 30,
-                        decoration: ShapeDecoration(
-                          shape: squircle(),
-                          color: context.theme.colorScheme.surface,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (courses.state.hasData)
+                      for (final course in courses.filter(name: _searchController.text))
+                        CourseWidget(
+                          key: ValueKey(course.id),
+                          course: course,
                         ),
-                      ).stretch().applyShimmerThemed(context),
-                ].vSpaced(courses.state.hasData ? Spacing.xsSpacing : Spacing.smallSpacing).show(),
+                    if (!courses.state.hasData)
+                      for (int i = 0; i < 5; i++)
+                        Container(
+                          height: 30,
+                          decoration: ShapeDecoration(
+                            shape: squircle(),
+                            color: context.theme.colorScheme.surface,
+                          ),
+                        ).stretch().applyShimmerThemed(context),
+                  ].vSpaced(courses.state.hasData ? Spacing.xsSpacing : Spacing.smallSpacing).show(),
+                ),
               ),
             ),
           ],

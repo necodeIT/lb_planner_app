@@ -27,5 +27,8 @@ abstract class UserDatasource extends Datasource {
   /// Registers a new user and returns the registered user confirmed by the server.
   ///
   /// You can optionally provide [lang], [theme] and [ekEnabled] to override default initial settings.
+  @Deprecated(
+    "Removed as per https://github.com/necodeIT/lb_planner_plugin/issues/6. `getUser` will now also register the user if they don't exist.",
+  )
   Future<User> registerUser(String token, {String? lang, String? theme, bool? ekEnabled});
 }

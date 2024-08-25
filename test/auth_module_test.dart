@@ -264,33 +264,6 @@ Future<void> main() async {
       });
     });
 
-    group('registerUser', () {
-      test('correctly registers user', () async {
-        final userDatasource = Modular.get<UserDatasource>();
-
-        await expectLater(
-          userDatasource.registerUser(
-            defaultTokens[Webservice.lb_planner_api],
-          ),
-          completion(defaultUser),
-        );
-      });
-
-      test('throws exception for invalid token', () async {
-        final userDatasource = Modular.get<UserDatasource>();
-
-        await expectLater(
-          userDatasource.registerUser(
-            'invalid token',
-            lang: 'de',
-            theme: 'Dark',
-            ekEnabled: true,
-          ),
-          throwsA(isA<ApiServiceException>()),
-        );
-      });
-    });
-
     group('getUsers', () {
       test('correctly fetches all users', () async {
         final userDatasource = Modular.get<UserDatasource>();

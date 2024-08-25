@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
@@ -14,7 +13,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   static AsyncValue<Set<Token>>? _state;
 
   /// A future that completes when tokens have been loaded from storage.
-  @visibleForTesting
   late final Future<void> loadStoredTokens;
 
   /// UI state controller for authentication.

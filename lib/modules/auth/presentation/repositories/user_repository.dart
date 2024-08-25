@@ -62,18 +62,6 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('Failed to fetch user data', e);
     }
 
-    log('Assuming user is not registered yet.');
-
-    log('Registering user');
-
-    await guard(
-      () => _userDatasource.registerUser(
-        tokens[Webservice.lb_planner_api],
-      ),
-      onError: (e, s) => log('Failed to register user', e, s),
-      onData: (_) => log('User registered successfully'),
-    );
-
     _isHandlingAuthChange = false;
   }
 
@@ -96,14 +84,28 @@ class UserRepository extends Repository<AsyncValue<User>> {
   }
 
   /// Updates the user's theme.
-  Future<void> setTheme(String theme) {
+  Future<void> setTheme(String theme) async {
+    if (!state.hasData) {
+      log('User is not loaded yet. Aborting.');
+
+      return;
+    }
+
     return _updateUser(
       state.requireData.copyWith(themeName: theme),
     );
   }
 
   /// Updates the user's language.
-  Future<void> setLanguage(String lang) => _updateUser(
-        state.requireData.copyWith(language: lang),
-      );
+  Future<void> setLanguage(String lang) async {
+    if (!state.hasData) {
+      log('User is not loaded yet. Aborting.');
+
+      return;
+    }
+
+    return _updateUser(
+      state.requireData.copyWith(language: lang),
+    );
+  }
 }
