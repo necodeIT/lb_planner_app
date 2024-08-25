@@ -40,7 +40,7 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         shape: squircle(),
       ),
       checkboxTheme: CheckboxThemeData(
-        shape: squircle(radius: 3),
+        shape: squircle(radius: 4),
         overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
         checkColor: WidgetStateProperty.all<Color>(themeBase.onAccentColor),
         side: BorderSide(color: themeBase.accentColor, width: 2),

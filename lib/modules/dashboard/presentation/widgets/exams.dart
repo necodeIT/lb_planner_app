@@ -28,11 +28,14 @@ class Exams extends StatelessWidget {
               context.t.dashboard_exams,
               style: context.textTheme.titleMedium?.bold,
             ).alignAtTopLeft(),
+            Spacing.mediumVertical(),
             if (candidates.isNotEmpty)
-              ListView(
-                children: [
-                  for (final task in candidates) MoodleTaskWidget(task: task),
-                ].vSpaced(Spacing.smallSpacing).show(),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (final task in candidates) MoodleTaskWidget(task: task),
+                  ].vSpaced(Spacing.smallSpacing).show(),
+                ),
               ).expanded(),
             if (candidates.isEmpty) Text(context.t.dashboard_exams_noExams).center().expanded(),
           ],
