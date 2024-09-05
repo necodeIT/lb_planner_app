@@ -125,7 +125,7 @@ class HexColorConverter extends JsonConverter<Color, String> {
   @override
   String toJson(Color object) {
     // Credit: https://stackoverflow.com/a/50081214
-    return '#${object.alpha.toRadixString(16).padLeft(2, '0')}'
+    return '#'
         '${object.red.toRadixString(16).padLeft(2, '0')}'
         '${object.green.toRadixString(16).padLeft(2, '0')}'
         '${object.blue.toRadixString(16).padLeft(2, '0')}';
