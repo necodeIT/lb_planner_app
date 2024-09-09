@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
+import 'package:lb_planner/modules/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 import 'presentation/presentation.dart';
@@ -16,6 +17,7 @@ class DashboardModule extends Module {
   List<Module> get imports => [
         CoreModule(),
         MoodleModule(),
+        StatisticsModule(),
       ];
 
   @override

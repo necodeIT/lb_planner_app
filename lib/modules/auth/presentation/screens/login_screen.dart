@@ -1,6 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
@@ -28,7 +29,9 @@ class LoginScreen extends StatelessWidget {
           Positioned(
             left: 20,
             bottom: 20,
-            child: Text(context.t.auth_version('0.0.0')).color(context.theme.colorScheme.onPrimary), // TODO(mcquenji): Replace with actual version
+            child: Text(
+              context.t.auth_version(kInstalledRelease.version.toString()),
+            ).color(context.theme.colorScheme.onPrimary),
           ),
           const Align(
             alignment: Alignment.centerRight,

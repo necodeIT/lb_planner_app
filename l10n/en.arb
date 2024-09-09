@@ -90,5 +90,10 @@
     "settings_general": "General",
     "settings_general_deleteProfile": "Delete profile",
     "settings_theme": "Theme",
-    "moodle_courseSelector_search": "Search courses"
+    "moodle_courseSelector_search": "Search courses",
+    "enum_taskStatus_done": "Done",
+    "enum_taskStatus_pending": "Pending",
+    "enum_taskStatus_uploaded": "Uploaded",
+    "enum_taskStatus_late": "Overdue"
+
 }

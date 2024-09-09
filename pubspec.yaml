@@ -38,6 +38,9 @@ dependencies:
   mcquenji_local_storage:
     git:
       url: https://github.com/mcquenji/mcquenji_local_storage.git
+  mcquenji_versioning:
+    git:
+      url: https://github.com/mcquenji/mcquenji_versioning.git
   path: ^1.9.0
   sprung: ^3.0.1
   vector_graphics: any
@@ -55,9 +58,10 @@ dev_dependencies:
   json_serializable: ^6.8.0
   test: ^1.25.2
 
-# dependency_overrides:
-#   mcquenji_core:
-#     path: ../mcquenji_core
+dependency_overrides:
+  mcquenji_core:
+    path: ../mcquenji_core
+
 flutter:
   uses-material-design: true
   generate: true

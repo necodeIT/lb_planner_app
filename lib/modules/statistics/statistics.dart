@@ -17,9 +17,9 @@ class StatisticsModule extends Module {
       ];
 
   @override
-  void binds(Injector i) => i
-    ..add<CourseStatsRepository>(CourseStatsRepository.new)
-    ..add<GlobalStatsRepository>(GlobalStatsRepository.new);
+  void exportedBinds(Injector i) => i
+    ..addRepository<CourseStatsRepository>(CourseStatsRepository.new)
+    ..addRepository<GlobalStatsRepository>(GlobalStatsRepository.new);
 
   @override
   void routes(RouteManager r) {}
