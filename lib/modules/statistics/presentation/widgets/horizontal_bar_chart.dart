@@ -1,5 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -18,16 +19,7 @@ class HorizontalBarChart extends BarChart {
   State<HorizontalBarChart> createState() => _HorizontalBarChartState();
 }
 
-class _HorizontalBarChartState extends State<HorizontalBarChart> with TickerProviderStateMixin {
-  late final _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-  }
-
+class _HorizontalBarChartState extends State<HorizontalBarChart> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -40,10 +32,8 @@ class _HorizontalBarChartState extends State<HorizontalBarChart> with TickerProv
 
         final widths = data.map((value) => value.percentage * width).toList();
 
-        // TODO(mcquenji): add animations
-
         return Row(
-          children: [
+          children: <Widget>[
             for (var i = 0; i < data.length; i++)
               Container(
                 width: widths[i],
@@ -53,7 +43,7 @@ class _HorizontalBarChartState extends State<HorizontalBarChart> with TickerProv
                   color: data[i].color,
                 ),
               ).withTooltip('${data[i].name}: ${data[i].value}'),
-          ].hSpaced(spacing),
+          ].hSpaced(spacing).show(),
         );
       },
     );

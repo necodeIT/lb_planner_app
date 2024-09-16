@@ -25,8 +25,6 @@ class _VerticalBarChartState extends State<VerticalBarChart> {
 
         final heights = data.map((value) => value.percentage * height).toList();
 
-        // TODO(mcquenji): add animations
-
         return Row(
           children: [
             for (var i = 0; i < data.length; i++)
