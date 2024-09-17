@@ -2,6 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -13,8 +14,10 @@ class TodaysTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>();
+    final plan = context.watch<CalendarPlanRepository>();
 
-    final candidates = tasks.filter(deadlineDiff: Duration.zero);
+    final canditateIds = plan.filterDeadlines(plannedForToday: true).map((e) => e.id).toSet();
+    final candidates = tasks.filter(taskIds: canditateIds);
 
     return Card(
       child: Padding(

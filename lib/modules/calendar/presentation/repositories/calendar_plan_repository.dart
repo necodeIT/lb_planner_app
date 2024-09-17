@@ -243,6 +243,52 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }).toList();
   }
 
+  /// Returns a list of deadlines that match the given filters.
+  ///
+  /// If no filters are provided, all deadlines are returned.
+  List<PlanDeadline> filterDeadlines({
+    int? taskId,
+    DateTime? start,
+    DateTime? end,
+    bool? plannedForToday,
+  }) {
+    if (!state.hasData) {
+      log('Cannot filter deadlines: No plan loaded.');
+
+      return [];
+    }
+
+    return state.requireData.deadlines.where((deadline) {
+      if (taskId != null && deadline.id != taskId) return false;
+      if (start != null && deadline.start != start) return false;
+      if (end != null && deadline.end != end) return false;
+      if (plannedForToday != null && deadline.start.isBefore(DateTime.now()) && deadline.end.isAfter(DateTime.now())) return false;
+
+      return true;
+    }).toList();
+  }
+
+  /// Returns a list of members that match the given filters.
+  ///
+  /// If no filters are provided, all members are returned.
+  List<PlanMember> filterMembers({
+    int? userId,
+    PlanMemberAccessType? accessType,
+  }) {
+    if (!state.hasData) {
+      log('Cannot filter members: No plan loaded.');
+
+      return [];
+    }
+
+    return state.requireData.members.where((member) {
+      if (userId != null && member.id != userId) return false;
+      if (accessType != null && member.accessType != accessType) return false;
+
+      return true;
+    }).toList();
+  }
+
   @override
   void dispose() {
     super.dispose();

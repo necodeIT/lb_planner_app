@@ -41,7 +41,7 @@ class DashboardScreen extends StatelessWidget {
                 ).show(stagger),
                 Spacing.medium(),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: const BurndownChart().stretch(),
                 ).show(stagger),
               ],

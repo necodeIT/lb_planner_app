@@ -7,9 +7,12 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   final AuthRepository _auth;
   final Ticks _ticks;
 
+  final MoodleCoursesRepository _courses;
+
   /// Provides all tasks from Moodle with the latest updates.
-  MoodleTasksRepository(this._tasks, this._auth, this._ticks) : super(AsyncValue.loading()) {
+  MoodleTasksRepository(this._tasks, this._auth, this._ticks, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    watchAsync(_courses);
     watch(_ticks);
   }
 
@@ -39,6 +42,9 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   List<MoodleTask> filter({
     String? query,
     int? courseId,
+    Set<int>? courseIds,
+    int? taskId,
+    Set<int>? taskIds,
     Duration? deadlineDiff,
     Duration? minDeadlineDiff,
     Duration? maxDeadlineDiff,
@@ -51,6 +57,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
 
     return tasks.where((task) {
       if (courseId != null && task.courseId != courseId) return false;
+      if (taskId != null && task.id != taskId) return false;
 
       if (task.deadline != null) {
         if (deadlineDiff != null && task.deadline!.difference(DateTime.now()) == deadlineDiff) return false;
@@ -61,6 +68,8 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
       if (status.isNotEmpty && !status.contains(task.status)) return false;
       if (type.isNotEmpty && !type.contains(task.type)) return false;
       if (query != null && !task.name.toLowerCase().contains(query.toLowerCase())) return false;
+      if (courseIds != null && !courseIds.contains(task.courseId)) return false;
+      if (taskIds != null && !taskIds.contains(task.id)) return false;
 
       return true;
     }).toList();
