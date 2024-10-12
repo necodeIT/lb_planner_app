@@ -6,7 +6,7 @@ This is the source code for the frontend of LB Planner.
 
 ### Prerequisites
 
-- Flutter Version Manager (fvm): [Installation Guide](https://fvm.app/docs/getting_started/installation)
+- Flutter Version Manager (fvm): [Installation Guide](https://fvm.app/documentation/getting-started/installation)
   - You may want to set an alias for flutter to fvm in your shell configuration file.
 
     ```bash
