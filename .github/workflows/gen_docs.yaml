@@ -13,8 +13,15 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Checkout docs branch
-        run: git clone git@github.com:necodeIT/lb_planner_docs.git docs
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'necodeIT/lb_planner_docs'
+          ref: main
+          clean: false
+          path: docs
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -43,11 +50,11 @@ jobs:
         run: | 
           cp -R app/doc/api/* docs/app/
         
-      - name: Push new documentation to docs branch
-        working-directory: docs
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "github-actions-bot@users.noreply.github.com"
-          git add -A
-          git commit -m "GitHub Actions - Update client-side API documentation to ${{ github.sha }}"
-          git push
+      - name: Push new documentation to docs repo
+        uses: actions-js/push@v1.5
+        with:
+            github_token: ${{ secrets.REPO_DOCS_TOKEN }}
+            repository: 'necodeIT/lb_planner_docs'
+            branch: main
+            message: "GitHub Actions - Update Web Service Documentation to ${{ github.sha }}"
+            directory: docs
