@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          path: main
 
       - name: Checkout docs repo
         uses: actions/checkout@v4
