@@ -6,12 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:lb_planner/config/sentry.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   final options = Catcher2Options(ShoutReportMode(), []);
@@ -22,6 +24,12 @@ void main() async {
 
   DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
   NetworkService.timeout = const Duration(seconds: 30);
+
+  await Sentry.init(
+    (options) => options
+      ..dsn = kSentryDSN
+      ..environment = kInstalledRelease.channel.name,
+  );
 
   // False positive as it's wrapped in a kDebugMode check
   // ignore: avoid_print

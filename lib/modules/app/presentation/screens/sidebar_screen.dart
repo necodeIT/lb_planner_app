@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A screen that wraps its children in a [Sidebar].
 class SidebarScreen extends StatelessWidget {

@@ -1,6 +1,9 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
+import 'package:lb_planner/modules/theming/theming.dart';
 
 /// Renders a user's profile image.
 class UserProfileImage extends StatelessWidget {
@@ -17,17 +20,25 @@ class UserProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late User user;
+    final userId = this.userId ?? context.watch<UserRepository>().state.requireData.id;
+    final theme = context.watch<ThemeRepository>();
 
-    if (userId == null) {
-      user = context.watch<UserRepository>().state.requireData;
-    }
+    final thembase = theme.currentTheme;
 
-    return ClipOval(
-      child: Image.network(
-        user.profileImageUrl,
-        width: size,
-        height: size,
+    return SizedBox(
+      width: size,
+      height: size,
+      child: AnimatedBoringAvatar(
+        name: userId.toString(),
+        duration: const Duration(milliseconds: 200),
+        type: BoringAvatarType.beam,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
+        palette: BoringAvatarPalette(
+          [
+            thembase.accentColor.lighten().withOpacity(.6),
+            thembase.accentColor.darken(30),
+          ],
+        ),
       ),
     );
   }

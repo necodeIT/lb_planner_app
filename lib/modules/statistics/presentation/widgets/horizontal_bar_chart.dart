@@ -2,7 +2,6 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A horizontal [BarChart] widget.
 class HorizontalBarChart extends BarChart {

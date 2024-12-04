@@ -2,8 +2,7 @@ name: Generate API Docs
 
 on:
   push:
-    branches:
-      - LP-156-Frontend-Refactor # This is temporary and will be replaced by `app` once the refactor is complete
+    branches: main
   workflow_dispatch: # For manual triggering
 
 jobs:
@@ -13,9 +12,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-        with:
-          ref: LP-156-Frontend-Refactor # This is temporary and will be replaced by `app` once the refactor is complete
-          path: app
 
       - name: Checkout docs branch
         uses: actions/checkout@v3

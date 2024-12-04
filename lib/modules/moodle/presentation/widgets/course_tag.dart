@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Displays the shortname of the given [course] in a colored tag.
 class CourseTag extends StatelessWidget {

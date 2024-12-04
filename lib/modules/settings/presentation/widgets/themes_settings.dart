@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A section of the settings screen that allows the user to change the app's theme.
 class ThemesSettings extends StatelessWidget {

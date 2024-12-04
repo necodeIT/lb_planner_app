@@ -5,7 +5,7 @@ on:
         - opened
         - synchronize
     branches: 
-        - LP-156-Frontend-Refactor # Temporary. Will be changed to `app` when refactor is complete
+        - main
 
 permissions:
     checks: write

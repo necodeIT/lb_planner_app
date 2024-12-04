@@ -1,9 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Renders a preview of a [ThemeBase] and sets it as the user's theme when tapped.
 class ThemePreview extends StatelessWidget {

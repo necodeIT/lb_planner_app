@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 import 'package:sprung/sprung.dart';
 
 /// Adds default animation to a list of widgets.

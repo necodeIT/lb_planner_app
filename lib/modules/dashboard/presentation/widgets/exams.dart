@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Displays the user's upcoming exams.
 class Exams extends StatelessWidget {

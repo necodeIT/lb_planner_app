@@ -22,7 +22,7 @@ architecture_linter:
       path: "(presentation)"
     - &utils
       name: "Utils"
-      path: "(utils)"
+      path: "(?<!flutter_)utils"
 
   layers_config:
     - layer: *domain

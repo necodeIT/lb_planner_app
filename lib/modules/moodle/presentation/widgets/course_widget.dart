@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Renders a given [MoodleCourse] as a widget.
 class CourseWidget extends StatelessWidget {

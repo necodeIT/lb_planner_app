@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Navigation sidebar for the application.
 class Sidebar extends StatelessWidget {

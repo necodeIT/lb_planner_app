@@ -12,6 +12,8 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 
 import 'presentation/presentation.dart';
 
+export 'package:flutter_utils/flutter_utils.dart';
+
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'utils/utils.dart';

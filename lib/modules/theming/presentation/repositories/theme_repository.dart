@@ -11,8 +11,15 @@ class ThemeRepository extends Repository<ThemeData> {
   final ThemesDatasource _themes;
   final UserRepository _user;
 
+  ThemeBase? _currentTheme;
+
+  /// The current theme.
+  ThemeBase get currentTheme => _currentTheme ?? _themes.defaultTheme;
+
   /// A repository that manages the current theme.
   ThemeRepository(this._generator, this._themes, this._user) : super(_generator.generateTheme(_themes.defaultTheme)) {
+    _currentTheme = _themes.defaultTheme;
+
     watch(_user);
   }
 
@@ -28,6 +35,8 @@ class ThemeRepository extends Repository<ThemeData> {
     log('Setting theme to ${themeBase.name}');
 
     emit(_generator.generateTheme(themeBase));
+
+    _currentTheme = themeBase;
   }
 
   /// Sets the theme by [name].

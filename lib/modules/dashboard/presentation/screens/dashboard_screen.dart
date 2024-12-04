@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/dashboard/dashboard.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Renders the dashboard screen.
 class DashboardScreen extends StatelessWidget {
@@ -25,6 +24,7 @@ class DashboardScreen extends StatelessWidget {
                   child: const TodaysTasks().stretch(),
                 ).show(stagger),
                 Spacing.medium(),
+                // TODO: list undone already due tasks
                 Expanded(
                   child: const TodaysTasks().stretch(),
                 ).show(stagger),
@@ -53,8 +53,9 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 Expanded(child: const Exams().stretch()).show(stagger),
                 Spacing.medium(),
+                // TODO: Booked slots for today
                 Expanded(
-                  child: const TodaysTasks().stretch().withTooltip('Bla bla'),
+                  child: const TodaysTasks().stretch(),
                 ).show(stagger),
               ],
             ),

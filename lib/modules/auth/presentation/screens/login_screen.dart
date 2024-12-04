@@ -5,7 +5,6 @@ import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Presents an authentication form to the user.
 class LoginScreen extends StatelessWidget {

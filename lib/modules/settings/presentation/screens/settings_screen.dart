@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Renders the settings screen.
 class SettingsScreen extends StatelessWidget {

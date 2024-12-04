@@ -1,7 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/app/app.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Renders a burndown chart of the user's tasks.
 class BurndownChart extends StatelessWidget {

@@ -4,7 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Displays a chart overview of the user's tasks status.
 class StatusOverview extends StatelessWidget {
