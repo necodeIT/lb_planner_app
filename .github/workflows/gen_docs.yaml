@@ -58,5 +58,5 @@ jobs:
             github_token: ${{ secrets.REPO_DOCS_TOKEN }}
             repository: 'necodeIT/lb_planner_docs'
             branch: main
-            message: "GitHub Actions - Update Web Service Documentation to ${{ github.sha }}"
+            message: "GitHub Actions - Update client-side API documentation to ${{ github.sha }}"
             directory: docs
