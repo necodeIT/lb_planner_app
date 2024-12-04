@@ -28,7 +28,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.13.4'
+          flutter-version: '3.24.1'
 
       - name: Setup Python
         uses: actions/setup-python@v4.7.1
