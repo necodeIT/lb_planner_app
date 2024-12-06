@@ -47,6 +47,9 @@ mixin _$Slot {
   @JsonValue('forcuruser')
   bool get reserved => throw _privateConstructorUsedError;
 
+  /// The user ids of those supervising this slot.
+  List<int> get supervisors => throw _privateConstructorUsedError;
+
   /// Serializes this Slot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -69,7 +72,8 @@ abstract class $SlotCopyWith<$Res> {
       String room,
       int size,
       @JsonValue('fullness') int reservations,
-      @JsonValue('forcuruser') bool reserved});
+      @JsonValue('forcuruser') bool reserved,
+      List<int> supervisors});
 }
 
 /// @nodoc
@@ -95,6 +99,7 @@ class _$SlotCopyWithImpl<$Res, $Val extends Slot>
     Object? size = null,
     Object? reservations = null,
     Object? reserved = null,
+    Object? supervisors = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -129,6 +134,10 @@ class _$SlotCopyWithImpl<$Res, $Val extends Slot>
           ? _value.reserved
           : reserved // ignore: cast_nullable_to_non_nullable
               as bool,
+      supervisors: null == supervisors
+          ? _value.supervisors
+          : supervisors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ) as $Val);
   }
 }
@@ -148,7 +157,8 @@ abstract class _$$SlotImplCopyWith<$Res> implements $SlotCopyWith<$Res> {
       String room,
       int size,
       @JsonValue('fullness') int reservations,
-      @JsonValue('forcuruser') bool reserved});
+      @JsonValue('forcuruser') bool reserved,
+      List<int> supervisors});
 }
 
 /// @nodoc
@@ -171,6 +181,7 @@ class __$$SlotImplCopyWithImpl<$Res>
     Object? size = null,
     Object? reservations = null,
     Object? reserved = null,
+    Object? supervisors = null,
   }) {
     return _then(_$SlotImpl(
       id: null == id
@@ -205,6 +216,10 @@ class __$$SlotImplCopyWithImpl<$Res>
           ? _value.reserved
           : reserved // ignore: cast_nullable_to_non_nullable
               as bool,
+      supervisors: null == supervisors
+          ? _value._supervisors
+          : supervisors // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -220,8 +235,10 @@ class _$SlotImpl extends _Slot {
       required this.room,
       required this.size,
       @JsonValue('fullness') required this.reservations,
-      @JsonValue('forcuruser') required this.reserved})
-      : super._();
+      @JsonValue('forcuruser') required this.reserved,
+      final List<int> supervisors = const []})
+      : _supervisors = supervisors,
+        super._();
 
   factory _$SlotImpl.fromJson(Map<String, dynamic> json) =>
       _$$SlotImplFromJson(json);
@@ -261,9 +278,21 @@ class _$SlotImpl extends _Slot {
   @JsonValue('forcuruser')
   final bool reserved;
 
+  /// The user ids of those supervising this slot.
+  final List<int> _supervisors;
+
+  /// The user ids of those supervising this slot.
+  @override
+  @JsonKey()
+  List<int> get supervisors {
+    if (_supervisors is EqualUnmodifiableListView) return _supervisors;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_supervisors);
+  }
+
   @override
   String toString() {
-    return 'Slot(id: $id, startUnit: $startUnit, duration: $duration, weekday: $weekday, room: $room, size: $size, reservations: $reservations, reserved: $reserved)';
+    return 'Slot(id: $id, startUnit: $startUnit, duration: $duration, weekday: $weekday, room: $room, size: $size, reservations: $reservations, reserved: $reserved, supervisors: $supervisors)';
   }
 
   @override
@@ -282,13 +311,24 @@ class _$SlotImpl extends _Slot {
             (identical(other.reservations, reservations) ||
                 other.reservations == reservations) &&
             (identical(other.reserved, reserved) ||
-                other.reserved == reserved));
+                other.reserved == reserved) &&
+            const DeepCollectionEquality()
+                .equals(other._supervisors, _supervisors));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, startUnit, duration, weekday,
-      room, size, reservations, reserved);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      startUnit,
+      duration,
+      weekday,
+      room,
+      size,
+      reservations,
+      reserved,
+      const DeepCollectionEquality().hash(_supervisors));
 
   /// Create a copy of Slot
   /// with the given fields replaced by the non-null parameter values.
@@ -315,7 +355,8 @@ abstract class _Slot extends Slot {
       required final String room,
       required final int size,
       @JsonValue('fullness') required final int reservations,
-      @JsonValue('forcuruser') required final bool reserved}) = _$SlotImpl;
+      @JsonValue('forcuruser') required final bool reserved,
+      final List<int> supervisors}) = _$SlotImpl;
   const _Slot._() : super._();
 
   factory _Slot.fromJson(Map<String, dynamic> json) = _$SlotImpl.fromJson;
@@ -354,6 +395,10 @@ abstract class _Slot extends Slot {
   @override
   @JsonValue('forcuruser')
   bool get reserved;
+
+  /// The user ids of those supervising this slot.
+  @override
+  List<int> get supervisors;
 
   /// Create a copy of Slot
   /// with the given fields replaced by the non-null parameter values.

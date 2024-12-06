@@ -34,6 +34,9 @@ class Slot with _$Slot {
 
     /// `true` if the current user has reserved this slot.
     @JsonValue('forcuruser') required bool reserved,
+
+    /// The user ids of those supervising this slot.
+    @Default([]) List<int> supervisors,
   }) = _Slot;
 
   const Slot._();

@@ -15,6 +15,10 @@ _$SlotImpl _$$SlotImplFromJson(Map<String, dynamic> json) => _$SlotImpl(
       size: (json['size'] as num).toInt(),
       reservations: (json['reservations'] as num).toInt(),
       reserved: json['reserved'] as bool,
+      supervisors: (json['supervisors'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$SlotImplToJson(_$SlotImpl instance) =>
@@ -27,6 +31,7 @@ Map<String, dynamic> _$$SlotImplToJson(_$SlotImpl instance) =>
       'size': instance.size,
       'reservations': instance.reservations,
       'reserved': instance.reserved,
+      'supervisors': instance.supervisors,
     };
 
 const _$SlotTimeUnitEnumMap = {
