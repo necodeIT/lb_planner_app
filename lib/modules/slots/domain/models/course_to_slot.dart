@@ -25,6 +25,14 @@ class CourseToSlot with _$CourseToSlot {
     required Vintage vintage,
   }) = _CourseToSlot;
 
+  /// Maps a [MoodleCourse] to a [Slot] without an id.
+  factory CourseToSlot.noId({required int courseId, required int slotId, required Vintage vintage}) => CourseToSlot(
+        id: -1,
+        courseId: courseId,
+        slotId: slotId,
+        vintage: vintage,
+      );
+
   const CourseToSlot._();
 
   /// Creates a [CourseToSlot] mapping from [json].

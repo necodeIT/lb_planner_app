@@ -11,7 +11,7 @@ abstract class ApiService extends Service {
   /// Makes a request to the given [function] with the given [body] and [token].
   ///
   /// If [redact] is true, the response will be redacted when logged.
-  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, required JSON body, bool redact = false});
+  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false});
 }
 
 /// An exception thrown when [ApiService.callFunction] fails.

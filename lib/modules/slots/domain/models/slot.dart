@@ -41,6 +41,26 @@ class Slot with _$Slot {
 
   const Slot._();
 
+  /// Creates a [Slot] without [Slot.id], [Slot.reservations], [Slot.reserved] and [Slot.supervisors].
+  factory Slot.noId({
+    required SlotTimeUnit startUnit,
+    required int duration,
+    required Weekday weekday,
+    required String room,
+    required int size,
+  }) =>
+      Slot(
+        id: -1,
+        startUnit: startUnit,
+        duration: duration,
+        weekday: weekday,
+        room: room,
+        size: size,
+        reservations: 0,
+        reserved: false,
+        supervisors: [],
+      );
+
   /// End time of this slot.
   SlotTimeUnit get endUnit => startUnit + duration;
 

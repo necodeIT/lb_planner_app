@@ -18,7 +18,7 @@ class MoodleApiService extends ApiService {
   }
 
   @override
-  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, required JSON body, bool redact = false}) async {
+  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
     body.removeWhere((key, value) {
@@ -29,6 +29,15 @@ class MoodleApiService extends ApiService {
       }
 
       return remove;
+    });
+
+    // check for any bool values and convert them to 0 or 1
+    body = body.map((key, value) {
+      if (value is bool) {
+        return MapEntry(key, value ? 1 : 0);
+      }
+
+      return MapEntry(key, value);
     });
 
     body['wstoken'] = token;
