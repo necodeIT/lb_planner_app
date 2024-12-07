@@ -40,7 +40,7 @@ jobs:
               with:
                 body-path: comment.txt
                 issue-number: ${{ github.event.pull_request.number }}
-                token: ${{ secrets.GITHUB_TOKEN }}
+                token: ${{ secrets.PAT }}
             - name: Annotate results
               uses: invertase/github-action-dart-analyzer@v3
             - name: Fail if there are errors
@@ -96,6 +96,7 @@ jobs:
               name: Test Results
               path: test-results.json
               reporter: dart-json
+              token: ${{ secrets.PAT }}
           - run: pip install requests
           - name: Construct comment
             run:  python .github/workflows/construct_unit_test_comment.py ${{ steps.reporter.outputs.url }} ${{ github.event.pull_request.head.sha }} comment.txt
@@ -104,6 +105,7 @@ jobs:
             with:
               body-path: comment.txt
               issue-number: ${{ github.event.pull_request.number }}
+              token: ${{ secrets.PAT }}
 
             
             
