@@ -40,8 +40,14 @@ jobs:
               with:
                 body-path: comment.txt
                 issue-number: ${{ github.event.pull_request.number }}
+                token: ${{ secrets.GITHUB_TOKEN }}
             - name: Annotate results
               uses: invertase/github-action-dart-analyzer@v3
+            - name: Fail if there are errors
+              run: |
+                if [ -s analysis.txt ]; then
+                  exit 1
+                fi
               
 
     Testing:
@@ -98,6 +104,7 @@ jobs:
             with:
               body-path: comment.txt
               issue-number: ${{ github.event.pull_request.number }}
+
             
             
                         
