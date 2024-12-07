@@ -45,7 +45,7 @@ class User with _$User {
     @Default(1) @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
 
     /// The vintage of the user
-    @Default('') String vintage,
+    Vintage? vintage,
   }) = _User;
 
   const User._();
@@ -164,4 +164,138 @@ extension UserCapabilityExtension on UserCapability {
 
   /// Returns `true` if this capability is [UserCapability.student]. Otherwise `false`.
   bool get isStudent => this == UserCapability.student;
+}
+
+/// Represents a "Jahrgang" (grade level or class year) in a high school context.
+/// Used to denote the year group (or class) of students within a high school.
+enum Vintage {
+  // Without suffix
+  /// The first year.
+  @JsonValue(1)
+  $1(1),
+
+  /// The second year.
+  @JsonValue(2)
+  $2(2),
+
+  /// The third year.
+  @JsonValue(3)
+  $3(3),
+
+  /// The fourth year.
+  @JsonValue(4)
+  $4(4),
+
+  /// The fifth year.
+  @JsonValue(5)
+  $5(5),
+
+  // With suffix
+  /// The first year, AHIT.
+  @JsonValue('1AHIT')
+  $1ahit(1, 'AHIT'),
+
+  /// The first year, BHIT.
+  @JsonValue('1BHIT')
+  $1bhit(1, 'BHIT'),
+
+  /// The first year, CHIT.
+  @JsonValue('1CHIT')
+  $1chit(1, 'CHIT'),
+
+  /// The first year, DHIT.
+  @JsonValue('1DHIT')
+  $1dhit(1, 'DHIT'),
+
+  /// The second year, AHIT.
+  @JsonValue('2AHIT')
+  $2ahit(2, 'AHIT'),
+
+  /// The second year, BHIT.
+  @JsonValue('2BHIT')
+  $2bhit(2, 'BHIT'),
+
+  /// The second year, CHIT.
+  @JsonValue('2CHIT')
+  $2chit(2, 'CHIT'),
+
+  /// The second year, DHIT.
+  @JsonValue('2DHIT')
+  $2dhit(2, 'DHIT'),
+
+  /// The third year, AHIT.
+  @JsonValue('3AHIT')
+  $3ahit(3, 'AHIT'),
+
+  /// The third year, BHIT.
+  @JsonValue('3BHIT')
+  $3bhit(3, 'BHIT'),
+
+  /// The third year, CHIT.
+  @JsonValue('3CHIT')
+  $3chit(3, 'CHIT'),
+
+  /// The third year, DHIT.
+  @JsonValue('3DHIT')
+  $3dhit(3, 'DHIT'),
+
+  /// The fourth year, AHIT.
+  @JsonValue('4AHIT')
+  $4ahit(4, 'AHIT'),
+
+  /// The fourth year, BHIT.
+  @JsonValue('4BHIT')
+  $4bhit(4, 'BHIT'),
+
+  /// The fourth year, CHIT.
+  @JsonValue('4CHIT')
+  $4chit(4, 'CHIT'),
+
+  /// The fourth year, DHIT.
+  @JsonValue('4DHIT')
+  $4dhit(4, 'DHIT'),
+
+  /// The fifth year, AHIT.
+  @JsonValue('5AHIT')
+  $5ahit(5, 'AHIT'),
+
+  /// The fifth year, BHIT.
+  @JsonValue('5BHIT')
+  $5bhit(5, 'BHIT'),
+
+  /// The fifth year, CHIT.
+  @JsonValue('5CHIT')
+  $5chit(5, 'CHIT'),
+
+  /// The fifth year, DHIT.
+  @JsonValue('5DHIT')
+  $5dhit(5, 'DHIT');
+
+  /// The year group's index.
+  final int value;
+
+  /// The year group's suffix (e.g., "AHIT").
+  final String suffix;
+
+  const Vintage(this.value, [this.suffix = '']);
+
+  /// The human-readable name of this vintage.
+  String get humanReadable => '$value${suffix.toUpperCase()}';
+
+  /// Returns `true` if [value] is the same as [other]'s [value].
+  ///
+  /// As opposed to `==`, this method does not compare the [suffix].
+  bool sameVintage(Vintage other) => value == other.value;
+
+  /// Returns `true` if [value] is less than [other]'s [value].
+  bool operator <(Vintage other) => value < other.value;
+
+  /// Returns `true` if [value] is less than or equal to [other]'s [value].
+  bool operator <=(Vintage other) => value <= other.value;
+
+  /// Returns `true` if [value] is greater than [other]'s [value].
+  bool operator >(Vintage other) => value > other.value;
+
+  /// Returns `true` if [value] is greater than or equal to [other]'s [value].
+  bool operator >=(Vintage other) => value >= other.value;
 }

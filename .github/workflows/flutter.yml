@@ -2,7 +2,7 @@ name: "Create Setup files"
 on:
   release:
     types: [published]
-    branches: ["app"]
+    
 jobs:
   windows_build:
     name: Create Windows Setup file
