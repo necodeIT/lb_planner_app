@@ -14,6 +14,7 @@ permissions:
 jobs:
     Analysis:
         runs-on: ubuntu-latest
+        permissions: write-all
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
@@ -40,11 +41,12 @@ jobs:
                 body-path: comment.txt
                 issue-number: ${{ github.event.pull_request.number }}
             - name: Annotate results
-              uses: invertase/github-action-dart-analyzer@v2.0.0
+              uses: invertase/github-action-dart-analyzer@v3
               
 
     Testing:
       runs-on: ubuntu-latest
+      permissions: write-all
       steps:
           - name: Checkout code
             uses: actions/checkout@v2
@@ -82,7 +84,7 @@ jobs:
             continue-on-error: true # Idk why, but `flutter test` always returns 1 even when tests pass
             run: flutter test --machine > test-results.json
           - name: Annotate test results
-            uses: dorny/test-reporter@v1
+            uses: dorny/test-reporter@v1.9.1
             id: reporter
             with:
               name: Test Results
