@@ -1,0 +1,107 @@
+name: CI
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+
+permissions:
+  checks: write
+  pull-requests: write
+
+jobs:
+  analyse:
+    name: Analysis 🔍
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v2
+      - name: 🚀 Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.24.2'
+      - name: 📦 Get dependencies
+        run: flutter pub get
+      - name: 🔍 Analyze code
+        continue-on-error: true
+        run: flutter analyze --no-pub >> analysis.txt
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4.7.1
+        with:
+          python-version: '3.10'
+      - name: 📝 Construct analysis comment
+        run: python .github/workflows/construct_analysis_comment.py analysis.txt ${{ github.event.pull_request.head.sha }} ${{ github.event.number }} comment.txt
+      - name: 💬 Post analysis comment
+        uses: peter-evans/create-or-update-comment@v3.1.0
+        with:
+          body-path: comment.txt
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PAT }}
+      - name: ✅ Annotate analysis results
+        uses: invertase/github-action-dart-analyzer@v3
+      - name: ❌ Fail if there are errors
+        run: |
+          if [ -s analysis.txt ]; then
+            exit 1
+          fi
+
+  Testing:
+    name: Testing 🧪
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v2
+      - name: 🚀 Set up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.24.2'
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4.7.1
+        with:
+          python-version: '3.10'
+      - name: 📦 Get dependencies
+        run: flutter pub get
+      - name: 🛠️ Start Moodle mock server
+        uses: mockoon/cli-action@v1
+        with:
+          data-file: test/mockoon/moodle.json
+          port: 6000
+      - name: 🌐 Start public API mock server
+        uses: mockoon/cli-action@v1
+        with:
+          data-file: test/mockoon/public_api.json
+          port: 6008
+      - name: 🧪 Start unit tests mock server
+        uses: mockoon/cli-action@v1
+        with:
+          data-file: test/mockoon/unit_tests.json
+          port: 3000
+      - name: 🗂️ Start files mock server
+        uses: mockoon/cli-action@v1
+        with:
+          data-file: test/mockoon/files.json
+          port: 5000
+      - name: 🔄 Run tests
+        continue-on-error: true
+        run: flutter test --machine > test-results.json
+      - name: 📊 Annotate test results
+        uses: dorny/test-reporter@v1.9.1
+        id: reporter
+        with:
+          name: Test Results
+          path: test-results.json
+          reporter: dart-json
+          token: ${{ secrets.PAT }}
+      - run: pip install requests
+      - name: 📝 Construct test comment
+        run: python .github/workflows/construct_unit_test_comment.py ${{ steps.reporter.outputs.url }} ${{ github.event.pull_request.head.sha }} comment.txt
+      - name: 💬 Post test comment
+        uses: peter-evans/create-or-update-comment@v3.1.0
+        with:
+          body-path: comment.txt
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.PAT }}

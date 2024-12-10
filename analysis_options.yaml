@@ -67,4 +67,6 @@ linter:
     sort_pub_dependencies: true
     join_return_with_assignment: true
     prefer_for_elements_to_map_fromIterable: true
+    null_check_on_nullable_type_parameter: true
+    enable_null_safety: true
     # yet to be released: document_ignores: true

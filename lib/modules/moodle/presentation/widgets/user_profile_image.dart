@@ -20,7 +20,7 @@ class UserProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = this.userId ?? context.watch<UserRepository>().state.requireData.id;
+    final userId = this.userId ?? context.watch<UserRepository>().state.data?.id;
     final theme = context.watch<ThemeRepository>();
 
     final thembase = theme.currentTheme;
@@ -29,7 +29,7 @@ class UserProfileImage extends StatelessWidget {
       width: size,
       height: size,
       child: AnimatedBoringAvatar(
-        name: userId.toString(),
+        name: userId?.toString() ?? '0',
         duration: const Duration(milliseconds: 200),
         type: BoringAvatarType.beam,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),

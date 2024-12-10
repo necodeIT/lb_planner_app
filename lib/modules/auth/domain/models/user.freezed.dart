@@ -62,7 +62,7 @@ mixin _$User {
   int get displayTaskCountInt => throw _privateConstructorUsedError;
 
   /// The vintage of the user
-  String get vintage => throw _privateConstructorUsedError;
+  Vintage? get vintage => throw _privateConstructorUsedError;
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -90,7 +90,7 @@ abstract class $UserCopyWith<$Res> {
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
       @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
-      String vintage});
+      Vintage? vintage});
 }
 
 /// @nodoc
@@ -119,7 +119,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? planId = null,
     Object? colorBlindnessString = null,
     Object? displayTaskCountInt = null,
-    Object? vintage = null,
+    Object? vintage = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -166,10 +166,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.displayTaskCountInt
           : displayTaskCountInt // ignore: cast_nullable_to_non_nullable
               as int,
-      vintage: null == vintage
+      vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Vintage?,
     ) as $Val);
   }
 }
@@ -193,7 +193,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
       @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
-      String vintage});
+      Vintage? vintage});
 }
 
 /// @nodoc
@@ -219,7 +219,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? planId = null,
     Object? colorBlindnessString = null,
     Object? displayTaskCountInt = null,
-    Object? vintage = null,
+    Object? vintage = freezed,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -266,10 +266,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.displayTaskCountInt
           : displayTaskCountInt // ignore: cast_nullable_to_non_nullable
               as int,
-      vintage: null == vintage
+      vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Vintage?,
     ));
   }
 }
@@ -289,7 +289,7 @@ class _$UserImpl extends _User {
       @JsonKey(name: 'planid') this.planId = -1,
       @JsonKey(name: 'colorblindness') this.colorBlindnessString = '',
       @JsonKey(name: 'displaytaskcount') this.displayTaskCountInt = 1,
-      this.vintage = ''})
+      this.vintage})
       : super._();
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
@@ -349,8 +349,7 @@ class _$UserImpl extends _User {
 
   /// The vintage of the user
   @override
-  @JsonKey()
-  final String vintage;
+  final Vintage? vintage;
 
   @override
   String toString() {
@@ -431,7 +430,7 @@ abstract class _User extends User {
       @JsonKey(name: 'planid') final int planId,
       @JsonKey(name: 'colorblindness') final String colorBlindnessString,
       @JsonKey(name: 'displaytaskcount') final int displayTaskCountInt,
-      final String vintage}) = _$UserImpl;
+      final Vintage? vintage}) = _$UserImpl;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
@@ -490,7 +489,7 @@ abstract class _User extends User {
 
   /// The vintage of the user
   @override
-  String get vintage;
+  Vintage? get vintage;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
