@@ -127,6 +127,12 @@ enum Weekday {
     }
     throw StateError('Could not find next date for $this');
   }
+
+  /// Returns the date of this weekday [index] weeks in the future.
+  /// 0 means the next date (including today), 1 means the date after the next date, etc.
+  DateTime peek(int index) {
+    return futureDates(index).last;
+  }
 }
 
 /// A time unit as defined in [lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin/blob/2f118f50aad5e4fb9d425b59b3ebccbdf1a16cd8/lbplanner/classes/helpers/slot_helper.php#L55)
