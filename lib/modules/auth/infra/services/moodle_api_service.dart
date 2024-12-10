@@ -18,26 +18,36 @@ class MoodleApiService extends ApiService {
   }
 
   @override
-  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, required JSON body, bool redact = false}) async {
+  Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
-    body.removeWhere((key, value) {
-      final remove = value == null;
+    var payload = body
+      ..removeWhere((key, value) {
+        final remove = value == null;
 
-      if (remove) {
-        log('Removing null value for key $key');
+        if (remove) {
+          log('Removing null value for key $key');
+        }
+
+        return remove;
+      });
+
+    // check for any bool values and convert them to 0 or 1
+    payload = payload.map((key, value) {
+      if (value is bool) {
+        return MapEntry(key, value ? 1 : 0);
       }
 
-      return remove;
+      return MapEntry(key, value);
     });
 
-    body['wstoken'] = token;
-    body['moodlewsrestformat'] = 'json';
-    body['wsfunction'] = function;
+    payload['wstoken'] = token;
+    payload['moodlewsrestformat'] = 'json';
+    payload['wsfunction'] = function;
 
     final response = await _networkService.post(
       '$kMoodleServerAdress/webservice/rest/server.php',
-      body,
+      payload,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
     );
 
