@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
@@ -8,7 +10,6 @@ import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   final AuthService _auth;
   final LocalStorageDatasource _localStorage;
-  final Ticks _ticks;
 
   static AsyncValue<Set<Token>>? _state;
 
@@ -16,9 +17,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   late final Future<void> loadStoredTokens;
 
   /// UI state controller for authentication.
-  AuthRepository(this._auth, this._localStorage, this._ticks) : super(_state ?? AsyncValue.loading()) {
-    loadStoredTokens = _authFromStorage();
-  }
+  AuthRepository(this._auth, this._localStorage) : super(_state ?? AsyncValue.loading());
 
   Future<void> _authFromStorage() async {
     if (_state != null && isAuthenticated) {
@@ -36,9 +35,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     if (!await _localStorage.exists<Set<Token>>()) {
       log('No token found in storage');
 
-      // Pause as we don't want other repositories refreshing unnecessarily
-      // and there are no other repos that work when unauthenticated.
-      _ticks.pause();
       data({});
 
       return;
@@ -59,6 +55,13 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     }
 
     data(tokens);
+  }
+
+  @override
+  FutureOr<void> build(Type trigger) async {
+    if (trigger == InitialBuildTrigger) {
+      await _authFromStorage();
+    }
   }
 
   /// Sign in with [username] and [password].
@@ -82,9 +85,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     log('Authentication successful');
 
-    // If authentication was successful, resume the ticks.
-    _ticks.resume();
-
     await _localStorage.write(state.requireData);
   }
 
@@ -98,7 +98,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     // Pause as we don't want other repositories refreshing unnecessarily
     // and there are no other repos that work when unauthenticated.
-    _ticks.pause();
   }
 
   /// `true` if the user is authenticated.

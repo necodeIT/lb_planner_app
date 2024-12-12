@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -27,7 +26,6 @@ class AuthModule extends Module {
     ..addRepository<AuthRepository>(AuthRepository.new)
     ..addRepository<UserRepository>(UserRepository.new)
     ..addSerde<Token>(fromJson: Token.fromJson, toJson: (t) => t.toJson())
-    ..addTickRepository(const TickInterval(milliseconds: kRefreshInterval))
     ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson());
 
   @override

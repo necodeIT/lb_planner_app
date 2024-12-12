@@ -22,7 +22,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
   @override
   FutureOr<void> build(Type trigger) async {
-    final tokens = _auth.state.requireData;
+    final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
 

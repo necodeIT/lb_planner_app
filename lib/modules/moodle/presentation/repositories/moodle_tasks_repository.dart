@@ -1,3 +1,4 @@
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -5,20 +6,21 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   final MoodleTaskDatasource _tasks;
   final AuthRepository _auth;
-  final Ticks _ticks;
 
   final MoodleCoursesRepository _courses;
 
   /// Provides all tasks from Moodle with the latest updates.
-  MoodleTasksRepository(this._tasks, this._auth, this._ticks, this._courses) : super(AsyncValue.loading()) {
+  MoodleTasksRepository(this._tasks, this._auth, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_courses);
-    watch(_ticks);
   }
 
   @override
+  Duration get updateInterval => kRefreshIntervalDuration;
+
+  @override
   Future<void> build(Type trigger) async {
-    final tokens = _auth.state.requireData;
+    final tokens = waitForData(_auth);
 
     await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
   }

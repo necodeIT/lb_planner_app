@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -10,7 +11,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   final DeadlinesDatasource _deadlines;
   final AuthRepository _auth;
   final ConnectivityService _connectivity;
-  final TickRepository _ticks;
   final MoodleTasksRepository _tasks;
 
   /// Repository for managing a user's [CalendarPlan].
@@ -19,13 +19,14 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     this._deadlines,
     this._auth,
     this._connectivity,
-    this._ticks,
     this._tasks,
   ) : super(AsyncValue.loading()) {
     watchAsync(_auth);
-    watch(_ticks);
     watchAsync(_tasks);
   }
+
+  @override
+  Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
   Future<void> build(Type trigger) async {
@@ -36,15 +37,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
-    if (!_ticks.state.isFirst) log('Refreshing plan...');
-
-    if (!_auth.state.hasData) {
-      log('Cannot fetch plan: No tokens provided.');
-
-      return;
-    }
-
-    await _loadPlan(_auth.state.requireData);
+    await _loadPlan(waitForData(_auth));
   }
 
   Future<void> _loadPlan(Set<Token> tokens) async {

@@ -1,30 +1,34 @@
 import 'dart:async';
 
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all slots the current user can reserve.
 class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
-  final Ticks _tick;
   final AuthRepository _auth;
   final UsersRepository _users;
   final MoodleCoursesRepository _courses;
   final SlotsDatasource _datasource;
 
   /// Holds all slots the current user can reserve.
-  SlotsRepository(this._tick, this._auth, this._users, this._courses, this._datasource) : super(AsyncValue.loading()) {
-    watch(_tick);
+  SlotsRepository(this._auth, this._users, this._courses, this._datasource) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_users);
     watchAsync(_courses);
   }
 
   @override
+  Duration get updateInterval => kImportantRefreshIntervalDuration;
+
+  @override
   FutureOr<void> build(Type trigger) {
+    waitForData(_auth);
+
     guard(
       () async {
-        final rawSlots = await _datasource.getSlots(_auth.state.requireData.pick(Webservice.lb_planner_api));
+        final rawSlots = await _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api));
 
         final slots = <SlotAggregate>[];
 

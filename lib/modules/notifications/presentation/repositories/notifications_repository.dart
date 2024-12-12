@@ -1,20 +1,22 @@
 import 'dart:async';
 
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// UI state control for notifications.
 class NotificationsRepository extends Repository<AsyncValue<List<Notification>>> {
-  final Ticks _ticks;
   final NotificationsDatasource _datasource;
   final AuthRepository _auth;
 
   /// UI state control for notifications.
-  NotificationsRepository(this._ticks, this._datasource, this._auth) : super(AsyncValue.loading()) {
-    watch(_ticks);
+  NotificationsRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
     watchAsync(_auth);
   }
+
+  @override
+  Duration get updateInterval => kRefreshIntervalDuration;
 
   bool _hasUnread = false;
 
@@ -23,7 +25,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
   @override
   FutureOr<void> build(Type trigger) async {
-    if (!_auth.state.hasData) return;
+    waitForData(_auth);
 
     if (_auth.state.requireData.isEmpty) return;
 

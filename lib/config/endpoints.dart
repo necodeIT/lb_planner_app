@@ -29,4 +29,24 @@ const kLBPlannerWebsiteAdress = String.fromEnvironment('LB_PLANNER_ENDPOINT', de
 
 /// The interval in milliseconds to refresh data from the server at.
 const kRefreshInterval = int.fromEnvironment('REFRESH_INTERVAL', defaultValue: 2000000);
-// const kRefreshInterval = int.fromEnvironment('REFRESH_INTERVAL', defaultValue: 10000);
+
+/// The interval to refresh data from the server at.
+///
+/// Based on [kRefreshInterval].
+const kRefreshIntervalDuration = Duration(milliseconds: kRefreshInterval);
+
+/// The interval in milliseconds to refresh data that needs to be updated more often at.
+const kImportantRefreshInterval = int.fromEnvironment('IMPORTANT_REFRESH_INTERVAL', defaultValue: 500);
+
+/// The interval to refresh data that needs to be updated more often.
+///
+/// Based on [kImportantRefreshInterval].
+const kImportantRefreshIntervalDuration = Duration(milliseconds: kImportantRefreshInterval);
+
+/// The interval in milliseconds to refresh data that needs to be updated less often at.
+const kLessImportantRefreshInterval = int.fromEnvironment('LESS_IMPORTANT_REFRESH_INTERVAL', defaultValue: 300000);
+
+/// The interval to refresh data that needs to be updated less often.
+///
+/// Based on [kLessImportantRefreshInterval].
+const kLessImportantRefreshIntervalDuration = Duration(milliseconds: kLessImportantRefreshInterval);
