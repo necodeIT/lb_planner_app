@@ -22,15 +22,13 @@ class CalendarModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<TitleBuilder>(() => (BuildContext context) => context.t.calendar_title);
+    i
+      ..add<TitleBuilder>(() => (BuildContext context) => context.t.calendar_title)
+      ..add<InvitesDatasource>(StdInvitesDatasource.new)
+      ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
+      ..add<PlanDatasource>(StdPlanDatasource.new)
+      ..addRepository<CalendarPlanRepository>(CalendarPlanRepository.new);
   }
-
-  @override
-  void exportedBinds(Injector i) => i
-    ..add<InvitesDatasource>(StdInvitesDatasource.new)
-    ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
-    ..add<PlanDatasource>(StdPlanDatasource.new)
-    ..addRepository<CalendarPlanRepository>(CalendarPlanRepository.new);
 
   @override
   void routes(RouteManager r) {

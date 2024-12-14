@@ -60,7 +60,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
   @override
   FutureOr<void> build(Type trigger) async {
     if (trigger == InitialBuildTrigger) {
-      await _authFromStorage();
+      loadStoredTokens = _authFromStorage();
     }
   }
 

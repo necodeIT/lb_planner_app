@@ -28,7 +28,7 @@ const kMoodleServerAdress = String.fromEnvironment('MOODLE_ENDPOINT', defaultVal
 const kLBPlannerWebsiteAdress = String.fromEnvironment('LB_PLANNER_ENDPOINT', defaultValue: 'http://localhost:6008');
 
 /// The interval in milliseconds to refresh data from the server at.
-const kRefreshInterval = int.fromEnvironment('REFRESH_INTERVAL', defaultValue: 2000000);
+const kRefreshInterval = int.fromEnvironment('REFRESH_INTERVAL', defaultValue: 10000);
 
 /// The interval to refresh data from the server at.
 ///

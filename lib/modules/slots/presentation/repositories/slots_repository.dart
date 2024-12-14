@@ -72,7 +72,6 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
     }
 
     log('Reserving slot ${slot.id} for current user');
-
     try {
       await _datasource.reserveSlot(
         token: _auth.state.requireData.pick(Webservice.lb_planner_api),

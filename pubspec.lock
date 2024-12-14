@@ -761,7 +761,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4013559c5b4635a83ade663a189b34f6469e297b"
+      resolved-ref: "3e4400a0c37515e2dbfb934b186dc5b09673da9b"
       url: "https://github.com/mcquenji/mcquenji_core.git"
     source: git
     version: "1.1.0"

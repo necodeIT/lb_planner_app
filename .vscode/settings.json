@@ -15,5 +15,7 @@
   "dart.flutterRunAdditionalArgs": [
     "--dart-define=MOODLE_ENDPOINT=https://projekte.tgm.ac.at/lbplaner4"
   ],
-  "dart.flutterRememberSelectedDevice": true
+  "dart.flutterRememberSelectedDevice": true,
+  "dart.debugSdkLibraries": true,
+  "dart.debugExternalPackageLibraries": true,
 }
