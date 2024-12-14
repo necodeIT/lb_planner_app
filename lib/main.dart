@@ -15,6 +15,35 @@ import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+/// Censores sensitive data in log messages.
+String scrubSensitiveData(String message) {
+  var scrubbed = message;
+
+  final patterns = [
+    // Key-Value Pairs
+    RegExp(r'(token|apikey|secret|password|key|access_token|refresh_token|client_secret|clientkey|clientid)=[^\s&]+', caseSensitive: false),
+
+    // JSON Format
+    RegExp(r'("token"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("apikey"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("secret"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("password"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("key"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("access_token"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("refresh_token"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("client_secret"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("ssn"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("clientkey"\s*:\s*".*?")', caseSensitive: false),
+    RegExp(r'("clientid"\s*:\s*".*?")', caseSensitive: false),
+  ];
+
+  for (final pattern in patterns) {
+    scrubbed = message.replaceAll(pattern, r'$1=***');
+  }
+
+  return scrubbed;
+}
+
 void main() async {
   final options = Catcher2Options(ShoutReportMode(), []);
 
@@ -31,12 +60,23 @@ void main() async {
       ..environment = kInstalledRelease.channel.name,
   );
 
-  // False positive as it's wrapped in a kDebugMode check
-  // ignore: avoid_print
   if (kDebugMode) Logger.root.onRecord.listen(debugLogHandler);
 
-  // TODO(mcquenji): write to file in release mode
-  if (kReleaseMode) Logger.root.onRecord.listen(debugLogHandler);
+  if (kReleaseMode) {
+    Logger.root.onRecord.listen((record) {
+      final scrubbed = LogRecord(
+        record.level,
+        scrubSensitiveData(record.message),
+        record.loggerName,
+        record.error,
+        record.stackTrace,
+        record.zone,
+        record.object,
+      );
+      // TODO(mcquenji): write to file
+      debugLogHandler(scrubbed);
+    });
+  }
 
   Modular
     ..setInitialRoute('/dashboard/')
