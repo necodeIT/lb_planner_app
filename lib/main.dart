@@ -47,18 +47,10 @@ String scrubSensitiveData(String message) {
 void main() async {
   final options = Catcher2Options(ShoutReportMode(), []);
 
-  WidgetsFlutterBinding.ensureInitialized();
-
   Logger.root.level = Level.ALL;
 
   DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
   NetworkService.timeout = const Duration(seconds: 30);
-
-  await Sentry.init(
-    (options) => options
-      ..dsn = kSentryDSN
-      ..environment = kInstalledRelease.channel.name,
-  );
 
   if (kDebugMode) Logger.root.onRecord.listen(debugLogHandler);
 
@@ -107,15 +99,20 @@ void main() async {
   });
 
   if (await FlutterSingleInstance.platform.isFirstInstance()) {
-    Catcher2(
-      releaseConfig: options,
-      debugConfig: options,
-      rootWidget: ModularApp(
-        module: AppModule(),
-        debugMode: false,
-        child: const AppWidget(),
+    await Sentry.init(
+      (options) => options
+        ..dsn = kSentryDSN
+        ..environment = kInstalledRelease.toString(),
+      appRunner: () => Catcher2(
+        releaseConfig: options,
+        debugConfig: options,
+        rootWidget: ModularApp(
+          module: AppModule(),
+          debugMode: false,
+          child: const AppWidget(),
+        ),
+        enableLogger: false,
       ),
-      enableLogger: false,
     );
   } else {
     Logger(kAppName).severe('App is already running');
@@ -137,7 +134,6 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
     super.initState();
-
     _authSubscription = Modular.get<AuthRepository>().listen(_listener);
   }
 

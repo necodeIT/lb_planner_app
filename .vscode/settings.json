@@ -13,9 +13,10 @@
     "dashboard"
   ],
   "dart.flutterRunAdditionalArgs": [
-    "--dart-define=MOODLE_ENDPOINT=https://projekte.tgm.ac.at/lbplaner4"
+    "--dart-define=MOODLE_ENDPOINT=https://projekte.tgm.ac.at/lbplaner4",
+    "--dart-define-from-file=.env"
   ],
   "dart.flutterRememberSelectedDevice": true,
   "dart.debugSdkLibraries": true,
-  "dart.debugExternalPackageLibraries": true,
+  "dart.debugExternalPackageLibraries": true
 }
