@@ -7,22 +7,22 @@ scripts:
     name: "Clean"
     description: "Clean project and re-fetch packages"
     steps:
-      - run: flutter clean
-      - run: flutter pub get
+      - run: fvm flutter clean
+      - run: fvm flutter pub get
   builder:
     name: "Builder"
     description: "Run build_runner"
     steps:
-      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      - run: fvm flutter pub run build_runner build --delete-conflicting-outputs
   generate:
     name: "Generate"
     steps:
-      - run: flutter pub run build_runner build --delete-conflicting-outputs
-      - run: flutter gen-l10n
+      - run: fvm flutter pub run build_runner build --delete-conflicting-outputs
+      - run: fvm flutter gen-l10n
   translate:
     name: "Translate"
     description: "Generate translations strings from arb files"
-    run: flutter gen-l10n
+    run: fvm flutter gen-l10n
   watch:
     name: "Watch"
     description: "Run build_runner watch"

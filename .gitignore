@@ -47,3 +47,5 @@ app.*.map.json
 
 # Mason
 .mason
+
+.env

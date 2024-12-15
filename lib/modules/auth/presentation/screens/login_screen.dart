@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
             left: 20,
             bottom: 20,
             child: Text(
-              context.t.auth_version(kInstalledRelease.version.toString()),
+              context.t.auth_version(kInstalledRelease.toString()),
             ).color(context.theme.colorScheme.onPrimary),
           ),
           const Align(
