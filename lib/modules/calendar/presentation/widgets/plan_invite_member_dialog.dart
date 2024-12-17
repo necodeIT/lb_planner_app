@@ -34,7 +34,7 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
 
     return AlertDialog(
       backgroundColor: context.theme.cardColor,
-      title: const Text('Invite member'),
+      title: const Text('Invite users'),
       actions: [
         TextButton(
           onPressed: () {
