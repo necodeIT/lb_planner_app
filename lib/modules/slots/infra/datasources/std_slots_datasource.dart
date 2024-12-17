@@ -3,9 +3,6 @@ import 'package:lb_planner/modules/slots/slots.dart';
 
 /// Standard implementation of [SlotsDatasource].
 class StdSlotsDatasource extends SlotsDatasource {
-  @override
-  void dispose() {}
-
   /// The API service to use.
   final ApiService api;
 

@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:catcher_2/catcher_2.dart';
 import 'package:catcher_2/model/platform_type.dart';
+import 'package:context_menus/context_menus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,6 +16,7 @@ import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:window_manager/window_manager.dart';
 
 /// Censores sensitive data in log messages.
 String scrubSensitiveData(String message) {
@@ -74,6 +77,9 @@ void main() async {
     ..setInitialRoute('/dashboard/')
     ..setObservers([LogObserver()]);
 
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+
   setPrintResolver((msg) {
     final logger = Logger('Modular');
     final parts = msg.split(' ');
@@ -97,6 +103,8 @@ void main() async {
 
     log(msg);
   });
+
+  Modular.setObservers([kRouteObserver]);
 
   if (await FlutterSingleInstance.platform.isFirstInstance()) {
     await Sentry.init(
@@ -153,13 +161,53 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeRepository>();
 
-    return MaterialApp.router(
-      theme: theme.state,
-      title: kAppName,
-      routerConfig: Modular.routerConfig,
-      onGenerateTitle: (context) => kAppName,
-      supportedLocales: AppLocalizations.supportedLocales,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+    return Theme(
+      data: theme.state,
+      child: ContextMenuOverlay(
+        buttonBuilder: (context, config, [style]) => HoverBuilder(
+          builder: (context, isHovering) => TextButton(
+            onPressed: config.onPressed,
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              overlayColor: WidgetStateProperty.all(Colors.transparent),
+            ),
+            child: IconTheme(
+              data: context.theme.iconTheme.copyWith(color: context.theme.colorScheme.onSurface, size: 15),
+              child: Row(
+                children: [
+                  if (config.icon != null) isHovering ? config.iconHover ?? config.icon! : config.icon!,
+                  if (config.icon != null) Spacing.xsHorizontal(),
+                  Text(
+                    config.label,
+                    style: TextStyle(color: context.theme.colorScheme.onSurface),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        cardBuilder: (context, children) => Container(
+          padding: PaddingAll(Spacing.xsSpacing),
+          decoration: ShapeDecoration(
+            color: theme.state.cardColor,
+            shape: squircle(),
+            shadows: kElevationToShadow[8],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: children,
+          ),
+        ),
+        child: MaterialApp.router(
+          theme: theme.state,
+          title: kAppName,
+          routerConfig: Modular.routerConfig,
+          onGenerateTitle: (context) => kAppName,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+        ),
+      ),
     );
   }
 

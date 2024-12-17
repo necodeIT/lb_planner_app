@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/dashboard/dashboard.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -17,6 +18,9 @@ export 'package:flutter_utils/flutter_utils.dart';
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'utils/utils.dart';
+
+/// Global route observer for the application.
+final kRouteObserver = RouteObserver();
 
 /// Root module of the application.
 class AppModule extends Module {

@@ -10,6 +10,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _apiService.dispose();
   }
 

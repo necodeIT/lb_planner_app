@@ -16,7 +16,9 @@ dependencies:
   catcher_2: ^1.2.6
   collection: any
   color_blindness: ^0.2.0
+  context_menus: ^2.0.0+1
   cupertino_icons: ^1.0.6
+  data_widget: ^0.0.2
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
   flutter:
@@ -33,6 +35,7 @@ dependencies:
     git:
       url: https://github.com/mcquenji/flutter_utils.git
   flutter_vector_icons: ^2.0.0
+  font_awesome_flutter: ^10.8.0
   freezed_annotation: ^2.4.4
   intl: any
   json_annotation: ^4.9.0
@@ -47,9 +50,13 @@ dependencies:
     git:
       url: https://github.com/mcquenji/mcquenji_versioning.git
   path: ^1.9.0
+  popover: ^0.3.1
   sentry_flutter: ^8.9.0
+  skeletonizer: ^1.4.2
   sprung: ^3.0.1
+  url_launcher: ^6.3.1
   vector_graphics: any
+  window_manager: ^0.4.3
 
 dev_dependencies:
   architecture_linter: ^0.2.2
@@ -74,6 +81,9 @@ dependency_overrides:
     git:
       url: https://github.com/necodeIT/modular.git
       path: modular_core
+  popover:
+    git:
+      url: https://github.com/necodeIT/popover.git
 
 flutter:
   uses-material-design: true

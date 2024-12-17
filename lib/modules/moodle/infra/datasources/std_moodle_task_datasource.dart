@@ -6,6 +6,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _apiService.dispose();
   }
 
