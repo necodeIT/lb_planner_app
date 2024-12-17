@@ -80,7 +80,7 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
               onPressed: showInviteMemberDialog,
               child: const Row(
                 children: [
-                  Text('Invite member'),
+                  Text('Invite users'),
                   Spacer(),
                   Icon(
                     FontAwesome5Solid.user_plus,
