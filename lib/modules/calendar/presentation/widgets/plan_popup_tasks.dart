@@ -35,14 +35,13 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
 
   @override
   Widget build(BuildContext context) {
-    final plan = context.watch<CalendarPlanRepository>().state;
-    final tasks = context.watch<MoodleTasksRepository>();
+    final plan = context.watch<CalendarPlanRepository>();
 
-    if (!plan.hasData || !tasks.state.hasData) {
+    if (!plan.state.hasData) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final filteredTasks = tasks.filter(query: searchController.text).where((t) => !plan.requireData.deadlines.any((d) => d.id == t.id)).toList();
+    final filteredTasks = plan.getUnplannedTasks().filter(query: searchController.text).toList();
 
     return Column(
       children: [

@@ -105,16 +105,25 @@ class _PlanMemberWidgetState extends State<PlanMemberWidget> {
                   style: context.theme.textTheme.bodySmall,
                 ),
             ],
-          ).stretch(),
+          ).expanded(),
           Spacing.xsHorizontal(),
           if (!changingAccess && !removing)
-            Icon(
-              switch (widget.member.accessType) {
-                PlanMemberAccessType.owner => FontAwesomeIcons.crown,
-                PlanMemberAccessType.write => FontAwesomeIcons.pen,
-                PlanMemberAccessType.read => FontAwesomeIcons.eye,
-              },
-              color: context.theme.primaryColor,
+            ConditionalWrapper(
+              condition: !isOwner && currentAccess == PlanMemberAccessType.owner,
+              wrapper: (context, child) => ScaleOnHover(
+                duration: const Duration(milliseconds: 100),
+                scale: 1.1,
+                onTap: incrementAccess,
+                child: child,
+              ),
+              child: Icon(
+                switch (widget.member.accessType) {
+                  PlanMemberAccessType.owner => FontAwesomeIcons.crown,
+                  PlanMemberAccessType.write => FontAwesomeIcons.pen,
+                  PlanMemberAccessType.read => FontAwesomeIcons.eye,
+                },
+                color: context.theme.colorScheme.primary,
+              ),
             ),
           if (!changingAccess && !removing) Spacing.xsHorizontal(),
           if (isOwner && widget.member.accessType != PlanMemberAccessType.owner && !removing)

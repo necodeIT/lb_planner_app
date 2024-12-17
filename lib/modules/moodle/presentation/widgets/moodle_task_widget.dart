@@ -54,6 +54,7 @@ class MoodleTaskWidget extends StatelessWidget {
                   icon: const Icon(Icons.link),
                   iconHover: Icon(Icons.link, color: context.theme.colorScheme.primary),
                 ),
+                ...additionalContextMenuItems,
               ],
             ),
             child: child,
