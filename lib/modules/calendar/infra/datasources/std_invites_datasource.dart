@@ -10,6 +10,7 @@ class StdInvitesDatasource extends InvitesDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _apiService.dispose();
   }
 

@@ -10,6 +10,7 @@ class StdPlanDatasource extends PlanDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _apiService.dispose();
   }
 

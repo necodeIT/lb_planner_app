@@ -1,3 +1,4 @@
+
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -57,8 +58,10 @@ class _TitleBarState extends State<TitleBar> {
                       user.fullname,
                       style: context.textTheme.titleMedium?.semiBold,
                     ).fontSize(17),
-                    if (user.capabilities.isNotEmpty) Text(user.capabilities.highest.name).color(context.theme.colorScheme.primary),
-                    'test'.text.color(context.theme.colorScheme.primary),
+                    if (user.vintage != null)
+                      user.vintage!.humanReadable.text.color(context.theme.colorScheme.primary).color(context.theme.colorScheme.primary)
+                    else if (user.capabilities.isNotEmpty)
+                      Text(user.capabilities.highest.name).color(context.theme.colorScheme.primary),
                   ],
                 ),
               ].show(),

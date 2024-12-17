@@ -11,6 +11,7 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _api.dispose();
   }
 

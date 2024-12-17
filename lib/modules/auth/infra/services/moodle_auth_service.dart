@@ -12,6 +12,7 @@ class MoodleAuthService extends AuthService {
 
   @override
   void dispose() {
+    super.dispose();
     _apiService.dispose();
     _networkService.dispose();
   }

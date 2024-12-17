@@ -1,0 +1,72 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_utils/flutter_utils.dart';
+import 'package:lb_planner/modules/calendar/calendar.dart';
+import 'package:lb_planner/modules/moodle/moodle.dart';
+
+/// Members tab in the plan popup
+class PlanPopupMembers extends StatefulWidget {
+  /// Members tab in the plan popup
+  const PlanPopupMembers({super.key});
+
+  @override
+  State<PlanPopupMembers> createState() => _PlanPopupMembersState();
+}
+
+class _PlanPopupMembersState extends State<PlanPopupMembers> {
+  final searchController = TextEditingController();
+
+  @override
+  void initState() {
+    searchController.addListener(() {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final plan = context.watch<CalendarPlanRepository>().state;
+    final users = context.watch<UsersRepository>().state;
+
+    if (!plan.hasData || !users.hasData) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final filteredMembers = users.requireData
+        .filter(
+          username: searchController.text,
+          ids: plan.requireData.members.map((m) => m.id).toList(),
+          firstname: searchController.text,
+          lastname: searchController.text,
+        )
+        .map((u) => plan.requireData.members.firstWhere((m) => m.id == u.id))
+        .toList();
+
+    return Column(
+      children: [
+        TextField(
+          controller: searchController,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: 'Search members',
+            prefixIcon: const Icon(Icons.search),
+            fillColor: context.theme.scaffoldBackgroundColor,
+            isDense: true,
+            contentPadding: PaddingAll(Spacing.xsSpacing),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+          ),
+        ).stretch(),
+        Spacing.smallVertical(),
+        ListView(
+          children: filteredMembers.map((m) => PlanMemberWidget(member: m)).toList(),
+        ),
+      ],
+    );
+  }
+}

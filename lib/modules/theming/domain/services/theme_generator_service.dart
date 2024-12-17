@@ -16,11 +16,29 @@ abstract class ThemeGeneratorService<Theme> extends Service {
 SmoothRectangleBorder squircle({
   BorderSide side = BorderSide.none,
   double radius = 10,
-}) =>
-    SmoothRectangleBorder(
-      side: side,
-      borderRadius: SmoothBorderRadius(
-        cornerRadius: radius,
-        cornerSmoothing: 0.9,
-      ),
-    );
+  bool topLeft = true,
+  bool topRight = true,
+  bool bottomLeft = true,
+  bool bottomRight = true,
+  bool left = true,
+  bool right = true,
+  bool top = true,
+  bool bottom = true,
+  BorderAlign borderAlign = BorderAlign.inside,
+}) {
+  final _radius = SmoothRadius(
+    cornerRadius: radius,
+    cornerSmoothing: 0.9,
+  );
+
+  return SmoothRectangleBorder(
+    side: side,
+    borderAlign: borderAlign,
+    borderRadius: SmoothBorderRadius.only(
+      topLeft: topLeft ? _radius : SmoothRadius.zero,
+      topRight: topRight ? _radius : SmoothRadius.zero,
+      bottomLeft: bottomLeft ? _radius : SmoothRadius.zero,
+      bottomRight: bottomRight ? _radius : SmoothRadius.zero,
+    ),
+  );
+}

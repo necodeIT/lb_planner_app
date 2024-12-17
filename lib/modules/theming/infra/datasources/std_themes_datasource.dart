@@ -7,9 +7,6 @@ import 'package:lb_planner/modules/theming/theming.dart';
 /// Standard implementation of [ThemesDatasource].
 class StdThemesDatasource extends ThemesDatasource {
   @override
-  void dispose() {}
-
-  @override
   ThemeBase get defaultTheme => ThemeBase(
         primaryColor: const Color(0xFFFFFFFF),
         secondaryColor: const Color(0xFFF2F3F9),

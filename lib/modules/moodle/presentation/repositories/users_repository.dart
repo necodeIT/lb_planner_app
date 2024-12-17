@@ -32,3 +32,22 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
     super.dispose();
   }
 }
+
+/// Extension methods for filtering users.
+extension FilterUserX on Iterable<User> {
+  /// Filters this list by [username], [lastname], [firstname], [vintage] and [ids] and returns list of users that match the filter criteria.
+  ///
+  /// String values are case-insensitive.
+  /// If [ids] is not empty, only users with an id in the list are returned.
+  Iterable<User> filter({String? username, String? lastname, String? firstname, Vintage? vintage, List<int> ids = const []}) {
+    return where((user) {
+      if (username != null && !user.username.containsIgnoreCase(username)) return false;
+      if (lastname != null && !user.lastname.containsIgnoreCase(lastname)) return false;
+      if (firstname != null && !user.firstname.containsIgnoreCase(firstname)) return false;
+      if (ids.isNotEmpty && !ids.contains(user.id)) return false;
+      if (vintage != null && user.vintage != vintage) return false;
+
+      return true;
+    });
+  }
+}

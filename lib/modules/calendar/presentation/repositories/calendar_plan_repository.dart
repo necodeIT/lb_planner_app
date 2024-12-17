@@ -88,14 +88,27 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
 
     try {
-      await _deadlines.setDeadline(
-        _auth.state.requireData[Webservice.lb_planner_api],
-        PlanDeadline(
-          id: taskId,
-          start: start,
-          end: end,
+      final deadline = PlanDeadline(
+        id: taskId,
+        start: start,
+        end: end,
+      );
+
+      data(
+        state.requireData.copyWith(
+          deadlines: [
+            ...state.requireData.deadlines.where((d) => d.id != taskId),
+            deadline,
+          ],
         ),
       );
+
+      await _deadlines.setDeadline(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        deadline,
+      );
+
+      log('Deadline set.');
     } catch (e, st) {
       log('Failed to set deadline.', e, st);
 
