@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
@@ -87,7 +88,9 @@ class _PlanCellState extends State<PlanCell> {
                           child: MoodleTaskWidget(task: t, displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon),
                         ),
                       )
-                      .toList(),
+                      .toList()
+                      .vSpaced(Spacing.smallSpacing),
+                  if (draggedTasks.isNotEmpty) Spacing.smallVertical(),
                   ...tasks
                       .map(
                         (t) => LayoutBuilder(
@@ -95,6 +98,17 @@ class _PlanCellState extends State<PlanCell> {
                             final widget = MoodleTaskWidget(
                               task: t,
                               displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
+                              additionalContextMenuItems: [
+                                ContextMenuButtonConfig(
+                                  'Remove deadline',
+                                  icon: const Icon(Icons.delete),
+                                  iconHover: Icon(
+                                    Icons.delete,
+                                    color: context.theme.colorScheme.error,
+                                  ),
+                                  onPressed: () => plan.removeDeadline(t.id),
+                                ),
+                              ],
                             );
                             return Draggable(
                               data: t,
@@ -108,7 +122,8 @@ class _PlanCellState extends State<PlanCell> {
                           },
                         ),
                       )
-                      .toList(),
+                      .toList()
+                      .vSpaced(Spacing.smallSpacing),
                 ],
               ).expanded(),
             ],

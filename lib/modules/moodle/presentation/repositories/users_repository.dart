@@ -39,8 +39,12 @@ extension FilterUserX on Iterable<User> {
   ///
   /// String values are case-insensitive.
   /// If [ids] is not empty, only users with an id in the list are returned.
-  Iterable<User> filter({String? username, String? lastname, String? firstname, Vintage? vintage, List<int> ids = const []}) {
+  Iterable<User> filter({String? query, String? username, String? lastname, String? firstname, Vintage? vintage, List<int> ids = const []}) {
     return where((user) {
+      if (query != null &&
+          !user.username.containsIgnoreCase(query) &&
+          !user.lastname.containsIgnoreCase(query) &&
+          !user.firstname.containsIgnoreCase(query)) return false;
       if (username != null && !user.username.containsIgnoreCase(username)) return false;
       if (lastname != null && !user.lastname.containsIgnoreCase(lastname)) return false;
       if (firstname != null && !user.firstname.containsIgnoreCase(firstname)) return false;

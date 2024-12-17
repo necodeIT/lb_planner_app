@@ -2,6 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 
@@ -16,6 +17,13 @@ class PlanPopupMembers extends StatefulWidget {
 
 class _PlanPopupMembersState extends State<PlanPopupMembers> {
   final searchController = TextEditingController();
+
+  void showInviteMemberDialog() {
+    showDialog(
+      context: context,
+      builder: (_) => const PlanInviteMemberDialog(),
+    );
+  }
 
   @override
   void initState() {
@@ -43,7 +51,8 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
           lastname: searchController.text,
         )
         .map((u) => plan.requireData.members.firstWhere((m) => m.id == u.id))
-        .toList();
+        .toList()
+      ..sort();
 
     return Column(
       children: [
@@ -64,8 +73,24 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
         ).stretch(),
         Spacing.smallVertical(),
         ListView(
-          children: filteredMembers.map((m) => PlanMemberWidget(member: m)).toList(),
-        ),
+          children: [
+            ...filteredMembers.map((m) => PlanMemberWidget(member: m)).toList().vSpaced(Spacing.xsSpacing),
+            Spacing.smallVertical(),
+            ElevatedButton(
+              onPressed: showInviteMemberDialog,
+              child: const Row(
+                children: [
+                  Text('Invite member'),
+                  Spacer(),
+                  Icon(
+                    FontAwesome5Solid.user_plus,
+                    size: 15,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ).expanded(),
       ],
     );
   }
