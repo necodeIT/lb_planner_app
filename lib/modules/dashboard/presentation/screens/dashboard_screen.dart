@@ -23,9 +23,8 @@ class DashboardScreen extends StatelessWidget {
                   child: const TodaysTasks().stretch(),
                 ).show(stagger),
                 Spacing.medium(),
-                // TODO: list undone already due tasks
                 Expanded(
-                  child: const TodaysTasks().stretch(),
+                  child: const OverdueTasks().stretch(),
                 ).show(stagger),
               ],
             ),

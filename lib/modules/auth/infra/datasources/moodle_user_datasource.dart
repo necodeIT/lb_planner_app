@@ -9,6 +9,7 @@ class MoodleUserDatasource extends UserDatasource {
 
   @override
   void dispose() {
+    super.dispose();
     _api.dispose();
   }
 

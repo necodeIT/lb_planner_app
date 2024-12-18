@@ -8,9 +8,6 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
   StdMoodleCourseDatasource(this._apiService);
 
   @override
-  void dispose() {}
-
-  @override
   Future<List<MoodleCourse>> getCourses(String token) async {
     try {
       final response = await _apiService.callFunction(

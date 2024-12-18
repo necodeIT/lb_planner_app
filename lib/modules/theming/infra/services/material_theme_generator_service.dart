@@ -4,9 +4,6 @@ import 'package:lb_planner/modules/theming/theming.dart';
 /// Implementation of [ThemeGeneratorService] for [ThemeData].
 class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
   @override
-  void dispose() {}
-
-  @override
   ThemeData generateTheme(ThemeBase themeBase) {
     log('Generating ${themeBase.name} theme');
 
@@ -81,8 +78,13 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
       iconButtonTheme: const IconButtonThemeData(
         style: ButtonStyle(
           splashFactory: NoSplash.splashFactory,
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
+          backgroundColor: WidgetStatePropertyAll(Colors.transparent),
         ),
       ),
+      splashColor: Colors.transparent,
+      splashFactory: NoSplash.splashFactory,
+      cardColor: themeBase.primaryColor,
     );
   }
 }

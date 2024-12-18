@@ -10,7 +10,7 @@ abstract class PlanDatasource extends Datasource {
   Future<CalendarPlan> getPlan(String token);
 
   /// Updates the plan for the user associated with the given [token] and returns the updated plan confirmed by the server.
-  Future<CalendarPlan> updatePlan(String token, CalendarPlan plan);
+  Future<void> updatePlan(String token, CalendarPlan plan);
 
   /// Leaves a shared plan of the user associated with the given [token].
   Future<void> leavePlan(String token);

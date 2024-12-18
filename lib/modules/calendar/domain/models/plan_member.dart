@@ -9,7 +9,7 @@ part 'plan_member.g.dart';
 
 /// A member of a [CalendarPlan].
 @freezed
-class PlanMember with _$PlanMember {
+class PlanMember with _$PlanMember implements Comparable<PlanMember> {
   /// A member of a [CalendarPlan].
   const factory PlanMember({
     /// The ID of the [User].
@@ -23,6 +23,9 @@ class PlanMember with _$PlanMember {
 
   /// Creates a [PlanMember] from a JSON object.
   factory PlanMember.fromJson(Map<String, Object?> json) => _$PlanMemberFromJson(json);
+
+  @override
+  int compareTo(PlanMember other) => accessType.index - other.accessType.index;
 }
 
 /// The access type of a member in a plan.

@@ -21,14 +21,15 @@ class MoodleModule extends Module {
       ];
 
   @override
-  void binds(Injector i) {
+  void exportedBinds(Injector i) {
     i
       ..add<MoodleCourseDatasource>(StdMoodleCourseDatasource.new)
       ..addRepository<MoodleCoursesRepository>(MoodleCoursesRepository.new)
       ..addSerde<MoodleCourse>(fromJson: MoodleCourse.fromJson, toJson: (c) => c.toJson())
       ..add<MoodleTaskDatasource>(StdMoodleTaskDatasource.new)
       ..addRepository<MoodleTasksRepository>(MoodleTasksRepository.new)
-      ..addSerde<MoodleTask>(fromJson: MoodleTask.fromJson, toJson: (t) => t.toJson());
+      ..addSerde<MoodleTask>(fromJson: MoodleTask.fromJson, toJson: (t) => t.toJson())
+      ..addRepository<UsersRepository>(UsersRepository.new);
   }
 
   @override
