@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
@@ -127,6 +128,12 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
 
     try {
+      data(
+        state.requireData.copyWith(
+          deadlines: state.requireData.deadlines.where((d) => d.id != id).toList(),
+        ),
+      );
+
       await _deadlines.removeDeadline(
         _auth.state.requireData[Webservice.lb_planner_api],
         id,
@@ -217,20 +224,36 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   }
 
   /// Sets [CalendarPlan.optionalTasksEnabled] to [enabled].
-  Future<void> enableOptionalTasks({bool enabled = true}) async {
+  // Using positional parameters here for ease of use in the UI.
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> enableOptionalTasks(bool? enabled) async {
     if (!state.hasData) {
       log('Cannot set optional tasks enabled: No plan loaded.');
 
       return;
     }
 
+    if (enabled == null) {
+      log('Cannot set optional tasks enabled: No value provided.');
+
+      return;
+    }
+
     try {
+      data(
+        state.requireData.copyWith(
+          optionalTasksEnabled: enabled,
+        ),
+      );
+
       await _plan.updatePlan(
         _auth.state.requireData[Webservice.lb_planner_api],
         state.requireData.copyWith(
           optionalTasksEnabled: enabled,
         ),
       );
+
+      await _tasks.build(CalendarPlanRepository);
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
 
@@ -258,6 +281,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     int? taskId,
     DateTime? start,
     DateTime? end,
+    DateTime? betweenStart,
+    DateTime? betweenEnd,
     bool? plannedForToday,
   }) {
     if (!state.hasData) {
@@ -266,11 +291,22 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return [];
     }
 
+    final now = DateTime.now();
+
     return state.requireData.deadlines.where((deadline) {
       if (taskId != null && deadline.id != taskId) return false;
       if (start != null && deadline.start != start) return false;
       if (end != null && deadline.end != end) return false;
-      if (plannedForToday != null && deadline.start.isBefore(DateTime.now()) && deadline.end.isAfter(DateTime.now())) return false;
+
+      if (betweenStart != null && deadline.start.isBefore(betweenStart)) return false;
+      if (betweenEnd != null && deadline.end.isAfter(betweenEnd)) return false;
+
+      if (plannedForToday != null) {
+        final startsBeforeToday = deadline.start.isBefore(now) || deadline.start.isSameDate(now);
+        final endsAfterToday = deadline.end.isAfter(now) || deadline.end.isSameDate(now);
+
+        if (plannedForToday && !(startsBeforeToday && endsAfterToday)) return false;
+      }
 
       return true;
     }).toList();

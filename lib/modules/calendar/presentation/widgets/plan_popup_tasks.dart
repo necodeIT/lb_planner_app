@@ -19,6 +19,7 @@ class PlanPopupTasks extends StatefulWidget {
 
 class _PlanPopupTasksState extends State<PlanPopupTasks> {
   final searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -41,10 +42,26 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final filteredTasks = plan.getUnplannedTasks().filter(query: searchController.text).toList();
+    final filteredTasks = plan.getUnplannedTasks().filter(
+      query: searchController.text,
+      type: {
+        MoodleTaskType.required,
+        if (plan.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
+      },
+    ).toList();
 
     return Column(
       children: [
+        Row(
+          children: [
+            Checkbox(
+              value: plan.state.requireData.optionalTasksEnabled,
+              onChanged: plan.enableOptionalTasks,
+            ),
+            const Text('Show optional tasks'),
+          ],
+        ),
+        Spacing.smallVertical(),
         TextField(
           controller: searchController,
           decoration: InputDecoration(

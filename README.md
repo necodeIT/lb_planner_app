@@ -26,8 +26,16 @@ This is the source code for the frontend of LB Planner.
 1. Once you've cloned the repository open it in VsCode
 2. If not already, install the recommended extensions.
    - VsCode should prompt you upon opening the project.
-3. Run `fvm use && fvm flutter pub get` to install the flutter version used for this project.
-4. Restart VsCode so that it recognizes the flutter version.
+3. Copy the `.env.example` file to `.env` and fill in the required values.
+
+   ```bash
+    cp .env.example .env
+    ```
+
+4. Run `fvm use && fvm flutter pub get` to install the flutter version used for this project.
+5. Restart VsCode so that it recognizes the flutter version.
+6. If you are running the app from a terminal, run `fvm flutter run --dart-define-from-file=.env` to start the app.
+   1. VsCode should automatically detect the `.env` file and run the app with the correct environment variables.
 
 ### Tools
 

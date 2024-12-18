@@ -41,7 +41,13 @@ class _PlanCellState extends State<PlanCell> {
     final user = context.watch<UserRepository>();
 
     final deadlines = plan.filterDeadlines(start: widget.date, end: widget.date);
-    final tasks = allTasks.filter(taskIds: deadlines.map((e) => e.id).toSet());
+    final tasks = allTasks.filter(
+      taskIds: deadlines.map((e) => e.id).toSet(),
+      type: {
+        MoodleTaskType.required,
+        if (plan.state.data?.optionalTasksEnabled ?? false) MoodleTaskType.optional,
+      },
+    );
 
     return DragTarget<MoodleTask>(
       onMove: (details) => true,

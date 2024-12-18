@@ -96,11 +96,11 @@ class StdPlanDatasource extends PlanDatasource {
   }
 
   @override
-  Future<CalendarPlan> updatePlan(String token, CalendarPlan plan) async {
+  Future<void> updatePlan(String token, CalendarPlan plan) async {
     log('Updating plan');
 
     try {
-      final response = await _apiService.callFunction(
+      await _apiService.callFunction(
         function: 'local_lbplanner_plan_update_plan',
         token: token,
         body: {
@@ -109,11 +109,7 @@ class StdPlanDatasource extends PlanDatasource {
         },
       );
 
-      response.assertJson();
-
       log('Plan updated');
-
-      return CalendarPlan.fromJson(response.asJson);
     } catch (e, s) {
       log('Failed to update plan', e, s);
       rethrow;
