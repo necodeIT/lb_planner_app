@@ -105,14 +105,18 @@ extension TasksFilterX on Iterable<MoodleTask> {
     Set<MoodleTaskStatus> status = const {},
     Set<MoodleTaskType> type = const {},
   }) {
+    final now = DateTime.now();
+
     return where((task) {
       if (courseId != null && task.courseId != courseId) return false;
       if (taskId != null && task.id != taskId) return false;
 
+      if (task.deadline == null && (deadlineDiff != null || minDeadlineDiff != null || maxDeadlineDiff != null)) return false;
+
       if (task.deadline != null) {
-        if (deadlineDiff != null && task.deadline!.difference(DateTime.now()) == deadlineDiff) return false;
-        if (minDeadlineDiff != null && task.deadline!.difference(DateTime.now()) < minDeadlineDiff) return false;
-        if (maxDeadlineDiff != null && task.deadline!.difference(DateTime.now()) > maxDeadlineDiff) return false;
+        if (deadlineDiff != null && task.deadline!.difference(now) != deadlineDiff) return false;
+        if (minDeadlineDiff != null && task.deadline!.difference(now) < minDeadlineDiff) return false;
+        if (maxDeadlineDiff != null && task.deadline!.difference(now) > maxDeadlineDiff) return false;
       }
 
       if (status.isNotEmpty && !status.contains(task.status)) return false;

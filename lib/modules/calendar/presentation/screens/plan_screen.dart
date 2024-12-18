@@ -1,9 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 import 'package:intl/intl.dart';
+import 'package:lb_planner/main.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:popover/popover.dart';

@@ -3,6 +3,7 @@ import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:intl/intl.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
@@ -32,6 +33,9 @@ class MoodleTaskWidget extends StatelessWidget {
   final List<ContextMenuButtonConfig> additionalContextMenuItems;
 
   static const double _height = 35;
+
+  /// Used to format the date of the task when [displayMode] is [MoodleTaskWidgetDisplayMode.nameAndCourseAndDate].
+  static final formatter = DateFormat('dd.MM.yyyy');
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +115,10 @@ class MoodleTaskWidget extends StatelessWidget {
                               color: context.theme.colorScheme.onPrimary,
                             ),
                     ),
+                  MoodleTaskWidgetDisplayMode.nameAndCourseAndDate => Text(
+                      formatter.format(task.deadline ?? DateTime.now()),
+                      style: TextStyle(color: context.theme.disabledColor),
+                    ),
                 },
               ],
             ),
@@ -143,4 +151,7 @@ enum MoodleTaskWidgetDisplayMode {
 
   /// Displays the task's name and the [CourseTag] of its parent course, plus a different icon depending on the task's status.
   nameAndCourseAndIcon,
+
+  /// Displays the task's name and the [CourseTag] of its parent course, plus the task's [MoodleTask.deadline]
+  nameAndCourseAndDate,
 }
