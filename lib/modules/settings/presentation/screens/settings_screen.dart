@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// Renders the settings screen.
 class SettingsScreen extends StatelessWidget {
@@ -41,9 +42,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: const Card(
-              child: SizedBox.expand(),
-            ).stretch(),
+            child: FeedbackWidget(),
           ).show(stagger),
         ].hSpaced(Spacing.mediumSpacing),
       ),
