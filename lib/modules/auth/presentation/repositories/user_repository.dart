@@ -108,4 +108,22 @@ class UserRepository extends Repository<AsyncValue<User>> {
       state.requireData.copyWith(language: lang),
     );
   }
+
+  Future<void> deleteUser() async {
+    log('Deleting current user');
+
+    if (!state.hasData) {
+      log('User is not loaded yet.');
+
+      return;
+    }
+
+    try {
+      await _userDatasource.deleteUser(_auth.state.requireData[Webservice.lb_planner_api]);
+
+      log('User deleted successfully.');
+    } catch (e, s) {
+      log('Failed to delete User.', e, s);
+    }
+  }
 }
