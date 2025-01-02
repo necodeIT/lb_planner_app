@@ -23,6 +23,9 @@ class User with _$User {
     /// The lastname of the user
     required String lastname,
 
+    /// The email address of the user
+    @Default('') String email,
+
     /// A bitmask of the capabilities the user has
     @Default(-1) @JsonKey(name: 'capabilities') int capabilitiesBitMask,
 

@@ -1,11 +1,14 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/config/posthog.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// A form prompting the user to input their credentials.
 class LoginForm extends StatefulWidget {
@@ -22,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
 
   final usernameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
+  final checkboxFocusNode = FocusNode();
 
   bool loggingIn = false;
   bool showPassword = false;
@@ -43,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
     final username = usernameController.text.trim();
     final password = passwordController.text.trim();
 
-    if (username.isEmpty || password.isEmpty) {
+    if (username.isEmpty || password.isEmpty || loggingIn || !acceptedTerms) {
       return;
     }
 
@@ -86,6 +90,17 @@ class _LoginFormState extends State<LoginForm> {
     return false;
   }
 
+  bool acceptedTerms = false;
+
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> acceptTerms([bool? value]) async {
+    setState(() {
+      acceptedTerms = value ?? !acceptedTerms;
+    });
+
+    context.read<UserRepository>().agreeToAnalytics(agree: acceptedTerms);
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthRepository>();
@@ -124,11 +139,42 @@ class _LoginFormState extends State<LoginForm> {
                 errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
               ),
               focusNode: passwordFocusNode,
-              onSubmitted: (_) => login(),
+              onSubmitted: (_) => checkboxFocusNode.requestFocus(),
+            ),
+            Spacing.mediumVertical(),
+            GestureDetector(
+              onTap: acceptTerms,
+              child: Row(
+                children: [
+                  Checkbox(
+                    value: acceptedTerms,
+                    onChanged: acceptTerms,
+                    focusNode: checkboxFocusNode,
+                  ),
+                  Spacing.xsHorizontal(),
+                  Text.rich(
+                    TextSpan(
+                      text: 'I accept the collection and processing of my data as described in the ',
+                      style: const TextStyle(fontSize: 12),
+                      children: [
+                        TextSpan(
+                          text: 'Privacy Policy',
+                          style: context.bodySmall?.copyWith(color: context.theme.colorScheme.primary),
+                          mouseCursor: SystemMouseCursors.click,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrl(kPrivacyPolicyUrl);
+                            },
+                        ),
+                      ],
+                    ),
+                  ).expanded(),
+                ],
+              ),
             ),
             if (auth.state.hasError) const SizedBox(height: 16) else const SizedBox(height: 40),
             ElevatedButton(
-              onPressed: passwordController.text.isEmpty || usernameController.text.isEmpty ? null : login,
+              onPressed: passwordController.text.isEmpty || usernameController.text.isEmpty || !acceptedTerms ? null : login,
               child: loggingIn ? const CircularProgressIndicator().button() : Text(context.t.auth_login).bold(),
             ).stretch(),
           ].show(),

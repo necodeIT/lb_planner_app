@@ -14,6 +14,7 @@ _$NotificationImpl _$$NotificationImplFromJson(Map<String, dynamic> json) =>
       readAt: _$JsonConverterFromJson<int, DateTime>(
           json['timestamp_read'], const UnixTimestampConverter().fromJson),
       type: $enumDecode(_$NotificationTypeEnumMap, json['type']),
+      context: (json['info'] as num?)?.toInt(),
       read: const BoolConverter().fromJson(json['status']),
       userId: (json['userid'] as num).toInt(),
     );
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$NotificationImplToJson(_$NotificationImpl instance) =>
       'timestamp_read': _$JsonConverterToJson<int, DateTime>(
           instance.readAt, const UnixTimestampConverter().toJson),
       'type': _$NotificationTypeEnumMap[instance.type]!,
+      'info': instance.context,
       'status': const BoolConverter().toJson(instance.read),
       'userid': instance.userId,
     };

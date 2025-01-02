@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
-import 'package:lb_planner/modules/theming/theming.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 /// Displays a form where the user can search for courses and enable/disable them.
 class CourseSelector extends StatefulWidget {
@@ -63,13 +63,18 @@ class _CourseSelectorState extends State<CourseSelector> {
                         ),
                     if (!courses.state.hasData)
                       for (int i = 0; i < 5; i++)
-                        Container(
-                          height: 30,
-                          decoration: ShapeDecoration(
-                            shape: squircle(),
-                            color: context.theme.colorScheme.surface,
-                          ),
-                        ).stretch().applyShimmerThemed(context),
+                        Skeletonizer(
+                          child: CourseWidget(
+                            key: ValueKey('loading_$i'),
+                            course: MoodleCourse(
+                              id: i,
+                              color: context.theme.primaryColor,
+                              name: 'Course $i',
+                              shortname: '$i',
+                              enabled: false,
+                            ),
+                          ).stretch(),
+                        ),
                   ].vSpaced(courses.state.hasData ? Spacing.xsSpacing : Spacing.smallSpacing).show(),
                 ),
               ),

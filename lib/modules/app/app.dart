@@ -10,6 +10,8 @@ import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:posthog_dart/posthog_dart.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 import 'presentation/presentation.dart';
 
@@ -32,7 +34,9 @@ class AppModule extends Module {
       ];
 
   @override
-  void binds(Injector i) {}
+  void binds(Injector i) {
+    i.add<PostHog>(PostHog.new);
+  }
 
   @override
   void routes(RouteManager r) {

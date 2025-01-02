@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -25,7 +26,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     this._invites,
   ) : super(AsyncValue.loading()) {
     watchAsync(_auth);
-    watchAsync(_tasks);
+    watchAsync(_tasks, setError: false, setLoading: false);
   }
 
   @override
@@ -74,7 +75,13 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
 
     try {
+      data(state.requireData.copyWith(deadlines: []));
+
       await _deadlines.clearDeadlines(_auth.state.requireData[Webservice.lb_planner_api]);
+
+      log('Plan cleared.');
+
+      await captureEvent('plan_cleared');
     } catch (e, st) {
       log('Failed to clear plan.', e, st);
 
@@ -112,6 +119,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       );
 
       log('Deadline set.');
+
+      await captureEvent('deadline_set', properties: {'id': taskId, 'start': start, 'end': end});
     } catch (e, st) {
       log('Failed to set deadline.', e, st);
 
@@ -138,6 +147,10 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         id,
       );
+
+      log('Deadline removed.');
+
+      await captureEvent('deadline_removed', properties: {'id': id});
     } catch (e, st) {
       log('Failed to remove deadline.', e, st);
 
@@ -155,6 +168,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
     try {
       await _plan.leavePlan(_auth.state.requireData[Webservice.lb_planner_api]);
+
+      await captureEvent('plan_left');
     } catch (e, st) {
       log('Failed to leave plan.', e, st);
 
@@ -175,6 +190,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         userId,
       );
+
+      await captureEvent('member_kicked');
     } catch (e, st) {
       log('Failed to remove member.', e, st);
 
@@ -196,6 +213,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         userId,
         accessType,
       );
+
+      await captureEvent('member_access_changed', properties: {'access_type': accessType});
     } catch (e, st) {
       log('Failed to modify member.', e, st);
 
@@ -254,6 +273,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       );
 
       await _tasks.build(CalendarPlanRepository);
+
+      await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
 
@@ -265,6 +286,12 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   List<MoodleTask> getUnplannedTasks() {
     if (!state.hasData) {
       log('Cannot get unplanned tasks: No plan loaded.');
+
+      return [];
+    }
+
+    if (!_tasks.state.hasData) {
+      log('Cannot get unplanned tasks: No tasks loaded.');
 
       return [];
     }
@@ -325,6 +352,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         userId,
       );
+
+      await captureEvent('user_invited');
     } catch (e, st) {
       log('Failed to invite user.', e, st);
 
@@ -345,6 +374,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         inviteId,
       );
+
+      await captureEvent('invite_declined');
     } catch (e, st) {
       log('Failed to decline invite.', e, st);
 
@@ -365,6 +396,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         inviteId,
       );
+
+      await captureEvent('invite_accepted');
     } catch (e, st) {
       log('Failed to accept invite.', e, st);
 

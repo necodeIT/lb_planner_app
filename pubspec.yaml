@@ -13,11 +13,10 @@ dependencies:
   awesome_extensions: ^2.0.17
   bloc: ^8.1.4
   carousel_slider: ^5.0.0
-  catcher_2: ^1.2.6
   collection: any
   color_blindness: ^0.2.0
   context_menus: ^2.0.0+1
-  cupertino_icons: ^1.0.6
+  crypto: ^3.0.6
   data_widget: ^0.0.2
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
@@ -29,8 +28,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_modular: ^6.3.4
-  flutter_single_instance: ^0.0.1
+  flutter_single_instance: ^1.1.1
   flutter_staggered_animations: ^1.1.1
+  flutter_sticky_header: ^0.7.0
   flutter_svg: ^2.0.10+1
   flutter_utils:
     git:
@@ -52,9 +52,14 @@ dependencies:
       url: https://github.com/mcquenji/mcquenji_versioning.git
   path: ^1.9.0
   popover: ^0.3.1
+  posthog_dart:
+    git:
+      url: https://github.com/necodeIT/posthog_dart.git
+  posthog_flutter: ^4.9.0
   sentry_flutter: ^8.9.0
   skeletonizer: ^1.4.2
   sprung: ^3.0.1
+  uicons_updated: ^0.0.5
   url_launcher: ^6.3.1
   vector_graphics: any
   window_manager: ^0.4.3
@@ -74,6 +79,10 @@ dev_dependencies:
   test: ^1.25.2
 
 dependency_overrides:
+  figma_squircle:
+    git:
+      url: git@github.com:mark8044/figma_squircle.git
+      ref: fix2
   flutter_modular:
     git:
       url: https://github.com/necodeIT/modular.git
@@ -85,6 +94,8 @@ dependency_overrides:
   popover:
     git:
       url: https://github.com/necodeIT/popover.git
+  # mcquenji_core:
+  #   path: ../mcquenji_core
 
 flutter:
   uses-material-design: true

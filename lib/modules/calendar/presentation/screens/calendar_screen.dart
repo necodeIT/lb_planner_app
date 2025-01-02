@@ -1,6 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
@@ -40,6 +41,8 @@ class CalendarScreenState extends State<CalendarScreen> {
       _actionBuilder = null;
       currentTab = tab;
     });
+
+    Modular.to.navigate('/calendar/${tab == CalendarScreenTab.plan ? 'plan' : 'tasks-overview'}');
   }
 
   @override
@@ -56,6 +59,7 @@ class CalendarScreenState extends State<CalendarScreen> {
       child: Column(
         children: [
           Container(
+            height: 60,
             padding: PaddingAll(Spacing.smallSpacing),
             child: Stack(
               alignment: Alignment.center,
@@ -64,7 +68,9 @@ class CalendarScreenState extends State<CalendarScreen> {
                   alignment: Alignment.centerLeft,
                   child: TextButton(
                     onPressed: () => switchTab(nextTab),
-                    child: Text('See ${nextTab.name}'),
+                    child: Text(
+                      nextTab == CalendarScreenTab.plan ? 'Plan' : 'Tasks Overview',
+                    ),
                   ),
                 ),
                 if (_actionBuilder != null) ..._actionBuilder!(context),
@@ -73,8 +79,8 @@ class CalendarScreenState extends State<CalendarScreen> {
           ),
           Data.inherit(
             data: this,
-            child: currentTab == CalendarScreenTab.plan ? const PlanScreen().expanded() : const TasksOverviewScreen().expanded(),
-          ),
+            child: const RouterOutlet(),
+          ).expanded(),
         ],
       ),
     );

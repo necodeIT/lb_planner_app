@@ -37,6 +37,10 @@ class CalendarModule extends Module {
       child: (_) => const CalendarScreen(),
       transition: TransitionType.custom,
       customTransition: defaultTransition,
+      children: [
+        ChildRoute('/plan', child: (_) => const PlanScreen()),
+        ChildRoute('/tasks-overview', child: (_) => const TasksOverviewScreen()),
+      ],
     );
   }
 }

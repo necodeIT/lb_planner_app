@@ -49,6 +49,9 @@ class ThemeBase with _$ThemeBase {
 
     /// The brightness of the theme.
     required Brightness brightness,
+
+    /// Whether the theme uses Material 3.
+    @Default(false) bool usesMaterial3,
   }) = _ThemeBase;
 
   const ThemeBase._();

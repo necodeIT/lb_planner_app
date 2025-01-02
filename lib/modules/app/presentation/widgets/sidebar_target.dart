@@ -18,16 +18,21 @@ class SidebarTarget extends StatefulWidget {
   /// Optional callback to run when the target is clicked.
   final VoidCallback? onTap;
 
+  /// Set this value if the target should be considered active when the route is not the same as the [route].
+  final String? activeRoute;
+
   /// A target in the [Sidebar] that navigates to a specific [route].
-  const SidebarTarget({super.key, required this.route, required this.icon, this.onTap});
+  const SidebarTarget({super.key, required this.route, required this.icon, this.onTap, this.activeRoute});
 
   @override
   State<SidebarTarget> createState() => _SidebarTargetState();
 }
 
 class _SidebarTargetState extends State<SidebarTarget> {
+  String get route => widget.activeRoute ?? widget.route;
+
   void _onTap() {
-    if (Modular.to.isActive(widget.route)) return;
+    if (Modular.to.isActive(route)) return;
 
     widget.onTap?.call();
     Modular.to.navigate(widget.route);
@@ -39,7 +44,7 @@ class _SidebarTargetState extends State<SidebarTarget> {
 
   void _onNavigate() {
     setState(() {
-      isActive = Modular.to.isActive(widget.route);
+      isActive = Modular.to.isActive(route);
     });
   }
 
@@ -51,7 +56,7 @@ class _SidebarTargetState extends State<SidebarTarget> {
 
     Modular.to.addListener(_onNavigate);
 
-    isActive = Modular.to.isActive(widget.route);
+    isActive = Modular.to.isActive(route);
   }
 
   @override

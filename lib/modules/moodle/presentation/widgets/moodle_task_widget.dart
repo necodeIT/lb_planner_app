@@ -72,7 +72,7 @@ class MoodleTaskWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                CourseTag(course: parent),
+                if (displayMode != MoodleTaskWidgetDisplayMode.nameAndCheckmark) CourseTag(course: parent),
                 Spacing.xsHorizontal(),
                 Text(
                   task.name,
@@ -81,6 +81,11 @@ class MoodleTaskWidget extends StatelessWidget {
                 if (displayMode != MoodleTaskWidgetDisplayMode.nameAndCourse) Spacing.xsHorizontal(),
                 switch (displayMode) {
                   MoodleTaskWidgetDisplayMode.nameAndCourse => const SizedBox.shrink(),
+                  MoodleTaskWidgetDisplayMode.nameAndCheckmark => Checkbox(
+                      value: task.status == MoodleTaskStatus.uploaded || task.status == MoodleTaskStatus.done,
+                      onChanged: (_) {},
+                      mouseCursor: MouseCursor.defer,
+                    ),
                   MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark => Checkbox(
                       value: task.status == MoodleTaskStatus.uploaded || task.status == MoodleTaskStatus.done,
                       onChanged: (_) {},
@@ -154,4 +159,7 @@ enum MoodleTaskWidgetDisplayMode {
 
   /// Displays the task's name and the [CourseTag] of its parent course, plus the task's [MoodleTask.deadline]
   nameAndCourseAndDate,
+
+  /// Same as [nameAndCourseAndCheckmark], but without the course tag.
+  nameAndCheckmark,
 }

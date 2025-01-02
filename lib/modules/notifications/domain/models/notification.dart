@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
+import 'package:lb_planner/modules/notifications/notifications.dart';
 
 part 'notification.freezed.dart';
 part 'notification.g.dart';
@@ -26,6 +27,10 @@ class Notification with _$Notification {
     /// The message is displayed differently based on the type.
     required NotificationType type,
 
+    /// Additional context for the notification.
+    /// Interpretation depends on the [type].
+    @JsonKey(name: 'info') int? context,
+
     /// `true` if the notification has been read.
     @BoolConverter() @JsonKey(name: 'status') required bool read,
     @JsonKey(name: 'userid') required int userId,
@@ -40,10 +45,14 @@ class Notification with _$Notification {
 /// The type of a  [Notification].
 enum NotificationType {
   /// The user has been invited to a [CalendarPlan].
+  ///
+  /// [Notification.context] is the [CalendarPlan]'s unique identifier.
   @JsonValue(0)
   invite,
 
   /// An invited user has accepted the invitation.
+  ///
+  /// [Notification.context] is the [Invite]'s unique identifier.
   @JsonValue(1)
   inviteAccepted,
 

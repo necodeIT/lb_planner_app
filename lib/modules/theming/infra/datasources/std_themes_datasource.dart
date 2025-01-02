@@ -30,7 +30,7 @@ class StdThemesDatasource extends ThemesDatasource {
         : getThemes().firstWhere((element) => element.name == 'Dark');
 
     return theme.copyWith(
-      name: 'default',
+      name: 'System',
       icon: Icons.brightness_auto,
     );
   }

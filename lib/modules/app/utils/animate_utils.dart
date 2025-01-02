@@ -72,10 +72,11 @@ extension AnimateUtils on List<Widget> {
 extension AnimateX on Widget {
   /// Plays the default show animation for a route widget.
   Animate show(
-    AnimationStagger stagger, {
+    AnimationStagger? stagger, {
     Duration duration = const Duration(milliseconds: 500),
+    Duration delay = Duration.zero,
   }) {
-    return animate().scale(duration: duration, delay: stagger.add(), curve: Curves.easeOutCubic);
+    return animate().scale(duration: duration, delay: stagger?.add() ?? delay, curve: Curves.easeOutCubic);
   }
 }
 
