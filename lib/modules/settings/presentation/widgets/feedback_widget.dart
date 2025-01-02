@@ -1,12 +1,15 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:lb_planner/modules/app/app.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/modules/settings/settings.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:lb_planner/config/posthog.dart';
+import 'package:lb_planner/modules/app/app.dart';
+import 'package:lb_planner/modules/auth/auth.dart';
+import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:uicons_updated/uicons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FeedbackWidget extends StatefulWidget {
   const FeedbackWidget({super.key});
@@ -20,39 +23,96 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
   TextEditingController messageController = TextEditingController();
 
   bool sendingFeedback = false;
+  bool agreed = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    messageController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  void onChanged(bool? value) {
+    setState(() {
+      agreed = value ?? !agreed;
+    });
+  }
 
   Future<void> _sendFeedback() async {
-    //log('Sending user feedback.');
-
     if (sendingFeedback) {
       return;
     }
 
-    sendingFeedback = true;
+    setState(() {
+      sendingFeedback = true;
+    });
 
-    final sentryFeedback = SentryFeedback(
-      message: messageController.text,
-      contactEmail: 'email@test.com',
-      name: 'Max Mustermann',
-    );
+    final message = messageController.text.trim();
 
     try {
-      final sentryId = await Sentry.captureFeedback(sentryFeedback);
+      final user = context.read<UserRepository>().state.requireData;
 
-      await Sentry.configureScope((scope) async {
-        await scope.applyToEvent(SentryEvent(eventId: sentryId), Hint());
-        await scope.setTag('feedback-type', dropdownValue.name);
-      });
+      final sentryFeedback = SentryFeedback(
+        message: message,
+        contactEmail: user.email,
+        name: user.fullname,
+      );
+
+      final sentryId = await Sentry.captureFeedback(
+        sentryFeedback,
+        withScope: (scope) async {
+          await scope.setTag('type', dropdownValue.toString());
+          scope.level = dropdownValue.sentryLevel;
+        },
+      );
 
       messageController.clear();
-
-      //log('User feedback sent successfully.');
+      if (mounted) {
+        await showAlertDialog(
+          context,
+          title: 'Feedback sent',
+          message: 'Thank you for your feedback. We will get back to you as soon as possible.\n\nYour feedback ID is: $sentryId',
+        );
+      }
     } catch (e, s) {
-      rethrow;
-      //log('Failed to send user feedback.');
-    }
+      messageController.text = message;
 
-    sendingFeedback = false;
+      await Sentry.captureException(
+        'Failed to send feedback: $e',
+        stackTrace: s,
+        withScope: (scope) async {
+          await scope.setTag('type', dropdownValue.toString());
+          scope.level = SentryLevel.fatal;
+        },
+      );
+
+      if (mounted) {
+        await showAlertDialog(
+          context,
+          title: 'Unable to send feedback',
+          message: 'An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.',
+        );
+      }
+    } finally {
+      setState(() {
+        sendingFeedback = false;
+      });
+    }
+  }
+
+  Widget feedbackTypeIcon(FeedbackType type) {
+    return Icon(
+      switch (type) {
+        FeedbackType.bug => FontAwesome5Solid.bug,
+        FeedbackType.typo => UiconsSolid.text,
+        FeedbackType.feature => FontAwesome5Solid.lightbulb,
+        FeedbackType.other => FontAwesome5Solid.question_circle,
+      },
+      size: 15,
+    );
   }
 
   @override
@@ -73,33 +133,94 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                   children: [
                     Row(
                       children: [
-                        DropdownMenu(
-                          initialSelection: dropdownValue,
-                          enableFilter: false,
-                          enableSearch: false,
-                          dropdownMenuEntries: FeedbackType.values.map<DropdownMenuEntry<FeedbackType>>((type) {
-                            return DropdownMenuEntry<FeedbackType>(
-                              value: type,
-                              label: type.langString,
-                            );
-                          }).toList(),
-                          onSelected: (FeedbackType? value) {
-                            // This is called when the user selects an item.
-                            setState(() {
-                              dropdownValue = value!;
-                            });
-                          },
+                        Theme(
+                          data: context.theme.copyWith(
+                            colorScheme: context.theme.colorScheme.copyWith(onSurface: context.theme.colorScheme.primary),
+                          ),
+                          child: DropdownMenu(
+                            // alignmentOffset: const Offset(60, 70),
+                            width: 135,
+
+                            trailingIcon: const Icon(
+                              FontAwesome5Solid.chevron_down,
+                              size: 13,
+                            ),
+                            requestFocusOnTap: false, // disable text input
+                            initialSelection: dropdownValue,
+                            leadingIcon: feedbackTypeIcon(dropdownValue),
+                            dropdownMenuEntries: FeedbackType.values.map<DropdownMenuEntry<FeedbackType>>((type) {
+                              return DropdownMenuEntry<FeedbackType>(
+                                value: type,
+                                label: type.translate(context),
+                                leadingIcon: feedbackTypeIcon(type),
+                              );
+                            }).toList(),
+                            onSelected: (FeedbackType? value) {
+                              if (value == null) return;
+
+                              setState(() {
+                                dropdownValue = value;
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
                     Spacing.small(),
                     TextField(
-                            maxLines: null,
-                            expands: true,
-                            controller: messageController,
-                            decoration: InputDecoration.collapsed(hintText: "Please describe your problem."))
-                        .expanded(),
-                    TextButton(onPressed: _sendFeedback, child: Text('Submit')),
+                      maxLines: null,
+                      expands: true,
+                      controller: messageController,
+                      textAlignVertical: TextAlignVertical.top,
+                      decoration: InputDecoration(
+                        fillColor: context.theme.scaffoldBackgroundColor,
+                        filled: true,
+                        contentPadding: PaddingAll(Spacing.mediumSpacing),
+                        hoverColor: context.theme.scaffoldBackgroundColor,
+                        focusColor: context.theme.scaffoldBackgroundColor,
+                        hintText: 'Please describe your problem.',
+                        border: OutlineInputBorder(
+                          borderRadius: squircle().borderRadius,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ).expanded(),
+                    Spacing.small(),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () => onChanged(null),
+                        child: Row(
+                          children: [
+                            Checkbox(value: agreed, onChanged: onChanged),
+                            Text.rich(
+                              TextSpan(
+                                text: 'I agree to sharing my email address and name with the developers in accordance with our ',
+                                children: [
+                                  TextSpan(
+                                    text: 'Privacy Policy.',
+                                    style: context.bodySmall?.copyWith(
+                                      color: context.theme.colorScheme.primary,
+                                    ),
+                                    mouseCursor: SystemMouseCursors.click,
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        launchUrl(kPrivacyPolicyUrl);
+                                      },
+                                  ),
+                                ],
+                              ),
+                              style: TextStyle(fontSize: 12),
+                            ).expanded(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacing.small(),
+                    ElevatedButton(
+                      onPressed: agreed && messageController.text.isNotEmpty ? _sendFeedback : null,
+                      child: const Text('Submit Feedback'),
+                    ).stretch(),
                   ],
                 ),
               ),
@@ -111,13 +232,30 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
   }
 }
 
+/// The type of feedback that can be sent.
 enum FeedbackType {
-  bug(langString: 'Bug'),
-  typo(langString: 'Typo'),
-  feature(langString: 'Feature'),
-  other(langString: 'Other');
+  /// A bug report.
+  bug(_bug, SentryLevel.error),
 
-  const FeedbackType({required this.langString});
+  /// Incorrect text or translation.
+  typo(_typo, SentryLevel.warning),
 
-  final String langString;
+  /// A feature request.
+  feature(_feature, SentryLevel.info),
+
+  /// Does not fit into any other category.
+  other(_other, SentryLevel.debug);
+
+  const FeedbackType(this.translate, this.sentryLevel);
+
+  /// The translated string of the enum value.
+  final String Function(BuildContext) translate;
+
+  /// The [SentryLevel] equivalent of this type.
+  final SentryLevel sentryLevel;
+
+  static String _bug(BuildContext context) => 'Bug';
+  static String _typo(BuildContext context) => 'Typo';
+  static String _feature(BuildContext context) => 'Feature';
+  static String _other(BuildContext context) => 'Other';
 }

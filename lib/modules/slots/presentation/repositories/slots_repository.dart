@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -77,6 +78,14 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
         token: _auth.state.requireData.pick(Webservice.lb_planner_api),
         slotId: slot.id,
         date: date,
+      );
+
+      await captureEvent(
+        'slot_reserved',
+        properties: {
+          'reservation_date': DateTime.now().toIso8601String(),
+          'date': date.toIso8601String(),
+        },
       );
 
       data(

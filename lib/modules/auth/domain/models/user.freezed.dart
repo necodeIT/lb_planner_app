@@ -33,6 +33,9 @@ mixin _$User {
   /// The lastname of the user
   String get lastname => throw _privateConstructorUsedError;
 
+  /// The email address of the user
+  String get email => throw _privateConstructorUsedError;
+
   /// A bitmask of the capabilities the user has
   @JsonKey(name: 'capabilities')
   int get capabilitiesBitMask => throw _privateConstructorUsedError;
@@ -83,6 +86,7 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
+      String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
       @JsonKey(name: 'lang') String language,
@@ -112,6 +116,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
     Object? language = null,
@@ -137,6 +142,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       lastname: null == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       capabilitiesBitMask: null == capabilitiesBitMask
           ? _value.capabilitiesBitMask
@@ -186,6 +195,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
+      String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
       @JsonKey(name: 'lang') String language,
@@ -212,6 +222,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? username = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
     Object? language = null,
@@ -237,6 +248,10 @@ class __$$UserImplCopyWithImpl<$Res>
       lastname: null == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       capabilitiesBitMask: null == capabilitiesBitMask
           ? _value.capabilitiesBitMask
@@ -282,6 +297,7 @@ class _$UserImpl extends _User {
       required this.username,
       required this.firstname,
       required this.lastname,
+      this.email = '',
       @JsonKey(name: 'capabilities') this.capabilitiesBitMask = -1,
       @JsonKey(name: 'theme') this.themeName = '',
       @JsonKey(name: 'lang') this.language = '',
@@ -311,6 +327,11 @@ class _$UserImpl extends _User {
   /// The lastname of the user
   @override
   final String lastname;
+
+  /// The email address of the user
+  @override
+  @JsonKey()
+  final String email;
 
   /// A bitmask of the capabilities the user has
   @override
@@ -353,7 +374,7 @@ class _$UserImpl extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, language: $language, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCountInt: $displayTaskCountInt, vintage: $vintage)';
+    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, language: $language, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCountInt: $displayTaskCountInt, vintage: $vintage)';
   }
 
   @override
@@ -368,6 +389,7 @@ class _$UserImpl extends _User {
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
                 other.lastname == lastname) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.capabilitiesBitMask, capabilitiesBitMask) ||
                 other.capabilitiesBitMask == capabilitiesBitMask) &&
             (identical(other.themeName, themeName) ||
@@ -392,6 +414,7 @@ class _$UserImpl extends _User {
       username,
       firstname,
       lastname,
+      email,
       capabilitiesBitMask,
       themeName,
       language,
@@ -423,6 +446,7 @@ abstract class _User extends User {
       required final String username,
       required final String firstname,
       required final String lastname,
+      final String email,
       @JsonKey(name: 'capabilities') final int capabilitiesBitMask,
       @JsonKey(name: 'theme') final String themeName,
       @JsonKey(name: 'lang') final String language,
@@ -451,6 +475,10 @@ abstract class _User extends User {
   /// The lastname of the user
   @override
   String get lastname;
+
+  /// The email address of the user
+  @override
+  String get email;
 
   /// A bitmask of the capabilities the user has
   @override

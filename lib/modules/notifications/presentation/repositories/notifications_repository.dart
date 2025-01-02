@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -44,6 +45,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       _auth.state.requireData[Webservice.lb_planner_api],
       notification,
     );
+
+    await captureEvent('notification_read');
   }
 
   /// Marks all notifications as read.
@@ -75,6 +78,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     );
 
     log('All notifications marked as read');
+
+    await captureEvent('notifications_read');
   }
 
   /// Marks the given [notification] as unread.
@@ -83,6 +88,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       _auth.state.requireData[Webservice.lb_planner_api],
       notification,
     );
+
+    await captureEvent('notification_unread');
   }
 
   /// Marks all notifications as unread.
@@ -114,6 +121,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     );
 
     log('All notifications marked as unread');
+
+    await captureEvent('notifications_unread');
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -33,6 +34,15 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
     final tokens = _auth.state.requireData;
 
     await _courses.updateCourse(tokens[Webservice.lb_planner_api], course);
+
+    await captureEvent(
+      'course_updated',
+      properties: {
+        'id': course.id,
+        'color': const HexColorConverter().toJson(course.color),
+        'shortname': course.shortname,
+      },
+    );
   }
 
   /// Enables or disables the given [course].
@@ -60,6 +70,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
     emit(AsyncValue.data(updatedCourses));
 
     await updateCourse(updated);
+
+    await captureEvent('course_enabled', properties: {'id': course.id, 'enabled': enabled});
   }
 
   /// Filters the courses based on the given properties.

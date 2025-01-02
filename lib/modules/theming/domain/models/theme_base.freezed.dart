@@ -55,6 +55,9 @@ mixin _$ThemeBase {
   /// The brightness of the theme.
   Brightness get brightness => throw _privateConstructorUsedError;
 
+  /// Whether the theme uses Material 3.
+  bool get usesMaterial3 => throw _privateConstructorUsedError;
+
   /// Create a copy of ThemeBase
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -80,7 +83,8 @@ abstract class $ThemeBaseCopyWith<$Res> {
       Color textColor,
       String name,
       IconData icon,
-      Brightness brightness});
+      Brightness brightness,
+      bool usesMaterial3});
 }
 
 /// @nodoc
@@ -111,6 +115,7 @@ class _$ThemeBaseCopyWithImpl<$Res, $Val extends ThemeBase>
     Object? name = null,
     Object? icon = null,
     Object? brightness = null,
+    Object? usesMaterial3 = null,
   }) {
     return _then(_value.copyWith(
       primaryColor: null == primaryColor
@@ -165,6 +170,10 @@ class _$ThemeBaseCopyWithImpl<$Res, $Val extends ThemeBase>
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as Brightness,
+      usesMaterial3: null == usesMaterial3
+          ? _value.usesMaterial3
+          : usesMaterial3 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -190,7 +199,8 @@ abstract class _$$ThemeBaseImplCopyWith<$Res>
       Color textColor,
       String name,
       IconData icon,
-      Brightness brightness});
+      Brightness brightness,
+      bool usesMaterial3});
 }
 
 /// @nodoc
@@ -219,6 +229,7 @@ class __$$ThemeBaseImplCopyWithImpl<$Res>
     Object? name = null,
     Object? icon = null,
     Object? brightness = null,
+    Object? usesMaterial3 = null,
   }) {
     return _then(_$ThemeBaseImpl(
       primaryColor: null == primaryColor
@@ -273,6 +284,10 @@ class __$$ThemeBaseImplCopyWithImpl<$Res>
           ? _value.brightness
           : brightness // ignore: cast_nullable_to_non_nullable
               as Brightness,
+      usesMaterial3: null == usesMaterial3
+          ? _value.usesMaterial3
+          : usesMaterial3 // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -293,7 +308,8 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
       required this.textColor,
       required this.name,
       required this.icon,
-      required this.brightness})
+      required this.brightness,
+      this.usesMaterial3 = false})
       : super._();
 
   /// The color to use for the surface of components.
@@ -348,9 +364,14 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
   @override
   final Brightness brightness;
 
+  /// Whether the theme uses Material 3.
+  @override
+  @JsonKey()
+  final bool usesMaterial3;
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ThemeBase(primaryColor: $primaryColor, secondaryColor: $secondaryColor, tertiaryColor: $tertiaryColor, accentColor: $accentColor, onAccentColor: $onAccentColor, errorColor: $errorColor, moduleDoneColor: $moduleDoneColor, modulePendingColor: $modulePendingColor, moduleUploadedColor: $moduleUploadedColor, textColor: $textColor, name: $name, icon: $icon, brightness: $brightness)';
+    return 'ThemeBase(primaryColor: $primaryColor, secondaryColor: $secondaryColor, tertiaryColor: $tertiaryColor, accentColor: $accentColor, onAccentColor: $onAccentColor, errorColor: $errorColor, moduleDoneColor: $moduleDoneColor, modulePendingColor: $modulePendingColor, moduleUploadedColor: $moduleUploadedColor, textColor: $textColor, name: $name, icon: $icon, brightness: $brightness, usesMaterial3: $usesMaterial3)';
   }
 
   @override
@@ -370,7 +391,8 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('textColor', textColor))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('icon', icon))
-      ..add(DiagnosticsProperty('brightness', brightness));
+      ..add(DiagnosticsProperty('brightness', brightness))
+      ..add(DiagnosticsProperty('usesMaterial3', usesMaterial3));
   }
 
   @override
@@ -401,7 +423,9 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.brightness, brightness) ||
-                other.brightness == brightness));
+                other.brightness == brightness) &&
+            (identical(other.usesMaterial3, usesMaterial3) ||
+                other.usesMaterial3 == usesMaterial3));
   }
 
   @override
@@ -419,7 +443,8 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
       textColor,
       name,
       icon,
-      brightness);
+      brightness,
+      usesMaterial3);
 
   /// Create a copy of ThemeBase
   /// with the given fields replaced by the non-null parameter values.
@@ -444,7 +469,8 @@ abstract class _ThemeBase extends ThemeBase {
       required final Color textColor,
       required final String name,
       required final IconData icon,
-      required final Brightness brightness}) = _$ThemeBaseImpl;
+      required final Brightness brightness,
+      final bool usesMaterial3}) = _$ThemeBaseImpl;
   _ThemeBase._() : super._();
 
   /// The color to use for the surface of components.
@@ -498,6 +524,10 @@ abstract class _ThemeBase extends ThemeBase {
   /// The brightness of the theme.
   @override
   Brightness get brightness;
+
+  /// Whether the theme uses Material 3.
+  @override
+  bool get usesMaterial3;
 
   /// Create a copy of ThemeBase
   /// with the given fields replaced by the non-null parameter values.

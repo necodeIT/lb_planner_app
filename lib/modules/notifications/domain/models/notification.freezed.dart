@@ -38,6 +38,11 @@ mixin _$Notification {
   /// The message is displayed differently based on the type.
   NotificationType get type => throw _privateConstructorUsedError;
 
+  /// Additional context for the notification.
+  /// Interpretation depends on the [type].
+  @JsonKey(name: 'info')
+  int? get context => throw _privateConstructorUsedError;
+
   /// `true` if the notification has been read.
   @BoolConverter()
   @JsonKey(name: 'status')
@@ -68,6 +73,7 @@ abstract class $NotificationCopyWith<$Res> {
       @JsonKey(name: 'timestamp_read')
       DateTime? readAt,
       NotificationType type,
+      @JsonKey(name: 'info') int? context,
       @BoolConverter() @JsonKey(name: 'status') bool read,
       @JsonKey(name: 'userid') int userId});
 }
@@ -91,6 +97,7 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
     Object? timestamp = null,
     Object? readAt = freezed,
     Object? type = null,
+    Object? context = freezed,
     Object? read = null,
     Object? userId = null,
   }) {
@@ -111,6 +118,10 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
+      context: freezed == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as int?,
       read: null == read
           ? _value.read
           : read // ignore: cast_nullable_to_non_nullable
@@ -138,6 +149,7 @@ abstract class _$$NotificationImplCopyWith<$Res>
       @JsonKey(name: 'timestamp_read')
       DateTime? readAt,
       NotificationType type,
+      @JsonKey(name: 'info') int? context,
       @BoolConverter() @JsonKey(name: 'status') bool read,
       @JsonKey(name: 'userid') int userId});
 }
@@ -159,6 +171,7 @@ class __$$NotificationImplCopyWithImpl<$Res>
     Object? timestamp = null,
     Object? readAt = freezed,
     Object? type = null,
+    Object? context = freezed,
     Object? read = null,
     Object? userId = null,
   }) {
@@ -179,6 +192,10 @@ class __$$NotificationImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
+      context: freezed == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as int?,
       read: null == read
           ? _value.read
           : read // ignore: cast_nullable_to_non_nullable
@@ -199,6 +216,7 @@ class _$NotificationImpl extends _Notification {
       @UnixTimestampConverter() required this.timestamp,
       @UnixTimestampConverter() @JsonKey(name: 'timestamp_read') this.readAt,
       required this.type,
+      @JsonKey(name: 'info') this.context,
       @BoolConverter() @JsonKey(name: 'status') required this.read,
       @JsonKey(name: 'userid') required this.userId})
       : super._();
@@ -228,6 +246,12 @@ class _$NotificationImpl extends _Notification {
   @override
   final NotificationType type;
 
+  /// Additional context for the notification.
+  /// Interpretation depends on the [type].
+  @override
+  @JsonKey(name: 'info')
+  final int? context;
+
   /// `true` if the notification has been read.
   @override
   @BoolConverter()
@@ -239,7 +263,7 @@ class _$NotificationImpl extends _Notification {
 
   @override
   String toString() {
-    return 'Notification(id: $id, timestamp: $timestamp, readAt: $readAt, type: $type, read: $read, userId: $userId)';
+    return 'Notification(id: $id, timestamp: $timestamp, readAt: $readAt, type: $type, context: $context, read: $read, userId: $userId)';
   }
 
   @override
@@ -252,14 +276,15 @@ class _$NotificationImpl extends _Notification {
                 other.timestamp == timestamp) &&
             (identical(other.readAt, readAt) || other.readAt == readAt) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.context, context) || other.context == context) &&
             (identical(other.read, read) || other.read == read) &&
             (identical(other.userId, userId) || other.userId == userId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, timestamp, readAt, type, read, userId);
+  int get hashCode => Object.hash(
+      runtimeType, id, timestamp, readAt, type, context, read, userId);
 
   /// Create a copy of Notification
   /// with the given fields replaced by the non-null parameter values.
@@ -285,6 +310,7 @@ abstract class _Notification extends Notification {
       @JsonKey(name: 'timestamp_read')
       final DateTime? readAt,
       required final NotificationType type,
+      @JsonKey(name: 'info') final int? context,
       @BoolConverter() @JsonKey(name: 'status') required final bool read,
       @JsonKey(name: 'userid') required final int userId}) = _$NotificationImpl;
   const _Notification._() : super._();
@@ -313,6 +339,12 @@ abstract class _Notification extends Notification {
   /// The message is displayed differently based on the type.
   @override
   NotificationType get type;
+
+  /// Additional context for the notification.
+  /// Interpretation depends on the [type].
+  @override
+  @JsonKey(name: 'info')
+  int? get context;
 
   /// `true` if the notification has been read.
   @override

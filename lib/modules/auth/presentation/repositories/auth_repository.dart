@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
+import 'package:posthog_dart/posthog_dart.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 /// UI state controller for authentication.
 ///
@@ -79,6 +83,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
         password: password,
         webservices: Webservice.values.toSet(),
       ),
+      onData: (p0) => captureEvent('user_login'),
     );
 
     if (!state.hasData) return;
@@ -96,8 +101,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     await _localStorage.delete<Set<Token>>();
 
-    // Pause as we don't want other repositories refreshing unnecessarily
-    // and there are no other repos that work when unauthenticated.
+    PostHog().reset();
   }
 
   /// `true` if the user is authenticated.

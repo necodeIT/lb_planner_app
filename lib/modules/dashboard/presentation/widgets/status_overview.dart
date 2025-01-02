@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/statistics/statistics.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 /// Displays a chart overview of the user's tasks status.
 class StatusOverview extends StatelessWidget {
@@ -12,37 +13,41 @@ class StatusOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stats = context.watch<GlobalStatsRepository>().state;
+    final repo = context.watch<GlobalStatsRepository>();
+
+    final stats = repo.state.data ??
+        const TaskAggregate(
+          status: StatusAggregate(done: 1, pending: 1, uploaded: 1, late: 1),
+          type: TypeAggregate(required: 1, optional: 1, compensation: 1, exam: 1, none: 1),
+        );
 
     return Card(
       child: Padding(
         padding: PaddingAll(),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.t.dashboard_statusOverview,
-                  style: context.textTheme.titleMedium?.bold,
-                ).alignAtTopLeft(),
-                stats.when(
-                  data: (stats) => Row(
-                    children: [
-                      _square(stats.status.done, context.theme.taskStatusTheme.doneColor, context),
-                      _square(stats.status.uploaded, context.theme.taskStatusTheme.uploadedColor, context),
-                      _square(stats.status.late, context.theme.taskStatusTheme.lateColor, context),
-                      _square(stats.status.pending, context.theme.taskStatusTheme.pendingColor, context),
-                    ].hSpaced(Spacing.smallSpacing).show(),
-                  ),
-                  loading: SizedBox.shrink,
-                  error: (_, __) => const SizedBox.shrink(),
-                ),
-              ],
-            ),
-            Expanded(
-              child: stats.when(
-                data: (stats) => HorizontalBarChart(
+        child: Skeletonizer(
+          enabled: !repo.state.hasData,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.t.dashboard_statusOverview,
+                    style: context.textTheme.titleMedium?.bold,
+                  ).alignAtTopLeft(),
+                  if (repo.state.hasData)
+                    Row(
+                      children: [
+                        _square(stats.status.done, context.theme.taskStatusTheme.doneColor, context),
+                        _square(stats.status.uploaded, context.theme.taskStatusTheme.uploadedColor, context),
+                        _square(stats.status.late, context.theme.taskStatusTheme.lateColor, context),
+                        _square(stats.status.pending, context.theme.taskStatusTheme.pendingColor, context),
+                      ].hSpaced(Spacing.smallSpacing).show(),
+                    ),
+                ],
+              ),
+              Expanded(
+                child: HorizontalBarChart(
                   thickness: 12,
                   data: [
                     ChartValue(
@@ -74,25 +79,13 @@ class StatusOverview extends StatelessWidget {
                     borderRadius: BorderRadius.circular(60),
                   ),
                 ),
-                loading: () => _skeleton(context),
-                error: (_, __) => _skeleton(context),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
-
-  Widget _skeleton(BuildContext context) => Center(
-        child: Container(
-          height: 20,
-          decoration: ShapeDecoration(
-            shape: squircle(),
-            color: context.theme.scaffoldBackgroundColor,
-          ),
-        ).stretch().applyShimmerThemed(context),
-      );
 
   Widget _square(int count, Color? color, BuildContext context) => Container(
         height: 25,

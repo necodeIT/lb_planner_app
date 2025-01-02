@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 
@@ -19,9 +20,9 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
   final searchController = TextEditingController();
 
   void showInviteMemberDialog() {
-    showDialog(
+    showAnimatedDialog(
       context: context,
-      builder: (_) => const PlanInviteMemberDialog(),
+      pageBuilder: (_, __, ___) => const PlanInviteMemberDialog(),
     );
   }
 
@@ -45,10 +46,8 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
 
     final filteredMembers = users.requireData
         .filter(
-          username: searchController.text,
+          query: searchController.text,
           ids: plan.requireData.members.map((m) => m.id).toList(),
-          firstname: searchController.text,
-          lastname: searchController.text,
         )
         .map((u) => plan.requireData.members.firstWhere((m) => m.id == u.id))
         .toList()

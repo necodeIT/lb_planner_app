@@ -34,7 +34,8 @@ class Sidebar extends StatelessWidget {
                   icon: Icons.dashboard,
                 ),
                 SidebarTarget(
-                  route: '/calendar/',
+                  route: '/calendar/plan',
+                  activeRoute: '/calendar/',
                   icon: Icons.calendar_month,
                 ),
               ].vSpaced(Spacing.smallSpacing),

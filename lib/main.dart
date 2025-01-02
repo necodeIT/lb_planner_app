@@ -1,13 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:catcher_2/catcher_2.dart';
-import 'package:catcher_2/model/platform_type.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:lb_planner/config/posthog.dart';
 import 'package:lb_planner/config/sentry.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
@@ -15,8 +15,28 @@ import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:mcquenji_versioning/mcquenji_versioning.dart';
+import 'package:posthog_dart/posthog_dart.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
+
+/// A list of all keys that should be censored in log messages.
+const sensitiveKeys = [
+  'wstoken',
+  'token',
+  'apikey',
+  'secret',
+  'password',
+  'key',
+  'access_token',
+  'refresh_token',
+  'client_secret',
+  'clientkey',
+  'clientid',
+  'api_key',
+];
 
 /// Censores sensitive data in log messages.
 String scrubSensitiveData(String message) {
@@ -24,61 +44,88 @@ String scrubSensitiveData(String message) {
 
   final patterns = [
     // Key-Value Pairs
-    RegExp(r'(token|apikey|secret|password|key|access_token|refresh_token|client_secret|clientkey|clientid)=[^\s&]+', caseSensitive: false),
+    for (final key in sensitiveKeys) RegExp(r'(\b' + key + r'\b\s*=\s*)([^&\s,]*)', caseSensitive: false, multiLine: true),
 
-    // JSON Format
-    RegExp(r'("token"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("apikey"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("secret"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("password"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("key"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("access_token"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("refresh_token"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("client_secret"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("ssn"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("clientkey"\s*:\s*".*?")', caseSensitive: false),
-    RegExp(r'("clientid"\s*:\s*".*?")', caseSensitive: false),
+    // Json values
+    for (final key in sensitiveKeys) RegExp(r'(\b' + key + r'\b\s*:\s*)([^&\s,}]*)', caseSensitive: false, multiLine: true),
+
+    // Bearer Tokens
+    RegExp(r'(Bearer\s+)([^\s]*)', caseSensitive: false),
+    // Basic Auth
+    RegExp(r'(Basic\s+)([^\s]*)', caseSensitive: false),
+    // JWT Tokens
+    RegExp(r'(JWT\s+)([^\s]*)', caseSensitive: false),
   ];
 
   for (final pattern in patterns) {
-    scrubbed = message.replaceAll(pattern, r'$1=***');
+    scrubbed = scrubbed.replaceAllMapped(pattern, (match) {
+      final key = match.group(1);
+      final value = match.group(2);
+
+      final length = value?.length ?? 1;
+
+      return '$key${'*' * length}';
+    });
   }
 
   return scrubbed;
 }
 
 void main() async {
-  final options = Catcher2Options(ShoutReportMode(), []);
-
   Logger.root.level = Level.ALL;
 
   DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
   NetworkService.timeout = const Duration(seconds: 30);
+  CoreModule.isWeb = kIsWeb;
+  CoreModule.debugMode = kDebugMode;
 
-  if (kDebugMode) Logger.root.onRecord.listen(debugLogHandler);
+  setPathUrlStrategy();
 
-  if (kReleaseMode) {
-    Logger.root.onRecord.listen((record) {
-      final scrubbed = LogRecord(
-        record.level,
-        scrubSensitiveData(record.message),
-        record.loggerName,
+  Logger.root.onRecord.listen((record) {
+    final scrubbed = LogRecord(
+      record.level,
+      scrubSensitiveData(record.message),
+      record.loggerName,
+      record.error,
+      record.stackTrace,
+      record.zone,
+      record.object,
+    );
+
+    final handler = Modular.tryGet<LogHandlerService>();
+
+    handler?.call(scrubbed);
+
+    if (record.level >= Level.SEVERE && record.error != null) {
+      final logs = (handler?.flush() ?? []).join('\n');
+
+      final bytes = utf8.encode(logs);
+      final byteData = ByteData.view(bytes.buffer, bytes.offsetInBytes, bytes.length);
+
+      Sentry.captureException(
         record.error,
-        record.stackTrace,
-        record.zone,
-        record.object,
+        stackTrace: record.stackTrace,
+        hint: Hint.withAttachment(
+          SentryAttachment.fromByteData(
+            byteData,
+            '.log',
+          ),
+        ),
+        withScope: (scope) async {
+          await scope.setContexts('Logger', record.loggerName);
+        },
       );
-      // TODO(mcquenji): write to file
-      debugLogHandler(scrubbed);
-    });
-  }
+    }
+  });
 
   Modular
     ..setInitialRoute('/dashboard/')
-    ..setObservers([LogObserver()]);
-
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
+    ..to.setObservers([
+      LogObserver(),
+      SentryNavigatorObserver(),
+      PosthogObserver(),
+      kRouteObserver,
+    ]);
 
   setPrintResolver((msg) {
     final logger = Logger('Modular');
@@ -104,26 +151,48 @@ void main() async {
     log(msg);
   });
 
-  Modular.setObservers([kRouteObserver]);
-
-  if (await FlutterSingleInstance.platform.isFirstInstance()) {
+  if (await FlutterSingleInstance().isFirstInstance()) {
     await Sentry.init(
       (options) => options
-        ..dsn = kSentryDSN
-        ..environment = kInstalledRelease.toString(),
-      appRunner: () => Catcher2(
-        releaseConfig: options,
-        debugConfig: options,
-        rootWidget: ModularApp(
-          module: AppModule(),
-          debugMode: false,
-          child: const AppWidget(),
-        ),
-        enableLogger: false,
-      ),
+        ..dsn = kDebugMode ? '' : kSentryDSN
+        ..environment = kInstalledRelease.channel.name
+        ..release = kInstalledRelease.toString()
+        ..debug = kDebugMode,
+      appRunner: () async {
+        WidgetsFlutterBinding.ensureInitialized();
+        if (!kIsWeb) await windowManager.ensureInitialized();
+
+        // final config = PostHogConfig(kPostHogAPIkey)
+        //   ..host = kPostHogHost
+        //   ..debug = kDebugMode
+        //   ..sessionReplay = false;
+
+        // await Posthog().setup(config);
+
+        await PostHog.init(
+          apiKey: kPostHogAPIkey,
+          host: kPostHogHost,
+          debug: kDebugMode,
+          version: kInstalledRelease.toString(),
+        );
+
+        Modular.to.addListener(() {
+          Logger('Modular').finest('Route changed to ${Modular.to.path}');
+
+          PostHog().screen(Modular.to.path);
+        });
+
+        runApp(
+          ModularApp(
+            module: AppModule(),
+            debugMode: false,
+            child: const SentryScreenshotWidget(child: AppWidget()),
+          ),
+        );
+      },
     );
   } else {
-    Logger(kAppName).severe('App is already running');
+    Logger(kAppName).info('App is already running');
   }
 }
 
@@ -199,13 +268,28 @@ class _AppWidgetState extends State<AppWidget> {
             children: children,
           ),
         ),
-        child: MaterialApp.router(
-          theme: theme.state,
-          title: kAppName,
-          routerConfig: Modular.routerConfig,
-          onGenerateTitle: (context) => kAppName,
-          supportedLocales: AppLocalizations.supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
+        child: ConditionalWrapper(
+          condition: kInstalledRelease.channel != ReleaseChannel.stable || kDebugMode,
+          wrapper: (context, child) => Banner(
+            message: kInstalledRelease.channel.name.toUpperCase(),
+            location: BannerLocation.topEnd,
+            color: theme.state.colorScheme.error,
+            child: child,
+          ),
+          child: SkeletonizerConfig(
+            data: SkeletonizerConfigData(
+              containersColor: theme.state.disabledColor.withOpacity(0.1),
+            ),
+            child: MaterialApp.router(
+              theme: theme.state,
+              title: kAppName,
+              debugShowCheckedModeBanner: false,
+              routerConfig: Modular.routerConfig,
+              onGenerateTitle: (context) => kAppName,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+            ),
+          ),
         ),
       ),
     );
@@ -215,17 +299,6 @@ class _AppWidgetState extends State<AppWidget> {
   void dispose() {
     _authSubscription.cancel();
     super.dispose();
-  }
-}
-
-/// Uses [Logger.shout] to report errors.
-class ShoutReportMode extends ReportMode {
-  @override
-  List<PlatformType> getSupportedPlatforms() => PlatformType.values;
-
-  @override
-  void requestAction(Report report, BuildContext? context) {
-    Logger('Main').shout('Uncaught error', report.error, report.stackTrace);
   }
 }
 

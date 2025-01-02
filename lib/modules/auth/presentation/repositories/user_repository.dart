@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:posthog_dart/posthog_dart.dart';
 
 /// UI state controller for the current user.
 class UserRepository extends Repository<AsyncValue<User>> {
@@ -25,8 +28,6 @@ class UserRepository extends Repository<AsyncValue<User>> {
     final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
-
-    loading();
 
     if (tokens.isEmpty) {
       log('User is unauthenticated');
@@ -54,6 +55,13 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('User data fetched successfully');
 
       data(user);
+
+      await PostHog().identify(
+        distinctId: sha256.convert(user.id.toString().codeUnits).toString(),
+        properties: {
+          'capabilities': user.capabilities.map((c) => c.name).toList(),
+        },
+      );
 
       _isHandlingAuthChange = false;
 
@@ -91,6 +99,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     }
 
+    await captureEvent('theme_changed', properties: {'theme': theme});
+
     return _updateUser(
       state.requireData.copyWith(themeName: theme),
     );
@@ -104,11 +114,16 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     }
 
+    await captureEvent('language_changed', properties: {'language': lang});
+
     return _updateUser(
       state.requireData.copyWith(language: lang),
     );
   }
 
+  /// Deletes the current user.
+  ///
+  /// Note: this does not yet whipe any collected analytics data.
   Future<void> deleteUser() async {
     log('Deleting current user');
 
@@ -121,9 +136,16 @@ class UserRepository extends Repository<AsyncValue<User>> {
     try {
       await _userDatasource.deleteUser(_auth.state.requireData[Webservice.lb_planner_api]);
 
+      await captureEvent('account_deleted');
+
+      await _auth.logout();
+
       log('User deleted successfully.');
     } catch (e, s) {
       log('Failed to delete User.', e, s);
     }
   }
+
+  /// Agrees to the collection of analytics data.
+  void agreeToAnalytics({bool agree = true}) => agree ? PostHog().enable() : PostHog().disable();
 }
