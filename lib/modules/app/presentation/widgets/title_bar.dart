@@ -71,7 +71,7 @@ class _TitleBarState extends State<TitleBar> {
                   if (user.vintage != null)
                     user.vintage!.humanReadable.text.color(context.theme.colorScheme.primary).color(context.theme.colorScheme.primary)
                   else if (user.capabilities.isNotEmpty)
-                    Text(user.capabilities.highest.name).color(context.theme.colorScheme.primary),
+                    Text(user.capabilities.highest.translate(context)).color(context.theme.colorScheme.primary),
                 ],
               ),
             ].show(),
