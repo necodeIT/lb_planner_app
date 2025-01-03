@@ -1,0 +1,53 @@
+name: "🔧 Setup Flutter"
+description: "Prepare the Flutter environment for the release workflow"
+
+runs:
+  using: "composite"
+  steps:
+    - name: 📂 Checkout Code
+      uses: actions/checkout@v2
+    - name: 📝 Extract Flutter Version
+      id: fvmrc
+      uses: ActionsTools/read-json-action@main
+    - name: 🚀 Set Up Flutter Environment
+      uses: subosito/flutter-action@v1
+      with:
+        flutter-version: ${{ steps.fvmrc.outputs.flutter }}
+    - name: 📦 Install Dependencies
+      run: flutter pub get
+    - name: 🔢 Set Major Version
+      run: echo "MAJOR_VERSION=$(echo $GITHUB_REF | cut -d '.' -f 1)" >> .env
+    - name: 🔢 Set Minor Version
+      run: echo "MINOR_VERSION=$(echo $GITHUB_REF | cut -d '.' -f 2)" >> .env
+    - name: 🔢 Set Patch Version
+      run: echo "PATCH_VERSION=$(echo $GITHUB_REF | cut -d '.' -f 3)" >> .env
+    - name: 📝 Write Environment File
+      uses: DamianReeves/write-file-action@v1.3
+      with:
+        path: .env
+        write-mode: append
+        contents: |
+          # 🌟 Environment Configuration for LB Planner
+
+          # 🌐 Moodle Server URL
+          MOODLE_ENDPOINT=${{ env.MOODLE_ENDPOINT }}
+
+          # 🌐 LB Planner Website URL
+          LB_PLANNER_ENDPOINT=${{ env.LB_PLANNER_ENDPOINT }}
+
+          # 🔄 Data Refresh Intervals (in milliseconds)
+          REFRESH_INTERVAL=10000
+          IMPORTANT_REFRESH_INTERVAL=500
+          LESS_IMPORTANT_REFRESH_INTERVAL=300000
+
+          # 🛠️ Sentry Configuration
+          SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+
+          # 🏷️ Application Versioning
+          APP_NAME="LB Planner"
+          BUILD_CHANNEL=stable
+
+          # 📊 PostHog Analytics
+          POSTHOG_API_KEY=${{ env.POSTHOG_API_KEY }}
+          POSTHOG_HOST=${{ env.POSTHOG_HOST }}
+          PRIVACY_POLICY_URL=${{ env.PRIVACY_POLICY_URL }}

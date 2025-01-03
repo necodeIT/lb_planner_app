@@ -7,6 +7,7 @@ import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/dashboard/dashboard.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
+import 'package:lb_planner/modules/notifications/notifications.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -31,6 +32,7 @@ class AppModule extends Module {
         CoreModule(),
         AuthModule(),
         ThemingModule(),
+        NotificationsModule(),
       ];
 
   @override
