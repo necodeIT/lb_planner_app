@@ -1,0 +1,179 @@
+name: 🚀 Build & Release LB Planner
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+    branches: 
+      - main
+
+jobs:
+  macos:
+    name: 🍎 Build macOS Package
+    runs-on: macos-latest
+    steps:
+      - name: 🔧 Setup Flutter Environment
+        uses: necodeIT/lb_planner_app/.github/build.yaml
+      - name: 🛠️ Build macOS App
+        run: flutter build macos --dart-define-from-file=.env
+      - name: 🧩 Install Node.js
+        uses: actions/setup-node@v2
+      - name: 📦 Install `appdmg`
+        run: |
+          npm install -g appdmg
+          appdmg --version
+      - name: 📝 Create DMG Config
+        run: |
+          echo '{
+            "title": "LB Planner",
+            "icon": "app_icon.icns",
+            "contents": [
+              {"x": 410, "y": 150, "type": "link", "path": "/Applications"},
+              {"x": 130, "y": 150, "type": "file", "path": "build/macos/Build/Products/Release/LB Planner.app"}
+            ]
+          }' > ./dmg_config.json
+      - name: 📀 Create DMG Installer
+        run: appdmg dmg_config.json LB.Planner.Setup.dmg
+      - name: ☁️ Upload macOS Artifacts
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: LB.Planner.Setup.dmg
+          path: LB.Planner.Setup.dmg
+
+  windows:
+    name: 🖥️ Build Windows Package
+    runs-on: windows-latest
+    steps:
+      - name: 🔧 Setup Flutter Environment
+        uses: necodeIT/lb_planner_app/.github/build.yaml
+      - name: 🛠️ Build Windows App
+        run: flutter build windows --dart-define-from-file=.env
+      - name: 🔢 Extract Tag Version
+        id: extract_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: 📝 Generate Inno Setup Script
+        uses: DamianReeves/write-file-action@master
+        with:
+          path: config.iss
+          contents: |
+            #define MyAppName "LB Planner"
+            #define MyAppVersion "${{ steps.extract_tag.outputs.TAG_NAME }}-stable"
+            #define MyAppPublisher "necodeIT"
+            #define MyAppURL "https://necode.it/lb-planner"
+            #define MyAppExeName "lb_planner.exe"
+
+            [Setup]
+            AppId=${{ env.APP_ID }}
+            AppName={#MyAppName}
+            AppVersion={#MyAppVersion}
+            AppVerName="LB Planner v${{ steps.extract_tag.outputs.TAG_NAME }}-stable"
+            AppPublisher={#MyAppPublisher}
+            AppPublisherURL={#MyAppURL}
+            AppSupportURL={#MyAppURL}
+            AppUpdatesURL={#MyAppURL}
+            DefaultDirName={autopf}\{#MyAppName}
+            UninstallDisplayIcon={app}\lb_planner.exe
+            DisableProgramGroupPage=yes
+            OutputDir=.
+            OutputBaseFilename=LB.Planner.Setup
+            SetupIconFile=app_icon.png
+            Compression=lzma
+            SolidCompression=yes
+            WizardStyle=modern
+
+            [Languages]
+            Name: "english"; MessagesFile: "compiler:Default.isl"
+
+            [Tasks]
+            Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+
+            [Files]
+            Source: "build\windows\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion
+            Source: "build\windows\runner\Release\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+            [Icons]
+            Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+            Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+
+            [Run]
+            Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall skipifsilent
+      - name: 🏗️ Create Windows Installer
+        uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
+        with:
+          filepath: config.iss
+      - name: ☁️ Upload Windows Artifacts
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: LB.Planner.Setup.exe
+          path: LB.Planner.Setup.exe
+
+  linux:
+    name: 🐧 Build Linux Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔧 Setup Flutter Environment
+        uses: necodeIT/lb_planner_app/.github/build.yaml
+      - name: 🛠️ Install Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ninja-build libgtk-3-dev fuse libfuse2 appstream
+      - name: 🛠️ Build Linux App
+        run: flutter build linux --dart-define-from-file=.env
+      - name: 🖼️ Setup AppImage Tool
+        run: |
+          wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+      - name: 📦 Create AppImage
+        run: |
+          mkdir -p ./LB.Planner.AppDir/usr/bin
+          cp -r build/linux/x64/release/bundle/* ./LB.Planner.AppDir/usr/bin/
+          ...
+      - name: ☁️ Upload Linux Artifacts
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: LB.Planner-x86_64.AppImage
+
+  web:
+    name: 🌐 Build Web Package
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔧 Setup Flutter Environment
+        uses: necodeIT/lb_planner_app/.github/build.yaml
+      - name: 🛠️ Build Web App
+        run: flutter build web --dart-define-from-file=.env
+      - name: 📦 Create Web Tarball
+        run: tar -czf LB.Planner.Web.tar.gz build/web
+      - name: ☁️ Upload Web Artifacts
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: LB.Planner.Web.tar.gz
+          path: LB.Planner.Web.tar.gz
+
+  publish:
+    name: 🚀 Publish GitHub Release
+    runs-on: ubuntu-latest
+    needs:
+      - macos
+      - windows
+      - linux
+      - web
+    steps:
+      - name: 📥 Download Mac Setup
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: LB.Planner.Setup.dmg
+          path: LB.Planner.Setup.dmg
+      - name: 📥 Download Windows Setup
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: LB.Planner.Setup.exe
+          path: LB.Planner.Setup.exe
+      - name: 📥 Download Linux Setup
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: LB.Planner-x86_64.AppImage
+          path: LB.Planner-x86_64.AppImage
+      - name: 📥 Download Web Tarball
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: LB.Planner.Web.tar.gz
+          path: LB.Planner.Web.tar.gz

@@ -41,6 +41,18 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
   /// Marks the given [notification] as read.
   Future<void> markAsRead(Notification notification) async {
+    if (!state.hasData) return;
+
+    data(
+      state.requireData.map((e) {
+        if (e.id == notification.id) {
+          return e.copyWith(read: true);
+        }
+
+        return e;
+      }).toList(),
+    );
+
     await _datasource.markAsRead(
       _auth.state.requireData[Webservice.lb_planner_api],
       notification,
@@ -84,6 +96,18 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
   /// Marks the given [notification] as unread.
   Future<void> unread(Notification notification) async {
+    if (!state.hasData) return;
+
+    data(
+      state.requireData.map((e) {
+        if (e.id == notification.id) {
+          return e.copyWith(read: false);
+        }
+
+        return e;
+      }).toList(),
+    );
+
     await _datasource.unread(
       _auth.state.requireData[Webservice.lb_planner_api],
       notification,
@@ -123,6 +147,34 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     log('All notifications marked as unread');
 
     await captureEvent('notifications_unread');
+  }
+
+  /// The unread notifications.
+  List<Notification> get unreadNotifications => state.data?.where((element) => !element.read).toList() ?? [];
+
+  /// Filters notifications based on the provided parameters.
+  List<Notification> filter({
+    NotificationType? type,
+    bool? read,
+    DateTime? readBefore,
+    DateTime? readAfter,
+    DateTime? timestampBefore,
+    DateTime? timestampAfter,
+  }) {
+    if (!state.hasData) return [];
+
+    return state.requireData.where((element) {
+      if (type != null && element.type != type) return false;
+      if (read != null && element.read != read) return false;
+      if (readBefore != null && element.readAt == null) return false;
+      if (readBefore != null && element.readAt!.isAfter(readBefore)) return false;
+      if (readAfter != null && element.readAt == null) return false;
+      if (readAfter != null && element.readAt!.isBefore(readAfter)) return false;
+      if (timestampBefore != null && element.timestamp.isAfter(timestampBefore)) return false;
+      if (timestampAfter != null && element.timestamp.isBefore(timestampAfter)) return false;
+
+      return true;
+    }).toList();
   }
 
   @override

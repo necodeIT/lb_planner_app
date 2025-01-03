@@ -426,6 +426,35 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }).toList();
   }
 
+  /// Returns a list of all invites that match the given filters.
+  Future<List<PlanInvite>> getInvites({
+    int? id,
+    int? inviterId,
+    int? inviteeId,
+    PlanInviteStatus? status,
+    int? planId,
+  }) async {
+    if (!state.hasData) {
+      log('Cannot fetch invites: No plan loaded.');
+
+      return [];
+    }
+
+    final invites = await _invites.getInvites(
+      _auth.state.requireData[Webservice.lb_planner_api],
+    );
+
+    return invites.where((invite) {
+      if (id != null && invite.id != id) return false;
+      if (inviterId != null && invite.inviterId != inviterId) return false;
+      if (inviteeId != null && invite.invitedUserId != inviteeId) return false;
+      if (status != null && invite.status != status) return false;
+      if (planId != null && invite.planId != planId) return false;
+
+      return true;
+    }).toList();
+  }
+
   @override
   void dispose() {
     super.dispose();

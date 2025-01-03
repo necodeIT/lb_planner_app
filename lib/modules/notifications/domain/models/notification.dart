@@ -1,5 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
@@ -48,27 +51,37 @@ enum NotificationType {
   ///
   /// [Notification.context] is the [CalendarPlan]'s unique identifier.
   @JsonValue(0)
-  invite,
+  invite(inviteMessage, inviteActions),
 
   /// An invited user has accepted the invitation.
   ///
   /// [Notification.context] is the [Invite]'s unique identifier.
   @JsonValue(1)
-  inviteAccepted,
+  inviteAccepted(inviteAcceptedMessage, noActions),
 
   /// An invited user has declined the invitation.
   @JsonValue(2)
-  inviteDeclined,
+  inviteDeclined(inviteDeclinedMessage, noActions),
 
   /// A member has left a shared [CalendarPlan].
   @JsonValue(3)
-  planLeft,
+  planLeft(planLeftMessage, noActions),
 
   /// The user has been removed from a shared [CalendarPlan].
   @JsonValue(4)
-  planRemoved,
+  planRemoved(planRemovedMessage, noActions),
 
   /// The user has freshly installed the app.
   @JsonValue(5)
-  newUser,
+  newUser(newUserMessage, noActions);
+
+  const NotificationType(this.message, this.actions);
+
+  /// Returns a list of actions the user can take on the notification.
+  ///
+  /// The first element is the action's name, the second is the action's callback.
+  final FutureOr<List<(String, FutureOr<void> Function()?)>> Function(BuildContext, Notification) actions;
+
+  /// Returns the message of the notification.
+  final Widget Function(BuildContext, Notification) message;
 }
