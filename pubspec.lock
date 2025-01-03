@@ -380,7 +380,7 @@ packages:
       path: "."
       ref: fix2
       resolved-ref: "77c13b430080a30d56fb60e8b7edb7a8d95d515c"
-      url: "git@github.com:mark8044/figma_squircle.git"
+      url: "https://github.com/mark8044/figma_squircle.git"
     source: git
     version: "0.5.6"
   file:

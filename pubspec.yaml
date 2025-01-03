@@ -81,7 +81,7 @@ dev_dependencies:
 dependency_overrides:
   figma_squircle:
     git:
-      url: git@github.com:mark8044/figma_squircle.git
+      url: https://github.com/mark8044/figma_squircle.git
       ref: fix2
   flutter_modular:
     git:
@@ -94,8 +94,6 @@ dependency_overrides:
   popover:
     git:
       url: https://github.com/necodeIT/popover.git
-  # mcquenji_core:
-  #   path: ../mcquenji_core
 
 flutter:
   uses-material-design: true
