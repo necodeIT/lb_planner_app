@@ -462,7 +462,7 @@ packages:
     description:
       path: flutter_modular
       ref: HEAD
-      resolved-ref: "3cd20d2869be075121f0376a142d6358780dcb41"
+      resolved-ref: e3b07cd3387f5457b463da1215209b752dbf0ec7
       url: "https://github.com/necodeIT/modular.git"
     source: git
     version: "6.3.3"
@@ -633,10 +633,10 @@ packages:
     dependency: transitive
     description:
       name: http_parser
-      sha256: "76d306a1c3afb33fe82e2bbacad62a61f409b5634c915fceb0d799de1a913360"
+      sha256: "178d74305e7866013777bab2c3d8726205dc5a4dd935297175b19a23a2e66571"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.1"
+    version: "4.1.2"
   image_size_getter:
     dependency: transitive
     description:
@@ -813,7 +813,7 @@ packages:
     description:
       path: modular_core
       ref: HEAD
-      resolved-ref: "3cd20d2869be075121f0376a142d6358780dcb41"
+      resolved-ref: e3b07cd3387f5457b463da1215209b752dbf0ec7
       url: "https://github.com/necodeIT/modular.git"
     source: git
     version: "3.3.0"

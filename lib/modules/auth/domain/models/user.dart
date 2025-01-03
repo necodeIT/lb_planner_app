@@ -2,6 +2,7 @@
 import 'package:color_blindness/color_blindness.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lb_planner/modules/app/app.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -109,26 +110,36 @@ enum UserCapability {
   /// They have exclusive access to development-specific features and statistics.
   ///
   /// This role is typically reserved for those involved in the app's development and maintenance.
-  dev,
+  dev(_dev),
 
   /// Users with this capability act as moderators within the platform.
   ///
   /// For example, they have the authority to access and manage user feedback.
   ///
   /// and perform other moderation tasks.
-  moderator,
+  moderator(_moderator),
 
   /// Teacher Capability
   ///
   /// Users with this capability are recognized as teachers or educators.
   ///
   /// They have access to features that allow them to e.g. manage and create time slots.
-  teacher,
+  teacher(_teacher),
 
   /// Users with this capability are identified as students or learners.
   ///
   /// They can access features tailored to their planning experience (e.g. the calendar view)
-  student,
+  student(_student);
+
+  const UserCapability(this.translate);
+
+  /// Translates the capability to a human-readable string based on the [BuildContext].
+  final Translator translate;
+
+  static String _dev(BuildContext context) => 'Developer';
+  static String _moderator(BuildContext context) => 'Moderator';
+  static String _teacher(BuildContext context) => 'Teacher';
+  static String _student(BuildContext context) => 'Student';
 }
 
 /// Provides helper methods for [List<UserCapability>].

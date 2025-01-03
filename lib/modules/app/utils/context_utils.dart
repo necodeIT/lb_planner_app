@@ -14,3 +14,6 @@ extension StateUtils on State {
   /// The [AppLocalizations] of this state's context.
   AppLocalizations get t => AppLocalizations.of(context);
 }
+
+/// A function that returns a translated string based on the [BuildContext].
+typedef Translator = String Function(BuildContext context);
