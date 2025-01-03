@@ -1,24 +1,24 @@
 import 'dart:async';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter/material.dart' hide Notification;
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
-import 'package:lb_planner/modules/theming/theming.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter/material.dart' hide Notification;
 import 'package:lb_planner/modules/notifications/notifications.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+/// Renders a given [notification].
 class NotificationWidget extends StatefulWidget {
+  /// Renders a given [notification].
   const NotificationWidget({super.key, required this.notification});
 
+  /// The notification to render.
   final Notification notification;
 
   @override

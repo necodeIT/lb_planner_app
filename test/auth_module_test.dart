@@ -12,7 +12,7 @@ import 'defaults.dart';
 Future<void> main() async {
   Logger.root.level = Level.ALL;
 
-  Logger.root.onRecord.listen(debugLogHandler);
+  // Logger.root.onRecord.listen(debugLogHandler);
 
   setUp(() {
     Modular.init(AuthModule());

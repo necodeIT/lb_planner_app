@@ -34,7 +34,7 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
 
     return GenericDialog(
       title: 'Invite users',
-      actions: [
+      actions: const [
         SecondaryDialogAction(
           onPressed: Navigator.pop,
           label: 'Close',
