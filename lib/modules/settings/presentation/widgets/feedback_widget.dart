@@ -11,7 +11,9 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:uicons_updated/uicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// A widget that allows users to send feedback to the developers.
 class FeedbackWidget extends StatefulWidget {
+  /// A widget that allows users to send feedback to the developers.
   const FeedbackWidget({super.key});
 
   @override
@@ -210,7 +212,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                                   ),
                                 ],
                               ),
-                              style: TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 12),
                             ).expanded(),
                           ],
                         ),

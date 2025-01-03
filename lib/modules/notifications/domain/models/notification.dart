@@ -55,7 +55,7 @@ enum NotificationType {
 
   /// An invited user has accepted the invitation.
   ///
-  /// [Notification.context] is the [Invite]'s unique identifier.
+  /// [Notification.context] is the [PlanInvite]'s unique identifier.
   @JsonValue(1)
   inviteAccepted(inviteAcceptedMessage, noActions),
 

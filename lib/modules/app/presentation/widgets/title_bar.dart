@@ -6,7 +6,6 @@ import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
-import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:popover/popover.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';

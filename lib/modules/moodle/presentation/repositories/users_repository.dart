@@ -44,7 +44,9 @@ extension FilterUserX on Iterable<User> {
       if (query != null &&
           !user.username.containsIgnoreCase(query) &&
           !user.lastname.containsIgnoreCase(query) &&
-          !user.firstname.containsIgnoreCase(query)) return false;
+          !user.firstname.containsIgnoreCase(query)) {
+        return false;
+      }
       if (username != null && !user.username.containsIgnoreCase(username)) return false;
       if (lastname != null && !user.lastname.containsIgnoreCase(lastname)) return false;
       if (firstname != null && !user.firstname.containsIgnoreCase(firstname)) return false;

@@ -39,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
               ].vSpaced(Spacing.mediumSpacing),
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 2,
             child: FeedbackWidget(),
           ).show(stagger),

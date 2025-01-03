@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 import 'package:posthog_dart/posthog_dart.dart';
-import 'package:posthog_flutter/posthog_flutter.dart';
 
 /// UI state controller for authentication.
 ///
