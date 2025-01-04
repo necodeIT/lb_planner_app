@@ -17,7 +17,6 @@ import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:posthog_dart/posthog_dart.dart';
-import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
@@ -123,7 +122,6 @@ void main() async {
     ..to.setObservers([
       LogObserver(),
       SentryNavigatorObserver(),
-      PosthogObserver(),
       kRouteObserver,
     ]);
 
@@ -156,18 +154,11 @@ void main() async {
       (options) => options
         ..dsn = kDebugMode ? '' : kSentryDSN
         ..environment = kInstalledRelease.channel.name
-        ..release = kInstalledRelease.toString()
+        ..release = kInstalledRelease.version.toString()
         ..debug = kDebugMode,
       appRunner: () async {
         WidgetsFlutterBinding.ensureInitialized();
         if (!kIsWeb) await windowManager.ensureInitialized();
-
-        // final config = PostHogConfig(kPostHogAPIkey)
-        //   ..host = kPostHogHost
-        //   ..debug = kDebugMode
-        //   ..sessionReplay = false;
-
-        // await Posthog().setup(config);
 
         await PostHog.init(
           apiKey: kPostHogAPIkey,
@@ -278,7 +269,7 @@ class _AppWidgetState extends State<AppWidget> {
           ),
           child: SkeletonizerConfig(
             data: SkeletonizerConfigData(
-              containersColor: theme.state.disabledColor.withOpacity(0.1),
+              containersColor: theme.state.disabledColor.withValues(alpha: 0.1),
             ),
             child: MaterialApp.router(
               theme: theme.state,

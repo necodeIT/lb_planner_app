@@ -63,11 +63,11 @@ class _PlanCellState extends State<PlanCell> {
               ),
             ),
             color: widget.date.isToday
-                ? context.theme.colorScheme.primary.withOpacity(0.2)
+                ? context.theme.colorScheme.primary.withAlpha(51)
                 : isCurrentMonth
                     ? null
-                    : context.theme.disabledColor.withOpacity(
-                        context.theme.brightness == Brightness.dark ? .00625 : 0.025,
+                    : context.theme.disabledColor.withAlpha(
+                        context.theme.brightness == Brightness.dark ? 2 : 6,
                       ),
           ),
           child: Column(

@@ -87,17 +87,15 @@ class ContextColorMapper extends ColorMapper {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    return switch (color.value) {
-      0xFFFF5733 => colorScheme.primary,
-      0xFFFFC300 => colorScheme.secondary,
-      0xFFDAF7A6 => colorScheme.surface,
-      0xFF900C3F => colorScheme.error,
-      0xFF581845 => colorScheme.onPrimary,
-      0xFF1F618D => colorScheme.onSecondary,
-      0xFF17202A => colorScheme.onSurface,
-      0xFFF1C40F => colorScheme.onError,
-      0xFF000000 => textTheme.bodyMedium?.color ?? color,
-      _ => color,
-    };
+    if (color == const Color(0xFFFF5733)) return colorScheme.primary;
+    if (color == const Color(0xFFFFC300)) return colorScheme.secondary;
+    if (color == const Color(0xFFDAF7A6)) return colorScheme.surface;
+    if (color == const Color(0xFF900C3F)) return colorScheme.error;
+    if (color == const Color(0xFF581845)) return colorScheme.onPrimary;
+    if (color == const Color(0xFF1F618D)) return colorScheme.onSecondary;
+    if (color == const Color(0xFF17202A)) return colorScheme.onSurface;
+    if (color == const Color(0xFFF1C40F)) return colorScheme.onError;
+    if (color == const Color(0xFF000000)) return textTheme.bodyMedium?.color ?? color;
+    return color;
   }
 }

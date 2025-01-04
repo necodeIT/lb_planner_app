@@ -85,8 +85,8 @@ extension ShimmerX on Widget {
   /// Adds themed shimmer animation to a widget.
   Widget applyShimmerThemed(BuildContext context) {
     return applyShimmer(
-      baseColor: context.theme.colorScheme.onSurface.withOpacity(0.05),
-      highlightColor: context.theme.colorScheme.onSurface.withOpacity(0.1),
+      baseColor: context.theme.colorScheme.onSurface.withValues(alpha: 0.05),
+      highlightColor: context.theme.colorScheme.onSurface.withValues(alpha: 0.1),
     );
   }
 }

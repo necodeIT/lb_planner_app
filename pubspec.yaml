@@ -55,7 +55,6 @@ dependencies:
   posthog_dart:
     git:
       url: https://github.com/necodeIT/posthog_dart.git
-  posthog_flutter: ^4.9.0
   sentry_flutter: ^8.9.0
   skeletonizer: ^1.4.2
   sprung: ^3.0.1

@@ -64,11 +64,11 @@ class _SlotWidgetState extends State<SlotWidget> {
 
         return Container(
           decoration: BoxDecoration(
-            color: active ? context.theme.primaryColor.withOpacity(0.1) : context.theme.cardColor,
+            color: active ? context.theme.primaryColor.withValues(alpha: 0.1) : context.theme.cardColor,
             borderRadius: BorderRadius.circular(10),
             border: active
                 ? Border.all(
-                    color: context.theme.primaryColor.withOpacity(0.2),
+                    color: context.theme.primaryColor.withValues(alpha: 0.2),
                   )
                 : null,
             boxShadow: active ? kElevationToShadow[4] : null,

@@ -35,7 +35,7 @@ class UserProfileImage extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1000)),
         palette: BoringAvatarPalette(
           [
-            thembase.accentColor.lighten().withOpacity(.6),
+            thembase.accentColor.lighten().withAlpha(153),
             thembase.accentColor.darken(30),
           ],
         ),
