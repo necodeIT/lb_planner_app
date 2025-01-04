@@ -28,7 +28,7 @@ jobs:
       - name: Extract flutter version
         id: fvmrc
         # get flutter key from .fvmrc file (file is in json format)
-        run: echo "::set-env name=FLUTTER_VERSION::$(jq -r '.flutter' .fvmrc)"
+        run: echo "FLUTTER_VERSION=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
