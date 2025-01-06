@@ -38,6 +38,11 @@ class Sidebar extends StatelessWidget {
                   activeRoute: '/calendar/',
                   icon: Icons.calendar_month,
                 ),
+                SidebarTarget(
+                  route: '/slots/book',
+                  activeRoute: '/slots/',
+                  icon: Icons.event,
+                ),
               ].vSpaced(Spacing.smallSpacing),
             ),
             Column(

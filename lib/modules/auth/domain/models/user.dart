@@ -33,9 +33,6 @@ class User with _$User {
     /// The name of the theme the user has selected
     @Default('') @JsonKey(name: 'theme') String themeName,
 
-    /// The language the user has selected
-    @Default('') @JsonKey(name: 'lang') String language,
-
     /// The url of the profile image
     @Default('') @JsonKey(name: 'profileimageurl') String profileImageUrl,
 
@@ -62,16 +59,11 @@ class User with _$User {
     final capabilities = <UserCapability>[];
 
     for (final capability in UserCapability.values) {
-      final mask = 1 << capability.index;
-
-      if (capabilitiesBitMask & mask != 0) capabilities.add(capability);
+      if (capabilitiesBitMask & capability.value != 0) capabilities.add(capability);
     }
 
     return capabilities;
   }
-
-  /// The [Locale] to use based on the user's [language].
-  Locale get locale => _langToLocale[language] ?? _langToLocale.values.first;
 
   /// The [ColorBlindnessType] of  user based on [colorBlindnessString].
   ColorBlindnessType get colorBlindness => ColorBlindnessType.values.byName(colorBlindnessString);
@@ -86,9 +78,6 @@ class User with _$User {
   /// See [UserCapabilitiesExtension.has] for confirming multiple capabilities.
   bool hasCapability(UserCapability capability) => capabilities.contains(capability);
 
-  /// Returns `true` if this user has elevated privileges (i.e. [UserCapability.dev] or [UserCapability.moderator]). Otherwise `false`.
-  bool get isElevated => hasCapability(UserCapability.dev) || hasCapability(UserCapability.moderator);
-
   /// Returns `null` if this user i not valid i.e. [id] is `-1`.
   User? get validOrNull => id == -1 ? null : this;
 
@@ -96,60 +85,44 @@ class User with _$User {
   String get fullname => '$firstname $lastname';
 }
 
-const _langToLocale = {
-  'en': Locale('en', 'US'),
-  'de': Locale('de', 'DE'),
-};
-
 /// Represents the different capabilities a user can possess within the application.
 ///
 /// Each capability grants the user specific access rights and features tailored to their role.
 enum UserCapability {
-  /// Users with this capability are members of the development team.
-  ///
-  /// They have exclusive access to development-specific features and statistics.
-  ///
-  /// This role is typically reserved for those involved in the app's development and maintenance.
-  dev(_dev),
-
-  /// Users with this capability act as moderators within the platform.
-  ///
-  /// For example, they have the authority to access and manage user feedback.
-  ///
-  /// and perform other moderation tasks.
-  moderator(_moderator),
-
   /// Teacher Capability
   ///
   /// Users with this capability are recognized as teachers or educators.
   ///
   /// They have access to features that allow them to e.g. manage and create time slots.
-  teacher(_teacher),
+  teacher(_teacher, 4),
 
   /// Users with this capability are identified as students or learners.
   ///
   /// They can access features tailored to their planning experience (e.g. the calendar view)
-  student(_student);
+  student(_student, 8),
 
-  const UserCapability(this.translate);
+  /// Slot Master Capability
+  ///
+  /// Users with this capability are recognized as slot masters.
+  ///
+  /// They have access to features that allow them to e.g. manage and create time slots.
+  slotMaster(_slotMaster, 16);
+
+  const UserCapability(this.translate, this.value);
 
   /// Translates the capability to a human-readable string based on the [BuildContext].
   final Translator translate;
 
-  static String _dev(BuildContext context) => 'Developer';
-  static String _moderator(BuildContext context) => 'Moderator';
+  /// The value of the capability in the bitmask.
+  final int value;
+
   static String _teacher(BuildContext context) => 'Teacher';
   static String _student(BuildContext context) => 'Student';
+  static String _slotMaster(BuildContext context) => 'Slot Master';
 }
 
 /// Provides helper methods for [List<UserCapability>].
 extension UserCapabilitiesExtension on List<UserCapability> {
-  /// Returns `true` if [UserCapability.dev] is one of the capabilities the user has. Otherwise `false`.
-  bool get hasDev => contains(UserCapability.dev);
-
-  /// Returns `true` if the list contains [UserCapability.moderator]. Otherwise `false`.
-  bool get hasModerator => contains(UserCapability.moderator);
-
   /// Returns `true` if the list contains [UserCapability.teacher]. Otherwise `false`.
   bool get hasTeacher => contains(UserCapability.teacher);
 
@@ -159,25 +132,25 @@ extension UserCapabilitiesExtension on List<UserCapability> {
   /// Returns `true` if the list contains all of the given [capabilities]. Otherwise `false`.
   bool has(List<UserCapability> capabilities) => capabilities.every(contains);
 
+  /// Returns `true` if the list contains [UserCapability.slotMaster]. Otherwise `false`.
+  bool get hasSlotMaster => contains(UserCapability.slotMaster);
+
   /// Returns the highest [UserCapability] in the list.
   ///
   /// If the list is empty, [UserCapability.student] is returned.
-  UserCapability get highest => reduce((value, element) => value.index < element.index ? value : element);
+  UserCapability get highest => reduce((value, element) => value.value < element.value ? value : element);
 }
 
 /// Provides helper methods for [UserCapability].
 extension UserCapabilityExtension on UserCapability {
-  /// Returns `true` if this capability is [UserCapability.dev]. Otherwise `false`.
-  bool get isDev => this == UserCapability.dev;
-
-  /// Returns `true` if this capability is [UserCapability.moderator]. Otherwise `false`.
-  bool get isModerator => this == UserCapability.moderator;
-
   /// Returns `true` if this capability is [UserCapability.teacher]. Otherwise `false`.
   bool get isTeacher => this == UserCapability.teacher;
 
   /// Returns `true` if this capability is [UserCapability.student]. Otherwise `false`.
   bool get isStudent => this == UserCapability.student;
+
+  /// Returns `true` if this capability is [UserCapability.slotMaster]. Otherwise `false`.
+  bool get isSlotMaster => this == UserCapability.slotMaster;
 }
 
 /// Represents a "Jahrgang" (grade level or class year) in a high school context.

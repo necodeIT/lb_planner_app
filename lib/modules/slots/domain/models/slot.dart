@@ -136,7 +136,7 @@ enum Weekday {
 }
 
 /// A time unit as defined in [lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin/blob/2f118f50aad5e4fb9d425b59b3ebccbdf1a16cd8/lbplanner/classes/helpers/slot_helper.php#L55)
-enum SlotTimeUnit {
+enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
   /// 08:00
   @JsonValue(1)
   $1(TimeOfDay(hour: 8, minute: 0)),
@@ -241,4 +241,7 @@ enum SlotTimeUnit {
       minutes: (other.timeOfDay.minute - timeOfDay.minute).abs(),
     );
   }
+
+  @override
+  int compareTo(SlotTimeUnit other) => index.compareTo(other.index);
 }

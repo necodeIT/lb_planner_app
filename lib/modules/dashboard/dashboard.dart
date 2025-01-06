@@ -24,7 +24,7 @@ class DashboardModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<TitleBuilder>(() => (BuildContext context) => context.t.dashboard_title);
+    i.add<TitleBuilder>(() => (BuildContext context) => (context.t.dashboard_title, null));
   }
 
   @override

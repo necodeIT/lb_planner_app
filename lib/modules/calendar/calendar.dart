@@ -23,7 +23,7 @@ class CalendarModule extends Module {
   @override
   void binds(Injector i) {
     i
-      ..add<TitleBuilder>(() => (BuildContext context) => context.t.calendar_title)
+      ..add<TitleBuilder>(() => (BuildContext context) => (context.t.calendar_title, 2))
       ..add<InvitesDatasource>(StdInvitesDatasource.new)
       ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
       ..add<PlanDatasource>(StdPlanDatasource.new)

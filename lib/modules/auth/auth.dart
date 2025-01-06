@@ -1,3 +1,4 @@
+import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
@@ -16,6 +17,7 @@ class AuthModule extends Module {
   List<Module> get imports => [
         CoreModule(),
         LocalStorageModule(),
+        EchidnaModule(),
       ];
 
   @override
@@ -26,7 +28,8 @@ class AuthModule extends Module {
     ..addRepository<AuthRepository>(AuthRepository.new)
     ..addRepository<UserRepository>(UserRepository.new)
     ..addSerde<Token>(fromJson: Token.fromJson, toJson: (t) => t.toJson())
-    ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson());
+    ..addSerde<User>(fromJson: User.fromJson, toJson: (u) => u.toJson())
+    ..initializeLicenseRepo(EchidnaUserRepository.new);
 
   @override
   void routes(RouteManager r) {

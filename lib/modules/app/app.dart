@@ -10,6 +10,7 @@ import 'package:lb_planner/modules/dashboard/dashboard.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
+import 'package:lb_planner/modules/slots/slots.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
@@ -83,6 +84,12 @@ class AppModule extends Module {
           ModuleRoute(
             '/settings/',
             module: SettingsModule(),
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
+          ),
+          ModuleRoute(
+            '/slots/',
+            module: SlotsModule(),
             transition: TransitionType.custom,
             customTransition: defaultTransition,
           ),
