@@ -51,3 +51,26 @@ final kInstalledRelease = Release(
   channel: _releaseChannel,
   releaseDate: _releaseDate,
 );
+
+const _currentDistributionTypeString = String.fromEnvironment('DISTRIBUTION_TYPE');
+
+/// The distribution type of the application.
+final kDistributionType = DistributionType.values.byName(_currentDistributionTypeString);
+
+/// Supported distribution types.
+enum DistributionType {
+  /// The app was installed via msix.
+  msix,
+
+  /// The app was installed via dmg.
+  dmg,
+
+  /// The app was downloaded as an AppImage.
+  appImage,
+
+  /// The app was installed via a package manager from the Arch User Repository.
+  aur,
+
+  /// The app is running in a web browser.
+  web,
+}

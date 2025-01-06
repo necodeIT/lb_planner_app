@@ -3,6 +3,7 @@ library lb_planner.modules.app;
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/auth/auth.dart';
 import 'package:lb_planner/modules/calendar/calendar.dart';
 import 'package:lb_planner/modules/dashboard/dashboard.dart';
@@ -11,8 +12,10 @@ import 'package:lb_planner/modules/notifications/notifications.dart';
 import 'package:lb_planner/modules/settings/settings.dart';
 import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:posthog_dart/posthog_dart.dart';
 
+import 'infra/infra.dart';
 import 'presentation/presentation.dart';
 
 export 'package:flutter_utils/flutter_utils.dart';
@@ -32,11 +35,24 @@ class AppModule extends Module {
         AuthModule(),
         ThemingModule(),
         NotificationsModule(),
+        UpdaterModule(),
       ];
 
   @override
   void binds(Injector i) {
-    i.add<PostHog>(PostHog.new);
+    i
+      ..add<PostHog>(PostHog.new)
+      ..setupReleasesRepository(
+        appInfoService: StdAppInfoService.new,
+        releasesDatasource: StdReleasesDatasource.new,
+        patchService: switch (kDistributionType) {
+          DistributionType.aur => AurParchService.new,
+          DistributionType.msix => MsixPatchService.new,
+          DistributionType.dmg => DmgPatchService.new,
+          DistributionType.appImage => AppImagePatchService.new,
+          DistributionType.web => WebPatchService.new,
+        },
+      );
   }
 
   @override

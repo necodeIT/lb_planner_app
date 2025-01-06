@@ -327,7 +327,7 @@ packages:
     source: hosted
     version: "0.4.1"
   dio:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dio
       sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
@@ -780,10 +780,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e73fbe8c64e95ae4002d1ddc6aea39b49270a8b5
+      resolved-ref: c11f889dc0301f761f9ecbd0ef612effc180f0b6
       url: "https://github.com/mcquenji/mcquenji_versioning.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   meta:
     dependency: transitive
     description:
@@ -958,7 +958,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "03aff6441cdeb5beda7871ad9a4ab79ff237cce5"
+      resolved-ref: ac25a5d4a5de6ea9285f8c92300487f1f004b1a6
       url: "https://github.com/necodeIT/popover.git"
     source: git
     version: "0.3.1"

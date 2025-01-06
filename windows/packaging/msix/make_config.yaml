@@ -1,0 +1,8 @@
+display_name: LB Planner
+publisher_display_name: necodeIT
+identity_name: necode.it.lb.planner
+languages:
+  - en-us
+  - de-at
+store: false
+output_name: LB Planner
