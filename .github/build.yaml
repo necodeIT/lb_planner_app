@@ -51,3 +51,8 @@ runs:
           POSTHOG_API_KEY=${{ env.POSTHOG_API_KEY }}
           POSTHOG_HOST=${{ env.POSTHOG_HOST }}
           PRIVACY_POLICY_URL=${{ env.PRIVACY_POLICY_URL }}
+
+          # ⚖️ License Server Configuration
+          ECHIDNA_CLIENT_KEY=${{ secrets.ECHIDNA_CLIENT_KEY }}
+          ECHIDNA_CLIENT_ID=${{ secrets.ECHIDNA_CLIENT_ID }}
+          ECHIDNA_HOST=${{ secrets.ECHIDNA_HOST }}

@@ -20,7 +20,7 @@ class SettingsModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<TitleBuilder>(() => (BuildContext context) => context.t.settings_title);
+    i.add<TitleBuilder>(() => (BuildContext context) => (context.t.settings_title, null));
   }
 
   @override

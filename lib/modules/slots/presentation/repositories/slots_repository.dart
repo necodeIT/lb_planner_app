@@ -111,6 +111,37 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
     }
   }
 
+  /// Groups all slots by their weekday and time unit.
+  Map<Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<SlotAggregate>>> grouped() {
+    if (!state.hasData) {
+      return {};
+    }
+
+    final grouped = <Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<SlotAggregate>>>{};
+
+    for (final slot in state.requireData) {
+      grouped[slot.slot.weekday] ??= {};
+
+      final timeGroup = (slot.slot.startUnit, slot.slot.endUnit);
+
+      grouped[slot.slot.weekday]![timeGroup] ??= [];
+
+      grouped[slot.slot.weekday]![timeGroup]!.add(slot);
+
+      grouped[slot.slot.weekday]![timeGroup]!.sort(
+        (a, b) {
+          if (a.slot.startUnit == b.slot.startUnit) {
+            return a.slot.endUnit.compareTo(b.slot.endUnit);
+          }
+
+          return a.slot.startUnit.compareTo(b.slot.startUnit);
+        },
+      );
+    }
+
+    return grouped;
+  }
+
   @override
   void dispose() {
     _datasource.dispose();

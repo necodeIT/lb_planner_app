@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -6,6 +7,7 @@ import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/modules/app/app.dart';
 import 'package:lb_planner/modules/moodle/moodle.dart';
 import 'package:lb_planner/modules/notifications/notifications.dart';
+import 'package:lb_planner/modules/theming/theming.dart';
 import 'package:popover/popover.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
@@ -125,21 +127,48 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
           lastname: 'Loading',
         );
 
-    final title = Modular.tryGet<TitleBuilder>()?.call(context);
+    final (title, featureId) = Modular.tryGet<TitleBuilder>()?.call(context) ?? (null, null);
 
     final notifications = context.watch<NotificationsRepository>();
+    final license = context.watch<LicenseRepository>();
+
+    final showLicenseBadge = featureId != null && license.state.data != null;
 
     return Row(
       key: ValueKey(title),
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Skeletonizer(
-          enabled: title == null,
-          child: Text(
-            title ?? kAppName,
-            style: context.textTheme.titleLarge?.bold,
-          ).fontSize(24),
+        Row(
+          children: [
+            Skeletonizer(
+              enabled: title == null,
+              child: Text(
+                title ?? kAppName,
+                style: context.textTheme.titleLarge?.bold,
+              ).fontSize(24),
+            ),
+            if (showLicenseBadge) Spacing.smallHorizontal(),
+            if (showLicenseBadge)
+              Container(
+                padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                decoration: ShapeDecoration(
+                  shape: squircle(
+                    radius: 5000,
+                    side: BorderSide(
+                      color: context.theme.colorScheme.primary,
+                    ),
+                  ),
+                  color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                ),
+                child: Text(
+                  license.state.requireData.active ? 'Pro' : 'Trial',
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: context.theme.colorScheme.primary,
+                  ),
+                ),
+              ),
+          ],
         ),
         Skeletonizer(
           enabled: user.id == -1,
@@ -149,6 +178,9 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
                 builder: (context) {
                   return IconButton(
                     onPressed: () => showNotifications(context),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     icon: ConditionalWrapper(
                       condition: notifications.hasUnreadNotifications,
                       wrapper: (_, child) => Badge(
@@ -194,5 +226,5 @@ class _TitleBarState extends State<TitleBar> with WindowListener {
   }
 }
 
-/// Returns the localized title of the current route.
-typedef TitleBuilder = String Function(BuildContext context);
+/// Returns a record of the current route's localized title and it's feature id.`
+typedef TitleBuilder = (String, int?) Function(BuildContext context);

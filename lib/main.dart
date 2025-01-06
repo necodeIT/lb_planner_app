@@ -3,10 +3,12 @@ import 'dart:convert';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:context_menus/context_menus.dart';
+import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:lb_planner/config/echidna.dart';
 import 'package:lb_planner/config/posthog.dart';
 import 'package:lb_planner/config/sentry.dart';
 import 'package:lb_planner/config/version.dart';
@@ -22,20 +24,34 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// A list of all keys that should be censored in log messages.
-const sensitiveKeys = [
-  'wstoken',
-  'token',
-  'apikey',
-  'secret',
-  'password',
-  'key',
-  'access_token',
-  'refresh_token',
-  'client_secret',
-  'clientkey',
-  'clientid',
-  'api_key',
-];
+const sensitiveKeys = kDebugMode
+    ? []
+    : [
+        'wstoken',
+        'token',
+        'apikey',
+        'secret',
+        'password',
+        'key',
+        'access_token',
+        'refresh_token',
+        'client_secret',
+        'clientkey',
+        'clientid',
+        'api_key',
+        'username',
+        'firstname',
+        'lastname',
+        'email',
+        'id',
+        'vintage',
+        'language',
+        'profileImageUrl',
+        'colorblindness',
+        'colorblindnessString',
+        'displaytaskcount',
+        'userid',
+      ];
 
 /// Censores sensitive data in log messages.
 String scrubSensitiveData(String message) {
@@ -78,7 +94,20 @@ void main() async {
   CoreModule.isWeb = kIsWeb;
   CoreModule.debugMode = kDebugMode;
 
+  await PostHog.init(
+    apiKey: kPostHogAPIkey,
+    host: kPostHogHost,
+    debug: kDebugMode,
+    version: kInstalledRelease.toString(),
+  );
+
+  if (kDebugMode) {
+    PostHog().disable();
+  }
+
   setPathUrlStrategy();
+
+  initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
 
   Logger.root.onRecord.listen((record) {
     final scrubbed = LogRecord(
@@ -159,13 +188,6 @@ void main() async {
       appRunner: () async {
         WidgetsFlutterBinding.ensureInitialized();
         if (!kIsWeb) await windowManager.ensureInitialized();
-
-        await PostHog.init(
-          apiKey: kPostHogAPIkey,
-          host: kPostHogHost,
-          debug: kDebugMode,
-          version: kInstalledRelease.toString(),
-        );
 
         Modular.to.addListener(() {
           Logger('Modular').finest('Route changed to ${Modular.to.path}');
