@@ -18,6 +18,7 @@ dependencies:
   context_menus: ^2.0.0+1
   crypto: ^3.0.6
   data_widget: ^0.0.2
+  dio: ^5.7.0
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
   fl_chart: ^0.69.2

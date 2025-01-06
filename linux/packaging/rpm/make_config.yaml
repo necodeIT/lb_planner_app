@@ -1,0 +1,23 @@
+icon: assets/logo.png
+summary: A really cool application
+vendor: necodeIT
+packager: necodeIT
+packagerEmail: lb-planner@necode.it
+url: https://github.com/necodeIT/lb_planner_app
+
+display_name: LB Planner
+
+keywords:
+  - Application
+
+generic_name: LB Planner
+
+categories:
+  - Planning
+  - Productivity
+  - Utility
+
+startup_notify: true
+# You can also specify [metainfo](https://freedesktop.org/software/appstream/docs/chap-Quickstart.html) file
+# which contains metadata of the app.
+# metainfo: linux/packaging/myappid.appdata.xml
