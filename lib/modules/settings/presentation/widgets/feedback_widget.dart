@@ -66,7 +66,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
       final sentryId = await Sentry.captureFeedback(
         sentryFeedback,
         withScope: (scope) async {
-          await scope.setTag('type', dropdownValue.toString());
+          await scope.setTag('type', dropdownValue.name.capitalize);
           scope.level = dropdownValue.sentryLevel;
         },
       );
