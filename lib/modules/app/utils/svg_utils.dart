@@ -71,31 +71,35 @@ extension SvgUtils on SvgGenImage {
 ///
 /// {@endtemplate}
 class ContextColorMapper extends ColorMapper {
-  /// The context to use for resolving colors.
-  final BuildContext context;
+  final Map<Color, Color?> _overrides;
 
   /// Creates a new [ContextColorMapper] with the given [context].
   ///
   /// ---
   ///
   /// {@macro color_mapper}
-  const ContextColorMapper(this.context);
-
-  @override
-  Color substitute(String? id, String elementName, String attributeName, Color color) {
+  factory ContextColorMapper(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
-    if (color == const Color(0xFFFF5733)) return colorScheme.primary;
-    if (color == const Color(0xFFFFC300)) return colorScheme.secondary;
-    if (color == const Color(0xFFDAF7A6)) return colorScheme.surface;
-    if (color == const Color(0xFF900C3F)) return colorScheme.error;
-    if (color == const Color(0xFF581845)) return colorScheme.onPrimary;
-    if (color == const Color(0xFF1F618D)) return colorScheme.onSecondary;
-    if (color == const Color(0xFF17202A)) return colorScheme.onSurface;
-    if (color == const Color(0xFFF1C40F)) return colorScheme.onError;
-    if (color == const Color(0xFF000000)) return textTheme.bodyMedium?.color ?? color;
-    return color;
+    return ContextColorMapper._({
+      const Color(0xFFFF5733): colorScheme.primary,
+      const Color(0xFFFFC300): colorScheme.secondary,
+      const Color(0xFFDAF7A6): colorScheme.surface,
+      const Color(0xFF900C3F): colorScheme.error,
+      const Color(0xFF581845): colorScheme.onPrimary,
+      const Color(0xFF1F618D): colorScheme.onSecondary,
+      const Color(0xFF17202A): colorScheme.onSurface,
+      const Color(0xFFF1C40F): colorScheme.onError,
+      const Color(0xFF000000): textTheme.bodyMedium?.color,
+    });
+  }
+
+  const ContextColorMapper._(this._overrides);
+
+  @override
+  Color substitute(String? id, String elementName, String attributeName, Color color) {
+    return _overrides[color] ?? color;
   }
 }
