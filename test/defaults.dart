@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/modules/auth/auth.dart';
+import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 
 final defaultUser = User.fromJson(
