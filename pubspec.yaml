@@ -22,7 +22,6 @@ dependencies:
   echidna_flutter:
     git:
       url: https://github.com/necodeIT/echidna_flutter.git
-  dio: ^5.7.0
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
   fl_chart: ^0.69.2
