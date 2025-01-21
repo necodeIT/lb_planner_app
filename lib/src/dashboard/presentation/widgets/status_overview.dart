@@ -2,6 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/src/app/app.dart';
+import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/statistics/statistics.dart';
 import 'package:lb_planner/src/theming/theming.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -15,11 +16,7 @@ class StatusOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     final repo = context.watch<GlobalStatsRepository>();
 
-    final stats = repo.state.data ??
-        const TaskAggregate(
-          status: StatusAggregate(done: 1, pending: 1, uploaded: 1, late: 1),
-          type: TypeAggregate(required: 1, optional: 1, compensation: 1, exam: 1, none: 1),
-        );
+    final stats = repo.state.data ?? TaskAggregate.dummy();
 
     return Card(
       child: Padding(
@@ -51,25 +48,25 @@ class StatusOverview extends StatelessWidget {
                   thickness: 12,
                   data: [
                     ChartValue(
-                      name: context.t.enum_taskStatus_done,
+                      name: MoodleTaskStatus.done.translate(context),
                       value: stats.status.done.toDouble(),
                       percentage: stats.status.donePercentage,
                       color: context.theme.taskStatusTheme.doneColor,
                     ),
                     ChartValue(
-                      name: context.t.enum_taskStatus_uploaded,
+                      name: MoodleTaskStatus.uploaded.translate(context),
                       value: stats.status.uploaded.toDouble(),
                       percentage: stats.status.uploadedPercentage,
                       color: context.theme.taskStatusTheme.uploadedColor,
                     ),
                     ChartValue(
-                      name: context.t.enum_taskStatus_late,
+                      name: MoodleTaskStatus.late.translate(context),
                       value: stats.status.late.toDouble(),
                       percentage: stats.status.latePercentage,
                       color: context.theme.taskStatusTheme.lateColor,
                     ),
                     ChartValue(
-                      name: context.t.enum_taskStatus_pending,
+                      name: MoodleTaskStatus.pending.translate(context),
                       value: stats.status.pending.toDouble(),
                       percentage: stats.status.pendingPercentage,
                       color: context.theme.taskStatusTheme.pendingColor,

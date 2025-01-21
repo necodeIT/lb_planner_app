@@ -4,6 +4,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/dashboard/dashboard.dart';
@@ -90,6 +91,12 @@ class AppModule extends Module {
           ModuleRoute(
             '/slots/',
             module: SlotsModule(),
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
+          ),
+          ModuleRoute(
+            'course-overview',
+            module: CourseOverviewModule(),
             transition: TransitionType.custom,
             customTransition: defaultTransition,
           ),

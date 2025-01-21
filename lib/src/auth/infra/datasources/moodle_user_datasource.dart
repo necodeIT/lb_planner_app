@@ -58,7 +58,6 @@ class MoodleUserDatasource extends UserDatasource {
       body: Map.fromEntries(
         user.toJson().entries.where(
               (e) => [
-                'lang',
                 'theme',
                 'colorblindness',
                 'displaytaskcount',

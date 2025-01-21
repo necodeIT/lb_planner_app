@@ -12,6 +12,11 @@ class HorizontalBarChart extends BarChart {
     required super.shape,
     super.thickness,
     super.spacing,
+    super.mainAxisAlignment,
+    super.crossAxisAlignment,
+    super.duration,
+    super.curve,
+    super.delay,
   });
 
   @override
@@ -19,6 +24,21 @@ class HorizontalBarChart extends BarChart {
 }
 
 class _HorizontalBarChartState extends State<HorizontalBarChart> {
+  int multiplier = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(widget.delay, () {
+      if (mounted) {
+        setState(() {
+          multiplier = 1;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -32,10 +52,14 @@ class _HorizontalBarChartState extends State<HorizontalBarChart> {
         final widths = data.map((value) => value.percentage * width).toList();
 
         return Row(
+          mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
+          crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.center,
           children: <Widget>[
             for (var i = 0; i < data.length; i++)
-              Container(
-                width: widths[i],
+              AnimatedContainer(
+                duration: widget.duration,
+                curve: widget.curve,
+                width: multiplier * widths[i],
                 height: widget.thickness,
                 decoration: ShapeDecoration(
                   shape: widget.shape,

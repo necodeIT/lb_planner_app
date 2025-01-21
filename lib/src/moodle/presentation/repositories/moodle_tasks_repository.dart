@@ -12,7 +12,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   /// Provides all tasks from Moodle with the latest updates.
   MoodleTasksRepository(this._tasks, this._auth, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
-    watchAsync(_courses);
+    watchAsync(_courses, setError: false, setLoading: false);
   }
 
   @override

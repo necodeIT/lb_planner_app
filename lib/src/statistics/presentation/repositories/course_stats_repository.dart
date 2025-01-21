@@ -39,4 +39,7 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
       ),
     );
   }
+
+  /// Returns the statistics for the course with the given [courseId].
+  TaskAggregate? getCourseStats(int courseId) => state.data?[courseId];
 }

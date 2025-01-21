@@ -31,7 +31,13 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
   Future<void> clearPlan() async {
     final plan = context.read<CalendarPlanRepository>();
 
-    await plan.clear();
+    final confirmed = await showConfirmationDialog(
+      context,
+      title: 'Clear plan?',
+      message: 'Are you shure you want to clear your plan? This will remove all planned tasks and cannot be undone.',
+    );
+
+    if (confirmed) await plan.clear();
   }
 
   @override
@@ -46,6 +52,7 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
       query: searchController.text,
       type: {
         MoodleTaskType.required,
+        MoodleTaskType.compensation,
         if (plan.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
       },
     ).toList();

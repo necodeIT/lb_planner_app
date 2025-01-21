@@ -38,6 +38,20 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         margin: EdgeInsets.zero,
         shape: squircle(),
       ),
+      dataTableTheme: DataTableThemeData(
+        decoration: ShapeDecoration(
+          shape: squircle(),
+          color: themeBase.primaryColor,
+          shadows: kElevationToShadow[6],
+        ),
+        dataRowColor: WidgetStateColor.fromMap({
+          WidgetState.hovered: themeBase.accentColor,
+          WidgetState.selected: themeBase.accentColor,
+          WidgetState.pressed: themeBase.accentColor,
+          WidgetState.any: themeBase.primaryColor,
+        }),
+        headingTextStyle: const TextStyle(fontWeight: FontWeight.bold),
+      ),
       checkboxTheme: CheckboxThemeData(
         shape: squircle(radius: 4),
         overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),

@@ -10,6 +10,11 @@ abstract class BarChart extends Chart {
     required this.shape,
     this.thickness = 20,
     this.spacing,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+    this.duration = const Duration(milliseconds: 500),
+    this.curve = Curves.fastOutSlowIn,
+    this.delay = const Duration(seconds: 1),
   });
 
   /// The shape of the individual bars.
@@ -20,4 +25,19 @@ abstract class BarChart extends Chart {
 
   /// The spacing between the bars.
   final double? spacing;
+
+  /// The main axis alignment of the bars.
+  final MainAxisAlignment? mainAxisAlignment;
+
+  /// The cross axis alignment of the bars.
+  final CrossAxisAlignment? crossAxisAlignment;
+
+  /// The duration of the animation.
+  final Duration duration;
+
+  /// The curve of the animation.
+  final Curve curve;
+
+  /// The delay before the animation starts.
+  final Duration delay;
 }

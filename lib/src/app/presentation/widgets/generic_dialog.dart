@@ -1,5 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lb_planner/src/theming/theming.dart';
 
 /// A generic dialog that can be used to display information to the user.
@@ -21,20 +22,28 @@ class GenericDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: context.theme.cardColor,
-      title: Text(title).bold(),
-      shape: squircle(),
-      content: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxHeight: context.height * 0.8,
-          minHeight: shrinkWrap ? 0 : context.height * 0.8,
-          maxWidth: context.width * 0.5,
-          minWidth: context.width * 0.5,
+    return KeyboardListener(
+      focusNode: FocusNode(),
+      onKeyEvent: (value) {
+        if (value.physicalKey != PhysicalKeyboardKey.escape) return;
+
+        Navigator.of(context).pop();
+      },
+      child: AlertDialog(
+        backgroundColor: context.theme.cardColor,
+        title: Text(title).bold(),
+        shape: squircle(),
+        content: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: context.height * 0.8,
+            minHeight: shrinkWrap ? 0 : context.height * 0.8,
+            maxWidth: context.width * 0.5,
+            minWidth: context.width * 0.5,
+          ),
+          child: content,
         ),
-        child: content,
+        actions: actions,
       ),
-      actions: actions,
     );
   }
 }

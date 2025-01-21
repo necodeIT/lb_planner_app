@@ -1,0 +1,11 @@
+export 'src/app/app.dart';
+export 'src/auth/auth.dart';
+export 'src/calendar/calendar.dart';
+export 'src/dashboard/dashboard.dart';
+export 'src/moodle/moodle.dart';
+export 'src/notifications/notifications.dart';
+export 'src/settings/settings.dart';
+export 'src/slots/slots.dart';
+export 'src/statistics/statistics.dart';
+export 'src/theming/theming.dart';
+export 'src/course_overview/course_overview.dart';

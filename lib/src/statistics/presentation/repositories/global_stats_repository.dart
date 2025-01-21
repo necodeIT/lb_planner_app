@@ -19,7 +19,13 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
 
     data(
       TaskAggregate.fromTasks(
-        _tasks.state.requireData,
+        _tasks.filter(
+          type: {
+            MoodleTaskType.required,
+            MoodleTaskType.optional,
+            MoodleTaskType.compensation,
+          },
+        ),
       ),
     );
   }
