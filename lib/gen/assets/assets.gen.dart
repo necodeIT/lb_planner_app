@@ -22,11 +22,23 @@ class $AssetsAuthGen {
   List<SvgGenImage> get values => [background];
 }
 
+class $AssetsMoodleGen {
+  const $AssetsMoodleGen();
+
+  /// File path: assets/moodle/course-selection.svg
+  SvgGenImage get courseSelection =>
+      const SvgGenImage('assets/moodle/course-selection.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values => [courseSelection];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsAuthGen auth = $AssetsAuthGen();
   static const SvgGenImage logo = SvgGenImage('assets/logo.svg');
+  static const $AssetsMoodleGen moodle = $AssetsMoodleGen();
 
   /// List of all assets
   static List<SvgGenImage> get values => [logo];
