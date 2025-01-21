@@ -35,12 +35,12 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
 
   @override
   DateTime fromJson(int json) {
-    return DateTime.fromMillisecondsSinceEpoch(json * 1000);
+    return DateTime.fromMillisecondsSinceEpoch(json * 1000).toLocal();
   }
 
   @override
   int toJson(DateTime object) {
-    return object.millisecondsSinceEpoch ~/ 1000;
+    return object.toUtc().millisecondsSinceEpoch ~/ 1000;
   }
 }
 
@@ -79,14 +79,14 @@ class UnixTimestampConverterNullable extends JsonConverter<DateTime?, int?> {
   DateTime? fromJson(int? json) {
     if (json == null) return null;
 
-    return DateTime.fromMillisecondsSinceEpoch(json * 1000);
+    return DateTime.fromMillisecondsSinceEpoch(json * 1000).toLocal();
   }
 
   @override
   int? toJson(DateTime? object) {
     if (object == null) return null;
 
-    return object.millisecondsSinceEpoch ~/ 1000;
+    return object.toUtc().millisecondsSinceEpoch ~/ 1000;
   }
 }
 
