@@ -55,8 +55,6 @@ class BurndownChart extends StatelessWidget {
       (index) {
         final date = startDate.add(Duration(days: index));
 
-        print('checking date: $date');
-
         final tasksPlannedForDate = plannedTasks
             .where(
               (d) => d.end.isSameDate(date) && tasks.any((t) => t.id == d.id),

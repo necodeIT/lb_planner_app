@@ -17,7 +17,7 @@ class MoodleTask with _$MoodleTask {
     @JsonKey(name: 'assignid') required int id,
 
     /// The id of the task within it's parent [MoodleCourse].
-    @JsonKey(name: 'cmid ') required int cmid,
+    @JsonKey(name: 'cmid') required int cmid,
 
     /// The name of this task.
     required String name,
@@ -32,16 +32,19 @@ class MoodleTask with _$MoodleTask {
     required MoodleTaskType type,
 
     /// The timestamp of when this task is due in seconds since the Unix epoch.
-    @UnixTimestampConverterNullable() DateTime? deadline,
+    @JsonKey(name: 'duedate')
+    @UnixTimestampConverterNullable()
+    DateTime? deadline,
   }) = _MoodleTask;
 
   const MoodleTask._();
 
   /// Creates a [MoodleTask] from a JSON object.
-  factory MoodleTask.fromJson(Map<String, Object?> json) => _$MoodleTaskFromJson(json);
+  factory MoodleTask.fromJson(Map<String, Object?> json) =>
+      _$MoodleTaskFromJson(json);
 
   /// The URL to this task on the Moodle website.
-  String get url => 'https://$kMoodleServerAdress/mod/assign/view.php?id=$cmid';
+  String get url => '$kMoodleServerAdress/mod/assign/view.php?id=$cmid';
 }
 
 /// The status of a [MoodleTask].
@@ -68,9 +71,11 @@ enum MoodleTaskStatus {
   final Translator translate;
 
   static String _done(BuildContext context) => context.t.enum_taskStatus_done;
-  static String _uploaded(BuildContext context) => context.t.enum_taskStatus_uploaded;
+  static String _uploaded(BuildContext context) =>
+      context.t.enum_taskStatus_uploaded;
   static String _late(BuildContext context) => context.t.enum_taskStatus_late;
-  static String _pending(BuildContext context) => context.t.enum_taskStatus_pending;
+  static String _pending(BuildContext context) =>
+      context.t.enum_taskStatus_pending;
 }
 
 /// The type of a [MoodleTask].

@@ -25,7 +25,7 @@ mixin _$MoodleTask {
   int get id => throw _privateConstructorUsedError;
 
   /// The id of the task within it's parent [MoodleCourse].
-  @JsonKey(name: 'cmid ')
+  @JsonKey(name: 'cmid')
   int get cmid => throw _privateConstructorUsedError;
 
   /// The name of this task.
@@ -42,6 +42,7 @@ mixin _$MoodleTask {
   MoodleTaskType get type => throw _privateConstructorUsedError;
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
+  @JsonKey(name: 'duedate')
   @UnixTimestampConverterNullable()
   DateTime? get deadline => throw _privateConstructorUsedError;
 
@@ -63,12 +64,14 @@ abstract class $MoodleTaskCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'assignid') int id,
-      @JsonKey(name: 'cmid ') int cmid,
+      @JsonKey(name: 'cmid') int cmid,
       String name,
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverterNullable() DateTime? deadline});
+      @JsonKey(name: 'duedate')
+      @UnixTimestampConverterNullable()
+      DateTime? deadline});
 }
 
 /// @nodoc
@@ -137,12 +140,14 @@ abstract class _$$MoodleTaskImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'assignid') int id,
-      @JsonKey(name: 'cmid ') int cmid,
+      @JsonKey(name: 'cmid') int cmid,
       String name,
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverterNullable() DateTime? deadline});
+      @JsonKey(name: 'duedate')
+      @UnixTimestampConverterNullable()
+      DateTime? deadline});
 }
 
 /// @nodoc
@@ -204,12 +209,14 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
 class _$MoodleTaskImpl extends _MoodleTask {
   const _$MoodleTaskImpl(
       {@JsonKey(name: 'assignid') required this.id,
-      @JsonKey(name: 'cmid ') required this.cmid,
+      @JsonKey(name: 'cmid') required this.cmid,
       required this.name,
       @JsonKey(name: 'courseid') required this.courseId,
       required this.status,
       required this.type,
-      @UnixTimestampConverterNullable() this.deadline})
+      @JsonKey(name: 'duedate')
+      @UnixTimestampConverterNullable()
+      this.deadline})
       : super._();
 
   factory _$MoodleTaskImpl.fromJson(Map<String, dynamic> json) =>
@@ -222,7 +229,7 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
   /// The id of the task within it's parent [MoodleCourse].
   @override
-  @JsonKey(name: 'cmid ')
+  @JsonKey(name: 'cmid')
   final int cmid;
 
   /// The name of this task.
@@ -244,6 +251,7 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
+  @JsonKey(name: 'duedate')
   @UnixTimestampConverterNullable()
   final DateTime? deadline;
 
@@ -291,14 +299,15 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
 abstract class _MoodleTask extends MoodleTask {
   const factory _MoodleTask(
-          {@JsonKey(name: 'assignid') required final int id,
-          @JsonKey(name: 'cmid ') required final int cmid,
-          required final String name,
-          @JsonKey(name: 'courseid') required final int courseId,
-          required final MoodleTaskStatus status,
-          required final MoodleTaskType type,
-          @UnixTimestampConverterNullable() final DateTime? deadline}) =
-      _$MoodleTaskImpl;
+      {@JsonKey(name: 'assignid') required final int id,
+      @JsonKey(name: 'cmid') required final int cmid,
+      required final String name,
+      @JsonKey(name: 'courseid') required final int courseId,
+      required final MoodleTaskStatus status,
+      required final MoodleTaskType type,
+      @JsonKey(name: 'duedate')
+      @UnixTimestampConverterNullable()
+      final DateTime? deadline}) = _$MoodleTaskImpl;
   const _MoodleTask._() : super._();
 
   factory _MoodleTask.fromJson(Map<String, dynamic> json) =
@@ -311,7 +320,7 @@ abstract class _MoodleTask extends MoodleTask {
 
   /// The id of the task within it's parent [MoodleCourse].
   @override
-  @JsonKey(name: 'cmid ')
+  @JsonKey(name: 'cmid')
   int get cmid;
 
   /// The name of this task.
@@ -333,6 +342,7 @@ abstract class _MoodleTask extends MoodleTask {
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
+  @JsonKey(name: 'duedate')
   @UnixTimestampConverterNullable()
   DateTime? get deadline;
 
