@@ -42,7 +42,7 @@ mixin _$MoodleTask {
   MoodleTaskType get type => throw _privateConstructorUsedError;
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
-  @UnixTimestampConverter()
+  @UnixTimestampConverterNullable()
   DateTime? get deadline => throw _privateConstructorUsedError;
 
   /// Serializes this MoodleTask to a JSON map.
@@ -68,7 +68,7 @@ abstract class $MoodleTaskCopyWith<$Res> {
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime? deadline});
+      @UnixTimestampConverterNullable() DateTime? deadline});
 }
 
 /// @nodoc
@@ -142,7 +142,7 @@ abstract class _$$MoodleTaskImplCopyWith<$Res>
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime? deadline});
+      @UnixTimestampConverterNullable() DateTime? deadline});
 }
 
 /// @nodoc
@@ -209,7 +209,7 @@ class _$MoodleTaskImpl extends _MoodleTask {
       @JsonKey(name: 'courseid') required this.courseId,
       required this.status,
       required this.type,
-      @UnixTimestampConverter() required this.deadline})
+      @UnixTimestampConverterNullable() this.deadline})
       : super._();
 
   factory _$MoodleTaskImpl.fromJson(Map<String, dynamic> json) =>
@@ -244,7 +244,7 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
-  @UnixTimestampConverter()
+  @UnixTimestampConverterNullable()
   final DateTime? deadline;
 
   @override
@@ -297,7 +297,7 @@ abstract class _MoodleTask extends MoodleTask {
           @JsonKey(name: 'courseid') required final int courseId,
           required final MoodleTaskStatus status,
           required final MoodleTaskType type,
-          @UnixTimestampConverter() required final DateTime? deadline}) =
+          @UnixTimestampConverterNullable() final DateTime? deadline}) =
       _$MoodleTaskImpl;
   const _MoodleTask._() : super._();
 
@@ -333,7 +333,7 @@ abstract class _MoodleTask extends MoodleTask {
 
   /// The timestamp of when this task is due in seconds since the Unix epoch.
   @override
-  @UnixTimestampConverter()
+  @UnixTimestampConverterNullable()
   DateTime? get deadline;
 
   /// Create a copy of MoodleTask

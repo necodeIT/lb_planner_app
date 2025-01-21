@@ -32,7 +32,7 @@ class MoodleTask with _$MoodleTask {
     required MoodleTaskType type,
 
     /// The timestamp of when this task is due in seconds since the Unix epoch.
-    @UnixTimestampConverter() required DateTime? deadline,
+    @UnixTimestampConverterNullable() DateTime? deadline,
   }) = _MoodleTask;
 
   const MoodleTask._();

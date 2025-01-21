@@ -14,8 +14,8 @@ _$MoodleTaskImpl _$$MoodleTaskImplFromJson(Map<String, dynamic> json) =>
       courseId: (json['courseid'] as num).toInt(),
       status: $enumDecode(_$MoodleTaskStatusEnumMap, json['status']),
       type: $enumDecode(_$MoodleTaskTypeEnumMap, json['type']),
-      deadline: _$JsonConverterFromJson<int, DateTime>(
-          json['deadline'], const UnixTimestampConverter().fromJson),
+      deadline: const UnixTimestampConverterNullable()
+          .fromJson((json['deadline'] as num?)?.toInt()),
     );
 
 Map<String, dynamic> _$$MoodleTaskImplToJson(_$MoodleTaskImpl instance) =>
@@ -26,8 +26,8 @@ Map<String, dynamic> _$$MoodleTaskImplToJson(_$MoodleTaskImpl instance) =>
       'courseid': instance.courseId,
       'status': _$MoodleTaskStatusEnumMap[instance.status]!,
       'type': _$MoodleTaskTypeEnumMap[instance.type]!,
-      'deadline': _$JsonConverterToJson<int, DateTime>(
-          instance.deadline, const UnixTimestampConverter().toJson),
+      'deadline':
+          const UnixTimestampConverterNullable().toJson(instance.deadline),
     };
 
 const _$MoodleTaskStatusEnumMap = {
@@ -44,15 +44,3 @@ const _$MoodleTaskTypeEnumMap = {
   MoodleTaskType.compensation: 3,
   MoodleTaskType.none: 4,
 };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);

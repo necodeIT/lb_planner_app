@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// Implements serialization and deserialization for [DateTime] from and to [int].
 ///
-/// The integer is expected to be a Unix timestamp in seconds.
+/// The integer is expected to be a Unix timestamp in milliseconds.
 ///
 /// Usage:
 /// ```dart
@@ -40,6 +40,52 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
 
   @override
   int toJson(DateTime object) {
+    return object.millisecondsSinceEpoch ~/ 1000;
+  }
+}
+
+/// Implements nullable serialization and deserialization for [DateTime] from and to [int].
+///
+/// The integer is expected to be a Unix timestamp in milliseconds.
+///
+/// Usage:
+/// ```dart
+/// @JsonSerializable()
+/// class MyClass {
+///   @JsonKey(name: 'timestamp')
+///   @UnixTimestampConverter()
+///   final DateTime timestamp;
+///
+///   const MyClass(this.timestamp);
+/// }
+/// ```
+class UnixTimestampConverterNullable extends JsonConverter<DateTime?, int?> {
+  /// Implements serialization and deserialization for [DateTime] from and to [int].
+  ///
+  /// Usage:
+  /// ```dart
+  /// @JsonSerializable()
+  /// class MyClass {
+  ///   @JsonKey(name: 'timestamp')
+  ///   @UnixTimestampConverter()
+  ///   final DateTime timestamp;
+  ///
+  ///   const MyClass(this.timestamp);
+  /// }
+  /// ```
+  const UnixTimestampConverterNullable();
+
+  @override
+  DateTime? fromJson(int? json) {
+    if (json == null) return null;
+
+    return DateTime.fromMillisecondsSinceEpoch(json * 1000);
+  }
+
+  @override
+  int? toJson(DateTime? object) {
+    if (object == null) return null;
+
     return object.millisecondsSinceEpoch ~/ 1000;
   }
 }
