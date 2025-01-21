@@ -51,9 +51,8 @@ class DashboardScreen extends StatelessWidget {
               children: [
                 Expanded(child: const Exams().stretch()).show(stagger),
                 Spacing.medium(),
-                // TODO: Booked slots for today
                 Expanded(
-                  child: const TodaysTasks().stretch(),
+                  child: const ReservedSlots().stretch(),
                 ).show(stagger),
               ],
             ),

@@ -44,10 +44,6 @@ mixin _$User {
   @JsonKey(name: 'theme')
   String get themeName => throw _privateConstructorUsedError;
 
-  /// The language the user has selected
-  @JsonKey(name: 'lang')
-  String get language => throw _privateConstructorUsedError;
-
   /// The url of the profile image
   @JsonKey(name: 'profileimageurl')
   String get profileImageUrl => throw _privateConstructorUsedError;
@@ -89,7 +85,6 @@ abstract class $UserCopyWith<$Res> {
       String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
-      @JsonKey(name: 'lang') String language,
       @JsonKey(name: 'profileimageurl') String profileImageUrl,
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
@@ -119,7 +114,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
-    Object? language = null,
     Object? profileImageUrl = null,
     Object? planId = null,
     Object? colorBlindnessString = null,
@@ -154,10 +148,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       themeName: null == themeName
           ? _value.themeName
           : themeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      language: null == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
               as String,
       profileImageUrl: null == profileImageUrl
           ? _value.profileImageUrl
@@ -198,7 +188,6 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
-      @JsonKey(name: 'lang') String language,
       @JsonKey(name: 'profileimageurl') String profileImageUrl,
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
@@ -225,7 +214,6 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
-    Object? language = null,
     Object? profileImageUrl = null,
     Object? planId = null,
     Object? colorBlindnessString = null,
@@ -260,10 +248,6 @@ class __$$UserImplCopyWithImpl<$Res>
       themeName: null == themeName
           ? _value.themeName
           : themeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      language: null == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
               as String,
       profileImageUrl: null == profileImageUrl
           ? _value.profileImageUrl
@@ -300,7 +284,6 @@ class _$UserImpl extends _User {
       this.email = '',
       @JsonKey(name: 'capabilities') this.capabilitiesBitMask = -1,
       @JsonKey(name: 'theme') this.themeName = '',
-      @JsonKey(name: 'lang') this.language = '',
       @JsonKey(name: 'profileimageurl') this.profileImageUrl = '',
       @JsonKey(name: 'planid') this.planId = -1,
       @JsonKey(name: 'colorblindness') this.colorBlindnessString = '',
@@ -343,11 +326,6 @@ class _$UserImpl extends _User {
   @JsonKey(name: 'theme')
   final String themeName;
 
-  /// The language the user has selected
-  @override
-  @JsonKey(name: 'lang')
-  final String language;
-
   /// The url of the profile image
   @override
   @JsonKey(name: 'profileimageurl')
@@ -374,7 +352,7 @@ class _$UserImpl extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, language: $language, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCountInt: $displayTaskCountInt, vintage: $vintage)';
+    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCountInt: $displayTaskCountInt, vintage: $vintage)';
   }
 
   @override
@@ -394,8 +372,6 @@ class _$UserImpl extends _User {
                 other.capabilitiesBitMask == capabilitiesBitMask) &&
             (identical(other.themeName, themeName) ||
                 other.themeName == themeName) &&
-            (identical(other.language, language) ||
-                other.language == language) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
                 other.profileImageUrl == profileImageUrl) &&
             (identical(other.planId, planId) || other.planId == planId) &&
@@ -417,7 +393,6 @@ class _$UserImpl extends _User {
       email,
       capabilitiesBitMask,
       themeName,
-      language,
       profileImageUrl,
       planId,
       colorBlindnessString,
@@ -449,7 +424,6 @@ abstract class _User extends User {
       final String email,
       @JsonKey(name: 'capabilities') final int capabilitiesBitMask,
       @JsonKey(name: 'theme') final String themeName,
-      @JsonKey(name: 'lang') final String language,
       @JsonKey(name: 'profileimageurl') final String profileImageUrl,
       @JsonKey(name: 'planid') final int planId,
       @JsonKey(name: 'colorblindness') final String colorBlindnessString,
@@ -489,11 +463,6 @@ abstract class _User extends User {
   @override
   @JsonKey(name: 'theme')
   String get themeName;
-
-  /// The language the user has selected
-  @override
-  @JsonKey(name: 'lang')
-  String get language;
 
   /// The url of the profile image
   @override

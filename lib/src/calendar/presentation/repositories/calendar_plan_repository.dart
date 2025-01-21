@@ -297,7 +297,11 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
 
     return _tasks.state.requireData.where((task) {
-      return !state.requireData.deadlines.any((t) => t.id == task.id);
+      if (state.requireData.deadlines.any((t) => t.id == task.id)) return false;
+      if (task.type == MoodleTaskType.optional && !state.requireData.optionalTasksEnabled) return false;
+      if (task.type == MoodleTaskType.exam) return false;
+
+      return true;
     }).toList();
   }
 
@@ -305,7 +309,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   ///
   /// If no filters are provided, all deadlines are returned.
   List<PlanDeadline> filterDeadlines({
-    int? taskId,
+    Set<int>? taskIds,
     DateTime? start,
     DateTime? end,
     DateTime? betweenStart,
@@ -321,7 +325,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     final now = DateTime.now();
 
     return state.requireData.deadlines.where((deadline) {
-      if (taskId != null && deadline.id != taskId) return false;
+      if (taskIds != null && taskIds.contains(deadline.id)) return false;
       if (start != null && deadline.start != start) return false;
       if (end != null && deadline.end != end) return false;
 

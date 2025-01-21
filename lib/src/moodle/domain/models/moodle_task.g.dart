@@ -8,26 +8,26 @@ part of 'moodle_task.dart';
 
 _$MoodleTaskImpl _$$MoodleTaskImplFromJson(Map<String, dynamic> json) =>
     _$MoodleTaskImpl(
-      id: (json['moduleid'] as num).toInt(),
+      id: (json['assignid'] as num).toInt(),
+      cmid: (json['cmid '] as num).toInt(),
       name: json['name'] as String,
       courseId: (json['courseid'] as num).toInt(),
       status: $enumDecode(_$MoodleTaskStatusEnumMap, json['status']),
       type: $enumDecode(_$MoodleTaskTypeEnumMap, json['type']),
       deadline: _$JsonConverterFromJson<int, DateTime>(
           json['deadline'], const UnixTimestampConverter().fromJson),
-      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$$MoodleTaskImplToJson(_$MoodleTaskImpl instance) =>
     <String, dynamic>{
-      'moduleid': instance.id,
+      'assignid': instance.id,
+      'cmid ': instance.cmid,
       'name': instance.name,
       'courseid': instance.courseId,
       'status': _$MoodleTaskStatusEnumMap[instance.status]!,
       'type': _$MoodleTaskTypeEnumMap[instance.type]!,
       'deadline': _$JsonConverterToJson<int, DateTime>(
           instance.deadline, const UnixTimestampConverter().toJson),
-      'url': instance.url,
     };
 
 const _$MoodleTaskStatusEnumMap = {

@@ -31,4 +31,10 @@ class TaskAggregate with _$TaskAggregate {
 
     return TaskAggregate(status: status, type: type);
   }
+
+  /// Creates a dummy [TaskAggregate] for the UI to show while data is loading.
+  factory TaskAggregate.dummy() => const TaskAggregate(
+        status: StatusAggregate(done: 5, pending: 3, uploaded: 2, late: 8),
+        type: TypeAggregate(required: 5, optional: 7, compensation: 5, exam: 1, none: 0),
+      );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lb_planner/src/app/app.dart';
 
 /// Shows a dialog with default animations.
@@ -13,6 +14,8 @@ Future<T?> showAnimatedDialog<T>({required BuildContext context, required RouteP
       ),
     ),
     pageBuilder: pageBuilder,
+    barrierDismissible: true,
+    barrierLabel: 'Dismiss',
   );
 }
 
@@ -80,6 +83,21 @@ Future<void> showAlertDialog(
     context,
     title: title,
     content: Text(message),
+    actions: [
+      PrimaryDialogAction(
+        label: confirmLabel ?? 'OK',
+        onPressed: Navigator.pop,
+      ),
+    ],
+  );
+}
+
+/// Shows an alert dialog but with a markdown body.
+Future<void> showMarkdownDialog(BuildContext context, {required String title, required String markdown, String? confirmLabel}) async {
+  await showGenericDialog<void>(
+    context,
+    title: title,
+    content: MarkdownBody(data: markdown),
     actions: [
       PrimaryDialogAction(
         label: confirmLabel ?? 'OK',

@@ -19,10 +19,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
   @override
   Duration get updateInterval => kRefreshIntervalDuration;
 
-  bool _hasUnread = false;
-
   /// If `true` the current user has unread notifications.
-  bool get hasUnreadNotifications => _hasUnread;
+  bool get hasUnreadNotifications => state.data?.any((element) => !element.read) ?? false;
 
   @override
   FutureOr<void> build(Type trigger) async {
@@ -34,8 +32,6 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       () => _datasource.fetchNotifications(
         _auth.state.requireData[Webservice.lb_planner_api],
       ),
-      onData: (data) => _hasUnread = data.any((element) => !element.read),
-      onError: (_, __) => _hasUnread = false,
     );
   }
 
@@ -80,8 +76,6 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       _auth.state.requireData[Webservice.lb_planner_api],
       unread,
     );
-
-    _hasUnread = false;
 
     emit(
       AsyncValue.data(
@@ -135,8 +129,6 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       _auth.state.requireData[Webservice.lb_planner_api],
       read,
     );
-
-    _hasUnread = true;
 
     emit(
       AsyncValue.data(

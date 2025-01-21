@@ -106,21 +106,6 @@ class UserRepository extends Repository<AsyncValue<User>> {
     );
   }
 
-  /// Updates the user's language.
-  Future<void> setLanguage(String lang) async {
-    if (!state.hasData) {
-      log('User is not loaded yet. Aborting.');
-
-      return;
-    }
-
-    await captureEvent('language_changed', properties: {'language': lang});
-
-    return _updateUser(
-      state.requireData.copyWith(language: lang),
-    );
-  }
-
   /// Deletes the current user.
   ///
   /// Note: this does not yet whipe any collected analytics data.

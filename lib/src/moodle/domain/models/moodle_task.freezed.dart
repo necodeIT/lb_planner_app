@@ -21,8 +21,12 @@ MoodleTask _$MoodleTaskFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MoodleTask {
   /// The ID of this task.
-  @JsonKey(name: 'moduleid')
+  @JsonKey(name: 'assignid')
   int get id => throw _privateConstructorUsedError;
+
+  /// The id of the task within it's parent [MoodleCourse].
+  @JsonKey(name: 'cmid ')
+  int get cmid => throw _privateConstructorUsedError;
 
   /// The name of this task.
   String get name => throw _privateConstructorUsedError;
@@ -41,9 +45,6 @@ mixin _$MoodleTask {
   @UnixTimestampConverter()
   DateTime? get deadline => throw _privateConstructorUsedError;
 
-  /// The URL to this task on the Moodle website.
-  String get url => throw _privateConstructorUsedError;
-
   /// Serializes this MoodleTask to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -61,13 +62,13 @@ abstract class $MoodleTaskCopyWith<$Res> {
       _$MoodleTaskCopyWithImpl<$Res, MoodleTask>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'moduleid') int id,
+      {@JsonKey(name: 'assignid') int id,
+      @JsonKey(name: 'cmid ') int cmid,
       String name,
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime? deadline,
-      String url});
+      @UnixTimestampConverter() DateTime? deadline});
 }
 
 /// @nodoc
@@ -86,17 +87,21 @@ class _$MoodleTaskCopyWithImpl<$Res, $Val extends MoodleTask>
   @override
   $Res call({
     Object? id = null,
+    Object? cmid = null,
     Object? name = null,
     Object? courseId = null,
     Object? status = null,
     Object? type = null,
     Object? deadline = freezed,
-    Object? url = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      cmid: null == cmid
+          ? _value.cmid
+          : cmid // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -118,10 +123,6 @@ class _$MoodleTaskCopyWithImpl<$Res, $Val extends MoodleTask>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -135,13 +136,13 @@ abstract class _$$MoodleTaskImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'moduleid') int id,
+      {@JsonKey(name: 'assignid') int id,
+      @JsonKey(name: 'cmid ') int cmid,
       String name,
       @JsonKey(name: 'courseid') int courseId,
       MoodleTaskStatus status,
       MoodleTaskType type,
-      @UnixTimestampConverter() DateTime? deadline,
-      String url});
+      @UnixTimestampConverter() DateTime? deadline});
 }
 
 /// @nodoc
@@ -158,17 +159,21 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? cmid = null,
     Object? name = null,
     Object? courseId = null,
     Object? status = null,
     Object? type = null,
     Object? deadline = freezed,
-    Object? url = null,
   }) {
     return _then(_$MoodleTaskImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      cmid: null == cmid
+          ? _value.cmid
+          : cmid // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _value.name
@@ -190,10 +195,6 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -202,13 +203,13 @@ class __$$MoodleTaskImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MoodleTaskImpl extends _MoodleTask {
   const _$MoodleTaskImpl(
-      {@JsonKey(name: 'moduleid') required this.id,
+      {@JsonKey(name: 'assignid') required this.id,
+      @JsonKey(name: 'cmid ') required this.cmid,
       required this.name,
       @JsonKey(name: 'courseid') required this.courseId,
       required this.status,
       required this.type,
-      @UnixTimestampConverter() required this.deadline,
-      required this.url})
+      @UnixTimestampConverter() required this.deadline})
       : super._();
 
   factory _$MoodleTaskImpl.fromJson(Map<String, dynamic> json) =>
@@ -216,8 +217,13 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
   /// The ID of this task.
   @override
-  @JsonKey(name: 'moduleid')
+  @JsonKey(name: 'assignid')
   final int id;
+
+  /// The id of the task within it's parent [MoodleCourse].
+  @override
+  @JsonKey(name: 'cmid ')
+  final int cmid;
 
   /// The name of this task.
   @override
@@ -241,13 +247,9 @@ class _$MoodleTaskImpl extends _MoodleTask {
   @UnixTimestampConverter()
   final DateTime? deadline;
 
-  /// The URL to this task on the Moodle website.
-  @override
-  final String url;
-
   @override
   String toString() {
-    return 'MoodleTask(id: $id, name: $name, courseId: $courseId, status: $status, type: $type, deadline: $deadline, url: $url)';
+    return 'MoodleTask(id: $id, cmid: $cmid, name: $name, courseId: $courseId, status: $status, type: $type, deadline: $deadline)';
   }
 
   @override
@@ -256,20 +258,20 @@ class _$MoodleTaskImpl extends _MoodleTask {
         (other.runtimeType == runtimeType &&
             other is _$MoodleTaskImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.cmid, cmid) || other.cmid == cmid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.courseId, courseId) ||
                 other.courseId == courseId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.deadline, deadline) ||
-                other.deadline == deadline) &&
-            (identical(other.url, url) || other.url == url));
+                other.deadline == deadline));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, courseId, status, type, deadline, url);
+  int get hashCode => Object.hash(
+      runtimeType, id, cmid, name, courseId, status, type, deadline);
 
   /// Create a copy of MoodleTask
   /// with the given fields replaced by the non-null parameter values.
@@ -289,13 +291,14 @@ class _$MoodleTaskImpl extends _MoodleTask {
 
 abstract class _MoodleTask extends MoodleTask {
   const factory _MoodleTask(
-      {@JsonKey(name: 'moduleid') required final int id,
-      required final String name,
-      @JsonKey(name: 'courseid') required final int courseId,
-      required final MoodleTaskStatus status,
-      required final MoodleTaskType type,
-      @UnixTimestampConverter() required final DateTime? deadline,
-      required final String url}) = _$MoodleTaskImpl;
+          {@JsonKey(name: 'assignid') required final int id,
+          @JsonKey(name: 'cmid ') required final int cmid,
+          required final String name,
+          @JsonKey(name: 'courseid') required final int courseId,
+          required final MoodleTaskStatus status,
+          required final MoodleTaskType type,
+          @UnixTimestampConverter() required final DateTime? deadline}) =
+      _$MoodleTaskImpl;
   const _MoodleTask._() : super._();
 
   factory _MoodleTask.fromJson(Map<String, dynamic> json) =
@@ -303,8 +306,13 @@ abstract class _MoodleTask extends MoodleTask {
 
   /// The ID of this task.
   @override
-  @JsonKey(name: 'moduleid')
+  @JsonKey(name: 'assignid')
   int get id;
+
+  /// The id of the task within it's parent [MoodleCourse].
+  @override
+  @JsonKey(name: 'cmid ')
+  int get cmid;
 
   /// The name of this task.
   @override
@@ -327,10 +335,6 @@ abstract class _MoodleTask extends MoodleTask {
   @override
   @UnixTimestampConverter()
   DateTime? get deadline;
-
-  /// The URL to this task on the Moodle website.
-  @override
-  String get url;
 
   /// Create a copy of MoodleTask
   /// with the given fields replaced by the non-null parameter values.

@@ -31,8 +31,9 @@ dependencies:
   flutter_boring_avatars: ^2.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_markdown: ^0.7.5
   flutter_modular: ^6.3.4
-  flutter_single_instance: ^1.1.1
+  flutter_single_instance: ^1.2.0
   flutter_staggered_animations: ^1.1.1
   flutter_sticky_header: ^0.7.0
   flutter_svg: ^2.0.10+1
