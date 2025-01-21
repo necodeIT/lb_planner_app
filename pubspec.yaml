@@ -106,6 +106,7 @@ flutter:
   assets:
     - assets/logo.svg
     - assets/auth/
+    - assets/moodle/
 
 flutter_gen:
   output: lib/gen/assets/

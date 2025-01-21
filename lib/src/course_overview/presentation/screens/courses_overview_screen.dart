@@ -47,7 +47,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
             CourseOverviewCourse(
               key: ValueKey('course_overview_${course.id}'),
               course: course,
-            )
+            ),
         ].show(),
       ),
     );

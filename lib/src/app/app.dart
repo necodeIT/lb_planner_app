@@ -66,6 +66,15 @@ class AppModule extends Module {
         customTransition: defaultTransition,
         transition: TransitionType.custom,
       )
+      ..module(
+        '/moodle',
+        module: MoodleModule(),
+        customTransition: defaultTransition,
+        transition: TransitionType.custom,
+        guards: [
+          AuthGuard(redirectTo: '/auth/'),
+        ],
+      )
       ..child(
         '/',
         child: (_) => const SidebarScreen(),
@@ -105,6 +114,7 @@ class AppModule extends Module {
         transition: TransitionType.custom,
         guards: [
           AuthGuard(redirectTo: '/auth/'),
+          HasCoursesGuard(),
         ],
       );
   }

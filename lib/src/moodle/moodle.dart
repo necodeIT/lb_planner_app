@@ -33,5 +33,10 @@ class MoodleModule extends Module {
   }
 
   @override
-  void routes(RouteManager r) {}
+  void routes(RouteManager r) {
+    r.child(
+      '/select-courses/',
+      child: (_) => const CourseSelectionScreen(),
+    );
+  }
 }

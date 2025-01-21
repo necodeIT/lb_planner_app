@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 
@@ -15,8 +16,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<UserRepository>();
     final auth = context.watch<AuthRepository>();
+    final courses = context.watch<MoodleCoursesRepository>(); // wait for courses to load so the guard doesn't missfire
 
-    if (auth.isAuthenticated && user.state.hasData) {
+    if (auth.isAuthenticated && user.state.hasData && courses.state.hasData) {
       Modular.to.navigate('/dashboard/');
     }
 
