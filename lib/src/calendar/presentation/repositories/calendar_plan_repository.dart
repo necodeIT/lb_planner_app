@@ -119,6 +119,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       log('Deadline set.');
 
       await captureEvent('deadline_set', properties: {'id': taskId, 'start': start, 'end': end});
+
+      await _tasks.build(CalendarPlanRepository);
     } catch (e, st) {
       log('Failed to set deadline.', e, st);
 
@@ -269,8 +271,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
           optionalTasksEnabled: enabled,
         ),
       );
-
-      await _tasks.build(CalendarPlanRepository);
 
       await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
     } catch (e, st) {
