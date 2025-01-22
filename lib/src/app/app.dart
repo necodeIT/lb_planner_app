@@ -5,20 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/dashboard/dashboard.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/notifications/notifications.dart';
-import 'package:lb_planner/src/settings/settings.dart';
-import 'package:lb_planner/src/slots/slots.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:posthog_dart/posthog_dart.dart';
 
 import 'infra/infra.dart';
-import 'presentation/presentation.dart';
 
 export 'package:flutter_utils/flutter_utils.dart';
 
@@ -38,6 +29,8 @@ class AppModule extends Module {
         ThemingModule(),
         NotificationsModule(),
         UpdaterModule(),
+        MoodleModule(),
+        CalendarModule(),
       ];
 
   @override

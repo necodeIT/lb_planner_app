@@ -12,6 +12,8 @@ class HasCoursesGuard extends RouteGuard {
   Future<bool> canActivate(String path, ModularRoute route) async {
     final courses = Modular.get<MoodleCoursesRepository>();
 
+    await courses.build(HasCoursesGuard);
+
     return courses.filter(enabled: true).isNotEmpty;
   }
 }

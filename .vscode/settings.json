@@ -17,5 +17,6 @@
   ],
   "dart.flutterRememberSelectedDevice": true,
   "dart.debugSdkLibraries": true,
-  "dart.debugExternalPackageLibraries": true
+  "dart.debugExternalPackageLibraries": true,
+  "svg.preview.background": "editor"
 }

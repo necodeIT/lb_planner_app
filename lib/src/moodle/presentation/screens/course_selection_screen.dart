@@ -7,21 +7,45 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class CourseSelectionScreen extends StatelessWidget {
+/// Prompts the user to select courses to include in the planning process.
+class CourseSelectionScreen extends StatefulWidget {
+  /// Prompts the user to select courses to include in the planning process.
   const CourseSelectionScreen({super.key});
 
   @override
+  State<CourseSelectionScreen> createState() => _CourseSelectionScreenState();
+}
+
+class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
+  bool _checked = false;
+
+  void preventMissfire(MoodleCoursesRepository repo) {
+    if (!repo.state.hasData) return;
+
+    if (_checked) return;
+
+    _checked = true;
+
+    if (repo.filter(enabled: true).isNotEmpty) {
+      Modular.to.pushNamed('/dashboard/');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final repo = context.watch<MoodleCoursesRepository>();
+
+    preventMissfire(repo);
+
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
         children: [
-          Align(
-            child: SizedBox(
-              height: context.height,
-              child: Assets.moodle.courseSelection.themed(
-                context,
-              ),
+          Positioned(
+            bottom: Spacing.mediumSpacing,
+            left: Spacing.mediumSpacing,
+            child: Assets.moodle.courseSelection.themed(
+              width: context.width * 0.45,
+              context,
             ),
           ),
           Positioned(
@@ -44,7 +68,7 @@ class CourseSelectionScreen extends StatelessWidget {
                     const CourseSelector().expanded(),
                     Spacing.mediumVertical(),
                     ElevatedButton(
-                      onPressed: () => Modular.to.pushNamed('/dashboard/'),
+                      onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.pushNamed('/dashboard/') : null,
                       child: Text('Continue'),
                     ).stretch(),
                   ],

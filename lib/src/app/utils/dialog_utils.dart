@@ -7,12 +7,19 @@ Future<T?> showAnimatedDialog<T>({required BuildContext context, required RouteP
   return showGeneralDialog<T>(
     context: context,
     transitionBuilder: (context, a1, a2, child) => ScaleTransition(
-      scale: Tween<double>(begin: 1.2, end: 1).animate(a1),
+      scale: Tween<double>(begin: 1.2, end: 1).animate(
+        a1.drive(
+          CurveTween(curve: Curves.easeInOut),
+        ),
+      ),
       child: FadeTransition(
-        opacity: a1,
+        opacity: a1.drive(
+          CurveTween(curve: Curves.easeInOut),
+        ),
         child: child,
       ),
     ),
+    transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: pageBuilder,
     barrierDismissible: true,
     barrierLabel: 'Dismiss',
