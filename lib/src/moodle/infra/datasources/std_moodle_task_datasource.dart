@@ -23,6 +23,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
         function: 'local_lbplanner_modules_get_module',
         body: {
           'moduleid': id,
+          'ekenabled': 1,
         },
       );
 
@@ -49,6 +50,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
         function: all ? 'local_lbplanner_modules_get_all_modules' : 'local_lbplanner_modules_get_all_course_modules',
         body: {
           'courseid': courseId,
+          'ekenabled': 1,
         },
       );
 
