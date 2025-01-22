@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/settings/settings.dart';
@@ -11,6 +12,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stagger = AnimationStagger(const Duration(milliseconds: 50));
+    final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
 
     return Padding(
       padding: PaddingAll(),
@@ -32,10 +34,11 @@ class SettingsScreen extends StatelessWidget {
                     ].hSpaced(Spacing.mediumSpacing),
                   ),
                 ),
-                Expanded(
-                  flex: 2,
-                  child: const CourseSelector().stretch(),
-                ).show(stagger),
+                if (capabilities.hasStudent)
+                  Expanded(
+                    flex: 2,
+                    child: const CourseSelector().stretch(),
+                  ).show(stagger),
               ].vSpaced(Spacing.mediumSpacing),
             ),
           ),

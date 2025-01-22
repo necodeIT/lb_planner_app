@@ -40,7 +40,7 @@ class SlotsModule extends Module {
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.slotMaster}),
+          CapabilityGuard({UserCapability.slotMaster}, redirectTo: '/slots/overview'),
         ],
       )
       ..child(
@@ -49,7 +49,7 @@ class SlotsModule extends Module {
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.teacher}),
+          CapabilityGuard({UserCapability.teacher}, redirectTo: '/slots/book'),
         ],
       )
       ..child(
@@ -58,7 +58,7 @@ class SlotsModule extends Module {
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.student}, redirectTo: '/dashboard/'),
+          CapabilityGuard({UserCapability.student}, redirectTo: '/slots/overview'),
         ],
       );
   }

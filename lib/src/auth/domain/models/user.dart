@@ -2,7 +2,7 @@
 import 'package:color_blindness/color_blindness.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/app/app.dart';
+import 'package:lb_planner/lb_planner.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';
@@ -24,6 +24,9 @@ class User with _$User {
     /// The lastname of the user
     required String lastname,
 
+    /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
+    @Default(false) @JsonKey(name: 'enableek') @BoolConverterNullable() bool optionalTasksEnabled,
+
     /// The email address of the user
     @Default('') String email,
 
@@ -43,7 +46,7 @@ class User with _$User {
     @Default('') @JsonKey(name: 'colorblindness') String colorBlindnessString,
 
     /// Whether to display the task count in the calendar view
-    @Default(1) @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
+    @Default(false) @JsonKey(name: 'displaytaskcount') @BoolConverterNullable() bool displayTaskCount,
 
     /// The vintage of the user
     Vintage? vintage,
@@ -67,11 +70,6 @@ class User with _$User {
 
   /// The [ColorBlindnessType] of  user based on [colorBlindnessString].
   ColorBlindnessType get colorBlindness => ColorBlindnessType.values.byName(colorBlindnessString);
-
-  /// Whether to display the task count in the calendar view or not.
-  ///
-  /// Based on [displayTaskCountInt].
-  bool get displayTaskCount => displayTaskCountInt == 1;
 
   /// Returns `true` if the user has the given [capability]. Otherwise `false`.
   ///

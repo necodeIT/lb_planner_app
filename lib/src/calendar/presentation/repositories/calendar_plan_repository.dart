@@ -242,44 +242,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }
   }
 
-  /// Sets [CalendarPlan.optionalTasksEnabled] to [enabled].
-  // Using positional parameters here for ease of use in the UI.
-  // ignore: avoid_positional_boolean_parameters
-  Future<void> enableOptionalTasks(bool? enabled) async {
-    if (!state.hasData) {
-      log('Cannot set optional tasks enabled: No plan loaded.');
-
-      return;
-    }
-
-    if (enabled == null) {
-      log('Cannot set optional tasks enabled: No value provided.');
-
-      return;
-    }
-
-    try {
-      data(
-        state.requireData.copyWith(
-          optionalTasksEnabled: enabled,
-        ),
-      );
-
-      await _plan.updatePlan(
-        _auth.state.requireData[Webservice.lb_planner_api],
-        state.requireData.copyWith(
-          optionalTasksEnabled: enabled,
-        ),
-      );
-
-      await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
-    } catch (e, st) {
-      log('Failed to set optional tasks enabled.', e, st);
-
-      return;
-    }
-  }
-
   /// Returns a list of tasks that do not have an associated deadline.
   List<MoodleTask> getUnplannedTasks() {
     if (!state.hasData) {
@@ -296,7 +258,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
     return _tasks.state.requireData.where((task) {
       if (state.requireData.deadlines.any((t) => t.id == task.id)) return false;
-      if (task.type == MoodleTaskType.optional && !state.requireData.optionalTasksEnabled) return false;
       if (task.type == MoodleTaskType.exam) return false;
 
       return true;

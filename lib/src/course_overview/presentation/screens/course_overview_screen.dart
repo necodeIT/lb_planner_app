@@ -76,6 +76,10 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
       );
     final deadlines = context.watch<CalendarPlanRepository>().filterDeadlines(taskIds: tasks.map((t) => t.id).toSet());
 
+    // TODO:
+    print('PEENISS: Deadlines ${deadlines.map((d) => d.id)}');
+    print('PEENISS: Tasks ${tasks.map((t) => t.id)}');
+
     final course = context.watch<MoodleCoursesRepository>().filter(id: widget.id).firstOrNull;
 
     return Padding(
@@ -122,7 +126,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
         ],
         rows: tasks.map(
           (t) {
-            final planDeadline = deadlines.firstWhereOrNull((d) => d.id == t.id)?.end;
+            final planDeadline = deadlines.firstWhereOrNull((d) => d.id == t.id)?.start;
 
             return DataRow(
               cells: [

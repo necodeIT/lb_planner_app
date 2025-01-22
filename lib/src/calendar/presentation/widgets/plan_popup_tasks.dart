@@ -43,8 +43,9 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
   @override
   Widget build(BuildContext context) {
     final plan = context.watch<CalendarPlanRepository>();
+    final user = context.watch<UserRepository>();
 
-    if (!plan.state.hasData) {
+    if (!plan.state.hasData || !user.state.hasData) {
       return const Center(child: CircularProgressIndicator());
     }
 
@@ -53,22 +54,12 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
       type: {
         MoodleTaskType.required,
         MoodleTaskType.compensation,
-        if (plan.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
+        if (user.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
       },
     ).toList();
 
     return Column(
       children: [
-        Row(
-          children: [
-            Checkbox(
-              value: plan.state.requireData.optionalTasksEnabled,
-              onChanged: plan.enableOptionalTasks,
-            ),
-            const Text('Show optional tasks'),
-          ],
-        ),
-        Spacing.smallVertical(),
         TextField(
           controller: searchController,
           decoration: InputDecoration(

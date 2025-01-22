@@ -67,6 +67,7 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
                   .filter(
                     query: searchController.text,
                     capability: UserCapability.student,
+                    vintage: currentUser.data?.vintage,
                   )
                   .map(
                     (user) => InvitableMemberWidget(

@@ -60,6 +60,10 @@ class _GeneralSettingsState extends State<GeneralSettings> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserRepository>();
+
+    final isStudent = user.state.data?.capabilities.hasStudent ?? false;
+
     return Card(
       child: Padding(
         padding: PaddingAll(),
@@ -72,8 +76,24 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             Expanded(
               child: ListView(
                 children: [
-                  item('Version $kInstalledRelease', Icons.update, checkUpdates),
+                  iconItem(
+                    title: 'Version $kInstalledRelease',
+                    icon: Icons.update,
+                    onPressed: checkUpdates,
+                  ),
                   // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
+                  if (isStudent)
+                    checkboxItem(
+                      title: 'Enable EK modules',
+                      value: user.state.data?.optionalTasksEnabled ?? false,
+                      onChanged: user.enableOptionalTasks,
+                    ),
+                  if (isStudent)
+                    checkboxItem(
+                      title: 'Display task count',
+                      value: user.state.data?.displayTaskCount ?? false,
+                      onChanged: user.setDisplayTaskCount,
+                    ),
                 ].vSpaced(Spacing.smallSpacing),
               ),
             ),
@@ -83,25 +103,48 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     );
   }
 
-  Widget item(String title, IconData icon, VoidCallback onPressed, [Color? hoverColor]) {
+  Widget iconItem({required String title, required IconData icon, VoidCallback? onPressed, Color? hoverColor}) {
+    return item(
+      title: title,
+      suffix: HoverBuilder(
+        onTap: onPressed,
+        builder: (context, hovering) {
+          return Container(
+            padding: PaddingAll(Spacing.xsSpacing),
+            decoration: ShapeDecoration(
+              shape: squircle(),
+              color: context.theme.scaffoldBackgroundColor,
+            ),
+            child: Icon(
+              icon,
+              color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
+            ),
+          );
+        },
+      ),
+      onPressed: onPressed,
+    );
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Widget checkboxItem({required String title, required bool value, required Function(bool?) onChanged}) {
+    return item(
+      title: title,
+      suffix: Checkbox(
+        value: value,
+        onChanged: onChanged,
+      ),
+    );
+  }
+
+  // ignore: avoid_positional_boolean_parameters
+  Widget item({required String title, required Widget suffix, VoidCallback? onPressed}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(title).expanded(),
         Spacing.xs(),
-        HoverBuilder(
-          onTap: onPressed,
-          builder: (context, hovering) {
-            return Container(
-              padding: PaddingAll(Spacing.xsSpacing),
-              decoration: ShapeDecoration(
-                shape: squircle(),
-                color: context.theme.scaffoldBackgroundColor,
-              ),
-              child: Icon(icon, color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface),
-            );
-          },
-        ),
+        suffix,
       ],
     );
   }

@@ -11,13 +11,14 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       username: json['username'] as String,
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
+      optionalTasksEnabled: json['enableek'] as bool? ?? false,
       email: json['email'] as String? ?? '',
       capabilitiesBitMask: (json['capabilities'] as num?)?.toInt() ?? -1,
       themeName: json['theme'] as String? ?? '',
       profileImageUrl: json['profileimageurl'] as String? ?? '',
       planId: (json['planid'] as num?)?.toInt() ?? -1,
       colorBlindnessString: json['colorblindness'] as String? ?? '',
-      displayTaskCountInt: (json['displaytaskcount'] as num?)?.toInt() ?? 1,
+      displayTaskCount: json['displaytaskcount'] as bool? ?? false,
       vintage: $enumDecodeNullable(_$VintageEnumMap, json['vintage']),
     );
 
@@ -27,13 +28,14 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'username': instance.username,
       'firstname': instance.firstname,
       'lastname': instance.lastname,
+      'enableek': instance.optionalTasksEnabled,
       'email': instance.email,
       'capabilities': instance.capabilitiesBitMask,
       'theme': instance.themeName,
       'profileimageurl': instance.profileImageUrl,
       'planid': instance.planId,
       'colorblindness': instance.colorBlindnessString,
-      'displaytaskcount': instance.displayTaskCountInt,
+      'displaytaskcount': instance.displayTaskCount,
       'vintage': _$VintageEnumMap[instance.vintage],
     };
 
