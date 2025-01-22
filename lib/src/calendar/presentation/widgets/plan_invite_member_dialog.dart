@@ -64,7 +64,10 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
               children: users
                   .where((user) => user.id != currentUser.data?.id)
                   .toList()
-                  .filter(query: searchController.text)
+                  .filter(
+                    query: searchController.text,
+                    capability: UserCapability.student,
+                  )
                   .map(
                     (user) => InvitableMemberWidget(
                       user: user,

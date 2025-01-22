@@ -19,7 +19,9 @@ class _NotificationsListState extends State<NotificationsList> {
 
   @override
   Widget build(BuildContext context) {
-    final notifications = context.watch<NotificationsRepository>().filter(read: showAll ? null : false);
+    final notificationsRepo = context.watch<NotificationsRepository>();
+
+    final notifications = notificationsRepo.filter(read: showAll ? null : false)..sort((a, b) => b.timestamp.compareTo(a.timestamp));
 
     return Container(
       padding: PaddingAll(Spacing.smallSpacing),

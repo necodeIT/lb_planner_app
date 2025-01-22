@@ -45,6 +45,7 @@ class _PlanCellState extends State<PlanCell> {
       taskIds: deadlines.map((e) => e.id).toSet(),
       type: {
         MoodleTaskType.required,
+        MoodleTaskType.compensation,
         if (plan.state.data?.optionalTasksEnabled ?? false) MoodleTaskType.optional,
       },
     );
