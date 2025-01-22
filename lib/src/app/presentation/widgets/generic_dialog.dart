@@ -9,7 +9,7 @@ class GenericDialog extends StatelessWidget {
   const GenericDialog({super.key, required this.title, required this.content, this.actions, this.shrinkWrap = true});
 
   /// The title of the dialog.
-  final String title;
+  final Widget title;
 
   /// The content of the dialog.
   final Widget content;
@@ -31,7 +31,7 @@ class GenericDialog extends StatelessWidget {
       },
       child: AlertDialog(
         backgroundColor: context.theme.cardColor,
-        title: Text(title).bold(),
+        title: title,
         shape: squircle(),
         content: ConstrainedBox(
           constraints: BoxConstraints(

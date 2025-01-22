@@ -29,6 +29,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.0
   flutter_boring_avatars: ^2.0.1
+  flutter_colorpicker: ^1.1.0
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.5
@@ -99,6 +100,9 @@ dependency_overrides:
   popover:
     git:
       url: https://github.com/necodeIT/popover.git
+  flutter_colorpicker:
+    git:
+      url: https://github.com/mchome/flutter_colorpicker.git
 
 flutter:
   uses-material-design: true

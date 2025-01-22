@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Renders a given [MoodleCourse] as a widget.
@@ -30,7 +31,16 @@ class CourseWidget extends StatelessWidget {
           child: Text(course.name).center(),
         ),
         Spacing.mediumHorizontal(),
-        const Icon(Icons.more_horiz),
+        IconButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          icon: const Icon(Icons.more_horiz),
+          onPressed: () => showAnimatedDialog(
+            context: context,
+            pageBuilder: (_, __, ___) => CourseCustomizer(course: course),
+          ),
+        ),
       ],
     );
   }
