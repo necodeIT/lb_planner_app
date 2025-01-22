@@ -1,3 +1,4 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lb_planner/src/app/app.dart';
@@ -37,7 +38,7 @@ Future<T?> showGenericDialog<T>(
   return showAnimatedDialog<T>(
     context: context,
     pageBuilder: (_, __, ___) => GenericDialog(
-      title: title,
+      title: Text(title).bold(),
       content: content,
       actions: actions,
       shrinkWrap: shrinkWrap,

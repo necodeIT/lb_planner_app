@@ -1,5 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/theming/theming.dart';
@@ -21,7 +22,10 @@ class CourseTag extends StatelessWidget {
       ),
       child: Padding(
         padding: PaddingAll(Spacing.xsSpacing),
-        child: Text(course.shortname).color(context.theme.colorScheme.onPrimary).bold().fontSize(12),
+        child: Text(course.shortname)
+            .color(useWhiteForeground(course.color) ? context.theme.colorScheme.onPrimary : context.theme.colorScheme.onSurface)
+            .bold()
+            .fontSize(12),
       ),
     );
   }
