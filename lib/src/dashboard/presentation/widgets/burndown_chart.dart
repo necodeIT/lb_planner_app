@@ -18,7 +18,7 @@ class BurndownChart extends StatelessWidget {
     final courses = context.watch<MoodleCoursesRepository>();
 
     if (!tasksRepo.state.hasData || !plan.state.hasData || !courses.state.hasData) {
-      return const CircularProgressIndicator().center();
+      return _card(context, const CircularProgressIndicator().center());
     }
 
     final tasks = tasksRepo.filter(
@@ -30,14 +30,35 @@ class BurndownChart extends StatelessWidget {
       },
     );
 
-    // if current date is before february, use september of last year as start date and january of this year as end date
-    // else use february of this year as start date and june of this year as end date
+    // Determine the start and end dates based on the current date.
+    // If the current date is before February:
+    //   - Use September of last year as the start date.
+    //   - Use January of this year as the end date.
+    // If the current date is after February but before September:
+    //   - Use February of this year as the start date.
+    //   - Use June of this year as the end date.
+    // If the current date is in or after September:
+    //   - Use September of this year as the start date.
+    //   - Use January of next year as the end date.
 
     final now = DateTime.now();
 
-    final startDate = now.month < 2 ? DateTime(now.year - 1, 9) : DateTime(now.year, 2);
+    final DateTime startDate;
+    final DateTime endDate;
 
-    final endDate = now.month < 2 ? DateTime(now.year, 2, 0) : DateTime(now.year, 7, 0);
+    if (now.month < 2) {
+      // Before February
+      startDate = DateTime(now.year - 1, 9); // September of last year
+      endDate = DateTime(now.year, 2, 0); // January of this year
+    } else if (now.month >= 2 && now.month < 9) {
+      // Between February and August
+      startDate = DateTime(now.year, 2); // February of this year
+      endDate = DateTime(now.year, 7, 0); // June of this year
+    } else {
+      // September or later
+      startDate = DateTime(now.year, 9); // September of this year
+      endDate = DateTime(now.year + 1, 2, 0); // January of next year
+    }
 
     final plannedTasks = plan.filterDeadlines(
       betweenStart: startDate,
@@ -78,8 +99,12 @@ class BurndownChart extends StatelessWidget {
 
     spots.add(FlSpot(days.toDouble(), amountOfTasksLeftForEachDaySinceStart.last.toDouble()));
 
+    final actualDataColor = amountOfTasksLeftForEachDaySinceStart.last != 0 ? context.theme.colorScheme.error : context.taskStatusTheme.doneColor;
+
+    final idealDataColor = context.theme.colorScheme.primary;
+
     final actualData = LineChartBarData(
-      color: context.theme.colorScheme.primary,
+      color: actualDataColor,
       spots: spots,
       barWidth: 5,
       isStrokeCapRound: true,
@@ -88,7 +113,7 @@ class BurndownChart extends StatelessWidget {
     final idealAverage = tasks.length / days;
 
     final idealData = LineChartBarData(
-      color: context.taskStatusTheme.doneColor,
+      color: idealDataColor,
       spots: [
         FlSpot(0, tasks.length.toDouble()),
         FlSpot(days.toDouble(), 0),
@@ -97,6 +122,72 @@ class BurndownChart extends StatelessWidget {
       isStrokeCapRound: true,
     );
 
+    return _card(
+      context,
+      Column(
+        children: [
+          LineChart(
+            curve: Curves.easeInOut,
+            LineChartData(
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                  getTooltipColor: (touchedSpot) => context.theme.scaffoldBackgroundColor,
+                  tooltipRoundedRadius: 10,
+                  fitInsideHorizontally: true,
+                  fitInsideVertically: true,
+                ),
+              ),
+              gridData: const FlGridData(show: false),
+              titlesData: const FlTitlesData(show: false),
+              borderData: FlBorderData(show: false),
+              maxY: tasks.length.toDouble(),
+              maxX: days.toDouble(),
+              lineBarsData: [
+                actualData,
+                idealData,
+              ],
+            ),
+          ).expanded(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: actualDataColor,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                  ),
+                  Spacing.smallHorizontal(),
+                  Text('Planned trajectory'),
+                ],
+              ),
+              Spacing.mediumHorizontal(),
+              Row(
+                children: [
+                  Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: idealDataColor,
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                  ),
+                  Spacing.smallHorizontal(),
+                  Text('Ideal trajectory (${idealAverage.toStringAsFixed(2)} tasks/day)'),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _card(BuildContext context, Widget child) {
     return Card(
       child: Padding(
         padding: PaddingAll(),
@@ -117,8 +208,10 @@ class BurndownChart extends StatelessWidget {
                       markdown: '''
 The **burndown chart** helps you visualize your progress toward completing tasks. 
 
-- The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you've planned your tasks in an ideal way to keep a steady workload.  
-- The **actual trajectory** (curved line) shows how many tasks you're expected to have left based on when you've planned to complete them.  
+1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you've planned your tasks in an ideal way to keep a steady workload.  
+2. The **planned trajectory** (curved line) shows how many tasks you're expected to have left based on when you've planned to complete them. 
+    - Green when no tasks are remaining by the end of the semester.
+    - Becomes red if you will not complete all modules in time.
 
 This chart doesn’t track when tasks are actually completed—it's all about comparing your plan to the ideal pace so you can stay on track!
 ''',
@@ -129,62 +222,7 @@ This chart doesn’t track when tasks are actually completed—it's all about co
               ],
             ),
             Spacing.medium(),
-            LineChart(
-              curve: Curves.easeInOut,
-              LineChartData(
-                lineTouchData: LineTouchData(
-                  touchTooltipData: LineTouchTooltipData(
-                    getTooltipColor: (touchedSpot) => context.theme.scaffoldBackgroundColor,
-                    tooltipRoundedRadius: 10,
-                    fitInsideHorizontally: true,
-                    fitInsideVertically: true,
-                  ),
-                ),
-                gridData: const FlGridData(show: false),
-                titlesData: const FlTitlesData(show: false),
-                borderData: FlBorderData(show: false),
-                maxY: tasks.length.toDouble(),
-                maxX: days.toDouble(),
-                lineBarsData: [
-                  actualData,
-                  idealData,
-                ],
-              ),
-            ).expanded(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: context.theme.colorScheme.primary,
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
-                    ),
-                    Spacing.smallHorizontal(),
-                    Text('Planned trajectory'),
-                  ],
-                ),
-                Spacing.mediumHorizontal(),
-                Row(
-                  children: [
-                    Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: context.taskStatusTheme.doneColor,
-                        borderRadius: BorderRadius.circular(1000),
-                      ),
-                    ),
-                    Spacing.smallHorizontal(),
-                    Text('Ideal trajectory (${idealAverage.toStringAsFixed(2)} tasks/day)'),
-                  ],
-                ),
-              ],
-            )
+            child.expanded(),
           ],
         ),
       ),

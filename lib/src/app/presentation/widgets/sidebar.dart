@@ -11,6 +11,8 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
+
     return Container(
       width: 60,
       decoration: BoxDecoration(
@@ -28,20 +30,23 @@ class Sidebar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
-              children: const [
-                SidebarTarget(
-                  route: '/dashboard/',
-                  icon: Icons.dashboard,
-                ),
-                SidebarTarget(
-                  route: '/calendar/plan',
-                  activeRoute: '/calendar/',
-                  icon: Icons.calendar_month_rounded,
-                ),
-                SidebarTarget(
-                  route: '/course-overview/',
-                  icon: Icons.school,
-                ),
+              children: [
+                if (capabilities.hasStudent)
+                  SidebarTarget(
+                    route: '/dashboard/',
+                    icon: Icons.dashboard,
+                  ),
+                if (capabilities.hasStudent)
+                  SidebarTarget(
+                    route: '/calendar/plan',
+                    activeRoute: '/calendar/',
+                    icon: Icons.calendar_month_rounded,
+                  ),
+                if (capabilities.hasStudent)
+                  SidebarTarget(
+                    route: '/course-overview/',
+                    icon: Icons.school,
+                  ),
                 SidebarTarget(
                   route: '/slots/book',
                   activeRoute: '/slots/',

@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_utils/flutter_utils.dart';
@@ -21,19 +22,26 @@ class InvitableMemberWidget extends StatefulWidget {
 
 class _InvitableMemberWidgetState extends State<InvitableMemberWidget> {
   Future<void> inviteUser() async {
-    final plan = context.read<CalendarPlanRepository>();
-    await plan.inviteUser(widget.user.id);
+    final invites = context.read<InvitesRepository>();
+    await invites.inviteUser(widget.user.id);
   }
 
   @override
   Widget build(BuildContext context) {
     final plan = context.watch<CalendarPlanRepository>().state;
+    final invites = context.watch<InvitesRepository>().state.when(
+          data: (data) => data,
+          loading: () => [],
+          error: (_, __) => [],
+        )..sort((a, b) => a.timestamp.compareTo(b.timestamp));
 
     final isMember = plan.when(
       data: (plan) => plan.members.any((m) => m.id == widget.user.id),
       loading: () => false,
       error: (e, _) => false,
     );
+
+    final isInvited = invites.any((i) => i.invitedUserId == widget.user.id && i.status == PlanInviteStatus.pending);
 
     return Container(
       padding: PaddingAll(Spacing.smallSpacing),
@@ -63,10 +71,17 @@ class _InvitableMemberWidgetState extends State<InvitableMemberWidget> {
             ],
           ).expanded(),
           const Spacer(),
-          if (!isMember)
+          if (!isMember && !isInvited)
             TextButton(
               onPressed: inviteUser,
               child: const Text('Invite'),
+            ),
+          if (!isMember && isInvited)
+            Text(
+              'Invited',
+              style: context.theme.textTheme.bodyMedium?.copyWith(
+                color: context.theme.taskStatusTheme.pendingColor,
+              ),
             ),
           if (isMember)
             Row(

@@ -76,6 +76,8 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
       );
     final deadlines = context.watch<CalendarPlanRepository>().filterDeadlines(taskIds: tasks.map((t) => t.id).toSet());
 
+    final course = context.watch<MoodleCoursesRepository>().filter(id: widget.id).firstOrNull;
+
     return Padding(
       padding: PaddingAll(),
       child: DataTable(
@@ -103,7 +105,19 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
             onSort: sortBy,
           ),
           DataColumn(
-            label: Text('Actions'),
+            label: IconButton(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              onPressed: course != null
+                  ? () {
+                      launchUrlString(course.url);
+                    }
+                  : null,
+              icon: Icon(
+                Icons.link,
+              ),
+            ),
           ),
         ],
         rows: tasks.map(
@@ -130,11 +144,17 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
                   ),
                 ),
                 DataCell(
-                  TextButton(
+                  IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
                     onPressed: () {
                       launchUrlString(t.url);
                     },
-                    child: Text('Open in Moodle'),
+                    icon: Icon(
+                      Icons.link,
+                      color: context.theme.colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

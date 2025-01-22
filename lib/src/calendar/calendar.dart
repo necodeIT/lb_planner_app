@@ -27,6 +27,7 @@ class CalendarModule extends Module {
       ..add<InvitesDatasource>(StdInvitesDatasource.new)
       ..add<DeadlinesDatasource>(StdDeadlinesDatasource.new)
       ..add<PlanDatasource>(StdPlanDatasource.new)
+      ..addRepository<InvitesRepository>(InvitesRepository.new)
       ..addRepository<CalendarPlanRepository>(CalendarPlanRepository.new);
   }
 

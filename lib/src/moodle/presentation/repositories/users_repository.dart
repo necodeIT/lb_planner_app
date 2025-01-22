@@ -39,7 +39,18 @@ extension FilterUserX on Iterable<User> {
   ///
   /// String values are case-insensitive.
   /// If [ids] is not empty, only users with an id in the list are returned.
-  Iterable<User> filter({String? query, String? username, String? lastname, String? firstname, Vintage? vintage, List<int> ids = const []}) {
+  Iterable<User> filter({
+    String? query,
+    String? username,
+    String? lastname,
+    String? firstname,
+    Vintage? vintage,
+    List<int> ids = const [],
+
+    /// The user must have all capabilities in this set.
+    Set<UserCapability> capabilities = const {},
+    UserCapability? capability,
+  }) {
     return where((user) {
       if (query != null &&
           !user.username.containsIgnoreCase(query) &&
@@ -52,6 +63,8 @@ extension FilterUserX on Iterable<User> {
       if (firstname != null && !user.firstname.containsIgnoreCase(firstname)) return false;
       if (ids.isNotEmpty && !ids.contains(user.id)) return false;
       if (vintage != null && user.vintage != vintage) return false;
+      if (capabilities.isNotEmpty && !user.capabilities.has(capabilities.toList())) return false;
+      if (capability != null && !user.capabilities.contains(capability)) return false;
 
       return true;
     });

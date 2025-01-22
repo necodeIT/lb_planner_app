@@ -14,7 +14,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   final AuthRepository _auth;
   final ConnectivityService _connectivity;
   final MoodleTasksRepository _tasks;
-  final InvitesDatasource _invites;
 
   /// Repository for managing a user's [CalendarPlan].
   CalendarPlanRepository(
@@ -23,7 +22,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     this._auth,
     this._connectivity,
     this._tasks,
-    this._invites,
   ) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_tasks, setError: false, setLoading: false);
@@ -343,72 +341,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     }).toList();
   }
 
-  /// Invites the user with the given [userId] to the plan.
-  Future<void> inviteUser(int userId) async {
-    if (!state.hasData) {
-      log('Cannot invite user: No plan loaded.');
-
-      return;
-    }
-
-    try {
-      await _invites.inviteUser(
-        _auth.state.requireData[Webservice.lb_planner_api],
-        userId,
-      );
-
-      await captureEvent('user_invited');
-    } catch (e, st) {
-      log('Failed to invite user.', e, st);
-
-      return;
-    }
-  }
-
-  /// Declines the invite with the given [inviteId].
-  Future<void> declineInvite(int inviteId) async {
-    if (!state.hasData) {
-      log('Cannot decline invite: No plan loaded.');
-
-      return;
-    }
-
-    try {
-      await _invites.declineInvite(
-        _auth.state.requireData[Webservice.lb_planner_api],
-        inviteId,
-      );
-
-      await captureEvent('invite_declined');
-    } catch (e, st) {
-      log('Failed to decline invite.', e, st);
-
-      return;
-    }
-  }
-
-  /// Accepts the invite with the given [inviteId].
-  Future<void> acceptInvite(int inviteId) async {
-    if (!state.hasData) {
-      log('Cannot accept invite: No plan loaded.');
-
-      return;
-    }
-
-    try {
-      await _invites.acceptInvite(
-        _auth.state.requireData[Webservice.lb_planner_api],
-        inviteId,
-      );
-
-      await captureEvent('invite_accepted');
-    } catch (e, st) {
-      log('Failed to accept invite.', e, st);
-
-      return;
-    }
-  }
-
   /// Returns a list of members that match the given filters.
   ///
   /// If no filters are provided, all members are returned.
@@ -425,35 +357,6 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     return state.requireData.members.where((member) {
       if (userId != null && member.id != userId) return false;
       if (accessType != null && member.accessType != accessType) return false;
-
-      return true;
-    }).toList();
-  }
-
-  /// Returns a list of all invites that match the given filters.
-  Future<List<PlanInvite>> getInvites({
-    int? id,
-    int? inviterId,
-    int? inviteeId,
-    PlanInviteStatus? status,
-    int? planId,
-  }) async {
-    if (!state.hasData) {
-      log('Cannot fetch invites: No plan loaded.');
-
-      return [];
-    }
-
-    final invites = await _invites.getInvites(
-      _auth.state.requireData[Webservice.lb_planner_api],
-    );
-
-    return invites.where((invite) {
-      if (id != null && invite.id != id) return false;
-      if (inviterId != null && invite.inviterId != inviterId) return false;
-      if (inviteeId != null && invite.invitedUserId != inviteeId) return false;
-      if (status != null && invite.status != status) return false;
-      if (planId != null && invite.planId != planId) return false;
 
       return true;
     }).toList();

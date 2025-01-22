@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/src/app/app.dart';
 
 part 'moodle_course.freezed.dart';
@@ -34,4 +35,7 @@ class MoodleCourse with _$MoodleCourse {
 
   /// Creates a [MoodleCourse] from a JSON object.
   factory MoodleCourse.fromJson(Map<String, Object?> json) => _$MoodleCourseFromJson(json);
+
+  /// The URL to view this course on Moodle.
+  String get url => '$kMoodleServerAdress/course/view.php?id=$id';
 }

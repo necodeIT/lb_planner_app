@@ -55,14 +55,14 @@ class User with _$User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   /// The capabilities the user has
-  List<UserCapability> get capabilities {
+  Set<UserCapability> get capabilities {
     final capabilities = <UserCapability>[];
 
     for (final capability in UserCapability.values) {
       if (capabilitiesBitMask & capability.value != 0) capabilities.add(capability);
     }
 
-    return capabilities;
+    return capabilities.toSet();
   }
 
   /// The [ColorBlindnessType] of  user based on [colorBlindnessString].
@@ -122,7 +122,7 @@ enum UserCapability {
 }
 
 /// Provides helper methods for [List<UserCapability>].
-extension UserCapabilitiesExtension on List<UserCapability> {
+extension UserCapabilitiesExtension on Iterable<UserCapability> {
   /// Returns `true` if the list contains [UserCapability.teacher]. Otherwise `false`.
   bool get hasTeacher => contains(UserCapability.teacher);
 

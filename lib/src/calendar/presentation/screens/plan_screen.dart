@@ -268,43 +268,61 @@ class _PlanScreenState extends State<PlanScreen> with WindowListener {
       days.add(lastDay.add(Duration(days: i + 1)));
     }
 
-    return LayoutBuilder(
-      key: ValueKey(currentMonth),
-      builder: (context, size) {
-        // each row has 7 days
-        final rows = days.length / 7;
-
-        return AnimationLimiter(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 7,
-              // calculate the height of each row
-              mainAxisExtent: size.maxHeight / rows,
-            ),
-            itemCount: days.length,
-            itemBuilder: (context, index) => LayoutBuilder(
-              builder: (context, size) {
-                final day = days[index];
-
-                if (index == 0) {
-                  updateCellWidth(size.maxWidth);
-                }
-
-                return AnimationConfiguration.staggeredGrid(
-                  position: index,
-                  columnCount: 7,
-                  child: SlideAnimation(
-                    horizontalOffset: 200 * (prevMonth.isBefore(currentMonth) ? 1 : -1),
-                    child: FadeInAnimation(
-                      child: PlanCell(date: day, currentMonth: currentMonth),
-                    ),
+    return Column(
+      children: [
+        Row(
+          children: [
+            for (var i = 0; i < 7; i++)
+              Expanded(
+                child: Center(
+                  child: Text(
+                    DateFormat('E').format(days[i]),
+                    style: context.theme.textTheme.titleSmall,
                   ),
-                );
-              },
-            ),
-          ),
-        );
-      },
+                ),
+              ),
+          ],
+        ).stretch(),
+        Spacing.xsVertical(),
+        LayoutBuilder(
+          key: ValueKey(currentMonth),
+          builder: (context, size) {
+            // each row has 7 days
+            final rows = days.length / 7;
+
+            return AnimationLimiter(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 7,
+                  // calculate the height of each row
+                  mainAxisExtent: size.maxHeight / rows,
+                ),
+                itemCount: days.length,
+                itemBuilder: (context, index) => LayoutBuilder(
+                  builder: (context, size) {
+                    final day = days[index];
+
+                    if (index == 0) {
+                      updateCellWidth(size.maxWidth);
+                    }
+
+                    return AnimationConfiguration.staggeredGrid(
+                      position: index,
+                      columnCount: 7,
+                      child: SlideAnimation(
+                        horizontalOffset: 200 * (prevMonth.isBefore(currentMonth) ? 1 : -1),
+                        child: FadeInAnimation(
+                          child: PlanCell(date: day, currentMonth: currentMonth),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            );
+          },
+        ).expanded(),
+      ],
     );
   }
 }

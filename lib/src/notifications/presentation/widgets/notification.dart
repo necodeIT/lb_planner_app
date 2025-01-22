@@ -37,11 +37,22 @@ class _NotificationWidgetState extends State<NotificationWidget> {
 
     await callback();
 
+    await toggleRead(read: true);
+
     if (mounted) {
       setState(() {
         handlingCallback = false;
       });
     }
+  }
+
+  FutureOr<void> toggleRead({bool? read}) async {
+    read ??= !widget.notification.read;
+
+    final repo = context.read<NotificationsRepository>();
+
+    if (read && !widget.notification.read) await repo.markAsRead(widget.notification);
+    if (!read && widget.notification.read) await repo.unread(widget.notification);
   }
 
   Future<List<(String, FutureOr<void> Function()?)>> getActions() async {
@@ -58,7 +69,7 @@ class _NotificationWidgetState extends State<NotificationWidget> {
       ),
       child: Column(
         children: [
-          widget.notification.type.message(context, widget.notification),
+          widget.notification.type.message(context, widget.notification).alignAtCenterLeft(),
           Spacing.smallVertical(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,17 +111,15 @@ class _NotificationWidgetState extends State<NotificationWidget> {
                             title,
                             textAlign: TextAlign.start,
                           ),
-                      TextButton(
-                        onPressed: () {
-                          handleCallback(() async {
-                            widget.notification.read
-                                ? await context.read<NotificationsRepository>().unread(widget.notification)
-                                : await context.read<NotificationsRepository>().markAsRead(widget.notification);
-                          });
-                        },
-                        child: Icon(
+                      IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        onPressed: toggleRead,
+                        icon: Icon(
                           widget.notification.read ? FontAwesome5Regular.eye_slash : FontAwesome5Regular.eye,
                           size: context.bodySmall?.fontSize,
+                          color: context.theme.colorScheme.primary,
                         ),
                       ),
                     ],
@@ -127,39 +136,35 @@ class _NotificationWidgetState extends State<NotificationWidget> {
 
 /// Message builder for [NotificationType.invite].
 Widget inviteMessage(BuildContext context, Notification notification) {
-  final plan = context.watch<CalendarPlanRepository>();
+  final invites = context.watch<InvitesRepository>().filter(id: notification.context);
   final users = context.watch<UsersRepository>();
 
-  return FutureBuilder(
-    future: plan.getInvites(inviteeId: notification.context),
-    builder: (context, snapshot) {
-      final invite = snapshot.data?.firstOrNull;
-      final userName = invite != null
-          ? users.state.data
-              ?.filter(
-                ids: [
-                  invite.inviterId,
-                ],
-              )
-              .firstOrNull
-              ?.fullname
-          : null;
+  final invite = invites.firstOrNull;
 
-      return Skeletonizer(
-        enabled: userName == null || notification.context == null,
-        child: Text(
-          '${userName ?? 'Loading'} invited you to join their plan!',
-        ),
-      );
-    },
+  final userName = invite != null
+      ? users.state.data
+          ?.filter(
+            ids: [
+              invite.inviterId,
+            ],
+          )
+          .firstOrNull
+          ?.fullname
+      : null;
+
+  return Skeletonizer(
+    enabled: userName == null || notification.context == null,
+    child: Text(
+      '${userName ?? 'Loading'} invited you to join their plan!',
+    ),
   );
 }
 
 /// Actions builder for [NotificationType.invite].
 FutureOr<List<(String, FutureOr<void> Function()?)>> inviteActions(BuildContext context, Notification notification) async {
-  final plan = context.watch<CalendarPlanRepository>();
+  final invites = context.watch<InvitesRepository>();
 
-  final invite = await plan.getInvites(inviteeId: notification.context).then((value) => value.firstOrNull);
+  final invite = invites.filter(id: notification.context).firstOrNull;
 
   if (invite == null) return [];
 
@@ -175,11 +180,11 @@ FutureOr<List<(String, FutureOr<void> Function()?)>> inviteActions(BuildContext 
   return [
     (
       'Accept',
-      () async => plan.acceptInvite(notification.context!),
+      () async => invites.acceptInvite(notification.context!),
     ),
     (
       'Decline',
-      () async => plan.declineInvite(notification.context!),
+      () async => invites.declineInvite(notification.context!),
     ),
   ];
 }
@@ -191,91 +196,67 @@ FutureOr<List<(String, FutureOr<void> Function())>> noActions(BuildContext conte
 
 /// Message builder for [NotificationType.inviteAccepted].
 Widget inviteAcceptedMessage(BuildContext context, Notification notification) {
-  final plan = context.watch<CalendarPlanRepository>();
+  final invites = context.watch<InvitesRepository>();
   final users = context.watch<UsersRepository>();
 
-  return FutureBuilder(
-    future: plan.getInvites(id: notification.context),
-    builder: (context, snapshot) {
-      final invite = snapshot.data?.firstOrNull;
-      final userName = invite != null
-          ? users.state.data
-              ?.filter(
-                ids: [
-                  invite.invitedUserId,
-                ],
-              )
-              .firstOrNull
-              ?.fullname
-          : null;
+  final invite = invites.filter(id: notification.context).firstOrNull;
 
-      return Skeletonizer(
-        enabled: userName == null || notification.context == null,
-        child: Text(
-          '$userName accepted your invitation!',
-        ),
-      );
-    },
+  final userName = invite != null
+      ? users.state.data
+          ?.filter(
+            ids: [
+              invite.invitedUserId,
+            ],
+          )
+          .firstOrNull
+          ?.fullname
+      : null;
+
+  return Skeletonizer(
+    enabled: userName == null || notification.context == null,
+    child: Text(
+      '$userName accepted your invitation!',
+    ),
   );
 }
 
 /// Message builder for [NotificationType.inviteDeclined].
 Widget inviteDeclinedMessage(BuildContext context, Notification notification) {
-  final plan = context.watch<CalendarPlanRepository>();
+  final invites = context.watch<InvitesRepository>();
   final users = context.watch<UsersRepository>();
 
-  return FutureBuilder(
-    future: plan.getInvites(id: notification.context),
-    builder: (context, snapshot) {
-      final invite = snapshot.data?.firstOrNull;
-      final userName = invite != null
-          ? users.state.data
-              ?.filter(
-                ids: [
-                  invite.invitedUserId,
-                ],
-              )
-              .firstOrNull
-              ?.fullname
-          : null;
+  final invite = invites.filter(id: notification.context).firstOrNull;
 
-      return Skeletonizer(
-        enabled: userName == null || notification.context == null,
-        child: Text(
-          '$userName declined your invitation!',
-        ),
-      );
-    },
+  final userName = invite != null
+      ? users.state.data
+          ?.filter(
+            ids: [
+              invite.invitedUserId,
+            ],
+          )
+          .firstOrNull
+          ?.fullname
+      : null;
+
+  return Skeletonizer(
+    enabled: userName == null || notification.context == null,
+    child: Text(
+      '$userName declined your invitation!',
+    ),
   );
 }
 
 /// Message builder for [NotificationType.planLeft].
 Widget planLeftMessage(BuildContext context, Notification notification) {
-  final plan = context.watch<CalendarPlanRepository>();
   final users = context.watch<UsersRepository>();
 
-  return FutureBuilder(
-    future: plan.getInvites(id: notification.context),
-    builder: (context, snapshot) {
-      final invite = snapshot.data?.firstOrNull;
-      final userName = invite != null
-          ? users.state.data
-              ?.filter(
-                ids: [
-                  invite.invitedUserId,
-                ],
-              )
-              .firstOrNull
-              ?.fullname
-          : null;
+  final userName = users.state.data?.filter(ids: [notification.context!]).firstOrNull?.fullname;
 
-      return Skeletonizer(
-        enabled: userName == null || notification.context == null,
-        child: Text(
-          '$userName left your plan!',
-        ),
-      );
-    },
+  return Skeletonizer(
+    enabled: userName == null || notification.context == null,
+    child: Text(
+      '$userName left your plan! No hard feelings. You can re-invite them any time',
+    ),
   );
 }
 
