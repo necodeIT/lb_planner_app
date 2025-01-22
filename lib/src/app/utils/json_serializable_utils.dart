@@ -79,14 +79,14 @@ class UnixTimestampConverterNullable extends JsonConverter<DateTime?, int?> {
   DateTime? fromJson(int? json) {
     if (json == null) return null;
 
-    return DateTime.fromMillisecondsSinceEpoch(json * 1000).toLocal();
+    return const UnixTimestampConverter().fromJson(json);
   }
 
   @override
   int? toJson(DateTime? object) {
     if (object == null) return null;
 
-    return object.toUtc().millisecondsSinceEpoch ~/ 1000;
+    return const UnixTimestampConverter().toJson(object);
   }
 }
 
@@ -125,6 +125,26 @@ class BoolConverter extends JsonConverter<bool, dynamic> {
   @override
   num toJson(bool object) {
     return object ? 1 : 0;
+  }
+}
+
+/// Same as [BoolConverter] but nullable.
+class BoolConverterNullable extends JsonConverter<bool?, dynamic> {
+  /// Same as [BoolConverter] but nullable.
+  const BoolConverterNullable();
+
+  @override
+  bool? fromJson(dynamic json) {
+    if (json == null) return null;
+
+    return const BoolConverter().fromJson(json);
+  }
+
+  @override
+  num? toJson(bool? object) {
+    if (object == null) return null;
+
+    return const BoolConverter().toJson(object);
   }
 }
 

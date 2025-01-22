@@ -61,6 +61,7 @@ class MoodleUserDatasource extends UserDatasource {
                 'theme',
                 'colorblindness',
                 'displaytaskcount',
+                'ekenabled',
               ].contains(e.key),
             ),
       ),

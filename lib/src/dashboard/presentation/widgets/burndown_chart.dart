@@ -16,15 +16,16 @@ class BurndownChart extends StatelessWidget {
     final tasksRepo = context.watch<MoodleTasksRepository>();
     final plan = context.watch<CalendarPlanRepository>();
     final courses = context.watch<MoodleCoursesRepository>();
+    final user = context.watch<UserRepository>();
 
-    if (!tasksRepo.state.hasData || !plan.state.hasData || !courses.state.hasData) {
+    if (!tasksRepo.state.hasData || !plan.state.hasData || !courses.state.hasData || !user.state.hasData) {
       return _card(context, const CircularProgressIndicator().center());
     }
 
     final tasks = tasksRepo.filter(
       courseIds: courses.filter(enabled: true).map((e) => e.id).toSet(),
       type: {
-        if (plan.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
+        if (user.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
         MoodleTaskType.required,
         MoodleTaskType.compensation,
       },

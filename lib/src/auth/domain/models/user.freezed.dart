@@ -33,6 +33,11 @@ mixin _$User {
   /// The lastname of the user
   String get lastname => throw _privateConstructorUsedError;
 
+  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
+  @JsonKey(name: 'enableek')
+  @BoolConverterNullable()
+  bool get optionalTasksEnabled => throw _privateConstructorUsedError;
+
   /// The email address of the user
   String get email => throw _privateConstructorUsedError;
 
@@ -58,7 +63,8 @@ mixin _$User {
 
   /// Whether to display the task count in the calendar view
   @JsonKey(name: 'displaytaskcount')
-  int get displayTaskCountInt => throw _privateConstructorUsedError;
+  @BoolConverterNullable()
+  bool get displayTaskCount => throw _privateConstructorUsedError;
 
   /// The vintage of the user
   Vintage? get vintage => throw _privateConstructorUsedError;
@@ -82,13 +88,18 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
+      @JsonKey(name: 'enableek')
+      @BoolConverterNullable()
+      bool optionalTasksEnabled,
       String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
       @JsonKey(name: 'profileimageurl') String profileImageUrl,
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
-      @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
+      @JsonKey(name: 'displaytaskcount')
+      @BoolConverterNullable()
+      bool displayTaskCount,
       Vintage? vintage});
 }
 
@@ -111,13 +122,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? optionalTasksEnabled = null,
     Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
     Object? profileImageUrl = null,
     Object? planId = null,
     Object? colorBlindnessString = null,
-    Object? displayTaskCountInt = null,
+    Object? displayTaskCount = null,
     Object? vintage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -137,6 +149,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
+      optionalTasksEnabled: null == optionalTasksEnabled
+          ? _value.optionalTasksEnabled
+          : optionalTasksEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -161,10 +177,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.colorBlindnessString
           : colorBlindnessString // ignore: cast_nullable_to_non_nullable
               as String,
-      displayTaskCountInt: null == displayTaskCountInt
-          ? _value.displayTaskCountInt
-          : displayTaskCountInt // ignore: cast_nullable_to_non_nullable
-              as int,
+      displayTaskCount: null == displayTaskCount
+          ? _value.displayTaskCount
+          : displayTaskCount // ignore: cast_nullable_to_non_nullable
+              as bool,
       vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
@@ -185,13 +201,18 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
+      @JsonKey(name: 'enableek')
+      @BoolConverterNullable()
+      bool optionalTasksEnabled,
       String email,
       @JsonKey(name: 'capabilities') int capabilitiesBitMask,
       @JsonKey(name: 'theme') String themeName,
       @JsonKey(name: 'profileimageurl') String profileImageUrl,
       @JsonKey(name: 'planid') int planId,
       @JsonKey(name: 'colorblindness') String colorBlindnessString,
-      @JsonKey(name: 'displaytaskcount') int displayTaskCountInt,
+      @JsonKey(name: 'displaytaskcount')
+      @BoolConverterNullable()
+      bool displayTaskCount,
       Vintage? vintage});
 }
 
@@ -211,13 +232,14 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? username = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? optionalTasksEnabled = null,
     Object? email = null,
     Object? capabilitiesBitMask = null,
     Object? themeName = null,
     Object? profileImageUrl = null,
     Object? planId = null,
     Object? colorBlindnessString = null,
-    Object? displayTaskCountInt = null,
+    Object? displayTaskCount = null,
     Object? vintage = freezed,
   }) {
     return _then(_$UserImpl(
@@ -237,6 +259,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
+      optionalTasksEnabled: null == optionalTasksEnabled
+          ? _value.optionalTasksEnabled
+          : optionalTasksEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -261,10 +287,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.colorBlindnessString
           : colorBlindnessString // ignore: cast_nullable_to_non_nullable
               as String,
-      displayTaskCountInt: null == displayTaskCountInt
-          ? _value.displayTaskCountInt
-          : displayTaskCountInt // ignore: cast_nullable_to_non_nullable
-              as int,
+      displayTaskCount: null == displayTaskCount
+          ? _value.displayTaskCount
+          : displayTaskCount // ignore: cast_nullable_to_non_nullable
+              as bool,
       vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
@@ -281,13 +307,18 @@ class _$UserImpl extends _User {
       required this.username,
       required this.firstname,
       required this.lastname,
+      @JsonKey(name: 'enableek')
+      @BoolConverterNullable()
+      this.optionalTasksEnabled = false,
       this.email = '',
       @JsonKey(name: 'capabilities') this.capabilitiesBitMask = -1,
       @JsonKey(name: 'theme') this.themeName = '',
       @JsonKey(name: 'profileimageurl') this.profileImageUrl = '',
       @JsonKey(name: 'planid') this.planId = -1,
       @JsonKey(name: 'colorblindness') this.colorBlindnessString = '',
-      @JsonKey(name: 'displaytaskcount') this.displayTaskCountInt = 1,
+      @JsonKey(name: 'displaytaskcount')
+      @BoolConverterNullable()
+      this.displayTaskCount = false,
       this.vintage})
       : super._();
 
@@ -310,6 +341,12 @@ class _$UserImpl extends _User {
   /// The lastname of the user
   @override
   final String lastname;
+
+  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
+  @override
+  @JsonKey(name: 'enableek')
+  @BoolConverterNullable()
+  final bool optionalTasksEnabled;
 
   /// The email address of the user
   @override
@@ -344,7 +381,8 @@ class _$UserImpl extends _User {
   /// Whether to display the task count in the calendar view
   @override
   @JsonKey(name: 'displaytaskcount')
-  final int displayTaskCountInt;
+  @BoolConverterNullable()
+  final bool displayTaskCount;
 
   /// The vintage of the user
   @override
@@ -352,7 +390,7 @@ class _$UserImpl extends _User {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCountInt: $displayTaskCountInt, vintage: $vintage)';
+    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, optionalTasksEnabled: $optionalTasksEnabled, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCount: $displayTaskCount, vintage: $vintage)';
   }
 
   @override
@@ -367,6 +405,8 @@ class _$UserImpl extends _User {
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
                 other.lastname == lastname) &&
+            (identical(other.optionalTasksEnabled, optionalTasksEnabled) ||
+                other.optionalTasksEnabled == optionalTasksEnabled) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.capabilitiesBitMask, capabilitiesBitMask) ||
                 other.capabilitiesBitMask == capabilitiesBitMask) &&
@@ -377,8 +417,8 @@ class _$UserImpl extends _User {
             (identical(other.planId, planId) || other.planId == planId) &&
             (identical(other.colorBlindnessString, colorBlindnessString) ||
                 other.colorBlindnessString == colorBlindnessString) &&
-            (identical(other.displayTaskCountInt, displayTaskCountInt) ||
-                other.displayTaskCountInt == displayTaskCountInt) &&
+            (identical(other.displayTaskCount, displayTaskCount) ||
+                other.displayTaskCount == displayTaskCount) &&
             (identical(other.vintage, vintage) || other.vintage == vintage));
   }
 
@@ -390,13 +430,14 @@ class _$UserImpl extends _User {
       username,
       firstname,
       lastname,
+      optionalTasksEnabled,
       email,
       capabilitiesBitMask,
       themeName,
       profileImageUrl,
       planId,
       colorBlindnessString,
-      displayTaskCountInt,
+      displayTaskCount,
       vintage);
 
   /// Create a copy of User
@@ -421,13 +462,18 @@ abstract class _User extends User {
       required final String username,
       required final String firstname,
       required final String lastname,
+      @JsonKey(name: 'enableek')
+      @BoolConverterNullable()
+      final bool optionalTasksEnabled,
       final String email,
       @JsonKey(name: 'capabilities') final int capabilitiesBitMask,
       @JsonKey(name: 'theme') final String themeName,
       @JsonKey(name: 'profileimageurl') final String profileImageUrl,
       @JsonKey(name: 'planid') final int planId,
       @JsonKey(name: 'colorblindness') final String colorBlindnessString,
-      @JsonKey(name: 'displaytaskcount') final int displayTaskCountInt,
+      @JsonKey(name: 'displaytaskcount')
+      @BoolConverterNullable()
+      final bool displayTaskCount,
       final Vintage? vintage}) = _$UserImpl;
   _User._() : super._();
 
@@ -449,6 +495,12 @@ abstract class _User extends User {
   /// The lastname of the user
   @override
   String get lastname;
+
+  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
+  @override
+  @JsonKey(name: 'enableek')
+  @BoolConverterNullable()
+  bool get optionalTasksEnabled;
 
   /// The email address of the user
   @override
@@ -482,7 +534,8 @@ abstract class _User extends User {
   /// Whether to display the task count in the calendar view
   @override
   @JsonKey(name: 'displaytaskcount')
-  int get displayTaskCountInt;
+  @BoolConverterNullable()
+  bool get displayTaskCount;
 
   /// The vintage of the user
   @override

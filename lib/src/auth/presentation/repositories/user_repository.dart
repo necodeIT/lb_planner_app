@@ -66,8 +66,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       _isHandlingAuthChange = false;
 
       return;
-    } catch (e) {
-      log('Failed to fetch user data', e);
+    } catch (e, s) {
+      log('Failed to fetch user data', e, s);
     }
 
     _isHandlingAuthChange = false;
@@ -128,6 +128,82 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('User deleted successfully.');
     } catch (e, s) {
       log('Failed to delete User.', e, s);
+    }
+  }
+
+  /// Sets [User.optionalTasksEnabled] to [enabled] for the current user.
+  // Using positional parameters here for ease of use in the UI.
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> enableOptionalTasks(bool? enabled) async {
+    if (!state.hasData) {
+      log('Cannot set optional tasks enabled: No user loaded.');
+
+      return;
+    }
+
+    if (enabled == null) {
+      log('Cannot set optional tasks enabled: No value provided.');
+
+      return;
+    }
+
+    try {
+      final patch = state.requireData.copyWith(
+        optionalTasksEnabled: enabled,
+      );
+
+      data(
+        patch,
+      );
+
+      await _userDatasource.updateUser(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        patch,
+      );
+
+      await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
+    } catch (e, st) {
+      log('Failed to set optional tasks enabled.', e, st);
+
+      return;
+    }
+  }
+
+  /// Sets [User.displayTaskCount] to [value] for the current user.
+  // Using positional parameters here for ease of use in the UI.
+  // ignore: avoid_positional_boolean_parameters
+  Future<void> setDisplayTaskCount(bool? value) async {
+    if (!state.hasData) {
+      log('Cannot set optional tasks enabled: No user loaded.');
+
+      return;
+    }
+
+    if (value == null) {
+      log('Cannot set optional tasks enabled: No value provided.');
+
+      return;
+    }
+
+    try {
+      final patch = state.requireData.copyWith(
+        displayTaskCount: value,
+      );
+
+      data(
+        patch,
+      );
+
+      await _userDatasource.updateUser(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        patch,
+      );
+
+      await captureEvent('optional_tasks_enabled', properties: {'enabled': value});
+    } catch (e, st) {
+      log('Failed to set optional tasks enabled.', e, st);
+
+      return;
     }
   }
 

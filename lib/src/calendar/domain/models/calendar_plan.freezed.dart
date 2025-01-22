@@ -27,11 +27,6 @@ mixin _$CalendarPlan {
   @JsonKey(name: 'planid')
   int get id => throw _privateConstructorUsedError;
 
-  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @JsonKey(name: 'enableek')
-  @BoolConverter()
-  bool get optionalTasksEnabled => throw _privateConstructorUsedError;
-
   /// A list of deadlines planned by it's [members].
   List<PlanDeadline> get deadlines => throw _privateConstructorUsedError;
 
@@ -57,7 +52,6 @@ abstract class $CalendarPlanCopyWith<$Res> {
   $Res call(
       {String name,
       @JsonKey(name: 'planid') int id,
-      @JsonKey(name: 'enableek') @BoolConverter() bool optionalTasksEnabled,
       List<PlanDeadline> deadlines,
       List<PlanMember> members});
 }
@@ -79,7 +73,6 @@ class _$CalendarPlanCopyWithImpl<$Res, $Val extends CalendarPlan>
   $Res call({
     Object? name = null,
     Object? id = null,
-    Object? optionalTasksEnabled = null,
     Object? deadlines = null,
     Object? members = null,
   }) {
@@ -92,10 +85,6 @@ class _$CalendarPlanCopyWithImpl<$Res, $Val extends CalendarPlan>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      optionalTasksEnabled: null == optionalTasksEnabled
-          ? _value.optionalTasksEnabled
-          : optionalTasksEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       deadlines: null == deadlines
           ? _value.deadlines
           : deadlines // ignore: cast_nullable_to_non_nullable
@@ -119,7 +108,6 @@ abstract class _$$CalendarPlanImplCopyWith<$Res>
   $Res call(
       {String name,
       @JsonKey(name: 'planid') int id,
-      @JsonKey(name: 'enableek') @BoolConverter() bool optionalTasksEnabled,
       List<PlanDeadline> deadlines,
       List<PlanMember> members});
 }
@@ -139,7 +127,6 @@ class __$$CalendarPlanImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? id = null,
-    Object? optionalTasksEnabled = null,
     Object? deadlines = null,
     Object? members = null,
   }) {
@@ -152,10 +139,6 @@ class __$$CalendarPlanImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      optionalTasksEnabled: null == optionalTasksEnabled
-          ? _value.optionalTasksEnabled
-          : optionalTasksEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
       deadlines: null == deadlines
           ? _value._deadlines
           : deadlines // ignore: cast_nullable_to_non_nullable
@@ -174,9 +157,6 @@ class _$CalendarPlanImpl extends _CalendarPlan {
   const _$CalendarPlanImpl(
       {required this.name,
       @JsonKey(name: 'planid') required this.id,
-      @JsonKey(name: 'enableek')
-      @BoolConverter()
-      required this.optionalTasksEnabled,
       required final List<PlanDeadline> deadlines,
       required final List<PlanMember> members})
       : _deadlines = deadlines,
@@ -194,12 +174,6 @@ class _$CalendarPlanImpl extends _CalendarPlan {
   @override
   @JsonKey(name: 'planid')
   final int id;
-
-  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @override
-  @JsonKey(name: 'enableek')
-  @BoolConverter()
-  final bool optionalTasksEnabled;
 
   /// A list of deadlines planned by it's [members].
   final List<PlanDeadline> _deadlines;
@@ -225,7 +199,7 @@ class _$CalendarPlanImpl extends _CalendarPlan {
 
   @override
   String toString() {
-    return 'CalendarPlan(name: $name, id: $id, optionalTasksEnabled: $optionalTasksEnabled, deadlines: $deadlines, members: $members)';
+    return 'CalendarPlan(name: $name, id: $id, deadlines: $deadlines, members: $members)';
   }
 
   @override
@@ -235,8 +209,6 @@ class _$CalendarPlanImpl extends _CalendarPlan {
             other is _$CalendarPlanImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.optionalTasksEnabled, optionalTasksEnabled) ||
-                other.optionalTasksEnabled == optionalTasksEnabled) &&
             const DeepCollectionEquality()
                 .equals(other._deadlines, _deadlines) &&
             const DeepCollectionEquality().equals(other._members, _members));
@@ -248,7 +220,6 @@ class _$CalendarPlanImpl extends _CalendarPlan {
       runtimeType,
       name,
       id,
-      optionalTasksEnabled,
       const DeepCollectionEquality().hash(_deadlines),
       const DeepCollectionEquality().hash(_members));
 
@@ -272,9 +243,6 @@ abstract class _CalendarPlan extends CalendarPlan {
   const factory _CalendarPlan(
       {required final String name,
       @JsonKey(name: 'planid') required final int id,
-      @JsonKey(name: 'enableek')
-      @BoolConverter()
-      required final bool optionalTasksEnabled,
       required final List<PlanDeadline> deadlines,
       required final List<PlanMember> members}) = _$CalendarPlanImpl;
   const _CalendarPlan._() : super._();
@@ -290,12 +258,6 @@ abstract class _CalendarPlan extends CalendarPlan {
   @override
   @JsonKey(name: 'planid')
   int get id;
-
-  /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @override
-  @JsonKey(name: 'enableek')
-  @BoolConverter()
-  bool get optionalTasksEnabled;
 
   /// A list of deadlines planned by it's [members].
   @override

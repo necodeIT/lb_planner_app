@@ -19,9 +19,6 @@ class CalendarPlan with _$CalendarPlan {
     /// The ID of this plan.
     @JsonKey(name: 'planid') required int id,
 
-    /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-    @JsonKey(name: 'enableek') @BoolConverter() required bool optionalTasksEnabled,
-
     /// A list of deadlines planned by it's [members].
     required List<PlanDeadline> deadlines,
 

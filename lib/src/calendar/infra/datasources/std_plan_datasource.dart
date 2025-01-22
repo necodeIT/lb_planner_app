@@ -105,7 +105,6 @@ class StdPlanDatasource extends PlanDatasource {
         token: token,
         body: {
           'planname': plan.name,
-          'enableek': plan.optionalTasksEnabled,
         },
       );
 

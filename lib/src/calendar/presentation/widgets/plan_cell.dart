@@ -46,8 +46,13 @@ class _PlanCellState extends State<PlanCell> {
       type: {
         MoodleTaskType.required,
         MoodleTaskType.compensation,
-        if (plan.state.data?.optionalTasksEnabled ?? false) MoodleTaskType.optional,
+        if (user.state.data?.optionalTasksEnabled ?? false) MoodleTaskType.optional,
       },
+    );
+
+    final exams = allTasks.filter(
+      type: {MoodleTaskType.exam},
+      deadlineDiff: Duration.zero,
     );
 
     return DragTarget<MoodleTask>(
@@ -98,6 +103,13 @@ class _PlanCellState extends State<PlanCell> {
                       .toList()
                       .vSpaced(Spacing.smallSpacing),
                   if (draggedTasks.isNotEmpty) Spacing.smallVertical(),
+                  if (exams.isNotEmpty) Spacing.smallVertical(),
+                  ...exams.map(
+                    (e) => MoodleTaskWidget(
+                      task: e,
+                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
+                    ),
+                  ),
                   ...tasks
                       .map(
                         (t) => LayoutBuilder(

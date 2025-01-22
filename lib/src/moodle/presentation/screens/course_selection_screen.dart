@@ -24,9 +24,11 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
 
     if (_checked) return;
 
+    final user = context.read<UserRepository>();
+
     _checked = true;
 
-    if (repo.filter(enabled: true).isNotEmpty) {
+    if (repo.filter(enabled: true).isNotEmpty || !(user.state.data?.capabilities.hasStudent ?? false)) {
       Modular.to.pushNamed('/dashboard/');
     }
   }

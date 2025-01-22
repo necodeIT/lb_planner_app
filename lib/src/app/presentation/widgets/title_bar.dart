@@ -28,6 +28,8 @@ class TitleBar extends StatefulWidget {
 
 /// The state of the current route's title bar.
 class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
+  String? _prevRoute;
+
   @override
   void initState() {
     super.initState();
@@ -158,6 +160,14 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
 
   @override
   Widget build(BuildContext context) {
+    // check if the route has changed and reset the search controller and parent route
+    if (_prevRoute != Modular.to.path) {
+      _prevRoute = Modular.to.path;
+
+      setSearchController(null);
+      setParentRoute(null);
+    }
+
     final user = context.watch<UserRepository>().state.data ??
         User(
           id: -1,

@@ -79,7 +79,7 @@ class AppModule extends Module {
             transition: TransitionType.custom,
             customTransition: defaultTransition,
             guards: [
-              CapabilityGuard({UserCapability.student}),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
             ],
           ),
           ModuleRoute(
@@ -88,7 +88,7 @@ class AppModule extends Module {
             transition: TransitionType.custom,
             customTransition: defaultTransition,
             guards: [
-              CapabilityGuard({UserCapability.student}),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
               // TODO: FeatureGuard([kCalendarPlanFeatureID]),
             ],
           ),
@@ -110,7 +110,7 @@ class AppModule extends Module {
             transition: TransitionType.custom,
             customTransition: defaultTransition,
             guards: [
-              CapabilityGuard({UserCapability.student}),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
             ],
           ),
         ],
