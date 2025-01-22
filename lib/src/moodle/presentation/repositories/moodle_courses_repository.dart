@@ -33,6 +33,10 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
     final tokens = _auth.state.requireData;
 
+    data(
+      state.requireData.map((e) => e.id == course.id ? course : e).toList(),
+    );
+
     await _courses.updateCourse(tokens[Webservice.lb_planner_api], course);
 
     await captureEvent(
