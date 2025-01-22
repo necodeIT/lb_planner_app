@@ -23,7 +23,13 @@ class CourseTag extends StatelessWidget {
       child: Padding(
         padding: PaddingAll(Spacing.xsSpacing),
         child: Text(course.shortname)
-            .color(useWhiteForeground(course.color) ? context.theme.colorScheme.onPrimary : context.theme.colorScheme.onSurface)
+            .color(
+              useWhiteForeground(course.color, bias: 70)
+                  ? context.theme.colorScheme.onPrimary
+                  : context.theme.brightness == Brightness.dark
+                      ? context.theme.colorScheme.onSurface.darken(100)
+                      : context.theme.colorScheme.onSurface,
+            )
             .bold()
             .fontSize(12),
       ),

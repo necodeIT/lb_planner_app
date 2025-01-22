@@ -25,7 +25,7 @@ class User with _$User {
     required String lastname,
 
     /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-    @Default(false) @JsonKey(name: 'enableek') @BoolConverterNullable() bool optionalTasksEnabled,
+    @Default(false) @JsonKey(name: 'ekenabled') @BoolConverterNullable() bool optionalTasksEnabled,
 
     /// The email address of the user
     @Default('') String email,

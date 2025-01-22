@@ -11,7 +11,6 @@ import 'package:lb_planner/src/notifications/notifications.dart';
 import 'package:lb_planner/src/theming/theming.dart';
 import 'package:popover/popover.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:uicons_updated/icons/uicons_regular.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// A bar displaying the current route's title and the current user's name and profile picture.
