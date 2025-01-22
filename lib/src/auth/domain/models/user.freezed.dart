@@ -34,7 +34,7 @@ mixin _$User {
   String get lastname => throw _privateConstructorUsedError;
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @JsonKey(name: 'enableek')
+  @JsonKey(name: 'ekenabled')
   @BoolConverterNullable()
   bool get optionalTasksEnabled => throw _privateConstructorUsedError;
 
@@ -88,7 +88,7 @@ abstract class $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
-      @JsonKey(name: 'enableek')
+      @JsonKey(name: 'ekenabled')
       @BoolConverterNullable()
       bool optionalTasksEnabled,
       String email,
@@ -201,7 +201,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String username,
       String firstname,
       String lastname,
-      @JsonKey(name: 'enableek')
+      @JsonKey(name: 'ekenabled')
       @BoolConverterNullable()
       bool optionalTasksEnabled,
       String email,
@@ -307,7 +307,7 @@ class _$UserImpl extends _User {
       required this.username,
       required this.firstname,
       required this.lastname,
-      @JsonKey(name: 'enableek')
+      @JsonKey(name: 'ekenabled')
       @BoolConverterNullable()
       this.optionalTasksEnabled = false,
       this.email = '',
@@ -344,7 +344,7 @@ class _$UserImpl extends _User {
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
   @override
-  @JsonKey(name: 'enableek')
+  @JsonKey(name: 'ekenabled')
   @BoolConverterNullable()
   final bool optionalTasksEnabled;
 
@@ -462,7 +462,7 @@ abstract class _User extends User {
       required final String username,
       required final String firstname,
       required final String lastname,
-      @JsonKey(name: 'enableek')
+      @JsonKey(name: 'ekenabled')
       @BoolConverterNullable()
       final bool optionalTasksEnabled,
       final String email,
@@ -498,7 +498,7 @@ abstract class _User extends User {
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
   @override
-  @JsonKey(name: 'enableek')
+  @JsonKey(name: 'ekenabled')
   @BoolConverterNullable()
   bool get optionalTasksEnabled;
 

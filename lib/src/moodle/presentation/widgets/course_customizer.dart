@@ -44,9 +44,11 @@ class _CourseCustomizerState extends State<CourseCustomizer> {
     setState(() {
       _color = c;
     });
+
+    textController.text = c.toHexString(enableAlpha: false);
   }
 
-  void saveCourseCustomization() async {
+  Future<void> saveCourseCustomization() async {
     final courses = context.watch<MoodleCoursesRepository>();
 
     final newCourse = widget.course.copyWith(color: _color!);
@@ -67,55 +69,25 @@ class _CourseCustomizerState extends State<CourseCustomizer> {
           Text(widget.course.name).bold(),
         ].hSpaced(Spacing.smallSpacing),
       ),
-      content: Column(
+      content: ListView(
         children: [
-          Spacing.large(),
-          SizedBox(
-            width: 600,
-            child: ColorPicker(
-              pickerColor: _color!,
-              onColorChanged: changeColor,
-              colorPickerWidth: 600,
-              pickerAreaHeightPercent: 0.5,
-              enableAlpha: false,
-              displayThumbColor: true,
-              paletteType: PaletteType.hsvWithHue,
-              labelTypes: const [],
-              pickerAreaBorderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(2),
-                topRight: Radius.circular(2),
-              ),
-              hexInputController: textController,
-              portraitOnly: true,
-            ),
+          LayoutBuilder(
+            builder: (context, size) {
+              return ColorPicker(
+                pickerColor: _color!,
+                onColorChanged: changeColor,
+                colorPickerWidth: size.maxWidth,
+                pickerAreaHeightPercent: 0.4,
+                enableAlpha: false,
+                displayThumbColor: true,
+                labelTypes: const [],
+                pickerAreaBorderRadius: BorderRadius.circular(10),
+                hexInputController: textController,
+                portraitOnly: true,
+              );
+            },
           ),
-          SizedBox(
-            width: 600,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              child: TextField(
-                controller: textController,
-                style: context.textTheme.bodyMedium,
-                decoration: InputDecoration(
-                  filled: true,
-                  hintText: context.t.moodle_courseSelector_search,
-                  prefixIcon: Icon(
-                    Icons.tag,
-                    color: context.theme.colorScheme.onSurface,
-                  ),
-                  fillColor: context.theme.scaffoldBackgroundColor,
-                  isDense: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                autofocus: true,
-                maxLength: 6,
-                inputFormatters: [UpperCaseTextFormatter(), FilteringTextInputFormatter.allow(RegExp(kValidHexPattern))],
-              ),
-            ),
-          ),
+          Spacing.smallVertical(),
           Wrap(
             spacing: Spacing.smallSpacing,
             runSpacing: Spacing.smallSpacing,
@@ -131,9 +103,38 @@ class _CourseCustomizerState extends State<CourseCustomizer> {
                   ),
                 ),
             ],
-          )
+          ),
+          Spacing.largeVertical(),
+          TextField(
+            controller: textController,
+            style: context.textTheme.bodyMedium,
+            decoration: InputDecoration(
+              filled: true,
+              hintText: context.t.moodle_courseSelector_search,
+              prefixIcon: Icon(
+                Icons.tag,
+                color: context.theme.colorScheme.onSurface,
+              ),
+              fillColor: context.theme.scaffoldBackgroundColor,
+              isDense: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            autofocus: true,
+            maxLength: 6,
+            inputFormatters: [
+              UpperCaseTextFormatter(),
+              FilteringTextInputFormatter.allow(
+                RegExp(
+                  r'^[0-9a-fA-F]{1,8}',
+                ),
+              ),
+            ],
+          ).stretch(),
         ],
-      ).expanded(),
+      ),
       actions: [
         SecondaryDialogAction(label: context.t.global_cancel, onPressed: (_) => Navigator.pop(context)),
         PrimaryDialogAction(label: context.t.global_confirm, onPressed: (_) => saveCourseCustomization()),

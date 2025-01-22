@@ -6,7 +6,7 @@ import 'package:lb_planner/src/theming/theming.dart';
 /// A generic dialog that can be used to display information to the user.
 class GenericDialog extends StatelessWidget {
   /// A generic dialog that can be used to display information to the user.
-  const GenericDialog({super.key, required this.title, required this.content, this.actions, this.shrinkWrap = true});
+  const GenericDialog({super.key, required this.title, required this.content, this.actions, this.shrinkWrap = true, this.shrinkWrapWidth = false});
 
   /// The title of the dialog.
   final Widget title;
@@ -16,6 +16,9 @@ class GenericDialog extends StatelessWidget {
 
   /// If true, the height of the dialog will be the height of the content.
   final bool shrinkWrap;
+
+  /// If true, the width of the dialog will be the width of the content.
+  final bool shrinkWrapWidth;
 
   /// The actions that can be taken in the dialog.
   final List<DialogAction>? actions;
@@ -38,7 +41,7 @@ class GenericDialog extends StatelessWidget {
             maxHeight: context.height * 0.8,
             minHeight: shrinkWrap ? 0 : context.height * 0.8,
             maxWidth: context.width * 0.5,
-            minWidth: context.width * 0.5,
+            minWidth: shrinkWrapWidth ? 0 : context.width * 0.5,
           ),
           child: content,
         ),
