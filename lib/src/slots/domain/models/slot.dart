@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:lb_planner/lb_planner.dart';
 
 part 'slot.freezed.dart';
 part 'slot.g.dart';
@@ -15,7 +16,7 @@ class Slot with _$Slot {
     required int id,
 
     /// The start time of this slot.
-    @JsonValue('startunit') required SlotTimeUnit startUnit,
+    @JsonKey(name: 'startunit') required SlotTimeUnit startUnit,
 
     /// The duration of this slot interpreted as [SlotTimeUnit]s.
     required int duration,
@@ -30,13 +31,16 @@ class Slot with _$Slot {
     required int size,
 
     /// The number of students that have already reserved this slot.
-    @JsonValue('fullness') required int reservations,
+    @JsonKey(name: 'fullness') required int reservations,
 
     /// `true` if the current user has reserved this slot.
-    @JsonValue('forcuruser') required bool reserved,
+    @JsonKey(name: 'forcuruser') required bool reserved,
 
     /// The user ids of those supervising this slot.
     @Default([]) List<int> supervisors,
+
+    /// The course mappings of this slot.
+    @Default([]) @JsonKey(name: 'filters') List<CourseToSlot> mappings,
   }) = _Slot;
 
   const Slot._();
@@ -72,31 +76,36 @@ class Slot with _$Slot {
 enum Weekday {
   /// Monday (duh).
   @JsonValue(1)
-  monday,
+  monday(_monday),
 
   /// Tuesday (duh).
   @JsonValue(2)
-  tuesday,
+  tuesday(_tuesday),
 
   /// Wednesday (duh).
   @JsonValue(3)
-  wednesday,
+  wednesday(_wednesday),
 
   /// Thursday (duh).
   @JsonValue(4)
-  thursday,
+  thursday(_thursday),
 
   /// Friday (duh).
   @JsonValue(5)
-  friday,
+  friday(_friday),
 
   /// Saturday (duh).
   @JsonValue(6)
-  saturday,
+  saturday(_saturday),
 
   /// Sunday (duh).
   @JsonValue(7)
-  sunday;
+  sunday(_sunday);
+
+  /// The human-readable representation of this weekday.
+  final Translator translate;
+
+  const Weekday(this.translate);
 
   /// Returns the dates of this weekday between [start] and [end].
   List<DateTime> getDates(DateTime start, DateTime end) {
@@ -133,6 +142,14 @@ enum Weekday {
   DateTime peek(int index) {
     return futureDates(index).last;
   }
+
+  static String _monday(BuildContext) => 'Monday';
+  static String _tuesday(BuildContext) => 'Tuesday';
+  static String _wednesday(BuildContext) => 'Wednesday';
+  static String _thursday(BuildContext) => 'Thursday';
+  static String _friday(BuildContext) => 'Friday';
+  static String _saturday(BuildContext) => 'Saturday';
+  static String _sunday(BuildContext) => 'Sunday';
 }
 
 /// A time unit as defined in [lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin/blob/2f118f50aad5e4fb9d425b59b3ebccbdf1a16cd8/lbplanner/classes/helpers/slot_helper.php#L55)
@@ -206,6 +223,9 @@ enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
 
   const SlotTimeUnit(this.timeOfDay);
 
+  /// Human-readable representation of this [SlotTimeUnit].
+  String humanReadable(BuildContext context) => timeOfDay.format(context);
+
   /// Adds [other] to this [SlotTimeUnit] and returns the resulting [SlotTimeUnit].
   SlotTimeUnit operator +(int other) {
     final newIndex = index + other;
@@ -240,6 +260,11 @@ enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
       hours: (other.timeOfDay.hour - timeOfDay.hour).abs(),
       minutes: (other.timeOfDay.minute - timeOfDay.minute).abs(),
     );
+  }
+
+  /// Returns the difference between this [SlotTimeUnit] and [other] in units.
+  int difference(SlotTimeUnit other) {
+    return index - other.index;
   }
 
   @override

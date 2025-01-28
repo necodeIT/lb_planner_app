@@ -31,6 +31,38 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
     _datasource.dispose();
     super.dispose();
   }
+
+  /// Filters this list by [username], [lastname], [firstname], [vintage] and [ids] and returns list of users that match the filter criteria.
+  ///
+  /// String values are case-insensitive.
+  /// If [ids] is not empty, only users with an id in the list are returned.
+  Iterable<User> filter({
+    String? query,
+    String? username,
+    String? lastname,
+    String? firstname,
+    Vintage? vintage,
+    List<int> ids = const [],
+
+    /// The user must have all capabilities in this set.
+    Set<UserCapability> capabilities = const {},
+    UserCapability? capability,
+  }) {
+    if (!state.hasData) {
+      return [];
+    }
+
+    return state.requireData.filter(
+      query: query,
+      username: username,
+      lastname: lastname,
+      firstname: firstname,
+      vintage: vintage,
+      ids: ids,
+      capabilities: capabilities,
+      capability: capability,
+    );
+  }
 }
 
 /// Extension methods for filtering users.

@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/src/app/app.dart';
@@ -38,4 +39,13 @@ class MoodleCourse with _$MoodleCourse {
 
   /// The URL to view this course on Moodle.
   String get url => '$kMoodleServerAdress/course/view.php?id=$id';
+
+  /// Creates a dummy course for skeleton loading.
+  factory MoodleCourse.skeleton() => const MoodleCourse(
+        id: -1,
+        color: Colors.green,
+        name: 'Dummy Course',
+        shortname: 'DUMMY',
+        enabled: true,
+      );
 }

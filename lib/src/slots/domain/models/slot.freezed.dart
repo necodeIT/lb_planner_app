@@ -24,7 +24,7 @@ mixin _$Slot {
   int get id => throw _privateConstructorUsedError;
 
   /// The start time of this slot.
-  @JsonValue('startunit')
+  @JsonKey(name: 'startunit')
   SlotTimeUnit get startUnit => throw _privateConstructorUsedError;
 
   /// The duration of this slot interpreted as [SlotTimeUnit]s.
@@ -40,15 +40,19 @@ mixin _$Slot {
   int get size => throw _privateConstructorUsedError;
 
   /// The number of students that have already reserved this slot.
-  @JsonValue('fullness')
+  @JsonKey(name: 'fullness')
   int get reservations => throw _privateConstructorUsedError;
 
   /// `true` if the current user has reserved this slot.
-  @JsonValue('forcuruser')
+  @JsonKey(name: 'forcuruser')
   bool get reserved => throw _privateConstructorUsedError;
 
   /// The user ids of those supervising this slot.
   List<int> get supervisors => throw _privateConstructorUsedError;
+
+  /// The course mappings of this slot.
+  @JsonKey(name: 'filters')
+  List<CourseToSlot> get mappings => throw _privateConstructorUsedError;
 
   /// Serializes this Slot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,14 +70,15 @@ abstract class $SlotCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonValue('startunit') SlotTimeUnit startUnit,
+      @JsonKey(name: 'startunit') SlotTimeUnit startUnit,
       int duration,
       Weekday weekday,
       String room,
       int size,
-      @JsonValue('fullness') int reservations,
-      @JsonValue('forcuruser') bool reserved,
-      List<int> supervisors});
+      @JsonKey(name: 'fullness') int reservations,
+      @JsonKey(name: 'forcuruser') bool reserved,
+      List<int> supervisors,
+      @JsonKey(name: 'filters') List<CourseToSlot> mappings});
 }
 
 /// @nodoc
@@ -100,6 +105,7 @@ class _$SlotCopyWithImpl<$Res, $Val extends Slot>
     Object? reservations = null,
     Object? reserved = null,
     Object? supervisors = null,
+    Object? mappings = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -138,6 +144,10 @@ class _$SlotCopyWithImpl<$Res, $Val extends Slot>
           ? _value.supervisors
           : supervisors // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      mappings: null == mappings
+          ? _value.mappings
+          : mappings // ignore: cast_nullable_to_non_nullable
+              as List<CourseToSlot>,
     ) as $Val);
   }
 }
@@ -151,14 +161,15 @@ abstract class _$$SlotImplCopyWith<$Res> implements $SlotCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonValue('startunit') SlotTimeUnit startUnit,
+      @JsonKey(name: 'startunit') SlotTimeUnit startUnit,
       int duration,
       Weekday weekday,
       String room,
       int size,
-      @JsonValue('fullness') int reservations,
-      @JsonValue('forcuruser') bool reserved,
-      List<int> supervisors});
+      @JsonKey(name: 'fullness') int reservations,
+      @JsonKey(name: 'forcuruser') bool reserved,
+      List<int> supervisors,
+      @JsonKey(name: 'filters') List<CourseToSlot> mappings});
 }
 
 /// @nodoc
@@ -182,6 +193,7 @@ class __$$SlotImplCopyWithImpl<$Res>
     Object? reservations = null,
     Object? reserved = null,
     Object? supervisors = null,
+    Object? mappings = null,
   }) {
     return _then(_$SlotImpl(
       id: null == id
@@ -220,6 +232,10 @@ class __$$SlotImplCopyWithImpl<$Res>
           ? _value._supervisors
           : supervisors // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      mappings: null == mappings
+          ? _value._mappings
+          : mappings // ignore: cast_nullable_to_non_nullable
+              as List<CourseToSlot>,
     ));
   }
 }
@@ -229,15 +245,17 @@ class __$$SlotImplCopyWithImpl<$Res>
 class _$SlotImpl extends _Slot {
   const _$SlotImpl(
       {required this.id,
-      @JsonValue('startunit') required this.startUnit,
+      @JsonKey(name: 'startunit') required this.startUnit,
       required this.duration,
       required this.weekday,
       required this.room,
       required this.size,
-      @JsonValue('fullness') required this.reservations,
-      @JsonValue('forcuruser') required this.reserved,
-      final List<int> supervisors = const []})
+      @JsonKey(name: 'fullness') required this.reservations,
+      @JsonKey(name: 'forcuruser') required this.reserved,
+      final List<int> supervisors = const [],
+      @JsonKey(name: 'filters') final List<CourseToSlot> mappings = const []})
       : _supervisors = supervisors,
+        _mappings = mappings,
         super._();
 
   factory _$SlotImpl.fromJson(Map<String, dynamic> json) =>
@@ -249,7 +267,7 @@ class _$SlotImpl extends _Slot {
 
   /// The start time of this slot.
   @override
-  @JsonValue('startunit')
+  @JsonKey(name: 'startunit')
   final SlotTimeUnit startUnit;
 
   /// The duration of this slot interpreted as [SlotTimeUnit]s.
@@ -270,12 +288,12 @@ class _$SlotImpl extends _Slot {
 
   /// The number of students that have already reserved this slot.
   @override
-  @JsonValue('fullness')
+  @JsonKey(name: 'fullness')
   final int reservations;
 
   /// `true` if the current user has reserved this slot.
   @override
-  @JsonValue('forcuruser')
+  @JsonKey(name: 'forcuruser')
   final bool reserved;
 
   /// The user ids of those supervising this slot.
@@ -290,9 +308,21 @@ class _$SlotImpl extends _Slot {
     return EqualUnmodifiableListView(_supervisors);
   }
 
+  /// The course mappings of this slot.
+  final List<CourseToSlot> _mappings;
+
+  /// The course mappings of this slot.
+  @override
+  @JsonKey(name: 'filters')
+  List<CourseToSlot> get mappings {
+    if (_mappings is EqualUnmodifiableListView) return _mappings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mappings);
+  }
+
   @override
   String toString() {
-    return 'Slot(id: $id, startUnit: $startUnit, duration: $duration, weekday: $weekday, room: $room, size: $size, reservations: $reservations, reserved: $reserved, supervisors: $supervisors)';
+    return 'Slot(id: $id, startUnit: $startUnit, duration: $duration, weekday: $weekday, room: $room, size: $size, reservations: $reservations, reserved: $reserved, supervisors: $supervisors, mappings: $mappings)';
   }
 
   @override
@@ -313,7 +343,8 @@ class _$SlotImpl extends _Slot {
             (identical(other.reserved, reserved) ||
                 other.reserved == reserved) &&
             const DeepCollectionEquality()
-                .equals(other._supervisors, _supervisors));
+                .equals(other._supervisors, _supervisors) &&
+            const DeepCollectionEquality().equals(other._mappings, _mappings));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -328,7 +359,8 @@ class _$SlotImpl extends _Slot {
       size,
       reservations,
       reserved,
-      const DeepCollectionEquality().hash(_supervisors));
+      const DeepCollectionEquality().hash(_supervisors),
+      const DeepCollectionEquality().hash(_mappings));
 
   /// Create a copy of Slot
   /// with the given fields replaced by the non-null parameter values.
@@ -348,15 +380,17 @@ class _$SlotImpl extends _Slot {
 
 abstract class _Slot extends Slot {
   const factory _Slot(
-      {required final int id,
-      @JsonValue('startunit') required final SlotTimeUnit startUnit,
-      required final int duration,
-      required final Weekday weekday,
-      required final String room,
-      required final int size,
-      @JsonValue('fullness') required final int reservations,
-      @JsonValue('forcuruser') required final bool reserved,
-      final List<int> supervisors}) = _$SlotImpl;
+          {required final int id,
+          @JsonKey(name: 'startunit') required final SlotTimeUnit startUnit,
+          required final int duration,
+          required final Weekday weekday,
+          required final String room,
+          required final int size,
+          @JsonKey(name: 'fullness') required final int reservations,
+          @JsonKey(name: 'forcuruser') required final bool reserved,
+          final List<int> supervisors,
+          @JsonKey(name: 'filters') final List<CourseToSlot> mappings}) =
+      _$SlotImpl;
   const _Slot._() : super._();
 
   factory _Slot.fromJson(Map<String, dynamic> json) = _$SlotImpl.fromJson;
@@ -367,7 +401,7 @@ abstract class _Slot extends Slot {
 
   /// The start time of this slot.
   @override
-  @JsonValue('startunit')
+  @JsonKey(name: 'startunit')
   SlotTimeUnit get startUnit;
 
   /// The duration of this slot interpreted as [SlotTimeUnit]s.
@@ -388,17 +422,22 @@ abstract class _Slot extends Slot {
 
   /// The number of students that have already reserved this slot.
   @override
-  @JsonValue('fullness')
+  @JsonKey(name: 'fullness')
   int get reservations;
 
   /// `true` if the current user has reserved this slot.
   @override
-  @JsonValue('forcuruser')
+  @JsonKey(name: 'forcuruser')
   bool get reserved;
 
   /// The user ids of those supervising this slot.
   @override
   List<int> get supervisors;
+
+  /// The course mappings of this slot.
+  @override
+  @JsonKey(name: 'filters')
+  List<CourseToSlot> get mappings;
 
   /// Create a copy of Slot
   /// with the given fields replaced by the non-null parameter values.
