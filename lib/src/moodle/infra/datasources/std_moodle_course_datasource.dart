@@ -12,6 +12,24 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
     try {
       final response = await _apiService.callFunction(
         token: token,
+        function: 'local_lbplanner_courses_get_my_courses',
+        body: {},
+      );
+
+      response.assertList();
+
+      return response.asList.map(MoodleCourse.fromJson).toList();
+    } catch (e, s) {
+      log('Failed to fetch courses', e, s);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<MoodleCourse>> getAllCourses(String token) async {
+    try {
+      final response = await _apiService.callFunction(
+        token: token,
         function: 'local_lbplanner_courses_get_all_courses',
         body: {},
       );

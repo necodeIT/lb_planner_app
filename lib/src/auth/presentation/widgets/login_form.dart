@@ -115,7 +115,11 @@ class _LoginFormState extends State<LoginForm> {
             TextField(
               controller: usernameController,
               decoration: InputDecoration(
+                border: const UnderlineInputBorder(),
+                isDense: false,
+                filled: false,
                 labelText: context.t.auth_username,
+                prefixIcon: const Icon(Icons.person),
                 errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
               ),
               focusNode: usernameFocusNode,
@@ -127,6 +131,10 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: !showPassword,
               decoration: InputDecoration(
                 labelText: context.t.auth_password,
+                border: const UnderlineInputBorder(),
+                isDense: false,
+                filled: false,
+                prefixIcon: const Icon(Icons.key),
                 suffixIcon: IconButton(
                   splashColor: Colors.transparent,
                   hoverColor: Colors.transparent,

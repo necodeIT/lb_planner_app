@@ -32,6 +32,17 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
     final templateTheme = ThemeData(brightness: themeBase.brightness, colorScheme: colorScheme, textTheme: textTheme);
 
     return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: themeBase.secondaryColor,
+        focusColor: themeBase.secondaryColor,
+        hoverColor: themeBase.secondaryColor,
+        isDense: true,
+        border: OutlineInputBorder(
+          borderRadius: squircle().borderRadius,
+          borderSide: BorderSide.none,
+        ),
+      ),
       cardTheme: CardTheme(
         color: themeBase.primaryColor,
         elevation: 6,
@@ -133,9 +144,6 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
       cardColor: themeBase.primaryColor,
       dropdownMenuTheme: DropdownMenuThemeData(
         inputDecorationTheme: InputDecorationTheme(
-          constraints: const BoxConstraints(
-            maxHeight: 40,
-          ),
           filled: true,
           fillColor: themeBase.secondaryColor,
           isDense: true,
@@ -150,7 +158,6 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
           backgroundColor: WidgetStatePropertyAll(themeBase.secondaryColor),
           shape: WidgetStatePropertyAll(squircle()),
           elevation: const WidgetStatePropertyAll(8),
-          alignment: Alignment.bottomCenter * 5,
         ),
       ),
       menuButtonTheme: MenuButtonThemeData(

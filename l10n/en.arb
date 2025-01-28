@@ -1,6 +1,8 @@
 {
     "@@locale": "en",
     "global_confirm": "Confirm",
+    "global_create": "Create",
+    "global_update": "Update",
     "global_cancel": "Cancel",
     "notification_newUser": "Welcome, {username}!\n\nIf you happen to face any issues, please let us know.",
     "@notification_newUser": {

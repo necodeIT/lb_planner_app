@@ -34,7 +34,7 @@ class GenericDialog extends StatelessWidget {
       },
       child: AlertDialog(
         backgroundColor: context.theme.cardColor,
-        title: title,
+        title: title is Text ? (title as Text).bold() : title,
         shape: squircle(),
         content: ConstrainedBox(
           constraints: BoxConstraints(
@@ -60,7 +60,7 @@ abstract class DialogAction extends StatelessWidget {
   final String label;
 
   /// The action to be taken when the action is pressed.
-  final void Function(BuildContext) onPressed;
+  final void Function(BuildContext)? onPressed;
 }
 
 /// Represents a primary action that can be taken in a dialog.
@@ -71,7 +71,7 @@ class PrimaryDialogAction extends DialogAction {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => onPressed(context),
+      onPressed: onPressed != null ? () => onPressed!(context) : null,
       child: Text(label),
     );
   }
@@ -85,7 +85,7 @@ class SecondaryDialogAction extends DialogAction {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => onPressed(context),
+      onPressed: onPressed != null ? () => onPressed!(context) : null,
       child: Text(label),
     );
   }
@@ -99,7 +99,7 @@ class DestructiveDialogAction extends DialogAction {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => onPressed(context),
+      onPressed: onPressed != null ? () => onPressed!(context) : null,
       style: TextButton.styleFrom(
         foregroundColor: context.theme.colorScheme.error,
       ),

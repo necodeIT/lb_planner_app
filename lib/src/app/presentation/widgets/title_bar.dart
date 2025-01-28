@@ -242,9 +242,9 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
                     controller: _searchController,
                     style: context.textTheme.bodyMedium,
                     decoration: InputDecoration(
-                      filled: true,
                       hintText: 'Search',
                       prefixIcon: const Icon(Icons.search),
+                      filled: true,
                       fillColor: context.theme.colorScheme.surface,
                       focusColor: context.theme.colorScheme.surface,
                       hoverColor: context.theme.colorScheme.surface,

@@ -81,7 +81,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
   /// Filters the courses based on the given properties.
   ///
   /// All properties are optional and will be ignored if not provided.
-  List<MoodleCourse> filter({bool? enabled, String? name, String? shortname, int? id}) {
+  List<MoodleCourse> filter({bool? enabled, String? name, String? shortname, int? id, List<int> ids = const <int>[]}) {
     if (!state.hasData) {
       log('Cannot filter courses: No data available.');
 
@@ -95,6 +95,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
       if (enabled != null && element.enabled != enabled) return false;
       if (name != null && !element.name.containsIgnoreCase(name)) return false;
       if (shortname != null && !element.shortname.containsIgnoreCase(shortname)) return false;
+      if (ids.isNotEmpty && !ids.contains(element.id)) return false;
 
       return true;
     }).toList();

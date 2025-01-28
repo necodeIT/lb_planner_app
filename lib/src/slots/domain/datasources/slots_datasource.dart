@@ -1,3 +1,4 @@
+import 'package:lb_planner/lb_planner.dart';
 import 'package:lb_planner/src/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -47,12 +48,17 @@ abstract class SlotsDatasource extends Datasource {
   /// Adds [supervisorId] to the supervisors of the slot with [slotId].
   Future<void> addSupervisor({required String token, required int slotId, required int supervisorId});
 
+  /// Removes [supervisorId] from the supervisors of the slot with [slotId].
+  Future<void> removeSupervisor({required String token, required int slotId, required int supervisorId});
+
   /// Pushes a new [mapping] to the server.
   Future<CourseToSlot> addSlotMapping({required String token, required CourseToSlot mapping});
 
   /// Deletes the mapping with [mappingId].
   Future<void> deleteSlotMapping({required String token, required int mappingId});
 
-  /// Fetches all mappings for the slot with [slotId].
-  Future<List<CourseToSlot>> getSlotMappings({required String token, required int slotId});
+  /// Fetches all slots.
+  ///
+  /// Note: User associated with [token] must have the [UserCapability.slotMaster].
+  Future<List<Slot>> getAllSlots(String token);
 }

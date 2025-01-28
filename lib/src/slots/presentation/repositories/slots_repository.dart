@@ -7,17 +7,13 @@ import 'package:lb_planner/src/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all slots the current user can reserve.
-class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
+class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
   final AuthRepository _auth;
-  final UsersRepository _users;
-  final MoodleCoursesRepository _courses;
   final SlotsDatasource _datasource;
 
   /// Holds all slots the current user can reserve.
-  SlotsRepository(this._auth, this._users, this._courses, this._datasource) : super(AsyncValue.loading()) {
+  SlotsRepository(this._auth, this._datasource) : super(AsyncValue.loading()) {
     watchAsync(_auth);
-    watchAsync(_users);
-    watchAsync(_courses);
   }
 
   @override
@@ -28,28 +24,7 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
     waitForData(_auth);
 
     guard(
-      () async {
-        final rawSlots = await _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api));
-
-        final slots = <SlotAggregate>[];
-
-        for (final rawSlot in rawSlots) {
-          final mappings = await _datasource.getSlotMappings(
-            token: _auth.state.requireData.pick(Webservice.lb_planner_api),
-            slotId: rawSlot.id,
-          );
-
-          slots.add(
-            rawSlot.join(
-              users: _users.state.requireData,
-              courses: _courses.state.requireData,
-              mappings: mappings,
-            ),
-          );
-        }
-
-        return slots;
-      },
+      () async => _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
     );
   }
 
@@ -74,6 +49,21 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
 
     log('Reserving slot ${slot.id} for current user');
     try {
+      data(
+        state.requireData.map(
+          (s) {
+            if (s.id == slot.id) {
+              return s.copyWith(
+                reservations: s.reservations + 1,
+                reserved: true,
+              );
+            }
+
+            return s;
+          },
+        ).toList(),
+      );
+
       await _datasource.reserveSlot(
         token: _auth.state.requireData.pick(Webservice.lb_planner_api),
         slotId: slot.id,
@@ -88,23 +78,6 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
         },
       );
 
-      data(
-        state.requireData.map(
-          (s) {
-            if (s.slot.id == slot.id) {
-              return s.copyWith(
-                slot: s.slot.copyWith(
-                  reservations: s.slot.reservations + 1,
-                  reserved: true,
-                ),
-              );
-            }
-
-            return s;
-          },
-        ).toList(),
-      );
-
       log('Reserved slot ${slot.id} for current user');
     } catch (e) {
       log('Failed to reserve slot: $e');
@@ -112,29 +85,29 @@ class SlotsRepository extends Repository<AsyncValue<List<SlotAggregate>>> {
   }
 
   /// Groups all slots by their weekday and time unit.
-  Map<Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<SlotAggregate>>> grouped() {
+  Map<Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>> group() {
     if (!state.hasData) {
       return {};
     }
 
-    final grouped = <Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<SlotAggregate>>>{};
+    final grouped = <Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>>{};
 
     for (final slot in state.requireData) {
-      grouped[slot.slot.weekday] ??= {};
+      grouped[slot.weekday] ??= {};
 
-      final timeGroup = (slot.slot.startUnit, slot.slot.endUnit);
+      final timeGroup = (slot.startUnit, slot.endUnit);
 
-      grouped[slot.slot.weekday]![timeGroup] ??= [];
+      grouped[slot.weekday]![timeGroup] ??= [];
 
-      grouped[slot.slot.weekday]![timeGroup]!.add(slot);
+      grouped[slot.weekday]![timeGroup]!.add(slot);
 
-      grouped[slot.slot.weekday]![timeGroup]!.sort(
+      grouped[slot.weekday]![timeGroup]!.sort(
         (a, b) {
-          if (a.slot.startUnit == b.slot.startUnit) {
-            return a.slot.endUnit.compareTo(b.slot.endUnit);
+          if (a.startUnit == b.startUnit) {
+            return a.endUnit.compareTo(b.endUnit);
           }
 
-          return a.slot.startUnit.compareTo(b.slot.startUnit);
+          return a.startUnit.compareTo(b.startUnit);
         },
       );
     }

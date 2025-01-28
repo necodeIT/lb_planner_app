@@ -2,7 +2,7 @@
   "conventionalCommits.autoCommit": false,
   "conventionalCommits.gitmoji": false,
   "conventionalCommits.promptBody": false,
-  "dart.flutterSdkPath": ".fvm/versions/3.27.1",
+  "dart.flutterSdkPath": ".fvm/versions/3.27.2",
   "dart.lineLength": 150,
   "conventionalCommits.scopes": [
     "auth",

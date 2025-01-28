@@ -140,9 +140,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                             colorScheme: context.theme.colorScheme.copyWith(onSurface: context.theme.colorScheme.primary),
                           ),
                           child: DropdownMenu(
-                            // alignmentOffset: const Offset(60, 70),
                             width: 135,
-
+                            alignmentOffset: const Offset(60, 65),
                             trailingIcon: const Icon(
                               FontAwesome5Solid.chevron_down,
                               size: 13,

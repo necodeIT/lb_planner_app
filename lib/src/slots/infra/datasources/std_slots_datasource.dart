@@ -9,6 +9,16 @@ class StdSlotsDatasource extends SlotsDatasource {
   /// Standard implementation of [SlotsDatasource].
   StdSlotsDatasource(this.api);
 
+  /// Whitelist of keys that are allowed to be sent to the server.
+  static const slotKeyWhitelist = [
+    'id',
+    'weekday',
+    'room',
+    'startunit',
+    'duration',
+    'size',
+  ];
+
   @override
   Future<CourseToSlot> addSlotMapping({required String token, required CourseToSlot mapping}) async {
     log('Pushing slot mapping to server: $mapping');
@@ -41,6 +51,17 @@ class StdSlotsDatasource extends SlotsDatasource {
   }
 
   @override
+  Future<void> removeSupervisor({required String token, required int slotId, required int supervisorId}) async {
+    log('Removing supervisor $supervisorId to slot $slotId');
+
+    await api.callFunction(
+      function: 'local_lbplanner_slots_remove_slot_supervisor',
+      body: {'slotid': slotId, 'userid': supervisorId},
+      token: token,
+    );
+  }
+
+  @override
   Future<void> cancelReservation({required String token, required int reservationId, bool force = false}) async {
     log('Cancelling reservation $reservationId');
 
@@ -59,8 +80,8 @@ class StdSlotsDatasource extends SlotsDatasource {
     log('Creating slot $slot');
 
     final json = slot.toJson()
-      ..remove('id')
-      ..remove('');
+      ..removeWhere((key, value) => !slotKeyWhitelist.contains(key))
+      ..remove('id');
 
     final response = await api.callFunction(
       function: 'local_lbplanner_slots_create_slot',
@@ -80,7 +101,7 @@ class StdSlotsDatasource extends SlotsDatasource {
     await api.callFunction(
       function: 'local_lbplanner_slots_delete_slot',
       body: {
-        'slotid': slotId,
+        'id': slotId,
       },
       token: token,
     );
@@ -97,23 +118,6 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
-  }
-
-  @override
-  Future<List<CourseToSlot>> getSlotMappings({required String token, required int slotId}) async {
-    log('Fetching slot mappings for slot $slotId');
-
-    final response = await api.callFunction(
-      function: 'local_lbplanner_slots_get_slot_filters',
-      body: {
-        'slotid': slotId,
-      },
-      token: token,
-    );
-
-    response.assertJson();
-
-    return response.asList.map(CourseToSlot.fromJson).toList();
   }
 
   @override
@@ -197,7 +201,7 @@ class StdSlotsDatasource extends SlotsDatasource {
     log('Reserving slot $slotId on $date');
 
     final response = await api.callFunction(
-      function: 'local_lbplanner_slots_book_slot',
+      function: 'local_lbplanner_slots_book_reservation',
       body: {
         'slotid': slotId,
         'date': const ReservationDateTimeConverter().toJson(date),
@@ -215,12 +219,24 @@ class StdSlotsDatasource extends SlotsDatasource {
   Future<void> updateSlot({required String token, required Slot slot}) async {
     log('Updating slot $slot');
 
-    final json = slot.toJson();
+    final json = slot.toJson()..removeWhere((key, value) => !slotKeyWhitelist.contains(key));
 
     await api.callFunction(
       function: 'local_lbplanner_slots_update_slot',
       body: json,
       token: token,
     );
+  }
+
+  @override
+  Future<List<Slot>> getAllSlots(String token) async {
+    log('Getting all slots');
+
+    final response = await api.callFunction(
+      function: 'local_lbplanner_slots_get_all_slots',
+      token: token,
+    );
+
+    return response.asList.map(Slot.fromJson).toList();
   }
 }

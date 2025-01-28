@@ -1,0 +1,46 @@
+import 'dart:async';
+
+import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/lb_planner.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
+
+/// Provides data for the supervisor slots screen.
+class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
+  final SlotsDatasource _datasource;
+  final AuthRepository _auth;
+
+  /// Provides data for the supervisor slots screen.
+  SupervisorSlotsRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
+    watchAsync(_auth);
+  }
+
+  @override
+  Duration get updateInterval => kImportantRefreshIntervalDuration;
+
+  @override
+  FutureOr<void> build(Type trigger) {
+    waitForData(_auth);
+
+    guard(
+      () async => _datasource.getSupervisedSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
+    );
+  }
+
+  /// Returns a list of reservations for the given [slotId].
+  Future<List<Reservation>> getSlotReservations(int slotId) async {
+    if (!state.hasData) {
+      log('Cannot get reservations for slot $slotId: No data');
+      return [];
+    }
+
+    final token = waitForData(_auth).pick(Webservice.lb_planner_api);
+
+    return _datasource.getSlotReservations(token: token, slotId: slotId);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _datasource.dispose();
+  }
+}

@@ -34,6 +34,7 @@ Future<T?> showGenericDialog<T>(
   required Widget content,
   List<DialogAction>? actions,
   bool shrinkWrap = true,
+  bool shrinkWrapWidth = false,
 }) {
   return showAnimatedDialog<T>(
     context: context,
@@ -42,6 +43,7 @@ Future<T?> showGenericDialog<T>(
       content: content,
       actions: actions,
       shrinkWrap: shrinkWrap,
+      shrinkWrapWidth: shrinkWrapWidth,
     ),
   );
 }
@@ -60,6 +62,7 @@ Future<bool> showConfirmationDialog(
     context,
     title: title,
     content: Text(message),
+    shrinkWrapWidth: true,
     actions: [
       PrimaryDialogAction(
         label: confirmLabel ?? 'Confirm',
@@ -91,6 +94,7 @@ Future<void> showAlertDialog(
     context,
     title: title,
     content: Text(message),
+    shrinkWrapWidth: true,
     actions: [
       PrimaryDialogAction(
         label: confirmLabel ?? 'OK',
