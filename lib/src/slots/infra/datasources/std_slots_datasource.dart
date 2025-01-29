@@ -146,7 +146,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    response.assertJson();
+    response.assertList();
 
     return response.asList.map(Slot.fromJson).toList();
   }
