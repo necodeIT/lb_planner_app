@@ -22,7 +22,7 @@ class MoodleApiService extends ApiService {
   Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
-    var payload = body
+    var payload = JSON.of(body)
       ..removeWhere((key, value) {
         final remove = value == null;
 
