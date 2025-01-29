@@ -38,7 +38,7 @@ class Sidebar extends StatelessWidget {
                   ),
                 if (capabilities.hasStudent)
                   SidebarTarget(
-                    route: '/calendar/plan',
+                    route: '/calendar/plan/',
                     activeRoute: '/calendar/',
                     icon: Icons.calendar_month_rounded,
                   ),
@@ -48,7 +48,7 @@ class Sidebar extends StatelessWidget {
                     icon: Icons.school,
                   ),
                 SidebarTarget(
-                  route: '/slots/book',
+                  route: '/slots/book/',
                   activeRoute: '/slots/',
                   icon: Icons.timelapse,
                 ),

@@ -110,8 +110,11 @@ flutter:
   generate: true
   assets:
     - assets/logo.svg
+    - assets/404.svg
+    - assets/no-results.svg
     - assets/auth/
     - assets/moodle/
+    - assets/dashboard/
 
 flutter_gen:
   output: lib/gen/assets/

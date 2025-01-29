@@ -132,7 +132,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    response.assertJson();
+    response.assertList();
 
     return response.asList.map(Reservation.fromJson).toList();
   }
@@ -163,7 +163,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    response.assertJson();
+    response.assertList();
 
     return response.asList.map(Slot.fromJson).toList();
   }
@@ -177,7 +177,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: tokrn,
     );
 
-    response.assertJson();
+    response.assertList();
 
     return response.asList.map(Slot.fromJson).toList();
   }
@@ -191,7 +191,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    response.assertJson();
+    response.assertList();
 
     return response.asList.map(Reservation.fromJson).toList();
   }

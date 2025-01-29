@@ -43,6 +43,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
     setState(() {
       _parentRoute = null;
       _searchController = null;
+      _trailing = null;
     });
   }
 
@@ -52,9 +53,22 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
 
   TextEditingController? _searchController;
 
+  Widget? _trailing;
+
+  /// Sets the trailing widget of the current route.
+  ///
+  /// This will appear on the end of the route's title.
+  void setTrailingWidget(Widget widget) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _trailing = widget;
+      });
+    });
+  }
+
   /// Set the search controller of the current route.
   ///
-  /// This will show a search button in the title bar and focus the search field when pressed if set.
+  /// This will show a search bar in the title bar if set.
   void setSearchController(TextEditingController? controller) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
@@ -233,6 +247,8 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
                         ),
                       ),
                     ),
+                  if (showLicenseBadge) Spacing.smallHorizontal(),
+                  if (_trailing != null) _trailing!,
                 ],
               ),
               if (_searchController != null)

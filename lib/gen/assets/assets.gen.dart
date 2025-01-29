@@ -22,6 +22,29 @@ class $AssetsAuthGen {
   List<SvgGenImage> get values => [background];
 }
 
+class $AssetsDashboardGen {
+  const $AssetsDashboardGen();
+
+  /// File path: assets/dashboard/no-exams.svg
+  SvgGenImage get noExams => const SvgGenImage('assets/dashboard/no-exams.svg');
+
+  /// File path: assets/dashboard/no-overdue-tasks.svg
+  SvgGenImage get noOverdueTasks =>
+      const SvgGenImage('assets/dashboard/no-overdue-tasks.svg');
+
+  /// File path: assets/dashboard/no-reservations-for-today.svg
+  SvgGenImage get noReservationsForToday =>
+      const SvgGenImage('assets/dashboard/no-reservations-for-today.svg');
+
+  /// File path: assets/dashboard/nothing-planned-for-today.svg
+  SvgGenImage get nothingPlannedForToday =>
+      const SvgGenImage('assets/dashboard/nothing-planned-for-today.svg');
+
+  /// List of all assets
+  List<SvgGenImage> get values =>
+      [noExams, noOverdueTasks, noReservationsForToday, nothingPlannedForToday];
+}
+
 class $AssetsMoodleGen {
   const $AssetsMoodleGen();
 
@@ -36,12 +59,15 @@ class $AssetsMoodleGen {
 class Assets {
   Assets._();
 
+  static const SvgGenImage a404 = SvgGenImage('assets/404.svg');
   static const $AssetsAuthGen auth = $AssetsAuthGen();
+  static const $AssetsDashboardGen dashboard = $AssetsDashboardGen();
   static const SvgGenImage logo = SvgGenImage('assets/logo.svg');
   static const $AssetsMoodleGen moodle = $AssetsMoodleGen();
+  static const SvgGenImage noResults = SvgGenImage('assets/no-results.svg');
 
   /// List of all assets
-  static List<SvgGenImage> get values => [logo];
+  static List<SvgGenImage> get values => [a404, logo, noResults];
 }
 
 class SvgGenImage {

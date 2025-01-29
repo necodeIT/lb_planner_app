@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/src/app/app.dart';
@@ -90,29 +91,38 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return {};
     }
 
-    final grouped = <Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>>{};
+    final grouped = <Weekday, SplayTreeMap<(SlotTimeUnit, SlotTimeUnit), List<Slot>>>{};
 
     for (final slot in state.requireData) {
-      grouped[slot.weekday] ??= {};
+      grouped[slot.weekday] ??= SplayTreeMap((a, b) {
+        if (a.$1 == b.$1) {
+          return a.$2.compareTo(b.$2);
+        }
+
+        return a.$1.compareTo(b.$1);
+      });
 
       final timeGroup = (slot.startUnit, slot.endUnit);
 
       grouped[slot.weekday]![timeGroup] ??= [];
 
       grouped[slot.weekday]![timeGroup]!.add(slot);
-
-      grouped[slot.weekday]![timeGroup]!.sort(
-        (a, b) {
-          if (a.startUnit == b.startUnit) {
-            return a.endUnit.compareTo(b.endUnit);
-          }
-
-          return a.startUnit.compareTo(b.startUnit);
-        },
-      );
     }
 
     return grouped;
+  }
+
+  /// Returns all slots that are reserved for today.
+  List<Slot> getReservedSlotsForToday() {
+    if (!state.hasData) {
+      return [];
+    }
+
+    final now = DateTime.now();
+
+    return state.requireData.where((s) {
+      return s.reserved && s.weekday.dateTimeWeekday == now.weekday;
+    }).toList();
   }
 
   @override

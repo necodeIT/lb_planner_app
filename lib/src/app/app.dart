@@ -105,7 +105,7 @@ class AppModule extends Module {
             customTransition: defaultTransition,
           ),
           ModuleRoute(
-            'course-overview',
+            '/course-overview/',
             module: CourseOverviewModule(),
             transition: TransitionType.custom,
             customTransition: defaultTransition,
