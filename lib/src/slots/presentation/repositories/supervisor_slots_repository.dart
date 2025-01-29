@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -36,6 +37,46 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     final token = waitForData(_auth).pick(Webservice.lb_planner_api);
 
     return _datasource.getSlotReservations(token: token, slotId: slotId);
+  }
+
+  /// Groups all slots by their weekday and time unit.
+  Map<Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>> group() {
+    if (!state.hasData) {
+      return {};
+    }
+
+    final grouped = <Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>>{};
+
+    for (final slot in state.requireData) {
+      grouped[slot.weekday] ??= {};
+
+      final timeGroup = (slot.startUnit, slot.endUnit);
+
+      grouped[slot.weekday]![timeGroup] ??= [];
+
+      grouped[slot.weekday]![timeGroup]!.add(slot);
+
+      grouped[slot.weekday]![timeGroup]!.sort(
+        (a, b) {
+          if (a.startUnit == b.startUnit) {
+            return a.endUnit.compareTo(b.endUnit);
+          }
+
+          return a.startUnit.compareTo(b.startUnit);
+        },
+      );
+    }
+
+    return grouped;
+  }
+
+  /// Returns the slot with the given [id].
+  Slot? getSlotById(int id) {
+    if (!state.hasData) {
+      return null;
+    }
+
+    return state.requireData.firstWhereOrNull((element) => element.id == id);
   }
 
   @override

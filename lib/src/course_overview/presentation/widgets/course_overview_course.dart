@@ -1,11 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/course_overview/course_overview.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 /// A course tile for the course overview screen.

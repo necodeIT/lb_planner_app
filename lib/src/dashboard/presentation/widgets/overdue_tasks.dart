@@ -1,6 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 
@@ -36,7 +37,11 @@ class OverdueTasks extends StatelessWidget {
                   ].vSpaced(Spacing.smallSpacing).show(),
                 ),
               ).expanded(),
-            if (candidates.isEmpty) const Text("You're all good, no tasks are overdue!").center().expanded(),
+            if (candidates.isEmpty)
+              ImageMessage(
+                message: "You're all good, no tasks are overdue!",
+                image: Assets.dashboard.noOverdueTasks,
+              ).expanded(),
           ],
         ),
       ),

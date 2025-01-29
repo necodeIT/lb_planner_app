@@ -42,7 +42,7 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
     String? lastname,
     String? firstname,
     Vintage? vintage,
-    List<int> ids = const [],
+    List<int>? ids,
 
     /// The user must have all capabilities in this set.
     Set<UserCapability> capabilities = const {},
@@ -77,7 +77,7 @@ extension FilterUserX on Iterable<User> {
     String? lastname,
     String? firstname,
     Vintage? vintage,
-    List<int> ids = const [],
+    List<int>? ids,
 
     /// The user must have all capabilities in this set.
     Set<UserCapability> capabilities = const {},
@@ -93,7 +93,7 @@ extension FilterUserX on Iterable<User> {
       if (username != null && !user.username.containsIgnoreCase(username)) return false;
       if (lastname != null && !user.lastname.containsIgnoreCase(lastname)) return false;
       if (firstname != null && !user.firstname.containsIgnoreCase(firstname)) return false;
-      if (ids.isNotEmpty && !ids.contains(user.id)) return false;
+      if (ids != null && !ids.contains(user.id)) return false;
       if (vintage != null && user.vintage != vintage) return false;
       if (capabilities.isNotEmpty && !user.capabilities.has(capabilities.toList())) return false;
       if (capability != null && !user.capabilities.contains(capability)) return false;

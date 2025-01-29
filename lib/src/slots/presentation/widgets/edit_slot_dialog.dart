@@ -251,7 +251,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                     requestFocusOnTap: false, // disable text input
                     dropdownMenuEntries: SlotTimeUnit.values.where((u) => u < SlotTimeUnit.values.last).map((time) {
                       return DropdownMenuEntry(
-                        label: time.humanReadable(context),
+                        label: time.humanReadable(),
                         value: time,
                         leadingIcon: const Icon(Icons.timer_outlined, size: 15),
                       );
@@ -279,7 +279,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
                     dropdownMenuEntries: SlotTimeUnit.values.where((u) => u > (start ?? SlotTimeUnit.$1)).map((time) {
                       return DropdownMenuEntry(
-                        label: time.humanReadable(context),
+                        label: time.humanReadable(),
                         value: time,
                         leadingIcon: const Icon(Icons.timer_off_outlined, size: 15),
                       );

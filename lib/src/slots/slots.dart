@@ -42,20 +42,27 @@ class SlotsModule extends Module {
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.slotMaster}, redirectTo: '/slots/overview'),
+          CapabilityGuard({UserCapability.slotMaster}, redirectTo: '/slots/overview/'),
         ],
       )
       ..child(
-        '/overview',
+        '/overview/',
         child: (_) => const SlotOverviewScreen(),
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.teacher}, redirectTo: '/slots/book'),
+          CapabilityGuard({UserCapability.teacher}, redirectTo: '/slots/book/'),
         ],
       )
       ..child(
-        '/book',
+        '/overview/:id',
+        child: (_) => SlotDetailsScreen(slotId: int.parse(r.args.params['id'])),
+        guards: [
+          CapabilityGuard({UserCapability.teacher}, redirectTo: '/slots/book/'),
+        ],
+      )
+      ..child(
+        '/book/',
         child: (_) => const SlotReservationScreen(),
         transition: TransitionType.custom,
         customTransition: defaultTransition,

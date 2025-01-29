@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
-
-import 'presentation/presentation.dart';
 
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
@@ -20,6 +15,7 @@ class DashboardModule extends Module {
         MoodleModule(),
         StatisticsModule(),
         CalendarModule(),
+        SlotsModule(),
       ];
 
   @override

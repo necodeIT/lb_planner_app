@@ -34,7 +34,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
 
     final confirmed = await showConfirmationDialog(
       context,
-      title: 'Delete slot ${widget.slot.room} ${widget.slot.startUnit.humanReadable(context)} - ${widget.slot.endUnit.humanReadable(context)}',
+      title: 'Delete slot ${widget.slot.room} ${widget.slot.startUnit.humanReadable()} - ${widget.slot.endUnit.humanReadable()}',
       message: 'Are you sure you want to delete this slot? This action cannot be undone.',
     );
 
@@ -92,7 +92,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
                   children: [
                     const Icon(Icons.timer_outlined, size: 20),
                     Spacing.xsHorizontal(),
-                    Text('${widget.slot.startUnit.humanReadable(context)} - ${widget.slot.endUnit.humanReadable(context)}'),
+                    Text('${widget.slot.startUnit.humanReadable()} - ${widget.slot.endUnit.humanReadable()}'),
                   ],
                 ),
               ],

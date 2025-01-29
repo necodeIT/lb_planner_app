@@ -143,13 +143,16 @@ enum Weekday {
     return futureDates(index).last;
   }
 
-  static String _monday(BuildContext) => 'Monday';
-  static String _tuesday(BuildContext) => 'Tuesday';
-  static String _wednesday(BuildContext) => 'Wednesday';
-  static String _thursday(BuildContext) => 'Thursday';
-  static String _friday(BuildContext) => 'Friday';
-  static String _saturday(BuildContext) => 'Saturday';
-  static String _sunday(BuildContext) => 'Sunday';
+  /// Returns weekday index as defined in [DateTime].
+  int get dateTimeWeekday => index + 1;
+
+  static String _monday(BuildContext context) => 'Monday';
+  static String _tuesday(BuildContext context) => 'Tuesday';
+  static String _wednesday(BuildContext context) => 'Wednesday';
+  static String _thursday(BuildContext context) => 'Thursday';
+  static String _friday(BuildContext context) => 'Friday';
+  static String _saturday(BuildContext context) => 'Saturday';
+  static String _sunday(BuildContext context) => 'Sunday';
 }
 
 /// A time unit as defined in [lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin/blob/2f118f50aad5e4fb9d425b59b3ebccbdf1a16cd8/lbplanner/classes/helpers/slot_helper.php#L55)
@@ -224,7 +227,7 @@ enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
   const SlotTimeUnit(this.timeOfDay);
 
   /// Human-readable representation of this [SlotTimeUnit].
-  String humanReadable(BuildContext context) => timeOfDay.format(context);
+  String humanReadable() => "${timeOfDay.hour.toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')}";
 
   /// Adds [other] to this [SlotTimeUnit] and returns the resulting [SlotTimeUnit].
   SlotTimeUnit operator +(int other) {
@@ -268,5 +271,5 @@ enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
   }
 
   @override
-  int compareTo(SlotTimeUnit other) => index.compareTo(other.index);
+  int compareTo(SlotTimeUnit other) => timeOfDay.compareTo(other.timeOfDay);
 }

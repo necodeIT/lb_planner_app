@@ -1,6 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 
@@ -41,7 +42,11 @@ class Exams extends StatelessWidget {
                   ].vSpaced(Spacing.smallSpacing).show(),
                 ),
               ).expanded(),
-            if (candidates.isEmpty) Text(context.t.dashboard_exams_noExams).center().expanded(),
+            if (candidates.isEmpty)
+              ImageMessage(
+                message: context.t.dashboard_exams_noExams,
+                image: Assets.dashboard.noExams,
+              ).expanded(),
           ],
         ),
       ),
