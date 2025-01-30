@@ -11,7 +11,11 @@ class CapabilityGuard extends RouteGuard {
 
   @override
   Future<bool> canActivate(String path, ModularRoute route) async {
-    final user = Modular.get<UserRepository>();
+    final user = Modular.tryGet<UserRepository>();
+
+    if (user == null) {
+      return false;
+    }
 
     if (!user.state.hasData) {
       return false;

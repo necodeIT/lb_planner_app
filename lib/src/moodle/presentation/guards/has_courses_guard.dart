@@ -10,8 +10,10 @@ class HasCoursesGuard extends RouteGuard {
 
   @override
   Future<bool> canActivate(String path, ModularRoute route) async {
-    final courses = Modular.get<MoodleCoursesRepository>();
-    final user = Modular.get<UserRepository>();
+    final courses = Modular.tryGet<MoodleCoursesRepository>();
+    final user = Modular.tryGet<UserRepository>();
+
+    if (courses == null || user == null) return false;
 
     if (!(user.state.data?.capabilities.hasStudent ?? false)) {
       return true;

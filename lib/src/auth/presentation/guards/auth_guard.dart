@@ -12,13 +12,13 @@ class AuthGuard extends RouteGuard {
 
   @override
   Future<bool> canActivate(String path, ModularRoute route) async {
-    final auth = Modular.get<AuthRepository>();
+    if (Modular.tryGet<AuthRepository>() == null) return false;
 
     await Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 100));
-      return auth.state.isLoading;
+      return Modular.get<AuthRepository>().state.isLoading;
     });
 
-    return auth.isAuthenticated;
+    return Modular.get<AuthRepository>().isAuthenticated;
   }
 }

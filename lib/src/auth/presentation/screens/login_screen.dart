@@ -14,9 +14,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = context.watch<UserRepository>();
     final auth = context.watch<AuthRepository>();
-    final courses = context.watch<MoodleCoursesRepository>(); // wait for courses to load so the guard doesn't missfire
 
-    if (auth.isAuthenticated && user.state.hasData && courses.state.hasData) {
+    if (auth.isAuthenticated && user.state.hasData) {
       Modular.to.navigate('/dashboard/');
     }
 
