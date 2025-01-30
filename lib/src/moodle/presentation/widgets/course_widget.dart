@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 

@@ -1,17 +1,15 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:data_widget/data_widget.dart';
-import 'package:lb_planner/lb_planner.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/slots/slots.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/lb_planner.dart';
 
+/// Displays the details of a slot.
 class SlotDetailsScreen extends StatefulWidget {
+  /// Displays the details of a slot.
   const SlotDetailsScreen({super.key, required this.slotId});
 
+  /// The ID of the slot to display.
   final int slotId;
 
   @override

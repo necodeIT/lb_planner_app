@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

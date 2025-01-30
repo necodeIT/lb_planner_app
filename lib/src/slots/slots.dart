@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
-import 'domain/domain.dart';
 import 'infra/infra.dart';
-import 'presentation/presentation.dart';
 
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';

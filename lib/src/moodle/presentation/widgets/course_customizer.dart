@@ -128,7 +128,7 @@ class _CourseCustomizerState extends State<CourseCustomizer> {
               UpperCaseTextFormatter(),
               FilteringTextInputFormatter.allow(
                 RegExp(
-                  r'^[0-9a-fA-F]{1,8}',
+                  '^[0-9a-fA-F]{1,8}',
                 ),
               ),
             ],

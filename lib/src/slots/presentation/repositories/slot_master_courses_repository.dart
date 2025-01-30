@@ -1,10 +1,8 @@
 import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/slots/slots.dart';
 
+/// Provides all courses for the entire moodle instance to the slot master.
 class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>> {
   final AuthRepository _auth;
   final MoodleCourseDatasource _courses;

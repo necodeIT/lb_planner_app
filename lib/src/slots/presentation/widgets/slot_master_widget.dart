@@ -1,17 +1,15 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/slots/slots.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/lb_planner.dart';
 
+/// Displays the details of a slot created by the slot master.
 class SlotMasterWidget extends StatefulWidget {
+  /// Displays the details of a slot created by the slot master.
   const SlotMasterWidget({super.key, required this.slot});
 
+  /// The slot to display.
   final Slot slot;
 
   @override
@@ -166,11 +164,11 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 TextButton(
                   onPressed: deleteSlot,
-                  child: Text('Delete'),
+                  child: const Text('Delete'),
                 ),
                 TextButton(
                   onPressed: editSlot,
-                  child: Text('Edit'),
+                  child: const Text('Edit'),
                 ),
               ],
             ),

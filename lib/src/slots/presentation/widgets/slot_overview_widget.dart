@@ -1,18 +1,15 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/slots/slots.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/lb_planner.dart';
 
+/// Displays details of a slot in a compact form for a supervisor.
 class SlotOverviewWidget extends StatefulWidget {
+  /// Displays details of a slot in a compact form for a supervisor.
   const SlotOverviewWidget({super.key, required this.slot});
 
+  /// The slot to display.
   final Slot slot;
 
   @override
@@ -26,10 +23,6 @@ class _SlotOverviewWidgetState extends State<SlotOverviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // final users = context.watch<UsersRepository>();
-
-    // final supervisors = users.filter(ids: widget.slot.supervisors);
-
     final courseRepository = context.watch<SlotMasterCoursesRepository>();
 
     final courseVintage = widget.slot.mappings

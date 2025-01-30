@@ -33,7 +33,7 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
     final users = context.watch<UsersRepository>().state;
 
     return GenericDialog(
-      title: Text('Invite users').bold(),
+      title: const Text('Invite users').bold(),
       actions: const [
         SecondaryDialogAction(
           onPressed: Navigator.pop,

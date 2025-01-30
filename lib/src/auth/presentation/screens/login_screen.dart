@@ -4,8 +4,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 
 /// Presents an authentication form to the user.
 class LoginScreen extends StatelessWidget {
