@@ -163,7 +163,7 @@ class BurndownChart extends StatelessWidget {
                     ),
                   ),
                   Spacing.smallHorizontal(),
-                  Text('Planned trajectory'),
+                  const Text('Planned trajectory'),
                 ],
               ),
               Spacing.mediumHorizontal(),

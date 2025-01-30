@@ -3,7 +3,6 @@ import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:lb_planner/src/app/app.dart';
 
 /// A screen for managing slots.
 class SlotMasterScreen extends StatefulWidget {
@@ -68,7 +67,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> {
                       Spacing.xsHorizontal(),
                       TextButton(
                         onPressed: () => createSlot(weekday),
-                        child: Text('New slot'),
+                        child: const Text('New slot'),
                       ),
                     ],
                   ),

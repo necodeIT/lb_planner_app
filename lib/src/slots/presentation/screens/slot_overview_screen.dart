@@ -6,7 +6,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:lb_planner/lb_planner.dart';
 
+/// Displays an overview of all slots for a supervisor.
 class SlotOverviewScreen extends StatelessWidget {
+  /// Displays an overview of all slots for a supervisor.
   const SlotOverviewScreen({super.key});
 
   /// The date formatter.

@@ -359,10 +359,10 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         inputFormatters: [UpperCaseTextFormatter()],
                         maxLength: 7,
                         enabled: !submitting,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Room',
                           helperText: 'Room',
-                          prefixIcon: const Icon(Icons.room),
+                          prefixIcon: Icon(Icons.room),
                         ),
                       );
                     },

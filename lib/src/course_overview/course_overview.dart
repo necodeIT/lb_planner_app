@@ -3,15 +3,11 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
-import 'domain/domain.dart';
-import 'presentation/presentation.dart';
-import 'infra/infra.dart';
-import 'utils/utils.dart';
-
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'utils/utils.dart';
 
+/// Module implementing the app's course overview feature.
 class CourseOverviewModule extends Module {
   @override
   List<Module> get imports => [

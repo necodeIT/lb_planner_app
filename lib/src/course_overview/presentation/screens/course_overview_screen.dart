@@ -1,15 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:collection/collection.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:lb_planner/lb_planner.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter/material.dart';
-import 'package:lb_planner/src/course_overview/course_overview.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// Displays an overview of all tasks for a course.
@@ -76,10 +71,6 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
       );
     final deadlines = context.watch<CalendarPlanRepository>().filterDeadlines(taskIds: tasks.map((t) => t.id).toSet());
 
-    // TODO:
-    print('PEENISS: Deadlines ${deadlines.map((d) => d.id)}');
-    print('PEENISS: Tasks ${tasks.map((t) => t.id)}');
-
     final course = context.watch<MoodleCoursesRepository>().filter(id: widget.id).firstOrNull;
 
     return Padding(
@@ -89,23 +80,23 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
         sortAscending: sortAscending,
         columns: [
           DataColumn(
-            label: Text('Name'),
+            label: const Text('Name'),
             onSort: sortBy,
           ),
           DataColumn(
-            label: Text('Type'),
+            label: const Text('Type'),
             onSort: sortBy,
           ),
           DataColumn(
-            label: Text('Status'),
+            label: const Text('Status'),
             onSort: sortBy,
           ),
           DataColumn(
-            label: Text('Duedate'),
+            label: const Text('Duedate'),
             onSort: sortBy,
           ),
           DataColumn(
-            label: Text('Planned duedate'),
+            label: const Text('Planned duedate'),
             onSort: sortBy,
           ),
           DataColumn(
@@ -118,7 +109,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
                       launchUrlString(course.url);
                     }
                   : null,
-              icon: Icon(
+              icon: const Icon(
                 Icons.link,
               ),
             ),

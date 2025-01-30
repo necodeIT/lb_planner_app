@@ -32,22 +32,22 @@ class Sidebar extends StatelessWidget {
             Column(
               children: [
                 if (capabilities.hasStudent)
-                  SidebarTarget(
+                  const SidebarTarget(
                     route: '/dashboard/',
                     icon: Icons.dashboard,
                   ),
                 if (capabilities.hasStudent)
-                  SidebarTarget(
+                  const SidebarTarget(
                     route: '/calendar/plan/',
                     activeRoute: '/calendar/',
                     icon: Icons.calendar_month_rounded,
                   ),
                 if (capabilities.hasStudent)
-                  SidebarTarget(
+                  const SidebarTarget(
                     route: '/course-overview/',
                     icon: Icons.school,
                   ),
-                SidebarTarget(
+                const SidebarTarget(
                   route: '/slots/book/',
                   activeRoute: '/slots/',
                   icon: Icons.timelapse,
