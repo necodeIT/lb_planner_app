@@ -90,10 +90,14 @@ dependency_overrides:
     git:
       url: https://github.com/mark8044/figma_squircle.git
       ref: fix2
+  flutter_colorpicker:
+    git:
+      url: https://github.com/mchome/flutter_colorpicker.git
   flutter_modular:
     git:
       url: https://github.com/necodeIT/modular.git
       path: flutter_modular
+
   modular_core:
     git:
       url: https://github.com/necodeIT/modular.git
@@ -101,9 +105,6 @@ dependency_overrides:
   popover:
     git:
       url: https://github.com/necodeIT/popover.git
-  flutter_colorpicker:
-    git:
-      url: https://github.com/mchome/flutter_colorpicker.git
 
 flutter:
   uses-material-design: true
