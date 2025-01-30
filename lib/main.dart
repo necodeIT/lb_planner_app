@@ -88,7 +88,7 @@ String scrubSensitiveData(String message) {
 }
 
 void main() async {
-  Logger.root.level = Level.WARNING;
+  Logger.root.level = Level.ALL;
 
   DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
   NetworkService.timeout = const Duration(seconds: 30);
