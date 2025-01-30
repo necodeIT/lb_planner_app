@@ -43,7 +43,6 @@ class _ReservedSlotsState extends State<ReservedSlots> {
             if (slots.isNotEmpty && user.state.hasData)
               SingleChildScrollView(
                 child: Column(
-                  spacing: Spacing.mediumSpacing,
                   children: [
                     for (final unit in SlotTimeUnit.values)
                       Builder(
@@ -57,7 +56,10 @@ class _ReservedSlotsState extends State<ReservedSlots> {
                                   .map((m) => courses.filter(id: m.courseId).first)
                                   .toList();
 
-                          final isLastUnit = slot != null && unit == slot.endUnit;
+                          final isLastUnit = slots.any((s) => s.endUnit == unit.next && s == slot);
+                          final isStartUnit = slot != null && slot.startUnit == unit;
+                          final isInbetween = slot != null && slot.startUnit < unit && slot.endUnit > unit;
+
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -65,51 +67,63 @@ class _ReservedSlotsState extends State<ReservedSlots> {
                                 children: [
                                   Text(unit.humanReadable()),
                                   Spacing.smallHorizontal(),
-                                  if (slot == null)
+                                  if (!isInbetween)
                                     Container(
                                       height: 1,
                                       color: context.theme.dividerColor,
-                                    ),
-                                  if (slot != null)
+                                    ).expanded(),
+                                  if (isInbetween)
                                     Row(
                                       children: [
                                         Container(
                                           height: 1,
                                           color: context.theme.dividerColor,
-                                        ),
-                                        Spacing.smallHorizontal(),
-                                        Row(
-                                          spacing: Spacing.xsSpacing,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            for (final course in _courses)
-                                              CourseTag(
-                                                course: course,
-                                              ),
-                                            Text(slot.room).bold(),
-                                          ],
-                                        ),
-                                        Spacing.smallHorizontal(),
+                                        ).expanded(),
+                                        _card(context),
                                         Container(
                                           height: 1,
                                           color: context.theme.dividerColor,
-                                        ),
+                                        ).expanded(),
                                       ],
-                                    ),
+                                    ).expanded(),
                                 ],
                               ),
-                              if (isLastUnit)
+                              if (isStartUnit)
                                 Row(
-                                  spacing: Spacing.xsSpacing,
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    for (final course in _courses)
-                                      CourseTag(
-                                        course: course,
+                                    Text(unit.humanReadable()).setOpacity(opacity: 0), // To keep the layout consistent
+                                    Spacing.smallHorizontal(),
+                                    const Spacer(),
+                                    _card(
+                                      context,
+                                      top: true,
+                                      child: Row(
+                                        spacing: Spacing.xsSpacing,
+                                        children: [
+                                          for (final course in _courses)
+                                            CourseTag(
+                                              course: course,
+                                            ),
+                                          Text(slot.room).bold(),
+                                          const Spacer(),
+                                          Text('${slot.startUnit.humanReadable()} - ${slot.endUnit.humanReadable()}'),
+                                        ],
                                       ),
-                                    Text(slot.room).bold(),
+                                    ),
+                                    const Spacer(),
                                   ],
                                 ),
+                              if (isLastUnit)
+                                Row(
+                                  children: [
+                                    Text(unit.humanReadable()).setOpacity(opacity: 0), // To keep the layout consistent
+                                    Spacing.smallHorizontal(),
+                                    const Spacer(),
+                                    _card(context, bottom: true),
+                                    const Spacer(),
+                                  ],
+                                ),
+                              if (slot == null) Spacing.xlVertical(),
                             ],
                           );
                         },
@@ -121,5 +135,17 @@ class _ReservedSlotsState extends State<ReservedSlots> {
         ),
       ),
     );
+  }
+
+  Widget _card(BuildContext context, {Widget? child, bool top = false, bool bottom = false}) {
+    return Container(
+      height: 50,
+      padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.mediumSpacing),
+      decoration: ShapeDecoration(
+        color: context.theme.dividerColor,
+        shape: squircle(topLeft: top, topRight: top, bottomLeft: bottom, bottomRight: bottom),
+      ),
+      child: child,
+    ).expanded(flex: 8);
   }
 }

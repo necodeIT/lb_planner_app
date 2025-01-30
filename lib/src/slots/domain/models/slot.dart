@@ -272,4 +272,10 @@ enum SlotTimeUnit implements Comparable<SlotTimeUnit> {
 
   @override
   int compareTo(SlotTimeUnit other) => timeOfDay.compareTo(other.timeOfDay);
+
+  /// Returns the next [SlotTimeUnit] or `null` if this is the last [SlotTimeUnit].
+  SlotTimeUnit? get next => index + 1 < SlotTimeUnit.values.length ? SlotTimeUnit.values[index + 1] : null;
+
+  /// Returns the previous [SlotTimeUnit] or `null` if this is the first [SlotTimeUnit].
+  SlotTimeUnit? get previous => index - 1 >= 0 ? SlotTimeUnit.values[index - 1] : null;
 }
