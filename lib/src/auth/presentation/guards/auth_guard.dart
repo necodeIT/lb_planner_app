@@ -14,10 +14,6 @@ class AuthGuard extends RouteGuard {
   Future<bool> canActivate(String path, ModularRoute route) async {
     final auth = Modular.get<AuthRepository>();
 
-    if (auth.isAuthenticated) {
-      return true;
-    }
-
     await Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 100));
       return auth.state.isLoading;
