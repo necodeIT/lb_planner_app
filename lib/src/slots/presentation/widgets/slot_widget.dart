@@ -127,7 +127,10 @@ class _SlotWidgetState extends State<SlotWidget> {
                             children: [
                               CourseTag(course: course),
                               Spacing.smallHorizontal(),
-                              Text(course.name),
+                              Text(
+                                course.name,
+                                overflow: TextOverflow.ellipsis,
+                              ).expanded(),
                             ],
                           ),
                       ],
