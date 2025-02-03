@@ -851,9 +851,11 @@ packages:
   mcquenji_core:
     dependency: "direct main"
     description:
-      path: "../mcquenji_core"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "26ce589578d206993de49be4d0a181ce61364a8c"
+      url: "https://github.com/mcquenji/mcquenji_core.git"
+    source: git
     version: "1.2.0"
   mcquenji_local_storage:
     dependency: "direct main"
