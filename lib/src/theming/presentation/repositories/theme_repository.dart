@@ -24,7 +24,7 @@ class ThemeRepository extends Repository<ThemeData> {
   }
 
   @override
-  FutureOr<void> build(Type trigger) async {
+  FutureOr<void> build(BuildTrigger trigger) async {
     if (!_user.state.hasData) return;
 
     setThemeByName(_user.state.requireData.themeName);

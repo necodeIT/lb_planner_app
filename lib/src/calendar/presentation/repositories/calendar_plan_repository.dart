@@ -31,9 +31,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  Future<void> build(Type trigger) async {
+  Future<void> build(BuildTrigger trigger) async {
     // We don't need to refresh the plan as it's only loosely connected to the tasks.
-    if (trigger == MoodleTasksRepository) {
+    if (trigger is MoodleTasksRepository) {
       log('Skipping refresh triggered by $trigger');
 
       return;
@@ -120,7 +120,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       await captureEvent('deadline_set', properties: {'id': taskId, 'start': start, 'end': end});
 
-      await _tasks.build(CalendarPlanRepository);
+      await _tasks.build(this);
     } catch (e, st) {
       log('Failed to set deadline.', e, st);
 

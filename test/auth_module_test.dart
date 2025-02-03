@@ -127,7 +127,7 @@ Future<void> main() async {
           await storage.write(defaultTokens);
         },
         build: () => Modular.get<AuthRepository>(),
-        act: (repo) => repo.loadStoredTokens,
+        act: (repo) => repo.ready,
         expect: () => [
           isA<AsyncValue<Set<Token>>>().having(
             (state) => state.isLoading,
@@ -145,7 +145,7 @@ Future<void> main() async {
       blocTest(
         'user is unauthenticated when no token is stored',
         build: () => Modular.get<AuthRepository>(),
-        act: (repo) => repo.loadStoredTokens,
+        act: (repo) => repo.ready,
         expect: () => [
           isA<AsyncValue<Set<Token>>>().having(
             (state) => state.isLoading,
@@ -166,7 +166,7 @@ Future<void> main() async {
         },
         build: () => Modular.get<AuthRepository>(),
         act: (repo) async {
-          await repo.loadStoredTokens;
+          await repo.ready;
           await repo.logout();
         },
         expect: () => [

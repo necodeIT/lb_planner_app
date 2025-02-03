@@ -15,13 +15,13 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
   static AsyncValue<Set<Token>>? _state;
 
-  /// A future that completes when tokens have been loaded from storage.
-  late final Future<void> loadStoredTokens;
-
   /// UI state controller for authentication.
   AuthRepository(this._auth, this._localStorage) : super(_state ?? AsyncValue.loading());
 
-  Future<void> _authFromStorage() async {
+  @override
+  FutureOr<void> build(BuildTrigger trigger) async {
+    if (trigger is! InitialBuildTrigger) return;
+
     if (_state != null && isAuthenticated) {
       log('Global state present and user is authenticated, skipping storage check');
       return;
@@ -31,8 +31,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       log('Global state present, however user the is unauthenticated. Discarding state.');
       _state = null;
     }
-
-    loading();
 
     if (!await _localStorage.exists<Set<Token>>()) {
       log('No token found in storage');
@@ -57,13 +55,6 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     }
 
     data(tokens);
-  }
-
-  @override
-  FutureOr<void> build(Type trigger) async {
-    if (trigger == InitialBuildTrigger) {
-      loadStoredTokens = _authFromStorage();
-    }
   }
 
   /// Sign in with [username] and [password].

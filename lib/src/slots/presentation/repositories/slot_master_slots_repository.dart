@@ -22,7 +22,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(Type trigger) {
+  FutureOr<void> build(BuildTrigger trigger) {
     final token = waitForData(_auth);
 
     guard(
@@ -69,7 +69,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
         );
       }
 
-      build(SlotMasterSlotsRepository);
+      await build(this);
     } catch (e, s) {
       log('Failed to create slot', e, s);
     }
@@ -170,7 +170,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
         );
       }
 
-      build(SlotMasterSlotsRepository);
+      await build(this);
     } catch (e, s) {
       log('Failed to update slot', e, s);
     }
