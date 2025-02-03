@@ -17,7 +17,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  Future<void> build(Type trigger) async {
+  Future<void> build(BuildTrigger trigger) async {
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getCourses(tokens[Webservice.lb_planner_api]));

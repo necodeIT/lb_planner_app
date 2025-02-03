@@ -14,7 +14,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
   }
 
   @override
-  FutureOr<void> build(Type trigger) async {
+  FutureOr<void> build(BuildTrigger trigger) async {
     final token = waitForData(_auth);
 
     await guard(

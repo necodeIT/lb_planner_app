@@ -21,7 +21,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
   Duration get updateInterval => kImportantRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(Type trigger) {
+  FutureOr<void> build(BuildTrigger trigger) {
     waitForData(_auth);
 
     guard(

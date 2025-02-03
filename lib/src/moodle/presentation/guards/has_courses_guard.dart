@@ -1,9 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Guard that checks if the user has any courses enabled.
 /// Redirects to the course selection screen per default if no courses are enabled.
-class HasCoursesGuard extends RouteGuard {
+class HasCoursesGuard extends RouteGuard implements BuildTrigger {
   /// Guard that checks if the user has any courses enabled.
   /// Redirects to the course selection screen per default if no courses are enabled.
   HasCoursesGuard({super.redirectTo = '/moodle/select-courses/'});
@@ -15,11 +16,14 @@ class HasCoursesGuard extends RouteGuard {
 
     if (courses == null || user == null) return false;
 
-    if (!(user.state.data?.capabilities.hasStudent ?? false)) {
-      return true;
-    }
+    await courses.ready;
+    await user.ready;
 
-    await courses.build(HasCoursesGuard);
+    if (!user.state.hasData) return false;
+
+    if (!user.state.requireData.capabilities.hasStudent) return true;
+
+    await courses.build(this);
 
     return courses.filter(enabled: true).isNotEmpty;
   }

@@ -20,7 +20,7 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
   }
 
   @override
-  FutureOr<void> build(Type trigger) async {
+  FutureOr<void> build(BuildTrigger trigger) async {
     if (!_courses.state.hasData || !_tasks.state.hasData) return;
 
     final courses = _courses.state.requireData;

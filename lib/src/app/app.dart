@@ -1,8 +1,10 @@
 library lb_planner.modules.app;
 
 import 'package:animations/animations.dart';
+import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:lb_planner/config/echidna.dart';
 import 'package:lb_planner/config/version.dart';
 import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -53,21 +55,6 @@ class AppModule extends Module {
   @override
   void routes(RouteManager r) {
     r
-      ..module(
-        '/auth',
-        module: AuthModule(),
-        customTransition: defaultTransition,
-        transition: TransitionType.custom,
-      )
-      ..module(
-        '/moodle',
-        module: MoodleModule(),
-        customTransition: defaultTransition,
-        transition: TransitionType.custom,
-        guards: [
-          AuthGuard(redirectTo: '/auth/'),
-        ],
-      )
       ..child(
         '/',
         child: (_) => const SidebarScreen(),
@@ -88,7 +75,7 @@ class AppModule extends Module {
             customTransition: defaultTransition,
             guards: [
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
-              // TODO: FeatureGuard([kCalendarPlanFeatureID]),
+              FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
             ],
           ),
           ModuleRoute(
@@ -118,6 +105,21 @@ class AppModule extends Module {
         guards: [
           AuthGuard(redirectTo: '/auth/'),
           HasCoursesGuard(),
+        ],
+      )
+      ..module(
+        '/auth',
+        module: AuthModule(),
+        customTransition: defaultTransition,
+        transition: TransitionType.custom,
+      )
+      ..module(
+        '/moodle',
+        module: MoodleModule(),
+        customTransition: defaultTransition,
+        transition: TransitionType.custom,
+        guards: [
+          AuthGuard(redirectTo: '/auth/'),
         ],
       );
   }

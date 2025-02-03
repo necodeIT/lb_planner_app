@@ -372,7 +372,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1790a66af4a62938281389e85d8e1623a975679d"
+      resolved-ref: cabe7e17c383207d88910bbba24db169dd8f0bba
       url: "https://github.com/necodeIT/echidna_flutter.git"
     source: git
     version: "0.0.2"
@@ -504,10 +504,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_markdown
-      sha256: e37f4c69a07b07bb92622ef6b131a53c9aae48f64b176340af9e8e5238718487
+      sha256: "46cdcdcd216f15ac04c80e24e814a89ea7143654442c53ba67fec349b4d44565"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.5"
+    version: "0.7.6"
   flutter_modular:
     dependency: "direct main"
     description:
@@ -851,11 +851,9 @@ packages:
   mcquenji_core:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "50ffe363c8de204ee1966f663b1c34cc2b223c93"
-      url: "https://github.com/mcquenji/mcquenji_core.git"
-    source: git
+      path: "../mcquenji_core"
+      relative: true
+    source: path
     version: "1.2.0"
   mcquenji_local_storage:
     dependency: "direct main"
@@ -1495,10 +1493,10 @@ packages:
     dependency: "direct main"
     description:
       name: vector_graphics
-      sha256: "7ed22c21d7fdcc88dd6ba7860384af438cd220b251ad65dfc142ab722fabef61"
+      sha256: a1870d398158844fe5db12441611ed9a2222ff4340258b539eaf3590c1b4bd7e
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.16"
+    version: "1.1.17"
   vector_graphics_codec:
     dependency: transitive
     description:

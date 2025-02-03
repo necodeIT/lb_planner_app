@@ -167,6 +167,8 @@ void main() async {
         log('Initilaized $module');
         return;
       }
+
+      log(msg);
     }
 
     log(msg);
@@ -245,7 +247,7 @@ class _AppWidgetState extends State<AppWidget> {
   Future<void> _listener(AsyncValue<Set<Token>> state) async {
     final auth = Modular.get<AuthRepository>();
 
-    await auth.loadStoredTokens;
+    await auth.ready;
 
     if (auth.isAuthenticated) return;
 

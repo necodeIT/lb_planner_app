@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -16,7 +18,7 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  Future<void> build(Type trigger) async {
+  FutureOr<void> build(BuildTrigger trigger) async {
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getAllCourses(tokens[Webservice.lb_planner_api]));

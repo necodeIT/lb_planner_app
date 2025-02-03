@@ -18,7 +18,7 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
   Duration get updateInterval => kLessImportantRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(Type trigger) {
+  FutureOr<void> build(BuildTrigger trigger) {
     guard(
       () => _datasource.getUsers(
         waitForData(_auth).pick(Webservice.lb_planner_api),

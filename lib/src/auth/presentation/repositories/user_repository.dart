@@ -24,7 +24,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
   }
 
   @override
-  FutureOr<void> build(Type trigger) async {
+  FutureOr<void> build(BuildTrigger trigger) async {
     final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
