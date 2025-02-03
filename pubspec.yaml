@@ -97,8 +97,6 @@ dependency_overrides:
     git:
       url: https://github.com/necodeIT/modular.git
       path: flutter_modular
-  mcquenji_core:
-    path: ../mcquenji_core
   modular_core:
     git:
       url: https://github.com/necodeIT/modular.git
