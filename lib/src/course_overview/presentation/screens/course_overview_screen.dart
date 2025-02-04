@@ -80,23 +80,23 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
         sortAscending: sortAscending,
         columns: [
           DataColumn(
-            label: const Text('Name'),
+            label: Text(context.t.courses_name),
             onSort: sortBy,
           ),
           DataColumn(
-            label: const Text('Type'),
+            label: Text(context.t.courses_type),
             onSort: sortBy,
           ),
           DataColumn(
-            label: const Text('Status'),
+            label: Text(context.t.courses_status),
             onSort: sortBy,
           ),
           DataColumn(
-            label: const Text('Duedate'),
+            label: Text(context.t.courses_dueDate),
             onSort: sortBy,
           ),
           DataColumn(
-            label: const Text('Planned duedate'),
+            label: Text(context.t.courses_plannedDueDate),
             onSort: sortBy,
           ),
           DataColumn(
@@ -131,11 +131,11 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
                   Text(t.status.translate(context)),
                 ),
                 DataCell(
-                  Text(t.deadline != null ? CourseOverviewScreen.formatter.format(t.deadline!) : 'N/A'),
+                  Text(t.deadline != null ? CourseOverviewScreen.formatter.format(t.deadline!) : context.t.global_nA),
                 ),
                 DataCell(
                   Text(
-                    planDeadline != null ? CourseOverviewScreen.formatter.format(planDeadline) : 'N/A',
+                    planDeadline != null ? CourseOverviewScreen.formatter.format(planDeadline) : context.t.global_nA,
                   ),
                 ),
                 DataCell(

@@ -66,13 +66,7 @@ class _CourseSelectorState extends State<CourseSelector> {
                         Skeletonizer(
                           child: CourseWidget(
                             key: ValueKey('loading_$i'),
-                            course: MoodleCourse(
-                              id: i,
-                              color: context.theme.primaryColor,
-                              name: 'Course $i',
-                              shortname: '$i',
-                              enabled: false,
-                            ),
+                            course: MoodleCourse.skeleton(),
                           ).stretch(),
                         ),
                   ].vSpaced(courses.state.hasData ? Spacing.xsSpacing : Spacing.smallSpacing).show(),

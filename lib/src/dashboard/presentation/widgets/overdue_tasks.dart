@@ -22,7 +22,7 @@ class OverdueTasks extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Overdue tasks',
+              context.t.dashboard_overdueTasks,
               style: context.textTheme.titleMedium?.bold,
             ).alignAtTopLeft(),
             Spacing.mediumVertical(),
@@ -39,7 +39,7 @@ class OverdueTasks extends StatelessWidget {
               ).expanded(),
             if (candidates.isEmpty)
               ImageMessage(
-                message: "You're all good, no tasks are overdue!",
+                message: context.t.dashboard_noTasksOverdue,
                 image: Assets.dashboard.noOverdueTasks,
               ).expanded(),
           ],

@@ -33,8 +33,8 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
 
     final confirmed = await showConfirmationDialog(
       context,
-      title: 'Clear plan?',
-      message: 'Are you shure you want to clear your plan? This will remove all planned tasks and cannot be undone.',
+      title: context.t.calendar_clearPlan_title,
+      message: context.t.calendar_clearPlan_message,
     );
 
     if (confirmed) await plan.clear();
@@ -53,7 +53,7 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
       query: searchController.text,
       type: {
         MoodleTaskType.required,
-        MoodleTaskType.compensation,
+        MoodleTaskType.participation,
         if (user.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
       },
     ).toList();
@@ -64,7 +64,7 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
           controller: searchController,
           decoration: InputDecoration(
             filled: true,
-            hintText: 'Search tasks',
+            hintText: context.t.calendar_searchTasks,
             prefixIcon: const Icon(Icons.search),
             fillColor: context.theme.scaffoldBackgroundColor,
             isDense: true,
@@ -111,11 +111,11 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: context.theme.colorScheme.error,
               ),
-              child: const Row(
+              child: Row(
                 children: [
-                  Text('Clear Plan'),
-                  Spacer(),
-                  Icon(Icons.delete),
+                  Text(context.t.calendar_clearPlan),
+                  const Spacer(),
+                  const Icon(Icons.delete),
                 ],
               ),
             ),

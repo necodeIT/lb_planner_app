@@ -23,7 +23,7 @@ Future<T?> showAnimatedDialog<T>({required BuildContext context, required RouteP
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: pageBuilder,
     barrierDismissible: true,
-    barrierLabel: 'Dismiss',
+    barrierLabel: context.t.global_dismiss,
   );
 }
 
@@ -65,13 +65,13 @@ Future<bool> showConfirmationDialog(
     shrinkWrapWidth: true,
     actions: [
       PrimaryDialogAction(
-        label: confirmLabel ?? 'Confirm',
+        label: confirmLabel ?? context.t.global_confirm,
         onPressed: (context) {
           Navigator.of(context).pop(true);
         },
       ),
       SecondaryDialogAction(
-        label: cancelLabel ?? 'Cancel',
+        label: cancelLabel ?? context.t.global_cancel,
         onPressed: (context) {
           Navigator.of(context).pop(false);
         },
@@ -97,7 +97,7 @@ Future<void> showAlertDialog(
     shrinkWrapWidth: true,
     actions: [
       PrimaryDialogAction(
-        label: confirmLabel ?? 'OK',
+        label: confirmLabel ?? context.t.global_ok,
         onPressed: Navigator.pop,
       ),
     ],
@@ -112,7 +112,7 @@ Future<void> showMarkdownDialog(BuildContext context, {required String title, re
     content: MarkdownBody(data: markdown),
     actions: [
       PrimaryDialogAction(
-        label: confirmLabel ?? 'OK',
+        label: confirmLabel ?? context.t.global_ok,
         onPressed: Navigator.pop,
       ),
     ],

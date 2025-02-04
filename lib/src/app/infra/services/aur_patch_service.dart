@@ -3,7 +3,7 @@ import 'package:lb_planner/src/app/app.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 
 /// [DistributionType.aur] implementation of the [PatchService].
-class AurParchService extends PatchService {
+class AurPatchService extends PatchService {
   @override
   Stream<double> applyPatch(Release release, Version currentVersion, ReleaseChannel currentChannel) {
     throw ManualInstallRequiredException(getManualInstructions(release, currentVersion, currentChannel));

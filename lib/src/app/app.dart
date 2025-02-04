@@ -43,7 +43,7 @@ class AppModule extends Module {
         appInfoService: StdAppInfoService.new,
         releasesDatasource: StdReleasesDatasource.new,
         patchService: switch (kDistributionType) {
-          DistributionType.aur => AurParchService.new,
+          DistributionType.aur => AurPatchService.new,
           DistributionType.msix => MsixPatchService.new,
           DistributionType.dmg => DmgPatchService.new,
           DistributionType.appImage => AppImagePatchService.new,

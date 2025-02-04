@@ -21,7 +21,7 @@ class SlotsModule extends Module {
   @override
   void binds(Injector i) {
     i
-      ..add<TitleBuilder>(() => (BuildContext context) => ('Slots', null))
+      ..add<TitleBuilder>(() => (BuildContext context) => (context.t.slots_title, null))
       ..add<SlotsDatasource>(StdSlotsDatasource.new)
       ..addRepository<SlotsRepository>(SlotsRepository.new)
       ..addRepository<SlotMasterSlotsRepository>(SlotMasterSlotsRepository.new)

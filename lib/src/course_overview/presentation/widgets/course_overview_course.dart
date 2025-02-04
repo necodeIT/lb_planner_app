@@ -40,7 +40,7 @@ class CourseOverviewCourse extends StatelessWidget {
                       Spacing.smallHorizontal(),
                       Text(course.name).bold(),
                       const Spacer(),
-                      Text('${data.total} Tasks'),
+                      Text(context.t.calendar_tasksCountLabel(data.total)),
                     ],
                   ),
                   Spacing.medium(),

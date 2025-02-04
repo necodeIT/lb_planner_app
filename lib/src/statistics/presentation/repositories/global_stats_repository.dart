@@ -23,7 +23,7 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
           type: {
             MoodleTaskType.required,
             MoodleTaskType.optional,
-            MoodleTaskType.compensation,
+            MoodleTaskType.participation,
           },
         ),
       ),

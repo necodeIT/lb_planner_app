@@ -58,7 +58,7 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
           controller: searchController,
           decoration: InputDecoration(
             filled: true,
-            hintText: 'Search members',
+            hintText: context.t.calendar_searchMembers,
             prefixIcon: const Icon(Icons.search),
             fillColor: context.theme.scaffoldBackgroundColor,
             isDense: true,
@@ -76,11 +76,11 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
             Spacing.smallVertical(),
             ElevatedButton(
               onPressed: showInviteMemberDialog,
-              child: const Row(
+              child: Row(
                 children: [
-                  Text('Invite users'),
-                  Spacer(),
-                  Icon(
+                  Text(context.t.calendar_inviteUsers),
+                  const Spacer(),
+                  const Icon(
                     FontAwesome5Solid.user_plus,
                     size: 15,
                   ),

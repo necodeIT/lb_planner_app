@@ -2,7 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_utils/flutter_utils.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -45,7 +45,7 @@ class _PlanCellState extends State<PlanCell> {
       taskIds: deadlines.map((e) => e.id).toSet(),
       type: {
         MoodleTaskType.required,
-        MoodleTaskType.compensation,
+        MoodleTaskType.participation,
         if (user.state.data?.optionalTasksEnabled ?? false) MoodleTaskType.optional,
       },
     );
@@ -80,7 +80,8 @@ class _PlanCellState extends State<PlanCell> {
             children: [
               Row(
                 children: [
-                  if (user.state.data?.displayTaskCount ?? false) Text('${tasks.length} Tasks').fontSize(12).color(context.theme.disabledColor),
+                  if (user.state.data?.displayTaskCount ?? false)
+                    Text(context.t.calendar_tasksCountLabel(tasks.length)).fontSize(12).color(context.theme.disabledColor),
                   const Spacer(),
                   Text(
                     widget.date.day.toString(),
@@ -119,7 +120,7 @@ class _PlanCellState extends State<PlanCell> {
                               displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
                               additionalContextMenuItems: [
                                 ContextMenuButtonConfig(
-                                  'Remove deadline',
+                                  context.t.calendar_removeDeadline,
                                   icon: const Icon(Icons.delete),
                                   iconHover: Icon(
                                     Icons.delete,

@@ -43,8 +43,8 @@ class _SlotWidgetState extends State<SlotWidget> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Failed to reserve slot'),
+          SnackBar(
+            content: Text(context.t.slots_reserve_error),
           ),
         );
       }

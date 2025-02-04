@@ -2,7 +2,7 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_utils/flutter_utils.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/theming/theming.dart';
 
@@ -69,7 +69,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                   child: TextButton(
                     onPressed: () => switchTab(nextTab),
                     child: Text(
-                      nextTab == CalendarScreenTab.plan ? 'Plan' : 'Tasks Overview',
+                      nextTab == CalendarScreenTab.plan ? context.t.calendar_plan : context.t.calendar_tasksOverview,
                     ),
                   ),
                 ),

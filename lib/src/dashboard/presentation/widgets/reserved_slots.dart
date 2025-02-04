@@ -27,13 +27,13 @@ class _ReservedSlotsState extends State<ReservedSlots> {
         child: Column(
           children: [
             Text(
-              'Slots reserved for today',
+              context.t.dashboard_slotsReservedToday,
               style: context.textTheme.titleMedium?.bold,
             ).alignAtTopLeft(),
             Spacing.mediumVertical(),
             if (slots.isEmpty || !user.state.hasData)
               ImageMessage(
-                message: "You don't have any slots reserved for today.",
+                message: context.t.dashboard_noSlotsReservedToday,
                 image: Assets.dashboard.noReservationsForToday,
               ).expanded(),
             if (slots.isNotEmpty && user.state.hasData)

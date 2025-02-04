@@ -96,7 +96,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Supervisors: ${supervisors.length}', style: context.theme.textTheme.titleMedium).bold(),
+                          Text(context.t.slots_details_supervisorsCount(supervisors.length), style: context.theme.textTheme.titleMedium).bold(),
                           Spacing.smallVertical(),
                           Wrap(
                             spacing: Spacing.mediumSpacing,
@@ -116,7 +116,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Mappings: ${courseVintage.length}', style: context.theme.textTheme.titleMedium).bold(),
+                          Text(context.t.slots_details_mappingsCount(courseVintage.length), style: context.theme.textTheme.titleMedium).bold(),
                           Spacing.smallVertical(),
                           Wrap(
                             spacing: Spacing.mediumSpacing,
@@ -150,7 +150,8 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Reservations (${slot.reservations}/${slot.size})', style: context.theme.textTheme.titleMedium).bold(),
+                        Text(context.t.slots_details_reservationsCount(slot.reservations, slot.size), style: context.theme.textTheme.titleMedium)
+                            .bold(),
                         Spacing.medium(),
                         for (final student in reservedStudents)
                           Container(

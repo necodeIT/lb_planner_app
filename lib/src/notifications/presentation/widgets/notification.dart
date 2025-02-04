@@ -155,7 +155,7 @@ Widget inviteMessage(BuildContext context, Notification notification) {
   return Skeletonizer(
     enabled: userName == null || notification.context == null,
     child: Text(
-      '${userName ?? 'Loading'} invited you to join their plan!',
+      context.t.notification_invite(userName ?? context.t.global_loading),
     ),
   );
 }
@@ -171,7 +171,7 @@ FutureOr<List<(String, FutureOr<void> Function()?)>> inviteActions(BuildContext 
   if (invite.status != PlanInviteStatus.pending) {
     return [
       (
-        invite.status == PlanInviteStatus.accepted ? 'Accepted' : 'Declined',
+        invite.status == PlanInviteStatus.accepted ? context.t.notification_invite_accepted : context.t.notification_invite_declined,
         null,
       ),
     ];
@@ -179,11 +179,11 @@ FutureOr<List<(String, FutureOr<void> Function()?)>> inviteActions(BuildContext 
 
   return [
     (
-      'Accept',
+      context.t.notification_invite_accept,
       () async => invites.acceptInvite(notification.context!),
     ),
     (
-      'Decline',
+      context.t.notification_invite_decline,
       () async => invites.declineInvite(notification.context!),
     ),
   ];
@@ -215,7 +215,7 @@ Widget inviteAcceptedMessage(BuildContext context, Notification notification) {
   return Skeletonizer(
     enabled: userName == null || notification.context == null,
     child: Text(
-      '$userName accepted your invitation!',
+      context.t.notification_inviteAccepted(userName!),
     ),
   );
 }
@@ -241,7 +241,7 @@ Widget inviteDeclinedMessage(BuildContext context, Notification notification) {
   return Skeletonizer(
     enabled: userName == null || notification.context == null,
     child: Text(
-      '$userName declined your invitation!',
+      context.t.notification_inviteDeclined(userName!),
     ),
   );
 }
@@ -255,15 +255,15 @@ Widget planLeftMessage(BuildContext context, Notification notification) {
   return Skeletonizer(
     enabled: userName == null || notification.context == null,
     child: Text(
-      '$userName left your plan! No hard feelings. You can re-invite them any time',
+      context.t.notification_planLeft(userName!),
     ),
   );
 }
 
 /// Message builder for [NotificationType.planRemoved].
 Widget planRemovedMessage(BuildContext context, Notification notification) {
-  return const Text(
-    "You have been removed from your shared plan. But don't worry, we've got you covered - a copy of the plan has been saved to your account.",
+  return Text(
+    context.t.notification_planRemoved,
   );
 }
 
@@ -274,7 +274,7 @@ Widget newUserMessage(BuildContext context, Notification notification) {
   return Skeletonizer(
     enabled: !user.state.hasData,
     child: Text(
-      'Welcome to $kAppName, ${user.state.data?.firstname ?? 'Loading'}! We hope you enjoy your stay.',
+      context.t.notification_newUser(kAppName, user.state.data?.firstname ?? context.t.global_loading),
     ),
   );
 }

@@ -33,11 +33,11 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
     final users = context.watch<UsersRepository>().state;
 
     return GenericDialog(
-      title: const Text('Invite users').bold(),
-      actions: const [
+      title: Text(context.t.calendar_inviteUsers).bold(),
+      actions: [
         SecondaryDialogAction(
           onPressed: Navigator.pop,
-          label: 'Close',
+          label: context.t.global_close,
         ),
       ],
       shrinkWrap: false,
@@ -48,7 +48,7 @@ class _PlanInviteMemberDialogState extends State<PlanInviteMemberDialog> {
               controller: searchController,
               decoration: InputDecoration(
                 filled: true,
-                hintText: 'Search users',
+                hintText: context.t.calendar_searchUsers,
                 prefixIcon: const Icon(Icons.search),
                 fillColor: context.theme.scaffoldBackgroundColor,
                 isDense: true,

@@ -1,6 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_utils/flutter_utils.dart';
 import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/theming/theming.dart';
@@ -44,12 +43,12 @@ class _PlanPopupState extends State<PlanPopup> with SingleTickerProviderStateMix
             children: [
               TabBar(
                 controller: controller,
-                tabs: const [
+                tabs: [
                   Tab(
-                    text: 'Tasks',
+                    text: context.t.calendar_tasks,
                   ),
                   Tab(
-                    text: 'Members',
+                    text: context.t.calendar_members,
                   ),
                 ],
                 onTap: (index) {
