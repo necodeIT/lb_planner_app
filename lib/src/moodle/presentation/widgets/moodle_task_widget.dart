@@ -53,7 +53,7 @@ class MoodleTaskWidget extends StatelessWidget {
             contextMenu: GenericContextMenu(
               buttonConfigs: [
                 ContextMenuButtonConfig(
-                  'Open in Moodle',
+                  context.t.moodle_moodleTaskWidget_openInMoodle,
                   onPressed: () => launchUrl(Uri.parse(task.url)),
                   icon: const Icon(Icons.link),
                   iconHover: Icon(Icons.link, color: context.theme.colorScheme.primary),

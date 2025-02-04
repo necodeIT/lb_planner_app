@@ -18,7 +18,7 @@ class CourseOverviewModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.add<TitleBuilder>(() => (BuildContext context) => ('Course Overview', null));
+    i.add<TitleBuilder>(() => (BuildContext context) => (context.t.courses_overview, null));
   }
 
   @override

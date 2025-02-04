@@ -77,20 +77,20 @@ class _GeneralSettingsState extends State<GeneralSettings> {
               child: ListView(
                 children: [
                   iconItem(
-                    title: 'Version $kInstalledRelease',
+                    title: context.t.settings_general_version(kInstalledRelease.toString()),
                     icon: Icons.update,
                     onPressed: checkUpdates,
                   ),
                   // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
                   if (isStudent)
                     checkboxItem(
-                      title: 'Enable EK modules',
+                      title: context.t.settings_general_enableEK,
                       value: user.state.data?.optionalTasksEnabled ?? false,
                       onChanged: user.enableOptionalTasks,
                     ),
                   if (isStudent)
                     checkboxItem(
-                      title: 'Display task count',
+                      title: context.t.settings_general_displayTaskCount,
                       value: user.state.data?.displayTaskCount ?? false,
                       onChanged: user.setDisplayTaskCount,
                     ),

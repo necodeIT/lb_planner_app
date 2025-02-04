@@ -14,6 +14,6 @@ class WebPatchService extends PatchService {
 
   @override
   Translator getManualInstructions(Release release, Version currentVersion, ReleaseChannel currentChannel) {
-    return (context) => 'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.';
+    return (context) => context.t.app_update_web;
   }
 }

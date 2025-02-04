@@ -162,11 +162,11 @@ class _LoginFormState extends State<LoginForm> {
                   Spacing.xsHorizontal(),
                   Text.rich(
                     TextSpan(
-                      text: 'I accept the collection and processing of my data as described in the ',
+                      text: context.t.auth_dataCollectionConsent,
                       style: const TextStyle(fontSize: 12),
                       children: [
                         TextSpan(
-                          text: 'Privacy Policy',
+                          text: context.t.auth_privacyPolicy,
                           style: context.bodySmall?.copyWith(color: context.theme.colorScheme.primary),
                           mouseCursor: SystemMouseCursors.click,
                           recognizer: TapGestureRecognizer()

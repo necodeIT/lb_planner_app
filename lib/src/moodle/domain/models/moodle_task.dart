@@ -32,16 +32,13 @@ class MoodleTask with _$MoodleTask {
     required MoodleTaskType type,
 
     /// The timestamp of when this task is due in seconds since the Unix epoch.
-    @JsonKey(name: 'duedate')
-    @UnixTimestampConverterNullable()
-    DateTime? deadline,
+    @JsonKey(name: 'duedate') @UnixTimestampConverterNullable() DateTime? deadline,
   }) = _MoodleTask;
 
   const MoodleTask._();
 
   /// Creates a [MoodleTask] from a JSON object.
-  factory MoodleTask.fromJson(Map<String, Object?> json) =>
-      _$MoodleTaskFromJson(json);
+  factory MoodleTask.fromJson(Map<String, Object?> json) => _$MoodleTaskFromJson(json);
 
   /// The URL to this task on the Moodle website.
   String get url => '$kMoodleServerAdress/mod/assign/view.php?id=$cmid';
@@ -71,11 +68,9 @@ enum MoodleTaskStatus {
   final Translator translate;
 
   static String _done(BuildContext context) => context.t.enum_taskStatus_done;
-  static String _uploaded(BuildContext context) =>
-      context.t.enum_taskStatus_uploaded;
+  static String _uploaded(BuildContext context) => context.t.enum_taskStatus_uploaded;
   static String _late(BuildContext context) => context.t.enum_taskStatus_late;
-  static String _pending(BuildContext context) =>
-      context.t.enum_taskStatus_pending;
+  static String _pending(BuildContext context) => context.t.enum_taskStatus_pending;
 }
 
 /// The type of a [MoodleTask].
@@ -92,9 +87,9 @@ enum MoodleTaskType {
   @JsonValue(2)
   exam(_exam),
 
-  /// The task is a compensation for a failed exam or other task.
+  /// The task is a participation grade for classwork.
   @JsonValue(3)
-  compensation(_compensation),
+  participation(_participation),
 
   /// The task has no effect whatsoever on the course grade.
   @JsonValue(4)
@@ -105,9 +100,9 @@ enum MoodleTaskType {
 
   const MoodleTaskType(this.translate);
 
-  static String _required(BuildContext context) => 'GK';
-  static String _optional(BuildContext context) => 'EK';
-  static String _exam(BuildContext context) => 'Exam';
-  static String _compensation(BuildContext context) => 'M';
-  static String _none(BuildContext context) => 'N/A';
+  static String _required(BuildContext context) => context.t.moodle_task_required;
+  static String _optional(BuildContext context) => context.t.moodle_task_optional;
+  static String _exam(BuildContext context) => context.t.moodle_task_exam;
+  static String _participation(BuildContext context) => context.t.moodle_task_participation;
+  static String _none(BuildContext context) => context.t.global_nA;
 }

@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_utils/flutter_utils.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/theming/theming.dart';
@@ -73,11 +73,11 @@ class _InvitableMemberWidgetState extends State<InvitableMemberWidget> {
           if (!isMember && !isInvited)
             TextButton(
               onPressed: inviteUser,
-              child: const Text('Invite'),
+              child: Text(context.t.calendar_invite),
             ),
           if (!isMember && isInvited)
             Text(
-              'Invited',
+              context.t.calendar_invited,
               style: context.theme.textTheme.bodyMedium?.copyWith(
                 color: context.theme.taskStatusTheme.pendingColor,
               ),
@@ -93,7 +93,7 @@ class _InvitableMemberWidgetState extends State<InvitableMemberWidget> {
                 ),
                 Spacing.xsHorizontal(),
                 Text(
-                  'In your plan',
+                  context.t.calendar_inYourPlan,
                   style: context.theme.textTheme.bodyMedium?.copyWith(
                     color: context.theme.taskStatusTheme.doneColor,
                   ),

@@ -51,7 +51,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
             left: 20,
             top: 20,
             child: Text(
-              'Select courses',
+              context.t.moodle_courseSelectionScreen_selectCourses,
               style: context.textTheme.titleLarge,
             ),
           ),
@@ -68,7 +68,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
                     Spacing.mediumVertical(),
                     ElevatedButton(
                       onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.pushNamed('/dashboard/') : null,
-                      child: const Text('Continue'),
+                      child: Text(context.t.global_continue),
                     ).stretch(),
                   ],
                 ),

@@ -1,65 +1,40 @@
 {
     "@@locale": "en",
     "global_confirm": "Confirm",
+    "global_continue": "Continue",
     "global_create": "Create",
     "global_update": "Update",
     "global_cancel": "Cancel",
-    "notification_newUser": "Welcome, {username}!\n\nIf you happen to face any issues, please let us know.",
-    "@notification_newUser": {
-        "description": "notification_new_user",
+    "global_close": "Close",
+    "global_search": "Search",
+    "global_ok": "OK",
+    "global_dismiss": "Dismiss",
+    "global_nA": "N/A",
+    "global_loading": "Loading",
+    "global_edit": "Edit",
+    "global_delete": "Delete",
+    "app_titleBar_pro": "Pro",
+    "app_titleBar_trial": "Trial",
+    "app_update_appImage": "Download the [latest version]({url}) and replace the current version with the new one.",
+    "@app_update_appImage": {
+        "description": "app_update_appImage",
         "placeholders": {
-            "username": {
+            "url": {
                 "type": "String"
             }
         }
     },
-    "notification_invite": "You have been invited by {inviter} to join their plan",
-    "@notification_invite": {
-        "description": "notification_invite",
+    "app_update_aur": "Run `yay -S lb-planner` to update to the latest version.",
+    "app_update_download": "Download the [latest version]({url}) and install it.",
+    "@app_update_download": {
+        "description": "app_update_download",
         "placeholders": {
-            "inviter": {
+            "url": {
                 "type": "String"
             }
         }
     },
-    "notification_invite_accept": "Join",
-    "notification_invite_decline": "Decline",
-    "notification_inviteAccepted": "{username} has accepted your invitation",
-    "@notification_inviteAccepted": {
-        "description": "notification_invite_accepted",
-        "placeholders": {
-            "username": {
-                "type": "String"
-            }
-        }
-    },
-    "notification_inviteDeclined": "{username} has declined your invitation",
-    "@notification_inviteDeclined": {
-        "description": "notification_invite_declined",
-        "placeholders": {
-            "username": {
-                "type": "String"
-            }
-        }
-    },
-    "notification_planRemoved": "{username} has removed you from their plan.\nNo worries, we've got you covered! A new plan has been created for you with all the same data and settings.",
-    "@notification_planRemoved": {
-        "description": "notification_plan_removed",
-        "placeholders": {
-            "username": {
-                "type": "String"
-            }
-        }
-    },
-    "notification_planLeft": "{username} has left your plan. You can invite them back anytime.",
-    "@notification_planLeft": {
-        "description": "notification_plan_left",
-        "placeholders": {
-            "username": {
-                "type": "String"
-            }
-        }
-    },
+    "app_update_web": "Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.",
     "auth_accessHint": "You are not allowed to use {appname}. If you believe this is an error, please contact your Moodle administrator to request access.",
     "@auth_accessHint": {
         "description": "auth_accessHint",
@@ -82,23 +57,244 @@
             }
         }
     },
+    "auth_dataCollectionConsent": "I accept the collection and processing of my data as described in the ",
+    "auth_privacyPolicy": "Privacy Policy",
+    "calendar_plan": "Plan",
+    "calendar_tasksOverview": "Tasks Overview",
+    "calendar_title": "Calendar",
+    "calendar_invite": "Invite",
+    "calendar_invited": "Invited",
+    "calendar_inYourPlan": "In your plan",
+    "calendar_tasksCountLabel": "{count, plural, zero{No Tasks} one{1 Task} other{{count} Tasks}}",
+    "@calendar_tasksCountLabel": {
+        "description": "calendar_Tasks count label",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "calendar_removeDeadline": "Remove deadline",
+    "calendar_inviteUsers": "Invite users",
+    "calendar_searchUsers": "Search users",
+    "calendar_searchMembers": "Search members",
+    "calendar_searchTasks": "Search tasks",
+    "calendar_clearPlan": "Clear Plan",
+    "calendar_clearPlan_title": "Clear plan?",
+    "calendar_clearPlan_message": "Are you sure you want to clear your plan? This will remove all planned tasks and cannot be undone.",
+    "calendar_tasks": "Tasks",
+    "calendar_members": "Members",
+    "courses_name": "Name",
+    "courses_type": "Type",
+    "courses_status": "Status",
+    "courses_dueDate": "Due date",
+    "courses_plannedDueDate": "Planned due date",
+    "courses_overview": "Course Overview",
     "dashboard_todaysTasks": "Today's tasks",
     "dashboard_todaysTasks_noTasks": "You've nothing planned for today",
     "dashboard_statusOverview": "Status overview",
     "dashboard_burnDownChart": "Burn down chart",
-    "dashboard_exams": "Upcomming exams",
+    "dashboard_burnDownChart_plannedTrajectory": "Planned trajectory",
+    "dashboard_burnDownChart_idealTrajectory": "Ideal trajectory {count, plural, other{({count} tasks/day)} one{({count} task/day)}}",
+    "@dashboard_burnDownChart_idealTrajectory": {
+        "description": "dashboard_burnDownChart_idealTrajectory",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "example": "1"
+            }
+        }
+    },
+    "dashboard_burnDownChart_explanation_title": "WTF is a burndown chart?",
+    "dashboard_burnDownChart_explanation_message": "The **burndown chart** helps you visualize your progress toward completing tasks.\n\n1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you've planned your tasks in an ideal way to keep a steady workload.\n2. The **planned trajectory** (curved line) shows how many tasks you're expected to have left based on when you've planned to complete them.\n\t- Green when no tasks are remaining by the end of the semester.\n\t- Becomes red if you will not complete all modules in time.\n\nThis chart doesn’t track when tasks are actually completed—it's all about comparing your plan to the ideal pace so you can stay on track!\n",
+    "dashboard_exams": "Upcoming exams",
     "dashboard_exams_noExams": "No exams scheduled in the near future",
     "dashboard_title": "Dashboard",
-    "calendar_title": "Calendar",
+    "dashboard_overdueTasks": "Overdue tasks",
+    "dashboard_noTasksOverdue": "You're all good, no tasks are overdue!",
+    "dashboard_slotsReservedToday": "Slots reserved for today",
+    "dashboard_noSlotsReservedToday": "You don't have any slots reserved for today.",
+    "enum_taskStatus_done": "Done",
+    "enum_taskStatus_pending": "Pending",
+    "enum_taskStatus_uploaded": "Uploaded",
+    "enum_taskStatus_late": "Overdue",
+    "moodle_courseSelectionScreen_selectCourses": "Select courses",
+    "moodle_courseSelector_search": "Search courses",
+    "moodle_moodleTaskWidget_openInMoodle": "Open in Moodle",
+    "moodle_task_required": "GK",
+    "moodle_task_optional": "EK",
+    "moodle_task_exam": "Exam",
+    "moodle_task_participation": "M",
+    "notification_newUser": "Welcome to {appname}, ${username}! We hope you enjoy your stay.",
+    "@notification_newUser": {
+        "description": "notification_new_user",
+        "placeholders": {
+            "appname": {
+                "type": "String"
+            },
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_invite": "{username} invited you to join their plan!",
+    "@notification_invite": {
+        "description": "notification_invite",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_invite_accept": "Accept",
+    "notification_invite_decline": "Decline",
+    "notification_invite_accepted": "Accepted",
+    "notification_invite_declined": "Declined",
+    "notification_inviteAccepted": "{username} accepted your invitation!",
+    "@notification_inviteAccepted": {
+        "description": "notification_invite_accepted",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_inviteDeclined": "{username} declined your invitation!",
+    "@notification_inviteDeclined": {
+        "description": "notification_invite_declined",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_planRemoved": "You have been removed from your shared plan. But don't worry, we've got you covered - a copy of the plan has been saved to your account.",
+    "notification_planLeft": "{username} left your plan. You can invite them back anytime.",
+    "@notification_planLeft": {
+        "description": "notification_plan_left",
+        "placeholders": {
+            "username": {
+                "type": "String"
+            }
+        }
+    },
+    "notification_list_title": "Notifications ({count})",
+    "@notification_list_title": {
+        "description": "notification_list_title",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "notification_list_showUnread": "Show unread",
+    "notification_list_showAll": "Show all",
     "settings_title": "Settings",
+    "settings_feedback_sent_title": "Feedback sent",
+    "settings_feedback_sent_message": "Thank you for your feedback. We will get back to you as soon as possible.\n\nYour feedback ID is: {sentryid}",
+    "@settings_feedback_sent_message": {
+        "description": "settings_feedback_sent_message",
+        "placeholders": {
+            "sentryid": {
+                "type": "String"
+            }
+        }
+    },
+    "settings_feedback_error_title": "Unable to send feedback",
+    "settings_feedback_error_message": "An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.",
+    "settings_feedback_title": "Feedback",
+    "settings_feedback_description": "Please describe your problem.",
+    "settings_feedback_consent": "I agree to sharing my email address and name with the developers in accordance with our ",
+    "settings_feedback_submit": "Submit Feedback",
+    "settings_feedback_type_bug": "Bug",
+    "settings_feedback_type_typo": "Typo",
+    "settings_feedback_type_feature": "Feature",
+    "settings_feedback_type_other": "Other",
     "settings_general": "General",
     "settings_general_clearCache": "Clear cache",
     "settings_general_deleteProfile": "Delete profile",
     "settings_general_credits": "Credits",
+    "settings_general_version": "Version {version}",
+    "@settings_general_version": {
+        "description": "settings_general_version",
+        "placeholders": {
+            "version": {
+                "type": "String"
+            }
+        }
+    },
+    "settings_general_enableEK": "Enable EK modules",
+    "settings_general_displayTaskCount": "Enable EK modules",
     "settings_theme": "Theme",
-    "moodle_courseSelector_search": "Search courses",
-    "enum_taskStatus_done": "Done",
-    "enum_taskStatus_pending": "Pending",
-    "enum_taskStatus_uploaded": "Uploaded",
-    "enum_taskStatus_late": "Overdue"
+    "slots_title": "Slots",
+    "slots_details_supervisorsCount": "Supervisors: {count}",
+    "@slots_details_supervisorsCount": {
+        "description": "slots_details_supervisorsCount",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "slots_details_mappingsCount": "Mappings: {count}",
+    "@slots_details_mappingsCount": {
+        "description": "slots_details_mappingsCount",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "slots_details_reservationsCount": "Reservations ({reservations}/{size})",
+    "@slots_details_reservationsCount": {
+        "description": "slots_details_reservationsCount",
+        "placeholders": {
+            "reservations": {
+                "type": "int"
+            },
+            "size": {
+                "type": "int"
+            }
+        }
+    },
+    "slots_details_sizeCount": "Size {count}",
+    "@slots_details_sizeCount": {
+        "description": "slots_details_sizeCount",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "slots_slotmaster_newSlot": "New slot",
+    "slots_slotmaster_deleteSlot_title": "Delete slot {room} {startUnit} - {endUnit}?",
+    "@slots_slotmaster_deleteSlot_title": {
+        "description": "slots_slotmaster_deleteSlot_title",
+        "placeholders": {
+            "room": {
+                "type": "String"
+            },
+            "startUnit": {
+                "type": "String"
+            },
+            "endUnit": {
+                "type": "String"
+            }
+        }
+    },
+    "slots_slotmaster_deleteSlot_message": "Are you sure you want to delete this slot? This action cannot be undone.",
+    "slots_edit_editSlot": "Edit slot",
+    "slots_edit_createSlot": "Create a new slot",
+    "slots_edit_startTime": "Start time",
+    "slots_edit_endTime": "End time",
+    "slots_edit_weekday": "Weekday",
+    "slots_edit_room": "Room",
+    "slots_edit_size": "Size",
+    "slots_edit_supervisors": "Supervisors",
+    "slots_edit_addSupervisor": "Add supervisor",
+    "slots_edit_courseMappings": "Course Mappings",
+    "slots_edit_selectCourse": "Select course",
+    "slots_edit_selectClass": "Select class",
+    "slots_reserve_error": "Failed to reserve slot"
 }

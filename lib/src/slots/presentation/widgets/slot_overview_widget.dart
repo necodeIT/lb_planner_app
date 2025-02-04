@@ -70,7 +70,7 @@ class _SlotOverviewWidgetState extends State<SlotOverviewWidget> {
                   children: [
                     const Icon(Icons.school, size: 20),
                     Spacing.xsHorizontal(),
-                    Text('Mappings: ${courseVintage.length}'),
+                    Text(context.t.slots_details_mappingsCount(courseVintage.length)),
                   ],
                 ),
                 CarouselSlider(

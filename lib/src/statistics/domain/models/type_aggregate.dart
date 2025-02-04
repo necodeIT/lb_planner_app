@@ -56,7 +56,7 @@ class TypeAggregate with _$TypeAggregate {
   factory TypeAggregate.fromTasks(Iterable<MoodleTask> tasks) {
     final required = tasks.where((t) => t.type == MoodleTaskType.required).length;
     final optional = tasks.where((t) => t.type == MoodleTaskType.optional).length;
-    final compensation = tasks.where((t) => t.type == MoodleTaskType.compensation).length;
+    final compensation = tasks.where((t) => t.type == MoodleTaskType.participation).length;
     final exam = tasks.where((t) => t.type == MoodleTaskType.exam).length;
     final none = tasks.where((t) => t.type == MoodleTaskType.none).length;
 

@@ -225,7 +225,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
     return GenericDialog(
       shrinkWrap: false,
-      title: Text(editing ? 'Edit slot' : 'Create a new slot'),
+      title: Text(editing ? context.t.slots_edit_editSlot : context.t.slots_edit_createSlot),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -241,8 +241,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                     initialSelection: start,
                     leadingIcon: const Icon(Icons.timer_outlined),
                     width: size.maxWidth,
-                    hintText: 'Start time',
-                    helperText: 'Start time',
+                    hintText: context.t.slots_edit_startTime,
+                    helperText: context.t.slots_edit_startTime,
                     menuHeight: 200,
                     trailingIcon: const Icon(
                       FontAwesome5Solid.chevron_down,
@@ -264,11 +264,11 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                   return DropdownMenu<SlotTimeUnit>(
                     onSelected: setEnd,
                     width: size.maxWidth,
-                    helperText: 'End time',
                     menuHeight: 200,
                     enabled: !submitting,
 
-                    hintText: 'End time',
+                    helperText: context.t.slots_edit_endTime,
+                    hintText: context.t.slots_edit_endTime,
                     leadingIcon: const Icon(Icons.timer_off_outlined),
 
                     trailingIcon: const Icon(
@@ -292,8 +292,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                   return DropdownMenu<Weekday>(
                     onSelected: setWeekday,
                     menuHeight: 200,
-                    hintText: 'Weekday', width: size.maxWidth,
-                    helperText: 'Weekday',
+                    hintText: context.t.slots_edit_weekday, width: size.maxWidth,
+                    helperText: context.t.slots_edit_weekday,
                     enabled: !submitting,
 
                     leadingIcon: const Icon(FontAwesome.calendar_check_o),
@@ -359,10 +359,10 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         inputFormatters: [UpperCaseTextFormatter()],
                         maxLength: 7,
                         enabled: !submitting,
-                        decoration: const InputDecoration(
-                          hintText: 'Room',
-                          helperText: 'Room',
-                          prefixIcon: Icon(Icons.room),
+                        decoration: InputDecoration(
+                          hintText: context.t.slots_edit_room,
+                          helperText: context.t.slots_edit_room,
+                          prefixIcon: const Icon(Icons.room),
                         ),
                       );
                     },
@@ -370,9 +370,9 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                 },
               ).expanded(),
               NumberSpinner<int>(
-                decoration: const InputDecoration(
-                  hintText: 'Size',
-                  helperText: 'Size',
+                decoration: InputDecoration(
+                  hintText: context.t.slots_edit_size,
+                  helperText: context.t.slots_edit_size,
                 ),
                 initialValue: size,
                 onChanged: setSize,
@@ -383,7 +383,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
           ).stretch(),
           Spacing.largeVertical(),
           Text(
-            'Supervisors',
+            context.t.slots_edit_supervisors,
             style: context.theme.textTheme.titleMedium,
           ),
           Spacing.smallVertical(),
@@ -397,7 +397,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                 menuHeight: 200,
                 enableSearch: false,
                 enableFilter: true,
-                hintText: 'Add supervisor',
+                hintText: context.t.slots_edit_addSupervisor,
                 width: size.maxWidth,
                 leadingIcon: const Icon(
                   Icons.person,
@@ -452,7 +452,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Course Mappings',
+                context.t.slots_edit_courseMappings,
                 style: context.theme.textTheme.titleMedium,
               ),
               Spacing.smallVertical(),
@@ -475,7 +475,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         filterCallback: (entries, filter) => entries.where((entry) => entry.label.containsIgnoreCase(filter)).toList(),
                         enableSearch: false,
                         enableFilter: true,
-                        hintText: 'Select course',
+                        hintText: context.t.slots_edit_selectCourse,
                         menuHeight: 200,
                         dropdownMenuEntries: [
                           for (final course in courses.filter())
@@ -498,7 +498,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                           size: 13,
                         ),
                         initialSelection: vintage,
-                        hintText: 'Select class',
+                        hintText: context.t.slots_edit_selectClass,
                         leadingIcon: const Icon(Icons.school),
                         menuHeight: 200,
                         onSelected: setVintage,

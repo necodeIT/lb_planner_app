@@ -47,6 +47,6 @@ class MsixPatchService extends PatchService {
 
   @override
   Translator getManualInstructions(Release release, Version currentVersion, ReleaseChannel currentChannel) {
-    return (context) => 'Download the [latest version](${release.downloads[Platform.windows]}) and install it.';
+    return (context) => context.t.app_update_download(release.downloads[Platform.windows]!);
   }
 }

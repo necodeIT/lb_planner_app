@@ -27,7 +27,7 @@ class BurndownChart extends StatelessWidget {
       type: {
         if (user.state.requireData.optionalTasksEnabled) MoodleTaskType.optional,
         MoodleTaskType.required,
-        MoodleTaskType.compensation,
+        MoodleTaskType.participation,
       },
     );
 
@@ -163,7 +163,7 @@ class BurndownChart extends StatelessWidget {
                     ),
                   ),
                   Spacing.smallHorizontal(),
-                  const Text('Planned trajectory'),
+                  Text(context.t.dashboard_burnDownChart_plannedTrajectory),
                 ],
               ),
               Spacing.mediumHorizontal(),
@@ -178,7 +178,7 @@ class BurndownChart extends StatelessWidget {
                     ),
                   ),
                   Spacing.smallHorizontal(),
-                  Text('Ideal trajectory (${idealAverage.toStringAsFixed(2)} tasks/day)'),
+                  Text(context.t.dashboard_burnDownChart_idealTrajectory(double.parse(idealAverage.toStringAsFixed(2)))),
                 ],
               ),
             ],
@@ -205,17 +205,8 @@ class BurndownChart extends StatelessWidget {
                   onPressed: () {
                     showMarkdownDialog(
                       context,
-                      title: 'WTF is a burndown chart?',
-                      markdown: '''
-The **burndown chart** helps you visualize your progress toward completing tasks. 
-
-1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you've planned your tasks in an ideal way to keep a steady workload.  
-2. The **planned trajectory** (curved line) shows how many tasks you're expected to have left based on when you've planned to complete them. 
-    - Green when no tasks are remaining by the end of the semester.
-    - Becomes red if you will not complete all modules in time.
-
-This chart doesn’t track when tasks are actually completed—it's all about comparing your plan to the ideal pace so you can stay on track!
-''',
+                      title: context.t.dashboard_burnDownChart_explanation_title,
+                      markdown: context.t.dashboard_burnDownChart_explanation_message,
                     );
                   },
                   icon: const Icon(Icons.help_outline),

@@ -75,8 +75,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
       if (mounted) {
         await showAlertDialog(
           context,
-          title: 'Feedback sent',
-          message: 'Thank you for your feedback. We will get back to you as soon as possible.\n\nYour feedback ID is: $sentryId',
+          title: context.t.settings_feedback_sent_title,
+          message: context.t.settings_feedback_sent_message(sentryId.toString()),
         );
       }
     } catch (e, s) {
@@ -94,8 +94,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
       if (mounted) {
         await showAlertDialog(
           context,
-          title: 'Unable to send feedback',
-          message: 'An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.',
+          title: context.t.settings_feedback_error_title,
+          message: context.t.settings_feedback_error_message,
         );
       }
     } finally {
@@ -125,7 +125,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
         child: Column(
           children: [
             Text(
-              'Feedback',
+              context.t.settings_feedback_title,
               style: context.textTheme.titleMedium?.bold,
             ).alignAtTopLeft(),
             Spacing.small(),
@@ -179,7 +179,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                         contentPadding: PaddingAll(Spacing.mediumSpacing),
                         hoverColor: context.theme.scaffoldBackgroundColor,
                         focusColor: context.theme.scaffoldBackgroundColor,
-                        hintText: 'Please describe your problem.',
+                        hintText: context.t.settings_feedback_description,
                         border: OutlineInputBorder(
                           borderRadius: squircle().borderRadius,
                           borderSide: BorderSide.none,
@@ -196,10 +196,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                             Checkbox(value: agreed, onChanged: onChanged),
                             Text.rich(
                               TextSpan(
-                                text: 'I agree to sharing my email address and name with the developers in accordance with our ',
+                                text: context.t.settings_feedback_consent,
                                 children: [
                                   TextSpan(
-                                    text: 'Privacy Policy.',
+                                    text: context.t.auth_privacyPolicy,
                                     style: context.bodySmall?.copyWith(
                                       color: context.theme.colorScheme.primary,
                                     ),
@@ -220,7 +220,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                     Spacing.small(),
                     ElevatedButton(
                       onPressed: agreed && messageController.text.isNotEmpty ? _sendFeedback : null,
-                      child: const Text('Submit Feedback'),
+                      child: Text(context.t.settings_feedback_submit),
                     ).stretch(),
                   ],
                 ),
@@ -255,8 +255,8 @@ enum FeedbackType {
   /// The [SentryLevel] equivalent of this type.
   final SentryLevel sentryLevel;
 
-  static String _bug(BuildContext context) => 'Bug';
-  static String _typo(BuildContext context) => 'Typo';
-  static String _feature(BuildContext context) => 'Feature';
-  static String _other(BuildContext context) => 'Other';
+  static String _bug(BuildContext context) => context.t.settings_feedback_type_bug;
+  static String _typo(BuildContext context) => context.t.settings_feedback_type_typo;
+  static String _feature(BuildContext context) => context.t.settings_feedback_type_feature;
+  static String _other(BuildContext context) => context.t.settings_feedback_type_other;
 }

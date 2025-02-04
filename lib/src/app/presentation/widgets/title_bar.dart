@@ -241,7 +241,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
                         color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
                       ),
                       child: Text(
-                        license.state.requireData.active ? 'Pro' : 'Trial',
+                        license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.theme.colorScheme.primary,
                         ),
@@ -258,7 +258,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
                     controller: _searchController,
                     style: context.textTheme.bodyMedium,
                     decoration: InputDecoration(
-                      hintText: 'Search',
+                      hintText: context.t.global_search,
                       prefixIcon: const Icon(Icons.search),
                       filled: true,
                       fillColor: context.theme.colorScheme.surface,

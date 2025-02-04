@@ -32,8 +32,9 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
 
     final confirmed = await showConfirmationDialog(
       context,
-      title: 'Delete slot ${widget.slot.room} ${widget.slot.startUnit.humanReadable()} - ${widget.slot.endUnit.humanReadable()}',
-      message: 'Are you sure you want to delete this slot? This action cannot be undone.',
+      title:
+          context.t.slots_slotmaster_deleteSlot_title(widget.slot.room, widget.slot.startUnit.humanReadable(), widget.slot.endUnit.humanReadable()),
+      message: context.t.slots_slotmaster_deleteSlot_message,
     );
 
     if (!confirmed) {
@@ -100,7 +101,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 const Icon(Icons.info_outline, size: 20),
                 Spacing.xsHorizontal(),
-                Text('Size: ${widget.slot.size}'),
+                Text(context.t.slots_details_sizeCount(widget.slot.size)),
               ],
             ),
             Spacing.smallVertical(),
@@ -108,7 +109,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 const Icon(Icons.people, size: 20),
                 Spacing.xsHorizontal(),
-                Text('Supervisors: ${supervisors.length}'),
+                Text(context.t.slots_details_supervisorsCount(supervisors.length)),
               ],
             ),
             Padding(
@@ -130,7 +131,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 const Icon(Icons.school, size: 20),
                 Spacing.xsHorizontal(),
-                Text('Mappings: ${courseVintage.length}'),
+                Text(context.t.slots_details_mappingsCount(courseVintage.length)),
               ],
             ),
             Padding(
@@ -164,11 +165,11 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 TextButton(
                   onPressed: deleteSlot,
-                  child: const Text('Delete'),
+                  child: Text(context.t.global_delete),
                 ),
                 TextButton(
                   onPressed: editSlot,
-                  child: const Text('Edit'),
+                  child: Text(context.t.global_edit),
                 ),
               ],
             ),

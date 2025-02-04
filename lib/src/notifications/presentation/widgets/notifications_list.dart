@@ -36,14 +36,14 @@ class _NotificationsListState extends State<NotificationsList> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Notifications (${notifications.length})',
+                context.t.notification_list_title(notifications.length),
                 style: context.theme.textTheme.titleMedium?.bold,
                 textAlign: TextAlign.start,
               ),
               TextButton(
                 onPressed: () => setState(() => showAll = !showAll),
                 child: Text(
-                  showAll ? 'Show unread' : 'Show all',
+                  showAll ? context.t.notification_list_showUnread : context.t.notification_list_showAll,
                 ),
               ),
             ],
