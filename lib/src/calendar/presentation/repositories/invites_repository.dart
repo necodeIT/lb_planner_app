@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -7,11 +8,15 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
   final InvitesDatasource _invites;
   final AuthRepository _auth;
+  final CalendarPlanRepository _plan;
 
   /// Holds all invites for the current user
-  InvitesRepository(this._invites, this._auth) : super(AsyncValue.loading()) {
+  InvitesRepository(this._invites, this._auth, this._plan) : super(AsyncValue.loading()) {
     watchAsync(_auth);
   }
+
+  @override
+  Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
@@ -39,6 +44,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       );
 
       await captureEvent('user_invited');
+
+      await build(this);
     } catch (e, st) {
       log('Failed to invite user.', e, st);
 
@@ -103,6 +110,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       );
 
       await captureEvent('invite_accepted');
+
+      await _plan.build(this);
     } catch (e, st) {
       log('Failed to accept invite.', e, st);
 
