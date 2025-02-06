@@ -138,7 +138,7 @@ class _ReservedSlotsState extends State<ReservedSlots> {
       height: 50,
       padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.mediumSpacing),
       decoration: ShapeDecoration(
-        color: context.theme.dividerColor,
+        color: context.theme.colorScheme.primary.withValues(alpha: 0.2),
         shape: squircle(topLeft: top, topRight: top, bottomLeft: bottom, bottomRight: bottom),
       ),
       child: child,
