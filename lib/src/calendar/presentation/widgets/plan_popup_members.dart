@@ -25,6 +25,20 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
     );
   }
 
+  Future<void> leavePlan() async {
+    final plan = context.read<CalendarPlanRepository>();
+    final confirmed = await showConfirmationDialog(
+      context,
+      title: 'Leave Plan',
+      message:
+          'Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.',
+    );
+
+    if (!confirmed) return;
+
+    await plan.leavePlan();
+  }
+
   @override
   void initState() {
     searchController.addListener(() {
@@ -36,19 +50,19 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
 
   @override
   Widget build(BuildContext context) {
-    final plan = context.watch<CalendarPlanRepository>().state;
+    final plan = context.watch<CalendarPlanRepository>();
     final users = context.watch<UsersRepository>().state;
 
-    if (!plan.hasData || !users.hasData) {
+    if (!plan.state.hasData || !users.hasData) {
       return const Center(child: CircularProgressIndicator());
     }
 
     final filteredMembers = users.requireData
         .filter(
           query: searchController.text,
-          ids: plan.requireData.members.map((m) => m.id).toList(),
+          ids: plan.state.requireData.members.map((m) => m.id).toList(),
         )
-        .map((u) => plan.requireData.members.firstWhere((m) => m.id == u.id))
+        .map((u) => plan.state.requireData.members.firstWhere((m) => m.id == u.id))
         .toList()
       ..sort();
 
@@ -74,19 +88,34 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
           children: [
             ...filteredMembers.map((m) => PlanMemberWidget(member: m)).toList().vSpaced(Spacing.xsSpacing),
             Spacing.smallVertical(),
-            ElevatedButton(
-              onPressed: showInviteMemberDialog,
-              child: Row(
-                children: [
-                  Text(context.t.calendar_inviteUsers),
-                  const Spacer(),
-                  const Icon(
-                    FontAwesome5Solid.user_plus,
-                    size: 15,
-                  ),
-                ],
+            if (plan.accessType == PlanMemberAccessType.owner)
+              ElevatedButton(
+                onPressed: showInviteMemberDialog,
+                child: Row(
+                  children: [
+                    Text(context.t.calendar_inviteUsers),
+                    const Spacer(),
+                    const Icon(
+                      FontAwesome5Solid.user_plus,
+                      size: 15,
+                    ),
+                  ],
+                ),
+              )
+            else
+              ElevatedButton(
+                onPressed: leavePlan,
+                child: Row(
+                  children: [
+                    Text("Leave Plan"),
+                    const Spacer(),
+                    const Icon(
+                      FontAwesome5Solid.user_minus,
+                      size: 15,
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ).expanded(),
       ],
