@@ -48,7 +48,7 @@ class CalendarCourseTasksOverview extends StatelessWidget {
                     tasks: tasks.where((t) => t.deadline?.month == month).toList(),
                   ),
                 ),
-            ].show(),
+            ],
           ),
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -28,7 +29,7 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
   static const summerMonths = [DateTime.february, DateTime.march, DateTime.april, DateTime.may, DateTime.june, DateTime.july];
 
   void scrollToSummer() {
-    if (summerMonths.contains(DateTime.now().month)) return;
+    if (!summerMonths.contains(DateTime.now().month)) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Scrollable.ensureVisible(
@@ -39,38 +40,58 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollToSummer();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final enabledCourses = context.watch<MoodleCoursesRepository>().filter(enabled: true);
 
     return ClipPath(
       clipper: ShapeBorderClipper(shape: squircle(topLeft: false, topRight: false)),
-      child: CustomScrollView(
-        controller: scrollController,
-        scrollDirection: Axis.horizontal,
-        slivers: [
-          SliverStickyHeader(
-            key: winterKey,
-            header: const CalendarTasksOverviewMonthHeader(months: winterMonths),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(
-                [
-                  for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: winterMonths),
-                ],
+      child: Listener(
+        onPointerSignal: (PointerSignalEvent event) {
+          if (event is PointerScrollEvent) {
+            scrollController.animateTo(
+              scrollController.offset + event.scrollDelta.dy * 30, // multiply for increased sensitivity
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeOut,
+            );
+          }
+        },
+        child: CustomScrollView(
+          controller: scrollController,
+          scrollDirection: Axis.horizontal,
+          slivers: [
+            SliverStickyHeader(
+              key: winterKey,
+              header: const CalendarTasksOverviewMonthHeader(months: winterMonths),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate.fixed(
+                  [
+                    for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: winterMonths),
+                  ],
+                ),
               ),
             ),
-          ),
-          SliverStickyHeader(
-            key: summerKey,
-            header: const CalendarTasksOverviewMonthHeader(months: summerMonths),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(
-                [
-                  for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: summerMonths),
-                ],
+            SliverStickyHeader(
+              key: summerKey,
+              header: const CalendarTasksOverviewMonthHeader(months: summerMonths),
+              sliver: SliverList(
+                delegate: SliverChildListDelegate.fixed(
+                  [
+                    for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: summerMonths),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
