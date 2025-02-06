@@ -108,19 +108,20 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
                 .toList()
                 .vSpaced(Spacing.smallSpacing),
             Spacing.mediumVertical(),
-            ElevatedButton(
-              onPressed: clearPlan,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.theme.colorScheme.error,
+            if (plan.canModifiy)
+              ElevatedButton(
+                onPressed: clearPlan,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: context.theme.colorScheme.error,
+                ),
+                child: Row(
+                  children: [
+                    Text(context.t.calendar_clearPlan),
+                    const Spacer(),
+                    const Icon(Icons.delete),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  Text(context.t.calendar_clearPlan),
-                  const Spacer(),
-                  const Icon(Icons.delete),
-                ],
-              ),
-            ),
           ],
         ).expanded(),
       ],
