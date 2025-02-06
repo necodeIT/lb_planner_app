@@ -130,7 +130,7 @@
     "moodle_task_optional": "EK",
     "moodle_task_exam": "Exam",
     "moodle_task_participation": "M",
-    "notification_newUser": "Welcome to {appname}, ${username}! We hope you enjoy your stay.",
+    "notification_newUser": "Welcome to {appname}, {username}! We hope you enjoy your stay.",
     "@notification_newUser": {
         "description": "notification_new_user",
         "placeholders": {
