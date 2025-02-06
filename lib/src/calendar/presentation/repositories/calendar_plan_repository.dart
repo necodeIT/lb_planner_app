@@ -14,6 +14,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   final AuthRepository _auth;
   final ConnectivityService _connectivity;
   final MoodleTasksRepository _tasks;
+  final UserRepository _user;
 
   /// Repository for managing a user's [CalendarPlan].
   CalendarPlanRepository(
@@ -22,6 +23,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     this._auth,
     this._connectivity,
     this._tasks,
+    this._user,
   ) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_tasks, setError: false, setLoading: false);
@@ -301,6 +303,14 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return true;
     }).toList();
   }
+
+  /// Returns the access type of the current user.
+  PlanMemberAccessType get accessType => state.hasData && _user.state.hasData
+      ? state.requireData.members.firstWhere((member) => member.id == _user.state.requireData.id).accessType
+      : PlanMemberAccessType.read;
+
+  /// Returns `true` if the current user can modify the plan.
+  bool get canModifiy => accessType == PlanMemberAccessType.write || accessType == PlanMemberAccessType.owner;
 
   /// Returns a list of members that match the given filters.
   ///

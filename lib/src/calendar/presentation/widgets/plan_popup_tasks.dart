@@ -81,25 +81,27 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
             ...filteredTasks
                 .map(
                   (t) {
-                    final task = MoodleTaskWidget(
-                      task: t,
-                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
-                    );
-
-                    return Draggable<MoodleTask>(
-                      data: t,
-                      feedback: Material(
-                        color: Colors.transparent,
-                        child: Theme(
-                          data: context.theme,
-                          child: SizedBox(
-                            width: widget.dragWidth - PlanCell.padding * 2,
-                            child: task,
+                    return ConditionalWrapper(
+                      condition: plan.canModifiy,
+                      wrapper: (context, child) => Draggable<MoodleTask>(
+                        data: t,
+                        feedback: Material(
+                          color: Colors.transparent,
+                          child: Theme(
+                            data: context.theme,
+                            child: SizedBox(
+                              width: widget.dragWidth - PlanCell.padding * 2,
+                              child: child,
+                            ),
                           ),
                         ),
+                        childWhenDragging: const SizedBox.shrink(),
+                        child: child,
                       ),
-                      childWhenDragging: const SizedBox.shrink(),
-                      child: task,
+                      child: MoodleTaskWidget(
+                        task: t,
+                        displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
+                      ),
                     );
                   },
                 )

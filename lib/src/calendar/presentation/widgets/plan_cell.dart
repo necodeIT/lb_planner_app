@@ -115,29 +115,32 @@ class _PlanCellState extends State<PlanCell> {
                       .map(
                         (t) => LayoutBuilder(
                           builder: (context, size) {
-                            final widget = MoodleTaskWidget(
-                              task: t,
-                              displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
-                              additionalContextMenuItems: [
-                                ContextMenuButtonConfig(
-                                  context.t.calendar_removeDeadline,
-                                  icon: const Icon(Icons.delete),
-                                  iconHover: Icon(
-                                    Icons.delete,
-                                    color: context.theme.colorScheme.error,
-                                  ),
-                                  onPressed: () => plan.removeDeadline(t.id),
+                            return ConditionalWrapper(
+                              condition: plan.canModifiy,
+                              wrapper: (context, child) => Draggable(
+                                data: t,
+                                feedback: SizedBox(
+                                  width: size.maxWidth - PlanCell.padding * 2,
+                                  child: child,
                                 ),
-                              ],
-                            );
-                            return Draggable(
-                              data: t,
-                              feedback: SizedBox(
-                                width: size.maxWidth - PlanCell.padding * 2,
-                                child: widget,
+                                childWhenDragging: const SizedBox.shrink(),
+                                child: child,
                               ),
-                              childWhenDragging: const SizedBox.shrink(),
-                              child: widget,
+                              child: MoodleTaskWidget(
+                                task: t,
+                                displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
+                                additionalContextMenuItems: [
+                                  ContextMenuButtonConfig(
+                                    context.t.calendar_removeDeadline,
+                                    icon: const Icon(Icons.delete),
+                                    iconHover: Icon(
+                                      Icons.delete,
+                                      color: context.theme.colorScheme.error,
+                                    ),
+                                    onPressed: () => plan.removeDeadline(t.id),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         ),
