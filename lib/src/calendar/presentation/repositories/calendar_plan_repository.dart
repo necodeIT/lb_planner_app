@@ -82,6 +82,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       log('Plan cleared.');
 
       await captureEvent('plan_cleared');
+
+      await build(this);
     } catch (e, st) {
       log('Failed to clear plan.', e, st);
 
@@ -199,6 +201,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       );
 
       await captureEvent('member_kicked');
+
+      await build(this);
     } catch (e, st) {
       log('Failed to remove member.', e, st);
 
@@ -222,6 +226,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       );
 
       await captureEvent('member_access_changed', properties: {'access_type': accessType});
+
+      await build(this);
     } catch (e, st) {
       log('Failed to modify member.', e, st);
 
@@ -242,6 +248,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         state.requireData.copyWith(name: name),
       );
+
+      await build(this);
     } catch (e, st) {
       log('Failed to change name.', e, st);
 
