@@ -16,10 +16,6 @@ class TasksOverviewScreen extends StatefulWidget {
 }
 
 class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
-  final winterKey = GlobalKey();
-
-  final summerKey = GlobalKey();
-
   final scrollController = ScrollController();
 
   // A list of months which are in the winter (the first) semester of school.
@@ -28,29 +24,13 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
   /// A list of months which are in the summer (the second) semester of school.
   static const summerMonths = [DateTime.february, DateTime.march, DateTime.april, DateTime.may, DateTime.june, DateTime.july];
 
-  void scrollToSummer() {
-    if (!summerMonths.contains(DateTime.now().month)) return;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Scrollable.ensureVisible(
-        summerKey.currentContext!,
-        duration: const Duration(milliseconds: 500),
-      );
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      scrollToSummer();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final enabledCourses = context.watch<MoodleCoursesRepository>().filter(enabled: true);
+
+    final isSummer = summerMonths.contains(DateTime.now().month);
+
+    final months = isSummer ? summerMonths : winterMonths;
 
     return ClipPath(
       clipper: ShapeBorderClipper(shape: squircle(topLeft: false, topRight: false)),
@@ -69,23 +49,11 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
           scrollDirection: Axis.horizontal,
           slivers: [
             SliverStickyHeader(
-              key: winterKey,
-              header: const CalendarTasksOverviewMonthHeader(months: winterMonths),
+              header: CalendarTasksOverviewMonthHeader(months: months),
               sliver: SliverList(
                 delegate: SliverChildListDelegate.fixed(
                   [
-                    for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: winterMonths),
-                  ],
-                ),
-              ),
-            ),
-            SliverStickyHeader(
-              key: summerKey,
-              header: const CalendarTasksOverviewMonthHeader(months: summerMonths),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate.fixed(
-                  [
-                    for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: summerMonths),
+                    for (final course in enabledCourses) CalendarCourseTasksOverview(course: course, months: months),
                   ],
                 ),
               ),
