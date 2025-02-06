@@ -2,9 +2,10 @@ import 'dart:ui';
 
 import 'package:json_annotation/json_annotation.dart';
 
+/// {@template unix_timestamp_converter}
 /// Implements serialization and deserialization for [DateTime] from and to [int].
 ///
-/// The integer is expected to be a Unix timestamp in milliseconds.
+/// The integer is expected to be a UTC Unix timestamp.
 ///
 /// Usage:
 /// ```dart
@@ -17,20 +18,9 @@ import 'package:json_annotation/json_annotation.dart';
 ///   const MyClass(this.timestamp);
 /// }
 /// ```
+/// {@endtemplate}
 class UnixTimestampConverter extends JsonConverter<DateTime, int> {
-  /// Implements serialization and deserialization for [DateTime] from and to [int].
-  ///
-  /// Usage:
-  /// ```dart
-  /// @JsonSerializable()
-  /// class MyClass {
-  ///   @JsonKey(name: 'timestamp')
-  ///   @UnixTimestampConverter()
-  ///   final DateTime timestamp;
-  ///
-  ///   const MyClass(this.timestamp);
-  /// }
-  /// ```
+  /// {@macro unix_timestamp_converter}
   const UnixTimestampConverter();
 
   @override
@@ -44,35 +34,9 @@ class UnixTimestampConverter extends JsonConverter<DateTime, int> {
   }
 }
 
-/// Implements nullable serialization and deserialization for [DateTime] from and to [int].
-///
-/// The integer is expected to be a Unix timestamp in milliseconds.
-///
-/// Usage:
-/// ```dart
-/// @JsonSerializable()
-/// class MyClass {
-///   @JsonKey(name: 'timestamp')
-///   @UnixTimestampConverter()
-///   final DateTime timestamp;
-///
-///   const MyClass(this.timestamp);
-/// }
-/// ```
+/// {@macro unix_timestamp_converter}
 class UnixTimestampConverterNullable extends JsonConverter<DateTime?, int?> {
-  /// Implements serialization and deserialization for [DateTime] from and to [int].
-  ///
-  /// Usage:
-  /// ```dart
-  /// @JsonSerializable()
-  /// class MyClass {
-  ///   @JsonKey(name: 'timestamp')
-  ///   @UnixTimestampConverter()
-  ///   final DateTime timestamp;
-  ///
-  ///   const MyClass(this.timestamp);
-  /// }
-  /// ```
+  /// {@macro unix_timestamp_converter}
   const UnixTimestampConverterNullable();
 
   @override
@@ -128,9 +92,9 @@ class BoolConverter extends JsonConverter<bool, dynamic> {
   }
 }
 
-/// Same as [BoolConverter] but nullable.
+/// {@macro bool_converter}
 class BoolConverterNullable extends JsonConverter<bool?, dynamic> {
-  /// Same as [BoolConverter] but nullable.
+  /// {@macro bool_converter}
   const BoolConverterNullable();
 
   @override
