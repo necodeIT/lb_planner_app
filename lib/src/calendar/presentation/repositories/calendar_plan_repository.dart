@@ -125,6 +125,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       await captureEvent('deadline_set', properties: {'id': taskId, 'start': start, 'end': end});
 
       await _tasks.build(this);
+      await build(this);
     } catch (e, st) {
       log('Failed to set deadline.', e, st);
 
@@ -296,19 +297,22 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return [];
     }
 
-    final now = DateTime.now();
+    final now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     return state.requireData.deadlines.where((deadline) {
-      if (taskIds != null && taskIds.contains(deadline.id)) return false;
-      if (start != null && deadline.start != start) return false;
-      if (end != null && deadline.end != end) return false;
+      final _start = DateTime(deadline.start.year, deadline.start.month, deadline.start.day);
+      final _end = DateTime(deadline.end.year, deadline.end.month, deadline.end.day);
 
-      if (betweenStart != null && deadline.start.isBefore(betweenStart)) return false;
-      if (betweenEnd != null && deadline.end.isAfter(betweenEnd)) return false;
+      if (taskIds != null && taskIds.contains(deadline.id)) return false;
+      if (start != null && _start != start) return false;
+      if (end != null && _end != end) return false;
+
+      if (betweenStart != null && _start.isBefore(betweenStart)) return false;
+      if (betweenEnd != null && _end.isAfter(betweenEnd)) return false;
 
       if (plannedForToday != null) {
-        final startsBeforeToday = deadline.start.isBefore(now) || deadline.start.isSameDate(now);
-        final endsAfterToday = deadline.end.isAfter(now) || deadline.end.isSameDate(now);
+        final startsBeforeToday = _start.isBefore(now) || _start.isSameDate(now);
+        final endsAfterToday = _end.isAfter(now) || _end.isSameDate(now);
 
         if (plannedForToday && !(startsBeforeToday && endsAfterToday)) return false;
       }
