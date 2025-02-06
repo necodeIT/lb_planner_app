@@ -136,6 +136,7 @@ class _PlanScreenState extends State<PlanScreen> with WindowListener {
       context: context,
       onPop: () {
         popupContext = null;
+        parent?.setActionBuiler(actionBuiler);
       },
       bodyBuilder: (context) {
         popupContext = context;
