@@ -76,8 +76,7 @@ class _PlanMemberWidgetState extends State<PlanMemberWidget> {
     if (user == null || !currentUser.hasData) {
       return const SizedBox();
     }
-    final currentAccess = plan.filterMembers(userId: currentUser.requireData.id).firstOrNull?.accessType ?? PlanMemberAccessType.read;
-    final isOwner = currentAccess == PlanMemberAccessType.owner;
+    final isOwner = plan.accessType == PlanMemberAccessType.owner;
 
     return Container(
       padding: const EdgeInsets.all(8),
@@ -109,7 +108,7 @@ class _PlanMemberWidgetState extends State<PlanMemberWidget> {
           Spacing.xsHorizontal(),
           if (!changingAccess && !removing)
             ConditionalWrapper(
-              condition: !isOwner && currentAccess == PlanMemberAccessType.owner,
+              condition: isOwner && widget.member.accessType != PlanMemberAccessType.owner,
               wrapper: (context, child) => ScaleOnHover(
                 duration: const Duration(milliseconds: 100),
                 scale: 1.1,

@@ -84,7 +84,7 @@ class StdPlanDatasource extends PlanDatasource {
         function: 'local_lbplanner_plan_remove_user',
         token: token,
         body: {
-          'memberid': userId,
+          'userid': userId,
         },
       );
 
