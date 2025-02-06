@@ -107,19 +107,19 @@ extension TasksFilterX on Iterable<MoodleTask> {
     Set<MoodleTaskStatus> status = const {},
     Set<MoodleTaskType> type = const {},
   }) {
-    final now = DateTime.now();
+    final now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     return where((task) {
+      final deadline = task.deadline != null ? DateTime(task.deadline!.year, task.deadline!.month, task.deadline!.day) : null;
+
       if (courseId != null && task.courseId != courseId) return false;
       if (taskId != null && task.id != taskId) return false;
 
-      if (task.deadline == null && (deadlineDiff != null || minDeadlineDiff != null || maxDeadlineDiff != null)) return false;
+      if (deadline == null && (deadlineDiff != null || minDeadlineDiff != null || maxDeadlineDiff != null)) return false;
 
-      if (task.deadline != null) {
-        if (deadlineDiff != null && task.deadline!.difference(now) != deadlineDiff) return false;
-        if (minDeadlineDiff != null && task.deadline!.difference(now) < minDeadlineDiff) return false;
-        if (maxDeadlineDiff != null && task.deadline!.difference(now) > maxDeadlineDiff) return false;
-      }
+      if (deadlineDiff != null && deadline!.difference(now) != deadlineDiff) return false;
+      if (minDeadlineDiff != null && deadline!.difference(now) < minDeadlineDiff) return false;
+      if (maxDeadlineDiff != null && deadline!.difference(now) > maxDeadlineDiff) return false;
 
       if (status.isNotEmpty && !status.contains(task.status)) return false;
       if (type.isNotEmpty && !type.contains(task.type)) return false;
