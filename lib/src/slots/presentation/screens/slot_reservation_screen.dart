@@ -24,7 +24,7 @@ class SlotReservationScreen extends StatelessWidget {
     );
 
     return Padding(
-      padding: PaddingAll(),
+      padding: PaddingTop(),
       child: SingleChildScrollView(
         child: Column(
           spacing: Spacing.largeSpacing,
@@ -33,34 +33,43 @@ class SlotReservationScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '${group.key.translate(context)} ${formatter.format(group.key.nextDate)}',
-                    style: context.theme.textTheme.titleMedium,
-                  ).bold(),
+                  Padding(
+                    padding: PaddingLeft(),
+                    child: Text(
+                      '${group.key.translate(context)} ${formatter.format(group.key.nextDate)}',
+                      style: context.theme.textTheme.titleMedium,
+                    ).bold(),
+                  ),
                   Spacing.smallVertical(),
                   for (final timespan in group.value.entries)
                     Column(
                       children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.access_time, size: 16),
-                            Spacing.xsHorizontal(),
-                            Text('${timespan.key.$1.humanReadable()} - ${timespan.key.$2.humanReadable()}'),
-                          ],
+                        Padding(
+                          padding: PaddingLeft(),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.access_time, size: 16),
+                              Spacing.xsHorizontal(),
+                              Text('${timespan.key.$1.humanReadable()} - ${timespan.key.$2.humanReadable()}'),
+                            ],
+                          ),
                         ),
                         Spacing.smallVertical(),
-                        Wrap(
-                          spacing: Spacing.mediumSpacing,
-                          runSpacing: Spacing.mediumSpacing,
-                          children: [
-                            for (final slot in timespan.value)
-                              SizedBox(
-                                key: ValueKey(slot),
-                                width: 300,
-                                child: SlotWidget(slot: slot, date: group.key.nextDate),
-                              ),
-                          ],
-                        ).stretch(),
+                        Padding(
+                          padding: PaddingLeft(),
+                          child: Wrap(
+                            spacing: Spacing.mediumSpacing,
+                            runSpacing: Spacing.mediumSpacing,
+                            children: [
+                              for (final slot in timespan.value)
+                                SizedBox(
+                                  key: ValueKey(slot),
+                                  width: 300,
+                                  child: SlotWidget(slot: slot, date: group.key.nextDate),
+                                ),
+                            ],
+                          ).stretch(),
+                        ),
                       ],
                     ).paddingOnly(bottom: Spacing.largeSpacing),
                 ],
