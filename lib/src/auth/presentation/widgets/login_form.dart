@@ -111,9 +111,12 @@ class _LoginFormState extends State<LoginForm> {
         Column(
           children: [
             Assets.logo.themed(context, height: 100),
-            const SizedBox(height: 16),
+            Spacing.mediumVertical(),
+            Text(context.t.auth_subtitle),
+            Spacing.mediumVertical(),
             TextField(
               controller: usernameController,
+              autofocus: true,
               decoration: InputDecoration(
                 border: const UnderlineInputBorder(),
                 isDense: false,

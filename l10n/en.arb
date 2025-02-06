@@ -47,6 +47,7 @@
     "auth_username": "Username",
     "auth_password": "Password",
     "auth_login": "Login",
+    "auth_subtitle": "Login with your Moodle account.",
     "auth_invalidCredentials": "Invalid username or password",
     "auth_version": "Version {version}",
     "@auth_version": {
