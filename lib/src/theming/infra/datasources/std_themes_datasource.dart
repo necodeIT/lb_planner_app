@@ -7,21 +7,7 @@ import 'package:lb_planner/src/theming/theming.dart';
 /// Standard implementation of [ThemesDatasource].
 class StdThemesDatasource extends ThemesDatasource {
   @override
-  ThemeBase get defaultTheme => ThemeBase(
-        primaryColor: const Color(0xFFFFFFFF),
-        secondaryColor: const Color(0xFFF2F3F9),
-        tertiaryColor: const Color(0xFFCFCFCF),
-        accentColor: const Color(0xFF27BCF3),
-        onAccentColor: const Color(0xFFFFFFFF),
-        errorColor: const Color(0xFFE74C3C),
-        moduleUploadedColor: const Color(0xFFF1C40F),
-        moduleDoneColor: const Color(0xFF4FB930),
-        modulePendingColor: const Color(0xFF7F8C8D),
-        textColor: const Color(0xFF1D1D1D),
-        name: 'Light',
-        icon: Icons.wb_sunny,
-        brightness: Brightness.light,
-      );
+  ThemeBase get defaultTheme => systemTheme();
 
   @override
   ThemeBase systemTheme() {
@@ -37,7 +23,21 @@ class StdThemesDatasource extends ThemesDatasource {
 
   @override
   List<ThemeBase> getThemes() => [
-        defaultTheme,
+        ThemeBase(
+          primaryColor: const Color(0xFFFFFFFF),
+          secondaryColor: const Color(0xFFF2F3F9),
+          tertiaryColor: const Color(0xFFCFCFCF),
+          accentColor: const Color(0xFF27BCF3),
+          onAccentColor: const Color(0xFFFFFFFF),
+          errorColor: const Color(0xFFE74C3C),
+          moduleUploadedColor: const Color(0xFFF1C40F),
+          moduleDoneColor: const Color(0xFF4FB930),
+          modulePendingColor: const Color(0xFF7F8C8D),
+          textColor: const Color(0xFF1D1D1D),
+          name: 'Light',
+          icon: Icons.wb_sunny,
+          brightness: Brightness.light,
+        ),
 
         // Dark theme
         ThemeBase(
