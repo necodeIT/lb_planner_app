@@ -80,6 +80,8 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       );
 
       log('Reserved slot ${slot.id} for current user');
+
+      await build(this);
     } catch (e) {
       log('Failed to reserve slot: $e');
     }
