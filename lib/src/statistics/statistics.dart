@@ -14,6 +14,7 @@ class StatisticsModule extends Module {
   List<Module> get imports => [
         CoreModule(),
         MoodleModule(),
+        AuthModule(),
       ];
 
   @override
