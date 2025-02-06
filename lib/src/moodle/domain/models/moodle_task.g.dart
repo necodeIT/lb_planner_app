@@ -41,6 +41,6 @@ const _$MoodleTaskTypeEnumMap = {
   MoodleTaskType.required: 0,
   MoodleTaskType.optional: 1,
   MoodleTaskType.exam: 2,
-  MoodleTaskType.compensation: 3,
+  MoodleTaskType.participation: 3,
   MoodleTaskType.none: 4,
 };
