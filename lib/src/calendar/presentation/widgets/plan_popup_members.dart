@@ -27,12 +27,7 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
 
   Future<void> leavePlan() async {
     final plan = context.read<CalendarPlanRepository>();
-    final confirmed = await showConfirmationDialog(
-      context,
-      title: 'Leave Plan',
-      message:
-          'Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.',
-    );
+    final confirmed = await showConfirmationDialog(context, title: context.t.calendar_leave_title, message: context.t.calendar_leave_message);
 
     if (!confirmed) return;
 
@@ -107,7 +102,7 @@ class _PlanPopupMembersState extends State<PlanPopupMembers> {
                 onPressed: leavePlan,
                 child: Row(
                   children: [
-                    Text("Leave Plan"),
+                    Text(context.t.calendar_leave),
                     const Spacer(),
                     const Icon(
                       FontAwesome5Solid.user_minus,

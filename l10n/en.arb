@@ -63,6 +63,9 @@
     "calendar_tasksOverview": "Tasks Overview",
     "calendar_title": "Calendar",
     "calendar_invite": "Invite",
+    "calendar_leave": "Leave Plan",
+    "calendar_leave_title": "Leave plan?",
+    "calendar_leave_message": "Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.",
     "calendar_invited": "Invited",
     "calendar_inYourPlan": "In your plan",
     "calendar_tasksCountLabel": "{count, plural, zero{No Tasks} one{1 Task} other{{count} Tasks}}",
@@ -225,7 +228,7 @@
         }
     },
     "settings_general_enableEK": "Enable EK modules",
-    "settings_general_displayTaskCount": "Enable EK modules",
+    "settings_general_displayTaskCount": "Display task count",
     "settings_theme": "Theme",
     "slots_title": "Slots",
     "slots_details_supervisorsCount": "Supervisors: {count}",

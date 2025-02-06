@@ -107,7 +107,7 @@ class _PlanPopupTasksState extends State<PlanPopupTasks> {
                 )
                 .toList()
                 .vSpaced(Spacing.smallSpacing),
-            Spacing.mediumVertical(),
+            if (plan.canModifiy) Spacing.mediumVertical(),
             if (plan.canModifiy)
               ElevatedButton(
                 onPressed: clearPlan,

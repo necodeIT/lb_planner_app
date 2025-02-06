@@ -153,6 +153,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       log('Deadline removed.');
 
       await captureEvent('deadline_removed', properties: {'id': id});
+
+      await _tasks.build(this);
+      await build(this);
     } catch (e, st) {
       log('Failed to remove deadline.', e, st);
 
@@ -172,6 +175,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       await _plan.leavePlan(_auth.state.requireData[Webservice.lb_planner_api]);
 
       await captureEvent('plan_left');
+
+      await build(this);
     } catch (e, st) {
       log('Failed to leave plan.', e, st);
 
