@@ -33,6 +33,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
+  bool get refreshOptimization => true;
+
+  @override
   Future<void> build(BuildTrigger trigger) async {
     // We don't need to refresh the plan as it's only loosely connected to the tasks.
     if (trigger is MoodleTasksRepository) {
