@@ -33,16 +33,18 @@ class CalendarTasksOverviewCell extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Text(tasks.length.toString()),
             ),
+          if (tasks.isNotEmpty) Spacing.xsVertical(),
           Expanded(
-            child: ListView(
-              controller: ScrollController(),
-              children: [
-                for (final task in tasks)
-                  MoodleTaskWidget(
-                    task: task,
-                    displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark,
-                  ),
-              ].vSpaced(Spacing.xsSpacing),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (final task in tasks)
+                    MoodleTaskWidget(
+                      task: task,
+                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark,
+                    ),
+                ].vSpaced(Spacing.xsSpacing).show(),
+              ),
             ),
           ),
         ],

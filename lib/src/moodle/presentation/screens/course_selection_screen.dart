@@ -16,17 +16,21 @@ class CourseSelectionScreen extends StatefulWidget {
 class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   bool _checked = false;
 
-  void preventMissfire(MoodleCoursesRepository repo) {
-    if (!repo.state.hasData) return;
-
+  Future<void> preventMissfire() async {
     if (_checked) return;
 
     final user = context.read<UserRepository>();
+    final repo = context.read<MoodleCoursesRepository>();
+
+    await user.ready;
+    await repo.ready;
 
     _checked = true;
 
     if (repo.filter(enabled: true).isNotEmpty || !(user.state.data?.capabilities.hasStudent ?? false)) {
-      Modular.to.pushNamed('/dashboard/');
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Modular.to.navigate('/dashboard/');
+      });
     }
   }
 
@@ -34,7 +38,9 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   Widget build(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
-    preventMissfire(repo);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      preventMissfire();
+    });
 
     return Scaffold(
       body: Stack(
@@ -67,7 +73,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
                     const CourseSelector().expanded(),
                     Spacing.mediumVertical(),
                     ElevatedButton(
-                      onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.pushNamed('/dashboard/') : null,
+                      onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.navigate('/dashboard/') : null,
                       child: Text(context.t.global_continue),
                     ).stretch(),
                   ],
