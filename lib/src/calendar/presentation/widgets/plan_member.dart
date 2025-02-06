@@ -122,15 +122,24 @@ class _PlanMemberWidgetState extends State<PlanMemberWidget> {
                   PlanMemberAccessType.read => FontAwesomeIcons.eye,
                 },
                 color: context.theme.colorScheme.primary,
+                size: context.bodyMedium?.fontSize,
               ),
             ),
-          if (!changingAccess && !removing) Spacing.xsHorizontal(),
-          if (isOwner && widget.member.accessType != PlanMemberAccessType.owner && !removing)
+          if (!changingAccess && !removing && isOwner && widget.member.accessType != PlanMemberAccessType.owner) Spacing.xsHorizontal(),
+          if (!changingAccess && !removing && isOwner && widget.member.accessType != PlanMemberAccessType.owner)
             IconButton(
-              icon: const Icon(Icons.close),
+              icon: Icon(
+                Icons.close,
+                size: context.bodyMedium?.fontSize,
+              ),
               onPressed: removeMember,
             ),
-          if (removing || changingAccess) const CircularProgressIndicator(),
+          if (removing || changingAccess)
+            SizedBox(
+              width: context.bodyMedium?.fontSize,
+              height: context.bodyMedium?.fontSize,
+              child: const CircularProgressIndicator(),
+            ),
         ],
       ),
     );
