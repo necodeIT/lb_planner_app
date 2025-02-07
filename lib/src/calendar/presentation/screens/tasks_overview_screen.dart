@@ -1,10 +1,10 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:data_widget/data_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/theming/theming.dart';
+import 'package:lb_planner/lb_planner.dart';
 
 /// Displays the monthly distribution of tasks.
 class TasksOverviewScreen extends StatefulWidget {
@@ -23,6 +23,32 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
 
   /// A list of months which are in the summer (the second) semester of school.
   static const summerMonths = [DateTime.february, DateTime.march, DateTime.april, DateTime.may, DateTime.june, DateTime.july];
+
+  List<Widget> actionBuilder(BuildContext context) {
+    return [
+      Builder(
+        builder: (context) => IconButton(
+          icon: const Icon(Icons.help_outline),
+          onPressed: () => showExplanation(context),
+        ).noSplash(),
+      ).alignAtCenterRight(),
+    ];
+  }
+
+  void showExplanation(BuildContext context) {
+    showMarkdownDialog(
+      context,
+      title: context.t.calendar_tasksOverview_description_title,
+      markdown: context.t.calendar_tasksOverview_description,
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Data.of<CalendarScreenState>(context).setActionBuiler(actionBuilder);
+  }
 
   @override
   Widget build(BuildContext context) {

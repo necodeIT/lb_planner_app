@@ -62,6 +62,8 @@
     "auth_privacyPolicy": "Privacy Policy",
     "calendar_plan": "Plan",
     "calendar_tasksOverview": "Tasks Overview",
+    "calendar_tasksOverview_description_title": "What is this?",
+    "calendar_tasksOverview_description": "The tasks overview shows the distribution of tasks over the months based on the deadlines set by the teachers.",
     "calendar_title": "Calendar",
     "calendar_invite": "Invite",
     "calendar_leave": "Leave Plan",
