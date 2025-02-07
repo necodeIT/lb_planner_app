@@ -55,6 +55,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     }
 
     data(tokens);
+
+    if (isAuthenticated) PostHog().enable();
   }
 
   /// Sign in with [username] and [password].
