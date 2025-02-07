@@ -109,6 +109,7 @@ Future<void> showMarkdownDialog(BuildContext context, {required String title, re
   await showGenericDialog<void>(
     context,
     title: title,
+    shrinkWrapWidth: true,
     content: MarkdownBody(data: markdown),
     actions: [
       PrimaryDialogAction(
