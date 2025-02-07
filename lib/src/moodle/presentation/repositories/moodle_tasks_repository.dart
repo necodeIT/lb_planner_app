@@ -54,6 +54,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
     Duration? maxDeadlineDiff,
     Set<MoodleTaskStatus> status = const {},
     Set<MoodleTaskType> type = const {},
+    bool Function(MoodleTask)? test,
   }) {
     if (!state.hasData) return [];
 
@@ -68,6 +69,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
       maxDeadlineDiff: maxDeadlineDiff,
       status: status,
       type: type,
+      test: test,
     );
   }
 
@@ -106,6 +108,7 @@ extension TasksFilterX on Iterable<MoodleTask> {
     Duration? maxDeadlineDiff,
     Set<MoodleTaskStatus> status = const {},
     Set<MoodleTaskType> type = const {},
+    bool Function(MoodleTask)? test,
   }) {
     final now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -126,6 +129,8 @@ extension TasksFilterX on Iterable<MoodleTask> {
       if (query != null && !task.name.toLowerCase().contains(query.toLowerCase())) return false;
       if (courseIds != null && !courseIds.contains(task.courseId)) return false;
       if (taskIds != null && !taskIds.contains(task.id)) return false;
+
+      if (test != null && !test.call(task)) return false;
 
       return true;
     }).toList();
