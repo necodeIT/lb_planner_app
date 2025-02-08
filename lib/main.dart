@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:lb_planner/config/echidna.dart';
 import 'package:lb_planner/config/posthog.dart';
 import 'package:lb_planner/config/sentry.dart';
@@ -98,6 +100,10 @@ void main() async {
   setPathUrlStrategy();
 
   initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
+
+  for (final locale in AppLocalizations.supportedLocales) {
+    await initializeDateFormatting(locale.languageCode);
+  }
 
   Logger.root.onRecord.listen((record) {
     final scrubbed = LogRecord(

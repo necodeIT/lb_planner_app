@@ -146,13 +146,13 @@ enum Weekday {
   /// Returns weekday index as defined in [DateTime].
   int get dateTimeWeekday => index + 1;
 
-  static String _monday(BuildContext context) => 'Monday';
-  static String _tuesday(BuildContext context) => 'Tuesday';
-  static String _wednesday(BuildContext context) => 'Wednesday';
-  static String _thursday(BuildContext context) => 'Thursday';
-  static String _friday(BuildContext context) => 'Friday';
-  static String _saturday(BuildContext context) => 'Saturday';
-  static String _sunday(BuildContext context) => 'Sunday';
+  static String _monday(BuildContext context) => context.t.slots_weekday_monday;
+  static String _tuesday(BuildContext context) => context.t.slots_weekday_tuesday;
+  static String _wednesday(BuildContext context) => context.t.slots_weekday_wednesday;
+  static String _thursday(BuildContext context) => context.t.slots_weekday_thursday;
+  static String _friday(BuildContext context) => context.t.slots_weekday_friday;
+  static String _saturday(BuildContext context) => context.t.slots_weekday_saturday;
+  static String _sunday(BuildContext context) => context.t.slots_weekday_sunday;
 }
 
 /// A time unit as defined in [lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin/blob/2f118f50aad5e4fb9d425b59b3ebccbdf1a16cd8/lbplanner/classes/helpers/slot_helper.php#L55)
