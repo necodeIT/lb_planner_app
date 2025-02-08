@@ -1,30 +1,30 @@
 {
-    "@@locale": "en",
-    "global_confirm": "Confirm",
+    "@@locale": "de",
+    "global_confirm": "Bestätigen",
     "@global_confirm": {
         "description": "Global confirmation button label."
     },
-    "global_continue": "Continue",
+    "global_continue": "Weiter",
     "@global_continue": {
         "description": "Global continue button label."
     },
-    "global_create": "Create",
+    "global_create": "Erstellen",
     "@global_create": {
         "description": "Global create button label."
     },
-    "global_update": "Update",
+    "global_update": "Aktualisieren",
     "@global_update": {
         "description": "Global update button label."
     },
-    "global_cancel": "Cancel",
+    "global_cancel": "Abbrechen",
     "@global_cancel": {
         "description": "Global cancel button label."
     },
-    "global_close": "Close",
+    "global_close": "Schließen",
     "@global_close": {
         "description": "Global close button label."
     },
-    "global_search": "Search",
+    "global_search": "Suchen",
     "@global_search": {
         "description": "Global search label."
     },
@@ -32,23 +32,23 @@
     "@global_ok": {
         "description": "Global OK button label."
     },
-    "global_dismiss": "Dismiss",
+    "global_dismiss": "Ausblenden",
     "@global_dismiss": {
         "description": "Global dismiss button label."
     },
-    "global_nA": "N/A",
+    "global_nA": "N/V",
     "@global_nA": {
         "description": "Global text for 'Not Available' or 'Not Applicable'."
     },
-    "global_loading": "Loading",
+    "global_loading": "Lädt",
     "@global_loading": {
         "description": "Global loading indicator text."
     },
-    "global_edit": "Edit",
+    "global_edit": "Bearbeiten",
     "@global_edit": {
         "description": "Global edit button label."
     },
-    "global_delete": "Delete",
+    "global_delete": "Löschen",
     "@global_delete": {
         "description": "Global delete button label."
     },
@@ -56,11 +56,11 @@
     "@app_titleBar_pro": {
         "description": "Title bar label for Pro version."
     },
-    "app_titleBar_trial": "Trial",
+    "app_titleBar_trial": "Testversion",
     "@app_titleBar_trial": {
         "description": "Title bar label for Trial version."
     },
-    "app_update_appImage": "Download the [latest version]({url}) and replace the current version with the new one.",
+    "app_update_appImage": "Lade die [neueste Version]({url}) herunter und ersetze die aktuelle Version durch die neue.",
     "@app_update_appImage": {
         "description": "Prompt to update the application image using the provided download URL.",
         "placeholders": {
@@ -69,11 +69,11 @@
             }
         }
     },
-    "app_update_aur": "Run `yay -S lb-planner` to update to the latest version.",
+    "app_update_aur": "Führe `yay -S lb-planner` aus, um auf die neueste Version zu aktualisieren.",
     "@app_update_aur": {
         "description": "Instruction to update the application via the AUR package manager."
     },
-    "app_update_download": "Download the [latest version]({url}) and install it.",
+    "app_update_download": "Lade die [neueste Version]({url}) herunter und installiere sie.",
     "@app_update_download": {
         "description": "Prompt to download and install the latest version using the provided URL.",
         "placeholders": {
@@ -82,11 +82,11 @@
             }
         }
     },
-    "app_update_web": "Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.",
+    "app_update_web": "Bitte aktualisiere die Seite mit `Strg + Shift + F5`, um auf die neueste Version zu aktualisieren.",
     "@app_update_web": {
         "description": "Instruction for updating the web version by refreshing the page."
     },
-    "auth_accessHint": "You are not allowed to use {appname}. If you believe this is an error, please contact your Moodle administrator to request access.",
+    "auth_accessHint": "Du darfst {appname} nicht nutzen. Falls du glaubst, dass dies ein Fehler ist, kontaktiere bitte deinen Moodle-Administrator, um Zugang anzufordern.",
     "@auth_accessHint": {
         "description": "Access restriction message that uses the app name placeholder.",
         "placeholders": {
@@ -95,23 +95,23 @@
             }
         }
     },
-    "auth_username": "Username",
+    "auth_username": "Benutzername",
     "@auth_username": {
         "description": "Label for the username input field."
     },
-    "auth_password": "Password",
+    "auth_password": "Passwort",
     "@auth_password": {
         "description": "Label for the password input field."
     },
-    "auth_login": "Login",
+    "auth_login": "Anmelden",
     "@auth_login": {
         "description": "Login button label."
     },
-    "auth_subtitle": "Login with your Moodle account.",
+    "auth_subtitle": "Melde dich mit deinem Moodle-Konto an.",
     "@auth_subtitle": {
         "description": "Subtitle guiding users to log in with their Moodle account."
     },
-    "auth_invalidCredentials": "Invalid username or password",
+    "auth_invalidCredentials": "Ungültiger Benutzername oder Passwort",
     "@auth_invalidCredentials": {
         "description": "Error message for invalid login credentials."
     },
@@ -124,11 +124,11 @@
             }
         }
     },
-    "auth_dataCollectionConsent": "I accept the collection and processing of my data as described in the ",
+    "auth_dataCollectionConsent": "Ich akzeptiere die Erhebung und Verarbeitung meiner Daten wie beschrieben in der ",
     "@auth_dataCollectionConsent": {
         "description": "Consent text for data collection and processing."
     },
-    "auth_privacyPolicy": "Privacy Policy",
+    "auth_privacyPolicy": "Datenschutzerklärung.",
     "@auth_privacyPolicy": {
         "description": "Label for the privacy policy link."
     },
@@ -136,47 +136,47 @@
     "@calendar_plan": {
         "description": "Label for the calendar plan section."
     },
-    "calendar_tasksOverview": "Tasks Overview",
+    "calendar_tasksOverview": "Aufgabenübersicht",
     "@calendar_tasksOverview": {
         "description": "Label for the overview of tasks in the calendar."
     },
-    "calendar_tasksOverview_description_title": "What is this?",
+    "calendar_tasksOverview_description_title": "Was ist das?",
     "@calendar_tasksOverview_description_title": {
         "description": "Title for the description of the tasks overview."
     },
-    "calendar_tasksOverview_description": "The tasks overview shows the distribution of tasks over the months based on the deadlines set by the teachers.",
+    "calendar_tasksOverview_description": "Die Aufgabenübersicht zeigt die Verteilung der Aufgaben über die Monate basierend auf den von den Lehrkräften gesetzten Fristen.",
     "@calendar_tasksOverview_description": {
         "description": "Detailed explanation of what the tasks overview displays."
     },
-    "calendar_title": "Calendar",
+    "calendar_title": "Kalender",
     "@calendar_title": {
         "description": "Title for the calendar view."
     },
-    "calendar_invite": "Invite",
+    "calendar_invite": "Einladen",
     "@calendar_invite": {
         "description": "Label for inviting someone to a plan."
     },
-    "calendar_leave": "Leave Plan",
+    "calendar_leave": "Plan verlassen",
     "@calendar_leave": {
         "description": "Button label to leave a plan."
     },
-    "calendar_leave_title": "Leave plan?",
+    "calendar_leave_title": "Plan verlassen?",
     "@calendar_leave_title": {
         "description": "Confirmation title when attempting to leave a plan."
     },
-    "calendar_leave_message": "Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.",
+    "calendar_leave_message": "Bist du sicher, dass du diesen Plan verlassen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.\nKeine Sorge, eine Kopie des geteilten Plans wird in deinem Konto gespeichert und du kannst jederzeit wieder eingeladen werden.",
     "@calendar_leave_message": {
         "description": "Confirmation message for leaving a plan."
     },
-    "calendar_invited": "Invited",
+    "calendar_invited": "Eingeladen",
     "@calendar_invited": {
         "description": "Status label indicating that a user has been invited."
     },
-    "calendar_inYourPlan": "In your plan",
+    "calendar_inYourPlan": "In deinem Plan",
     "@calendar_inYourPlan": {
         "description": "Status label indicating that a plan is part of your schedule."
     },
-    "calendar_tasksCountLabel": "{count, plural, zero{No Tasks} one{1 Task} other{{count} Tasks}}",
+    "calendar_tasksCountLabel": "{count, plural, zero{Keine Aufgaben} one{1 Aufgabe} other{{count} Aufgaben}}",
     "@calendar_tasksCountLabel": {
         "description": "Label showing the number of tasks, with pluralization based on count.",
         "placeholders": {
@@ -186,43 +186,43 @@
             }
         }
     },
-    "calendar_removeDeadline": "Remove deadline",
+    "calendar_removeDeadline": "Frist entfernen",
     "@calendar_removeDeadline": {
         "description": "Button label to remove a task's deadline."
     },
-    "calendar_inviteUsers": "Invite users",
+    "calendar_inviteUsers": "Benutzer einladen",
     "@calendar_inviteUsers": {
         "description": "Button label to invite users to join a plan."
     },
-    "calendar_searchUsers": "Search users",
+    "calendar_searchUsers": "Benutzer suchen",
     "@calendar_searchUsers": {
         "description": "Placeholder or label for searching users."
     },
-    "calendar_searchMembers": "Search members",
+    "calendar_searchMembers": "Mitglieder suchen",
     "@calendar_searchMembers": {
         "description": "Placeholder or label for searching members within a plan."
     },
-    "calendar_searchTasks": "Search tasks",
+    "calendar_searchTasks": "Aufgaben suchen",
     "@calendar_searchTasks": {
         "description": "Placeholder or label for searching tasks."
     },
-    "calendar_clearPlan": "Clear Plan",
+    "calendar_clearPlan": "Plan leeren",
     "@calendar_clearPlan": {
         "description": "Button label to clear all tasks from a plan."
     },
-    "calendar_clearPlan_title": "Clear plan?",
+    "calendar_clearPlan_title": "Plan leeren?",
     "@calendar_clearPlan_title": {
         "description": "Confirmation title for clearing a plan."
     },
-    "calendar_clearPlan_message": "Are you sure you want to clear your plan? This will remove all planned tasks and cannot be undone.",
+    "calendar_clearPlan_message": "Bist du sicher, dass du deinen Plan leeren möchtest? Dadurch werden alle geplanten Aufgaben entfernt und diese Aktion kann nicht rückgängig gemacht werden.",
     "@calendar_clearPlan_message": {
         "description": "Confirmation message for clearing a plan."
     },
-    "calendar_tasks": "Tasks",
+    "calendar_tasks": "Aufgaben",
     "@calendar_tasks": {
         "description": "Label for tasks section in the calendar."
     },
-    "calendar_members": "Members",
+    "calendar_members": "Mitglieder",
     "@calendar_members": {
         "description": "Label for members section in the calendar."
     },
@@ -230,7 +230,7 @@
     "@courses_name": {
         "description": "Column header for course name."
     },
-    "courses_type": "Type",
+    "courses_type": "Typ",
     "@courses_type": {
         "description": "Column header for course type."
     },
@@ -238,39 +238,39 @@
     "@courses_status": {
         "description": "Column header for course status."
     },
-    "courses_dueDate": "Due date",
+    "courses_dueDate": "Fälligkeitsdatum",
     "@courses_dueDate": {
         "description": "Column header for course due date."
     },
-    "courses_plannedDueDate": "Planned due date",
+    "courses_plannedDueDate": "Geplantes Fälligkeitsdatum",
     "@courses_plannedDueDate": {
         "description": "Column header for planned due date of a course."
     },
-    "courses_overview": "Course Overview",
+    "courses_overview": "Kursübersicht",
     "@courses_overview": {
         "description": "Title for the course overview section."
     },
-    "dashboard_todaysTasks": "Today's tasks",
+    "dashboard_todaysTasks": "Heutige Aufgaben",
     "@dashboard_todaysTasks": {
         "description": "Section title for today's tasks on the dashboard."
     },
-    "dashboard_todaysTasks_noTasks": "You've nothing planned for today",
+    "dashboard_todaysTasks_noTasks": "Du hast für heute nichts geplant",
     "@dashboard_todaysTasks_noTasks": {
         "description": "Message displayed when no tasks are planned for today."
     },
-    "dashboard_statusOverview": "Status overview",
+    "dashboard_statusOverview": "Statusübersicht",
     "@dashboard_statusOverview": {
         "description": "Title for the status overview section on the dashboard."
     },
-    "dashboard_burnDownChart": "Burndown chart",
+    "dashboard_burnDownChart": "Burndown-Diagramm",
     "@dashboard_burnDownChart": {
-        "description": "Title for the burndown chart displayed on the dashboard."
+        "description": "Title for the burn down chart displayed on the dashboard."
     },
-    "dashboard_burnDownChart_plannedTrajectory": "Planned trajectory",
+    "dashboard_burnDownChart_plannedTrajectory": "Geplante Entwicklung",
     "@dashboard_burnDownChart_plannedTrajectory": {
-        "description": "Label for the planned trajectory line in the burndown chart."
+        "description": "Label for the planned trajectory line in the burn down chart."
     },
-    "dashboard_burnDownChart_idealTrajectory": "Ideal trajectory {count, plural, other{({count} tasks/day)} one{({count} task/day)}}",
+    "dashboard_burnDownChart_idealTrajectory": "Ideale Entwicklung {count, plural, one{({count} Aufgabe/Tag)} other{({count} Aufgaben/Tag)}}",
     "@dashboard_burnDownChart_idealTrajectory": {
         "description": "Label for the ideal daily task completion rate in the burndown chart, showing tasks per day.",
         "placeholders": {
@@ -280,19 +280,19 @@
             }
         }
     },
-    "dashboard_burnDownChart_explanation_title": "WTF is a burndown chart?",
+    "dashboard_burnDownChart_explanation_title": "Was zum Teufel ist ein Burndown-Diagramm?",
     "@dashboard_burnDownChart_explanation_title": {
         "description": "Title for the explanation of the burndown chart."
     },
-    "dashboard_burnDownChart_explanation_message": "The **burndown chart** helps you visualize your progress toward completing tasks.\n\n1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you've planned your tasks in an ideal way to keep a steady workload.\n2. The **planned trajectory** (curved line) shows how many tasks you're expected to have left based on when you've planned to complete them.\n\t- Green when no tasks are remaining by the end of the semester.\n\t- Becomes red if you will not complete all modules in time.\n\nThis chart doesn’t track when tasks are actually completed—it's all about comparing your plan to the ideal pace so you can stay on track!\n",
+    "dashboard_burnDownChart_explanation_message": "Das **Burndown-Diagramm** hilft dir dabei, deinen Fortschritt bei der Erledigung von Aufgaben zu visualisieren.\n\n1. Die **ideale Entwicklung** (gerade Linie) zeigt, wie viele Aufgaben du an jedem Tag übrig haben solltest, wenn du deine Aufgaben ideal geplant hast, um eine gleichmäßige Arbeitsbelastung beizubehalten.\n2. Die **geplante Entwicklung** (gekrümmte Linie) zeigt, wie viele Aufgaben basierend auf deinem geplanten Abschluss übrig sein sollten.\n\t- Grün, wenn am Ende des Semesters keine Aufgaben mehr übrig sind.\n\t- Rot, wenn du nicht alle Module rechtzeitig abschließen wirst.\n\nDieses Diagramm verfolgt nicht, wann Aufgaben tatsächlich abgeschlossen werden – es vergleicht lediglich deinen Plan mit dem idealen Tempo, damit du auf Kurs bleibst!\n",
     "@dashboard_burnDownChart_explanation_message": {
         "description": "Detailed explanation of how the burndown chart works."
     },
-    "dashboard_exams": "Upcoming exams",
+    "dashboard_exams": "Bevorstehende Prüfungen",
     "@dashboard_exams": {
         "description": "Section title for upcoming exams on the dashboard."
     },
-    "dashboard_exams_noExams": "No exams scheduled in the near future",
+    "dashboard_exams_noExams": "In naher Zukunft sind keine Prüfungen geplant",
     "@dashboard_exams_noExams": {
         "description": "Message displayed when there are no upcoming exams."
     },
@@ -300,47 +300,47 @@
     "@dashboard_title": {
         "description": "Title for the dashboard view."
     },
-    "dashboard_overdueTasks": "Overdue tasks",
+    "dashboard_overdueTasks": "Überfällige Aufgaben",
     "@dashboard_overdueTasks": {
         "description": "Section title for overdue tasks on the dashboard."
     },
-    "dashboard_noTasksOverdue": "You're all good, no tasks are overdue!",
+    "dashboard_noTasksOverdue": "Alles bestens, keine Aufgaben sind überfällig!",
     "@dashboard_noTasksOverdue": {
         "description": "Message displayed when there are no overdue tasks."
     },
-    "dashboard_slotsReservedToday": "Slots reserved for today",
+    "dashboard_slotsReservedToday": "Heute reservierte Slots",
     "@dashboard_slotsReservedToday": {
         "description": "Label for the number of reserved slots for today."
     },
-    "dashboard_noSlotsReservedToday": "You don't have any slots reserved for today.",
+    "dashboard_noSlotsReservedToday": "Für heute hast du keine Slots reserviert.",
     "@dashboard_noSlotsReservedToday": {
         "description": "Message displayed when there are no slots reserved for today."
     },
-    "enum_taskStatus_done": "Done",
+    "enum_taskStatus_done": "Erledigt",
     "@enum_taskStatus_done": {
         "description": "Status label indicating that a task is completed."
     },
-    "enum_taskStatus_pending": "Pending",
+    "enum_taskStatus_pending": "Ausstehend",
     "@enum_taskStatus_pending": {
         "description": "Status label indicating that a task is pending."
     },
-    "enum_taskStatus_uploaded": "Uploaded",
+    "enum_taskStatus_uploaded": "Hochgeladen",
     "@enum_taskStatus_uploaded": {
         "description": "Status label indicating that a task has been uploaded."
     },
-    "enum_taskStatus_late": "Overdue",
+    "enum_taskStatus_late": "Überfällig",
     "@enum_taskStatus_late": {
         "description": "Status label indicating that a task is overdue."
     },
-    "moodle_courseSelectionScreen_selectCourses": "Select courses",
+    "moodle_courseSelectionScreen_selectCourses": "Kurse auswählen",
     "@moodle_courseSelectionScreen_selectCourses": {
         "description": "Instruction to select courses on the Moodle course selection screen."
     },
-    "moodle_courseSelector_search": "Search courses",
+    "moodle_courseSelector_search": "Kurse suchen",
     "@moodle_courseSelector_search": {
         "description": "Placeholder or label for searching courses in Moodle."
     },
-    "moodle_moodleTaskWidget_openInMoodle": "Open in Moodle",
+    "moodle_moodleTaskWidget_openInMoodle": "In Moodle öffnen",
     "@moodle_moodleTaskWidget_openInMoodle": {
         "description": "Button label to open a task directly in Moodle."
     },
@@ -352,7 +352,7 @@
     "@moodle_task_optional": {
         "description": "Abbreviation for optional tasks in Moodle (EK)."
     },
-    "moodle_task_exam": "Exam",
+    "moodle_task_exam": "Prüfung",
     "@moodle_task_exam": {
         "description": "Label for exam tasks in Moodle."
     },
@@ -360,7 +360,7 @@
     "@moodle_task_participation": {
         "description": "Abbreviation for participation tasks in Moodle (M)."
     },
-    "notification_newUser": "Welcome to {appname}, {username}! We hope you enjoy your stay.",
+    "notification_newUser": "Willkommen bei {appname}, {username}! Wir hoffen, du genießt deinen Aufenthalt.",
     "@notification_newUser": {
         "description": "Welcome message for new users, including app name and username placeholders.",
         "placeholders": {
@@ -372,7 +372,7 @@
             }
         }
     },
-    "notification_invite": "{username} invited you to join their plan!",
+    "notification_invite": "{username} hat dich eingeladen, seinem Plan beizutreten!",
     "@notification_invite": {
         "description": "Notification message indicating that a user has invited you to join their plan, includes username.",
         "placeholders": {
@@ -381,23 +381,23 @@
             }
         }
     },
-    "notification_invite_accept": "Accept",
+    "notification_invite_accept": "Annehmen",
     "@notification_invite_accept": {
         "description": "Button label to accept an invitation."
     },
-    "notification_invite_decline": "Decline",
+    "notification_invite_decline": "Ablehnen",
     "@notification_invite_decline": {
         "description": "Button label to decline an invitation."
     },
-    "notification_invite_accepted": "Accepted",
+    "notification_invite_accepted": "Angenommen",
     "@notification_invite_accepted": {
         "description": "Status label indicating that an invitation has been accepted."
     },
-    "notification_invite_declined": "Declined",
+    "notification_invite_declined": "Abgelehnt",
     "@notification_invite_declined": {
         "description": "Status label indicating that an invitation has been declined."
     },
-    "notification_inviteAccepted": "{username} accepted your invitation!",
+    "notification_inviteAccepted": "{username} hat deine Einladung angenommen!",
     "@notification_inviteAccepted": {
         "description": "Notification that a user's invitation has been accepted, includes username.",
         "placeholders": {
@@ -406,7 +406,7 @@
             }
         }
     },
-    "notification_inviteDeclined": "{username} declined your invitation!",
+    "notification_inviteDeclined": "{username} hat deine Einladung abgelehnt!",
     "@notification_inviteDeclined": {
         "description": "Notification that a user's invitation has been declined, includes username.",
         "placeholders": {
@@ -415,11 +415,11 @@
             }
         }
     },
-    "notification_planRemoved": "You have been removed from your shared plan. But don't worry, we've got you covered - a copy of the plan has been saved to your account.",
+    "notification_planRemoved": "Du wurdest aus deinem geteilten Plan entfernt. Keine Sorge, eine Kopie des Plans wurde in deinem Konto gespeichert.",
     "@notification_planRemoved": {
         "description": "Notification informing the user that they have been removed from a shared plan, with a copy saved."
     },
-    "notification_planLeft": "{username} left your plan. You can invite them back anytime.",
+    "notification_planLeft": "{username} hat deinen Plan verlassen. Du kannst ihn jederzeit wieder einladen.",
     "@notification_planLeft": {
         "description": "Notification message when a user leaves a shared plan, includes username.",
         "placeholders": {
@@ -428,7 +428,7 @@
             }
         }
     },
-    "notification_list_title": "Notifications ({count})",
+    "notification_list_title": "Benachrichtigungen ({count})",
     "@notification_list_title": {
         "description": "Title for the notifications list showing the total count of notifications.",
         "placeholders": {
@@ -437,23 +437,23 @@
             }
         }
     },
-    "notification_list_showUnread": "Show unread",
+    "notification_list_showUnread": "Ungelesene anzeigen",
     "@notification_list_showUnread": {
         "description": "Button or link label to filter and show unread notifications."
     },
-    "notification_list_showAll": "Show all",
+    "notification_list_showAll": "Alle anzeigen",
     "@notification_list_showAll": {
         "description": "Button or link label to show all notifications."
     },
-    "settings_title": "Settings",
+    "settings_title": "Einstellungen",
     "@settings_title": {
         "description": "Title for the settings section."
     },
-    "settings_feedback_sent_title": "Feedback sent",
+    "settings_feedback_sent_title": "Feedback gesendet",
     "@settings_feedback_sent_title": {
         "description": "Title displayed after feedback is successfully sent."
     },
-    "settings_feedback_sent_message": "Thank you for your feedback. We will get back to you as soon as possible.\n\nYour feedback ID is: {sentryid}",
+    "settings_feedback_sent_message": "Vielen Dank für dein Feedback. Wir werden uns so schnell wie möglich bei dir melden.\n\nDeine Feedback-ID lautet: {sentryid}",
     "@settings_feedback_sent_message": {
         "description": "Message displayed after successfully sending feedback, includes the feedback ID placeholder.",
         "placeholders": {
@@ -462,11 +462,11 @@
             }
         }
     },
-    "settings_feedback_error_title": "Unable to send feedback",
+    "settings_feedback_error_title": "Feedback konnte nicht gesendet werden",
     "@settings_feedback_error_title": {
         "description": "Title displayed when feedback submission fails."
     },
-    "settings_feedback_error_message": "An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.",
+    "settings_feedback_error_message": "Beim Senden deines Feedbacks ist ein Fehler aufgetreten und der Fehler wurde den Entwicklern gemeldet. Bitte versuche es später noch einmal.",
     "@settings_feedback_error_message": {
         "description": "Error message displayed when feedback submission fails."
     },
@@ -474,23 +474,23 @@
     "@settings_feedback_title": {
         "description": "Title for the feedback section."
     },
-    "settings_feedback_description": "Please describe your problem.",
+    "settings_feedback_description": "Bitte beschreibe dein Problem.",
     "@settings_feedback_description": {
         "description": "Description prompting the user to describe their problem in the feedback form."
     },
-    "settings_feedback_consent": "I agree to sharing my email address and name with the developers in accordance with our ",
+    "settings_feedback_consent": "Ich stimme der Weitergabe meiner E-Mail-Adresse und meines Namens an die Entwickler gemäß unserer ",
     "@settings_feedback_consent": {
         "description": "Consent text for sharing personal details with the developers."
     },
-    "settings_feedback_submit": "Submit Feedback",
+    "settings_feedback_submit": "Feedback absenden",
     "@settings_feedback_submit": {
         "description": "Button label to submit feedback."
     },
-    "settings_feedback_type_bug": "Bug",
+    "settings_feedback_type_bug": "Fehler",
     "@settings_feedback_type_bug": {
         "description": "Feedback type option for reporting a bug."
     },
-    "settings_feedback_type_typo": "Typo",
+    "settings_feedback_type_typo": "Tippfehler",
     "@settings_feedback_type_typo": {
         "description": "Feedback type option for reporting a typo."
     },
@@ -498,19 +498,19 @@
     "@settings_feedback_type_feature": {
         "description": "Feedback type option for requesting a feature."
     },
-    "settings_feedback_type_other": "Other",
+    "settings_feedback_type_other": "Andere",
     "@settings_feedback_type_other": {
         "description": "Feedback type option for other types of feedback."
     },
-    "settings_general": "General",
+    "settings_general": "Allgemein",
     "@settings_general": {
         "description": "General settings section label."
     },
-    "settings_general_clearCache": "Clear cache",
+    "settings_general_clearCache": "Cache leeren",
     "@settings_general_clearCache": {
         "description": "Button label to clear the application cache."
     },
-    "settings_general_deleteProfile": "Delete profile",
+    "settings_general_deleteProfile": "Profil löschen",
     "@settings_general_deleteProfile": {
         "description": "Button label to delete the user's profile."
     },
@@ -527,15 +527,15 @@
             }
         }
     },
-    "settings_general_enableEK": "Enable EK modules",
+    "settings_general_enableEK": "EK-Module aktivieren",
     "@settings_general_enableEK": {
         "description": "Option to enable EK modules in settings."
     },
-    "settings_general_displayTaskCount": "Display task count",
+    "settings_general_displayTaskCount": "Aufgabenzähler anzeigen",
     "@settings_general_displayTaskCount": {
         "description": "Option to toggle the display of the task count."
     },
-    "settings_theme": "Theme",
+    "settings_theme": "Design",
     "@settings_theme": {
         "description": "Label for theme selection in settings."
     },
@@ -543,7 +543,7 @@
     "@slots_title": {
         "description": "Title for the slots section."
     },
-    "slots_details_supervisorsCount": "Supervisors: {count}",
+    "slots_details_supervisorsCount": "Aufsichtspersonen: {count}",
     "@slots_details_supervisorsCount": {
         "description": "Displays the number of supervisors assigned to the slot, using a count placeholder.",
         "placeholders": {
@@ -552,7 +552,7 @@
             }
         }
     },
-    "slots_details_mappingsCount": "Mappings: {count}",
+    "slots_details_mappingsCount": "Zuordnungen: {count}",
     "@slots_details_mappingsCount": {
         "description": "Displays the number of course mappings for the slot, using a count placeholder.",
         "placeholders": {
@@ -561,7 +561,7 @@
             }
         }
     },
-    "slots_details_reservationsCount": "Reservations ({reservations}/{size})",
+    "slots_details_reservationsCount": "Reservierungen ({reservations}/{size})",
     "@slots_details_reservationsCount": {
         "description": "Displays the current reservations over the total slot size, with reservations and size placeholders.",
         "placeholders": {
@@ -573,7 +573,7 @@
             }
         }
     },
-    "slots_details_sizeCount": "Size {count}",
+    "slots_details_sizeCount": "Größe {count}",
     "@slots_details_sizeCount": {
         "description": "Displays the size of the slot, using a count placeholder.",
         "placeholders": {
@@ -582,11 +582,11 @@
             }
         }
     },
-    "slots_slotmaster_newSlot": "New slot",
+    "slots_slotmaster_newSlot": "Neuer Slot",
     "@slots_slotmaster_newSlot": {
         "description": "Button label to create a new slot."
     },
-    "slots_slotmaster_deleteSlot_title": "Delete slot {room} {startUnit} - {endUnit}?",
+    "slots_slotmaster_deleteSlot_title": "Slot {room} {startUnit} - {endUnit} löschen?",
     "@slots_slotmaster_deleteSlot_title": {
         "description": "Confirmation title for deleting a slot, including room, start unit, and end unit placeholders.",
         "placeholders": {
@@ -601,87 +601,87 @@
             }
         }
     },
-    "slots_slotmaster_deleteSlot_message": "Are you sure you want to delete this slot? This action cannot be undone.",
+    "slots_slotmaster_deleteSlot_message": "Bist du sicher, dass du diesen Slot löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
     "@slots_slotmaster_deleteSlot_message": {
         "description": "Confirmation message for deleting a slot."
     },
-    "slots_edit_editSlot": "Edit slot",
+    "slots_edit_editSlot": "Slot bearbeiten",
     "@slots_edit_editSlot": {
         "description": "Button label to edit a slot."
     },
-    "slots_edit_createSlot": "Create a new slot",
+    "slots_edit_createSlot": "Neuen Slot erstellen",
     "@slots_edit_createSlot": {
         "description": "Button label to create a new slot."
     },
-    "slots_edit_startTime": "Start time",
+    "slots_edit_startTime": "Startzeit",
     "@slots_edit_startTime": {
         "description": "Label for the start time input in slot editing."
     },
-    "slots_edit_endTime": "End time",
+    "slots_edit_endTime": "Endzeit",
     "@slots_edit_endTime": {
         "description": "Label for the end time input in slot editing."
     },
-    "slots_edit_weekday": "Weekday",
+    "slots_edit_weekday": "Wochentag",
     "@slots_edit_weekday": {
         "description": "Label for selecting the weekday in slot editing."
     },
-    "slots_edit_room": "Room",
+    "slots_edit_room": "Raum",
     "@slots_edit_room": {
         "description": "Label for the room input in slot editing."
     },
-    "slots_edit_size": "Size",
+    "slots_edit_size": "Größe",
     "@slots_edit_size": {
         "description": "Label for the size input in slot editing."
     },
-    "slots_edit_supervisors": "Supervisors",
+    "slots_edit_supervisors": "Aufsichtspersonen",
     "@slots_edit_supervisors": {
         "description": "Label for the supervisors section in slot editing."
     },
-    "slots_edit_addSupervisor": "Add supervisor",
+    "slots_edit_addSupervisor": "Aufsichtsperson hinzufügen",
     "@slots_edit_addSupervisor": {
         "description": "Button label to add a supervisor to a slot."
     },
-    "slots_edit_courseMappings": "Course Mappings",
+    "slots_edit_courseMappings": "Kurszuordnungen",
     "@slots_edit_courseMappings": {
         "description": "Label for the course mappings section in slot editing."
     },
-    "slots_edit_selectCourse": "Select course",
+    "slots_edit_selectCourse": "Kurs auswählen",
     "@slots_edit_selectCourse": {
         "description": "Prompt to select a course for slot mapping."
     },
-    "slots_edit_selectClass": "Select class",
+    "slots_edit_selectClass": "Klasse auswählen",
     "@slots_edit_selectClass": {
         "description": "Prompt to select a class for slot mapping."
     },
-    "slots_reserve_error": "Failed to reserve slot",
+    "slots_reserve_error": "Slot konnte nicht reserviert werden",
     "@slots_reserve_error": {
         "description": "Error message displayed when a slot reservation fails."
     },
-    "slots_weekday_monday": "Monday",
+    "slots_weekday_monday": "Montag",
     "@slots_weekday_monday": {
         "description": "Label for Monday in slot editing."
     },
-    "slots_weekday_tuesday": "Tuesday",
+    "slots_weekday_tuesday": "Dienstag",
     "@slots_weekday_tuesday": {
         "description": "Label for Tuesday in slot editing."
     },
-    "slots_weekday_wednesday": "Wednesday",
+    "slots_weekday_wednesday": "Mittwoch",
     "@slots_weekday_wednesday": {
         "description": "Label for Wednesday in slot editing."
     },
-    "slots_weekday_thursday": "Thursday",
+    "slots_weekday_thursday": "Donnerstag",
     "@slots_weekday_thursday": {
         "description": "Label for Thursday in slot editing."
     },
-    "slots_weekday_friday": "Friday",
+    "slots_weekday_friday": "Freitag",
     "@slots_weekday_friday": {
         "description": "Label for Friday in slot editing."
     },
-    "slots_weekday_saturday": "Saturday",
+    "slots_weekday_saturday": "Samstag",
     "@slots_weekday_saturday": {
         "description": "Label for Saturday in slot editing."
     },
-    "slots_weekday_sunday": "Sunday",
+    "slots_weekday_sunday": "Sonntag",
     "@slots_weekday_sunday": {
         "description": "Label for Sunday in slot editing."
     }
