@@ -56,12 +56,6 @@ class AppModule extends Module {
   void routes(RouteManager r) {
     r
       ..child(
-        '/mobile',
-        child: (_) => const MobileScreen(),
-        transition: TransitionType.custom,
-        customTransition: defaultTransition,
-      )
-      ..child(
         '/',
         child: (_) => const SidebarScreen(),
         children: [
@@ -132,7 +126,14 @@ class AppModule extends Module {
           AuthGuard(redirectTo: '/auth/'),
           DesktopGuard(),
         ],
-      );
+      )
+      ..child(
+        '/mobile',
+        child: (_) => const MobileScreen(),
+        transition: TransitionType.custom,
+        customTransition: defaultTransition,
+      )
+      ..wildcard(child: (_) => const NotFoundScreen());
   }
 }
 
