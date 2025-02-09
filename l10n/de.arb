@@ -693,5 +693,13 @@
                 "type": "String"
             }
         }
+    },
+    "notFound": "Sorry, wir konnten diese Seite nicht finden.",
+    "@notFound": {
+        "description": "Error message displayed when the user navigates to a non-existent page."
+    },
+    "notFound_returnHome": "Zurück zur Startseite",
+    "@notFound_returnHome": {
+        "description": "Button label to return to the home page."
     }
 }

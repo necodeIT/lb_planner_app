@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:lb_planner/config/echidna.dart';
 import 'package:lb_planner/config/posthog.dart';
 import 'package:lb_planner/config/sentry.dart';

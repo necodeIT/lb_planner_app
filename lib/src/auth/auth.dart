@@ -1,7 +1,6 @@
 import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 
@@ -33,6 +32,8 @@ class AuthModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child('/', child: (_) => const LoginScreen());
+    r
+      ..child('/', child: (_) => const LoginScreen())
+      ..wildcard(child: (_) => const NotFoundScreen());
   }
 }

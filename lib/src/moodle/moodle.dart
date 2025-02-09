@@ -1,11 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 
-import 'domain/domain.dart';
 import 'infra/infra.dart';
-import 'presentation/presentation.dart';
 
 export 'package:lb_planner/src/auth/auth.dart';
 export 'domain/domain.dart';
@@ -34,9 +32,11 @@ class MoodleModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child(
-      '/select-courses/',
-      child: (_) => const CourseSelectionScreen(),
-    );
+    r
+      ..child(
+        '/select-courses/',
+        child: (_) => const CourseSelectionScreen(),
+      )
+      ..wildcard(child: (_) => const NotFoundScreen());
   }
 }
