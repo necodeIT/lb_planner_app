@@ -75,3 +75,5 @@ Below is a table that outlines the hex color codes used in the SVGs within this 
 | `#17202A`  | `ColorScheme.onSurface`       | Text and icons on top of surfaces.                    |
 | `#F1C40F`  | `ColorScheme.onError`         | Text and icons on top of error color surfaces.        |
 | `#000000`  | `TextTheme.bodyNormal.color`  | Normal text color.                                    |
+| `#0037ff`  | `Theme.scaffoldBackgroundColor`| Background color of the app.                         |
+| `#00ff40`  | `Theme.dividerColor`          | Color of dividers between elements.                   |

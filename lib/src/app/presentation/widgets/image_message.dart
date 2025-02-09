@@ -23,6 +23,7 @@ class ImageMessage extends StatelessWidget {
         Text(
           message,
           style: context.theme.textTheme.titleMedium,
+          textAlign: TextAlign.center,
         ),
       ],
     );

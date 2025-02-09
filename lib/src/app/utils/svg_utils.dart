@@ -20,6 +20,9 @@ extension SvgUtils on SvgGenImage {
   /// | `#17202A`  | `ColorScheme.onSurface`       | Text and icons on top of surfaces.                    |
   /// | `#F1C40F`  | `ColorScheme.onError`         | Text and icons on top of error color surfaces.        |
   /// | `#000000`  | `TextTheme.bodyNormal.color`  | Normal text color.                                    |
+  /// | `#0037ff`  | `Theme.scaffoldBackgroundColor`| Background color of the app.                         |
+  /// | `#00ff40`  | `Theme.dividerColor`          | Color of dividers between elements.                   |
+  /// | `#`
   /// {@endtemplate}
   SvgPicture themed(
     BuildContext context, {
@@ -93,6 +96,8 @@ class ContextColorMapper extends ColorMapper {
       const Color(0xFF17202A): colorScheme.onSurface,
       const Color(0xFFF1C40F): colorScheme.onError,
       const Color(0xFF000000): textTheme.bodyMedium?.color,
+      const Color(0xFF0037ff): theme.scaffoldBackgroundColor,
+      const Color(0xFF00ff40): theme.dividerColor,
     });
   }
 

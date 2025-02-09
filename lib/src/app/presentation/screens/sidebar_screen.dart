@@ -12,6 +12,7 @@ class SidebarScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final currentLocale = Localizations.localeOf(context);
     Intl.defaultLocale = currentLocale.languageCode;
+    DesktopGuard.listen(context);
 
     return const Scaffold(
       body: Row(

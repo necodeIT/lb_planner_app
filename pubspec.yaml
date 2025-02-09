@@ -111,6 +111,7 @@ flutter:
   assets:
     - assets/logo.svg
     - assets/404.svg
+    - assets/mobile.svg
     - assets/no-results.svg
     - assets/auth/
     - assets/moodle/

@@ -38,9 +38,9 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   Widget build(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      preventMissfire();
-    });
+    DesktopGuard.listen(context);
+
+    runAfterBuild(preventMissfire);
 
     return Scaffold(
       body: Stack(

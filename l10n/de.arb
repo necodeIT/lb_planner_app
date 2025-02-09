@@ -684,5 +684,14 @@
     "slots_weekday_sunday": "Sonntag",
     "@slots_weekday_sunday": {
         "description": "Label for Sunday in slot editing."
+    },
+    "mobile": "Sorry, {appname} ist derzeit nur für Desktop geräte verfügbar. Bitte öffne die App auf einem Desktop-Gerät, um fortzufahren.",
+    "@mobile": {
+        "description": "Error message displayed when the user tries to access the app on a mobile device.",
+        "placeholders": {
+            "appname": {
+                "type": "String"
+            }
+        }
     }
 }
