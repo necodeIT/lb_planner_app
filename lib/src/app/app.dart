@@ -56,6 +56,12 @@ class AppModule extends Module {
   void routes(RouteManager r) {
     r
       ..child(
+        '/mobile',
+        child: (_) => const MobileScreen(),
+        transition: TransitionType.custom,
+        customTransition: defaultTransition,
+      )
+      ..child(
         '/',
         child: (_) => const SidebarScreen(),
         children: [
@@ -105,6 +111,7 @@ class AppModule extends Module {
         guards: [
           AuthGuard(redirectTo: '/auth/'),
           HasCoursesGuard(),
+          DesktopGuard(),
         ],
       )
       ..module(
@@ -112,6 +119,9 @@ class AppModule extends Module {
         module: AuthModule(),
         customTransition: defaultTransition,
         transition: TransitionType.custom,
+        guards: [
+          DesktopGuard(),
+        ],
       )
       ..module(
         '/moodle',
@@ -120,6 +130,7 @@ class AppModule extends Module {
         transition: TransitionType.custom,
         guards: [
           AuthGuard(redirectTo: '/auth/'),
+          DesktopGuard(),
         ],
       );
   }
