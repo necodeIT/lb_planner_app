@@ -128,7 +128,11 @@
     "@auth_dataCollectionConsent": {
         "description": "Consent text for data collection and processing."
     },
-    "auth_privacyPolicy": "Datenschutzerklärung.",
+    "auth_dataCollectionConsentSuffix": ".",
+    "@auth_dataCollectionConsentSuffix": {
+        "description": "Suffix to the consent string"
+    },
+    "auth_privacyPolicy": "Datenschutzerklärung",
     "@auth_privacyPolicy": {
         "description": "Label for the privacy policy link."
     },
@@ -482,6 +486,10 @@
     "@settings_feedback_consent": {
         "description": "Consent text for sharing personal details with the developers."
     },
+    "settings_feedback_consentSuffix": " zu.",
+    "@settings_feedback_consentSuffix": {
+        "description": "Suffix to the consent string"
+    },
     "settings_feedback_submit": "Feedback absenden",
     "@settings_feedback_submit": {
         "description": "Button label to submit feedback."
@@ -531,7 +539,7 @@
     "@settings_general_enableEK": {
         "description": "Option to enable EK modules in settings."
     },
-    "settings_general_displayTaskCount": "Aufgabenzähler anzeigen",
+    "settings_general_displayTaskCount": "Anzahl der Aufgaben anzeigen",
     "@settings_general_displayTaskCount": {
         "description": "Option to toggle the display of the task count."
     },
