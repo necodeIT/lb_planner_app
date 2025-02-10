@@ -177,6 +177,10 @@ class _LoginFormState extends State<LoginForm> {
                               launchUrl(kPrivacyPolicyUrl);
                             },
                         ),
+                        TextSpan(
+                          text: context.t.auth_dataCollectionConsentSuffix,
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ],
                     ),
                   ).expanded(),

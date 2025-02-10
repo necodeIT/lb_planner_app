@@ -128,6 +128,10 @@
     "@auth_dataCollectionConsent": {
         "description": "Consent text for data collection and processing."
     },
+    "auth_dataCollectionConsentSuffix": ".",
+    "@auth_dataCollectionConsentSuffix": {
+        "description": "Suffix to the consent string"
+    },
     "auth_privacyPolicy": "Privacy Policy",
     "@auth_privacyPolicy": {
         "description": "Label for the privacy policy link."
@@ -481,6 +485,10 @@
     "settings_feedback_consent": "I agree to sharing my email address and name with the developers in accordance with our ",
     "@settings_feedback_consent": {
         "description": "Consent text for sharing personal details with the developers."
+    },
+    "settings_feedback_consentSuffix": ".",
+    "@settings_feedback_consentSuffix": {
+        "description": "Suffix to the consent string"
     },
     "settings_feedback_submit": "Submit Feedback",
     "@settings_feedback_submit": {

@@ -209,6 +209,9 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
                                         launchUrl(kPrivacyPolicyUrl);
                                       },
                                   ),
+                                  TextSpan(
+                                    text: context.t.settings_feedback_consentSuffix,
+                                  ),
                                 ],
                               ),
                               style: const TextStyle(fontSize: 12),
