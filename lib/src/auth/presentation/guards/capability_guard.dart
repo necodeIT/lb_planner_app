@@ -17,6 +17,8 @@ class CapabilityGuard extends RouteGuard {
       return false;
     }
 
+    await user.ready;
+
     if (!user.state.hasData) {
       return false;
     }

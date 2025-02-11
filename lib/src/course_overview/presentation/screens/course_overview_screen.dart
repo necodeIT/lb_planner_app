@@ -39,7 +39,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
     super.didChangeDependencies();
 
     Data.of<TitleBarState>(context)
-      ..setParentRoute('/course-overview')
+      ..setParentRoute('/course-overview/')
       ..setSearchController(_searchController);
   }
 
