@@ -11,10 +11,12 @@ class DesktopGuard extends RouteGuard {
   DesktopGuard({this.invert = false, super.redirectTo = '/mobile'});
 
   /// The minimum window size to be considered a desktop device.
-  static const minWindowSize = Size(512, 1024);
+  static const minWindowSize = Size(512, 512);
 
   @override
   Future<bool> canActivate(String path, ModularRoute route) async {
+    return true;
+
     final size = MediaQueryData.fromView(PlatformDispatcher.instance.views.first).size;
 
     return invert ? size < minWindowSize : size >= minWindowSize;
@@ -22,6 +24,8 @@ class DesktopGuard extends RouteGuard {
 
   /// Listens for window size changes and redirects the user if necessary.
   static void listen(BuildContext context, {bool invert = false, String redirectTo = '/mobile'}) {
+    return;
+
     final size = MediaQuery.sizeOf(context);
 
     if (invert ? size >= minWindowSize : size < minWindowSize) {
