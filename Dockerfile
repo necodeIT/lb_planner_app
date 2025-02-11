@@ -21,6 +21,7 @@ ARG ECHIDNA_CLIENT_KEY
 ARG ECHIDNA_CLIENT_ID
 ARG ECHIDNA_HOST
 ARG CALENDAR_PLAN_FEATURE_ID
+ARG BASE_HREF
 
 # Write args into .env file
 RUN echo "MOODLE_ENDPOINT=$MOODLE_ENDPOINT" > .env
@@ -90,7 +91,7 @@ RUN sed -i "s/RELEASE_DATE=.*/RELEASE_DATE=$(cat .release_date)/g" .env
 RUN fvm flutter pub get
 
 # Build the app without tree shaking icons because it currently crashes the build (idk if its a package issue or a flutter issue)
-RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env --no-tree-shake-icons
+RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env --no-tree-shake-icons --base-href $BASE_HREF
 
 RUN sed -i "s/secondsSinceEpoch/$(date +%s)/g" /usr/share/nginx/html/index.html
 
