@@ -75,7 +75,7 @@ class AppModule extends Module {
             customTransition: defaultTransition,
             guards: [
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
-              FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
+              // FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
             ],
           ),
           ModuleRoute(
