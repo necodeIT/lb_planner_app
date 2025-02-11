@@ -1,4 +1,4 @@
-FROM nginx:alpine-slim
+FROM nginx:bookworm
 
 ARG MOODLE_ENDPOINT
 ARG LB_PLANNER_ENDPOINT
@@ -46,7 +46,7 @@ RUN echo "ECHIDNA_CLIENT_ID=$ECHIDNA_CLIENT_ID" >> .env
 RUN echo "ECHIDNA_HOST=$ECHIDNA_HOST" >> .env
 RUN echo "CALENDAR_PLAN_FEATURE_ID=$CALENDAR_PLAN_FEATURE_ID" >> .env
 
-RUN apk update && apk add --no-cache curl git unzip bash tar coreutils grep sed libc6-compat shadow
+RUN apt-get update && apt-get install -y curl git unzip && apt-get clean
 
 RUN chsh -s /bin/bash
 
@@ -105,7 +105,6 @@ RUN fvm flutter clean
 
 RUN rm -rf .git .version .build_number
 RUN rm -rf ~/fvm
-RUN apk del curl git unzip bash tar coreutils grep sed libc6-compat shadow
 
 EXPOSE 80
 
