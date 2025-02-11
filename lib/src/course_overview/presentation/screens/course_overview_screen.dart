@@ -65,98 +65,112 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = context.watch<MoodleTasksRepository>().filter(courseId: widget.id, query: _searchController.text)
+    final tasks = context
+        .watch<MoodleTasksRepository>()
+        .filter(courseId: widget.id, query: _searchController.text)
       ..sort(
         (a, b) => sorter(a, b) * (sortAscending ? 1 : -1),
       );
-    final deadlines = context.watch<CalendarPlanRepository>().filterDeadlines(taskIds: tasks.map((t) => t.id).toSet());
+    final deadlines = context
+        .watch<CalendarPlanRepository>()
+        .filterDeadlines(taskIds: tasks.map((t) => t.id).toSet());
 
-    final course = context.watch<MoodleCoursesRepository>().filter(id: widget.id).firstOrNull;
+    final course = context
+        .watch<MoodleCoursesRepository>()
+        .filter(id: widget.id)
+        .firstOrNull;
 
     return Padding(
       padding: PaddingAll(),
-      child: DataTable(
-        sortColumnIndex: sortColumn,
-        sortAscending: sortAscending,
-        columns: [
-          DataColumn(
-            label: Text(context.t.courses_name),
-            onSort: sortBy,
-          ),
-          DataColumn(
-            label: Text(context.t.courses_type),
-            onSort: sortBy,
-          ),
-          DataColumn(
-            label: Text(context.t.courses_status),
-            onSort: sortBy,
-          ),
-          DataColumn(
-            label: Text(context.t.courses_dueDate),
-            onSort: sortBy,
-          ),
-          DataColumn(
-            label: Text(context.t.courses_plannedDueDate),
-            onSort: sortBy,
-          ),
-          DataColumn(
-            label: IconButton(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              onPressed: course != null
-                  ? () {
-                      launchUrlString(course.url);
-                    }
-                  : null,
-              icon: const Icon(
-                Icons.link,
+      child: SingleChildScrollView(
+        child: DataTable(
+          sortColumnIndex: sortColumn,
+          sortAscending: sortAscending,
+          columns: [
+            DataColumn(
+              label: Text(context.t.courses_name),
+              onSort: sortBy,
+            ),
+            DataColumn(
+              label: Text(context.t.courses_type),
+              onSort: sortBy,
+            ),
+            DataColumn(
+              label: Text(context.t.courses_status),
+              onSort: sortBy,
+            ),
+            DataColumn(
+              label: Text(context.t.courses_dueDate),
+              onSort: sortBy,
+            ),
+            DataColumn(
+              label: Text(context.t.courses_plannedDueDate),
+              onSort: sortBy,
+            ),
+            DataColumn(
+              label: IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                onPressed: course != null
+                    ? () {
+                        launchUrlString(course.url);
+                      }
+                    : null,
+                icon: const Icon(
+                  Icons.link,
+                ),
               ),
             ),
-          ),
-        ],
-        rows: tasks.map(
-          (t) {
-            final planDeadline = deadlines.firstWhereOrNull((d) => d.id == t.id)?.start;
+          ],
+          rows: tasks.map(
+            (t) {
+              final planDeadline =
+                  deadlines.firstWhereOrNull((d) => d.id == t.id)?.start;
 
-            return DataRow(
-              cells: [
-                DataCell(Text(t.name)),
-                DataCell(
-                  Text(
-                    t.type.translate(context),
-                  ),
-                ),
-                DataCell(
-                  Text(t.status.translate(context)),
-                ),
-                DataCell(
-                  Text(t.deadline != null ? CourseOverviewScreen.formatter.format(t.deadline!) : context.t.global_nA),
-                ),
-                DataCell(
-                  Text(
-                    planDeadline != null ? CourseOverviewScreen.formatter.format(planDeadline) : context.t.global_nA,
-                  ),
-                ),
-                DataCell(
-                  IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onPressed: () {
-                      launchUrlString(t.url);
-                    },
-                    icon: Icon(
-                      Icons.link,
-                      color: context.theme.colorScheme.primary,
+              return DataRow(
+                cells: [
+                  DataCell(Text(t.name)),
+                  DataCell(
+                    Text(
+                      t.type.translate(context),
                     ),
                   ),
-                ),
-              ],
-            );
-          },
-        ).toList(),
-      ).show(AnimationStagger()),
+                  DataCell(
+                    Text(t.status.translate(context)),
+                  ),
+                  DataCell(
+                    Text(t.deadline != null
+                        ? CourseOverviewScreen.formatter.format(t.deadline!)
+                        : context.t.global_nA,),
+                  ),
+                  DataCell(
+                    Text(
+                      planDeadline != null
+                          ? CourseOverviewScreen.formatter.format(planDeadline)
+                          : context.t.global_nA,
+                    ),
+                  ),
+                  DataCell(
+                    IconButton(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      onPressed: () {
+                        launchUrlString(t.url);
+                      },
+                      icon: Icon(
+                        Icons.link,
+                        color: context.theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ).toList(),
+        ).show(AnimationStagger()),
+      ),
     );
   }
 }
