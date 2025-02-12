@@ -50,11 +50,6 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         shape: squircle(),
       ),
       dataTableTheme: DataTableThemeData(
-        decoration: ShapeDecoration(
-          shape: squircle(),
-          color: themeBase.primaryColor,
-          shadows: kElevationToShadow[6],
-        ),
         dataRowColor: WidgetStateColor.fromMap({
           WidgetState.hovered: themeBase.accentColor,
           WidgetState.selected: themeBase.accentColor,
