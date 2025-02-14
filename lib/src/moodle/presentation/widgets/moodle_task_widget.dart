@@ -18,10 +18,14 @@ class MoodleTaskWidget extends StatelessWidget {
     this.displayMode = MoodleTaskWidgetDisplayMode.nameAndCourse,
     this.enableContextMenu = true,
     this.additionalContextMenuItems = const [],
+    this.highlight = false,
   });
 
   /// The task to render.
   final MoodleTask task;
+
+  /// If true, the widget will have a border around it.
+  final bool highlight;
 
   /// The display mode of the widget.
   final MoodleTaskWidgetDisplayMode displayMode;
@@ -77,6 +81,7 @@ class MoodleTaskWidget extends StatelessWidget {
                 Text(
                   task.name,
                   overflow: TextOverflow.ellipsis,
+                  style: highlight ? const TextStyle(fontWeight: FontWeight.bold) : null,
                 ).withTooltip(task.name).expanded(),
                 if (displayMode != MoodleTaskWidgetDisplayMode.nameAndCourse) Spacing.xsHorizontal(),
                 switch (displayMode) {
