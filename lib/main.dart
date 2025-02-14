@@ -186,10 +186,11 @@ void main() async {
 
   await Sentry.init(
     (options) => options
-      ..dsn = kDebugMode ? '' : kSentryDSN
+      // ..dsn = kDebugMode ? '' : kSentryDSN
+      ..dsn = kSentryDSN
       ..environment = kInstalledRelease.channel.name
       ..release = kInstalledRelease.version.toString()
-      ..sampleRate = 0.5
+      ..sampleRate = 1
       ..debug = kDebugMode,
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();

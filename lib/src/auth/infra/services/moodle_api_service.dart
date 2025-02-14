@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:either_dart/either.dart';
 import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -23,7 +23,7 @@ class MoodleApiService extends ApiService {
   Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
-    final transaction = Sentry.getSpan()?.startChild(function) ?? Sentry.startTransaction(namespace, function);
+    final transaction = startTransaction(function);
 
     try {
       var payload = JSON.of(body)
