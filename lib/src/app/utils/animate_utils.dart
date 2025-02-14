@@ -22,7 +22,7 @@ extension AnimateUtils on List<Widget> {
     Curve? curve,
     double begin = 2,
     double end = 0,
-    int limit = 8,
+    int limit = 16,
   }) {
     assert(limit >= 0, 'Limit must be positive');
 

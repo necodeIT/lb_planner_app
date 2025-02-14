@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -19,6 +20,8 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
   FutureOr<void> build(BuildTrigger trigger) async {
     if (!_tasks.state.hasData) return;
 
+    final transaction = startTransaction('loadGlobalStats');
+
     final user = waitForData(_user);
 
     data(
@@ -32,5 +35,6 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
         ),
       ),
     );
+    await transaction.finish();
   }
 }

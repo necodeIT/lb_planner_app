@@ -44,10 +44,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
-    await _loadPlan(waitForData(_auth));
-  }
+    final tokens = waitForData(_auth);
 
-  Future<void> _loadPlan(Set<Token> tokens) async {
     log('Loading plan...');
 
     if (tokens.isEmpty) {
@@ -62,11 +60,18 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
+    final transaction = startTransaction('loadPlan');
+
     await guard(
       () => _plan.getPlan(tokens[Webservice.lb_planner_api]),
       onData: (_) => log('Plan loaded.'),
-      onError: (e, s) => log('Failed to load plan.', e, s),
+      onError: (e, s) {
+        transaction.internalError(e);
+        log('Failed to load plan.', e, s);
+      },
     );
+
+    await transaction.finish();
   }
 
   /// Clears the plan.
@@ -76,6 +81,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       return;
     }
+
+    final transaction = startTransaction('clear');
 
     try {
       data(state.requireData.copyWith(deadlines: []));
@@ -88,9 +95,10 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       await build(this);
     } catch (e, st) {
+      transaction.internalError(e);
       log('Failed to clear plan.', e, st);
-
-      return;
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -101,6 +109,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       return;
     }
+
+    final transaction = startTransaction('setDeadline');
 
     try {
       final deadline = PlanDeadline(
@@ -130,9 +140,11 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       await _tasks.build(this);
       await build(this);
     } catch (e, st) {
-      log('Failed to set deadline.', e, st);
+      transaction.internalError(e);
 
-      return;
+      log('Failed to set deadline.', e, st);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -143,6 +155,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       return;
     }
+
+    final transaction = startTransaction('removeDeadline');
 
     try {
       data(
@@ -163,9 +177,11 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       await _tasks.build(this);
       await build(this);
     } catch (e, st) {
-      log('Failed to remove deadline.', e, st);
+      transaction.internalError(e);
 
-      return;
+      log('Failed to remove deadline.', e, st);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -177,6 +193,10 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
+    log('Leaving plan...');
+
+    final transaction = startTransaction('leavePlan');
+
     try {
       await _plan.leavePlan(_auth.state.requireData[Webservice.lb_planner_api]);
 
@@ -186,7 +206,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     } catch (e, st) {
       log('Failed to leave plan.', e, st);
 
-      return;
+      transaction.internalError(e);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -197,6 +219,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       return;
     }
+
+    final transaction = startTransaction('kickMember');
 
     try {
       await _plan.removeMember(
@@ -210,7 +234,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     } catch (e, st) {
       log('Failed to remove member.', e, st);
 
-      return;
+      transaction.internalError(e);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -221,6 +247,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       return;
     }
+
+    final transaction = startTransaction('chmodMember');
 
     try {
       await _plan.chmod(
@@ -235,7 +263,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     } catch (e, st) {
       log('Failed to modify member.', e, st);
 
-      return;
+      transaction.internalError(e);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -247,6 +277,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
+    final transaction = startTransaction('changeName');
+
     try {
       await _plan.updatePlan(
         _auth.state.requireData[Webservice.lb_planner_api],
@@ -257,7 +289,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
     } catch (e, st) {
       log('Failed to change name.', e, st);
 
-      return;
+      transaction.internalError(e);
+    } finally {
+      await transaction.finish();
     }
   }
 

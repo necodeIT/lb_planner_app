@@ -1,3 +1,4 @@
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/slots/slots.dart';
 
@@ -21,6 +22,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
   @override
   Future<CourseToSlot> addSlotMapping({required String token, required CourseToSlot mapping}) async {
+    final transaction = startTransaction('addSlotMapping');
     log('Pushing slot mapping to server: $mapping');
 
     final json = mapping.toJson()..remove('id');
@@ -33,11 +35,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
+    await transaction.finish();
+
     return CourseToSlot.fromJson(response.asJson);
   }
 
   @override
   Future<void> addSupervisor({required String token, required int slotId, required int supervisorId}) async {
+    final transaction = startTransaction('addSupervisor');
     log('Adding supervisor $supervisorId to slot $slotId');
 
     await api.callFunction(
@@ -48,10 +53,12 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
+    await transaction.finish();
   }
 
   @override
   Future<void> removeSupervisor({required String token, required int slotId, required int supervisorId}) async {
+    final transaction = startTransaction('removeSupervisor');
     log('Removing supervisor $supervisorId to slot $slotId');
 
     await api.callFunction(
@@ -59,10 +66,13 @@ class StdSlotsDatasource extends SlotsDatasource {
       body: {'slotid': slotId, 'userid': supervisorId},
       token: token,
     );
+
+    await transaction.finish();
   }
 
   @override
   Future<void> cancelReservation({required String token, required int reservationId, bool force = false}) async {
+    final transaction = startTransaction('cancelReservation');
     log('Cancelling reservation $reservationId');
 
     await api.callFunction(
@@ -73,10 +83,12 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
+    await transaction.finish();
   }
 
   @override
   Future<Slot> createSlot({required String token, required Slot slot}) async {
+    final transaction = startTransaction('createSlot');
     log('Creating slot $slot');
 
     final json = slot.toJson()
@@ -91,11 +103,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
+    await transaction.finish();
+
     return Slot.fromJson(response.asJson);
   }
 
   @override
   Future<void> deleteSlot({required String token, required int slotId}) async {
+    final transaction = startTransaction('deleteSlot');
     log('Deleting slot $slotId');
 
     await api.callFunction(
@@ -105,10 +120,12 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
+    await transaction.finish();
   }
 
   @override
   Future<void> deleteSlotMapping({required String token, required int mappingId}) async {
+    final transaction = startTransaction('deleteSlotMapping');
     log('Deleting slot mapping $mappingId');
 
     await api.callFunction(
@@ -118,10 +135,12 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
+    await transaction.finish();
   }
 
   @override
   Future<List<Reservation>> getSlotReservations({required String token, required int slotId}) async {
+    final transaction = startTransaction('getSlotReservations');
     log('Fetching reservations for slot $slotId');
 
     final response = await api.callFunction(
@@ -134,11 +153,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Reservation.fromJson).toList();
   }
 
   @override
   Future<List<Slot>> getSlots(String token) async {
+    final transaction = startTransaction('getSlots');
     log('Fetching slots');
 
     final response = await api.callFunction(
@@ -148,11 +170,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Slot.fromJson).toList();
   }
 
   @override
   Future<List<Slot>> getStudentSlots({required String token, required int studentId}) async {
+    final transaction = startTransaction('getStudentSlots');
     log('Fetching student slots for student $studentId');
 
     final response = await api.callFunction(
@@ -165,11 +190,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Slot.fromJson).toList();
   }
 
   @override
   Future<List<Slot>> getSupervisedSlots(String tokrn) async {
+    final transaction = startTransaction('getSupervisedSlots');
     log('Fetching supervised slots');
 
     final response = await api.callFunction(
@@ -179,11 +207,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Slot.fromJson).toList();
   }
 
   @override
   Future<List<Reservation>> getUserReservations(String token) async {
+    final transaction = startTransaction('getUserReservations');
     log('Fetching user reservations');
 
     final response = await api.callFunction(
@@ -193,11 +224,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Reservation.fromJson).toList();
   }
 
   @override
   Future<Reservation> reserveSlot({required String token, required int slotId, required DateTime date, int? studentId}) async {
+    final transaction = startTransaction('reserveSlot');
     log('Reserving slot $slotId on $date');
 
     final response = await api.callFunction(
@@ -212,11 +246,14 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
+    await transaction.finish();
+
     return Reservation.fromJson(response.asJson);
   }
 
   @override
   Future<void> updateSlot({required String token, required Slot slot}) async {
+    final transaction = startTransaction('updateSlot');
     log('Updating slot $slot');
 
     final json = slot.toJson()..removeWhere((key, value) => !slotKeyWhitelist.contains(key));
@@ -226,16 +263,21 @@ class StdSlotsDatasource extends SlotsDatasource {
       body: json,
       token: token,
     );
+
+    await transaction.finish();
   }
 
   @override
   Future<List<Slot>> getAllSlots(String token) async {
+    final transaction = startTransaction('getAllSlots');
     log('Getting all slots');
 
     final response = await api.callFunction(
       function: 'local_lbplanner_slots_get_all_slots',
       token: token,
     );
+
+    await transaction.finish();
 
     return response.asList.map(Slot.fromJson).toList();
   }

@@ -1,3 +1,4 @@
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 
@@ -16,6 +17,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
 
   @override
   Future<void> clearDeadlines(String token) async {
+    final transaction = startTransaction('clearDeadlines');
     log('Clearing deadlines');
 
     try {
@@ -29,11 +31,14 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
     } catch (e, s) {
       log('Failed to clear deadlines', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> removeDeadline(String token, int id) async {
+    final transaction = startTransaction('removeDeadline');
     log('Removing deadline $id');
 
     try {
@@ -49,11 +54,14 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
     } catch (e, s) {
       log('Failed to remove deadline $id', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> setDeadline(String token, PlanDeadline deadline) async {
+    final transaction = startTransaction('setDeadline');
     log('Setting deadline ${deadline.id}');
 
     try {
@@ -67,6 +75,8 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
     } catch (e, s) {
       log('Failed to set deadline $deadline', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 }

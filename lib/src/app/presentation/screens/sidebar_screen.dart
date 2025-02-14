@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
@@ -29,10 +30,8 @@ class _SidebarScreenState extends State<SidebarScreen> {
     Intl.defaultLocale = currentLocale.languageCode;
     DesktopGuard.listen(context);
 
-    if (!showedDisclaimer) {
+    if (!showedDisclaimer && !kDebugMode) {
       showedDisclaimer = true;
-
-      print('Showing disclaimer dialog');
 
       runAfterBuild(showDisclaimerDialog);
     }

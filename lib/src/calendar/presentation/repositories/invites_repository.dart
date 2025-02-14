@@ -20,6 +20,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
+    final transaction = startTransaction('loadInvites');
+
     final token = waitForData(_auth);
 
     await guard(
@@ -27,6 +29,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
         token.pick(Webservice.lb_planner_api),
       ),
     );
+
+    await transaction.finish();
   }
 
   /// Invites the user with the given [userId] to the plan.
@@ -36,6 +40,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     }
+
+    final transaction = startTransaction('inviteUser');
 
     try {
       await _invites.inviteUser(
@@ -50,6 +56,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       log('Failed to invite user.', e, st);
 
       return;
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -60,6 +68,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     }
+
+    final transaction = startTransaction('declineInvite');
 
     try {
       data(
@@ -82,6 +92,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       log('Failed to decline invite.', e, st);
 
       return;
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -92,6 +104,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     }
+
+    final transaction = startTransaction('acceptInvite');
 
     try {
       data(
@@ -116,6 +130,8 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       log('Failed to accept invite.', e, st);
 
       return;
+    } finally {
+      await transaction.finish();
     }
   }
 

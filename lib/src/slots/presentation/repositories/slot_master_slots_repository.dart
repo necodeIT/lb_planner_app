@@ -23,11 +23,13 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) {
+    final transaction = startTransaction('loadSlotMasterSlots');
     final token = waitForData(_auth);
 
     guard(
       () async => _datasource.getAllSlots(token.pick(Webservice.lb_planner_api)),
     );
+    transaction.finish();
   }
 
   /// Creates a new slot.
@@ -37,6 +39,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('createSlot');
     log('Creating slot with id ${slot.id}');
     try {
       final createdSlot = await _datasource.createSlot(
@@ -72,6 +75,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e, s) {
       log('Failed to create slot', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -82,6 +87,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('deleteSlot');
     log('Deleting slot with id $slotId');
     try {
       data(state.requireData.where((s) => s.id != slotId).toList());
@@ -97,6 +103,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       );
     } catch (e, s) {
       log('Failed to delete slot with id $slotId', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -107,6 +115,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('updateSlot');
     log('Updating slot with id ${slot.id}');
 
     try {
@@ -173,6 +182,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e, s) {
       log('Failed to update slot', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -183,6 +194,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('addSlotSupervisor');
     log('Adding supervisor $supervisorId to slot $slotId');
     try {
       data(
@@ -203,6 +215,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Added supervisor $supervisorId to slot $slotId');
     } catch (e, s) {
       log('Failed to add supervisor $supervisorId to slot $slotId', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -213,6 +227,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('removeSlotSupervisor');
     log('Removing supervisor $supervisorId from slot $slotId');
     try {
       data(
@@ -233,6 +248,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Removed supervisor $supervisorId from slot $slotId');
     } catch (e, s) {
       log('Failed to remove supervisor $supervisorId from slot $slotId', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -243,6 +260,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('addMapping');
     log('Adding mapping $mapping to slot $slotId');
 
     try {
@@ -263,6 +281,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Added mapping $mapping to slot $slotId');
     } catch (e, s) {
       log('Failed to add mapping $mapping to slot $slotId', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -273,6 +293,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       return;
     }
 
+    final transaction = startTransaction('deleteMappings');
     log('Deleting mapping $mappingId from slot $slotId');
 
     try {
@@ -293,6 +314,8 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Deleted mapping $mappingId from slot $slotId');
     } catch (e, s) {
       log('Failed to delete mapping $mappingId from slot $slotId', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 

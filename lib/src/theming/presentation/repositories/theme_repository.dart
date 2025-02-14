@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:lb_planner/src/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -27,16 +28,22 @@ class ThemeRepository extends Repository<ThemeData> {
   FutureOr<void> build(BuildTrigger trigger) async {
     if (!_user.state.hasData) return;
 
+    final transaction = startTransaction('loadThemes');
+
     setThemeByName(_user.state.requireData.themeName);
+
+    await transaction.finish();
   }
 
   /// Sets the theme to the provided [themeBase].
   void setTheme(ThemeBase themeBase) {
+    final transaction = startTransaction('setTheme');
     log('Setting theme to ${themeBase.name}');
 
     emit(_generator.generateTheme(themeBase));
 
     _currentTheme = themeBase;
+    transaction.finish();
   }
 
   /// Sets the theme by [name].

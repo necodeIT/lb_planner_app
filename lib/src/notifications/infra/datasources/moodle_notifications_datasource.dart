@@ -17,6 +17,7 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
 
   @override
   Future<List<Notification>> fetchNotifications(String token) async {
+    final transaction = startTransaction('fetchNotifications');
     final response = await _api.callFunction(
       token: token,
       function: 'local_lbplanner_notifications_get_all_notifications',
@@ -25,14 +26,18 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
 
     response.assertList();
 
+    await transaction.finish();
+
     return response.asList.map(Notification.fromJson).toList();
   }
 
   @override
   Future<void> markAllAsRead(String token, List<Notification> notifications) async {
+    final transaction = startTransaction('markAllAsRead');
     for (final notification in notifications) {
       await _setReadStatus(token, notification, true);
     }
+    await transaction.finish();
   }
 
   @override
@@ -53,6 +58,7 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
   }
 
   Future<void> _setReadStatus(String token, Notification notification, bool read) async {
+    final transaction = startTransaction('setReadStatus');
     await _api.callFunction(
       token: token,
       function: 'local_lbplanner_notifications_update_notification',
@@ -61,5 +67,6 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
         'status': const BoolConverter().toJson(read),
       },
     );
+    await transaction.finish();
   }
 }

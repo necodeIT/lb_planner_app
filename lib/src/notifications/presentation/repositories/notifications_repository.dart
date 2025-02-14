@@ -28,16 +28,22 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     if (_auth.state.requireData.isEmpty) return;
 
+    final transaction = startTransaction('loadNotifications');
+
     await guard(
       () => _datasource.fetchNotifications(
         _auth.state.requireData[Webservice.lb_planner_api],
       ),
     );
+
+    await transaction.finish();
   }
 
   /// Marks the given [notification] as read.
   Future<void> markAsRead(Notification notification) async {
     if (!state.hasData) return;
+
+    final transaction = startTransaction('markAsRead');
 
     data(
       state.requireData.map((e) {
@@ -55,6 +61,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     );
 
     await captureEvent('notification_read');
+
+    await transaction.finish();
   }
 
   /// Marks all notifications as read.
@@ -72,6 +80,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     log('Marking ${unread.length} notifications as read');
 
+    final transaction = startTransaction('markAllAsRead');
+
     await _datasource.markAllAsRead(
       _auth.state.requireData[Webservice.lb_planner_api],
       unread,
@@ -86,11 +96,14 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     log('All notifications marked as read');
 
     await captureEvent('notifications_read');
+    await transaction.finish();
   }
 
   /// Marks the given [notification] as unread.
   Future<void> unread(Notification notification) async {
     if (!state.hasData) return;
+
+    final transaction = startTransaction('unread');
 
     data(
       state.requireData.map((e) {
@@ -108,6 +121,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     );
 
     await captureEvent('notification_unread');
+
+    await transaction.finish();
   }
 
   /// Marks all notifications as unread.
@@ -125,6 +140,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     log('Marking ${read.length} notifications as unread');
 
+    final transaction = startTransaction('unrealAll');
+
     await _datasource.unreadAll(
       _auth.state.requireData[Webservice.lb_planner_api],
       read,
@@ -139,6 +156,8 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     log('All notifications marked as unread');
 
     await captureEvent('notifications_unread');
+
+    await transaction.finish();
   }
 
   /// The unread notifications.

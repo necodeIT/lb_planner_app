@@ -1,5 +1,5 @@
 import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Implementation of [AuthService] for Moodle.
@@ -19,50 +19,55 @@ class MoodleAuthService extends AuthService {
 
   @override
   Future<Set<Token>> authenticate({required String username, required String password, required Set<Webservice> webservices}) async {
+    final transaction = startTransaction('authenticate');
     log('Authenticating user $username for ${webservices.map((webService) => webService.name).join(', ')}');
 
     const url = '$kMoodleServerAdress/login/token.php';
 
     final tokens = <Token>{};
 
-    for (final webservice in webservices) {
-      final response = await _networkService.post(
-        url,
-        {
-          'username': username,
-          'password': password,
-          'service': webservice.name,
-          'moodlewsrestformat': 'json',
-        },
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      );
+    try {
+      for (final webservice in webservices) {
+        final response = await _networkService.post(
+          url,
+          {
+            'username': username,
+            'password': password,
+            'service': webservice.name,
+            'moodlewsrestformat': 'json',
+          },
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        );
 
-      if (response.isNotOk) {
-        final e = AuthException(response, webservice);
+        if (response.isNotOk) {
+          final e = AuthException(response, webservice);
 
-        log('Authentication failed', e);
+          log('Authentication failed', e);
 
-        throw e;
+          throw e;
+        }
+
+        final json = response.body as JSON;
+
+        final token = json['token'] as String?;
+
+        if (token == null) {
+          final e = _parseError(json, webservice);
+
+          log('Authentication failed', e);
+
+          throw e;
+        }
+
+        tokens.add(Token(token: token, webservice: webservice));
+
+        log('Authenticated user $username for ${webservice.name}');
       }
 
-      final json = response.body as JSON;
-
-      final token = json['token'] as String?;
-
-      if (token == null) {
-        final e = _parseError(json, webservice);
-
-        log('Authentication failed', e);
-
-        throw e;
-      }
-
-      tokens.add(Token(token: token, webservice: webservice));
-
-      log('Authenticated user $username for ${webservice.name}');
+      return tokens;
+    } finally {
+      await transaction.finish();
     }
-
-    return tokens;
   }
 
   AuthException _parseError(JSON body, Webservice webservice) {
@@ -79,6 +84,7 @@ class MoodleAuthService extends AuthService {
 
   @override
   Future<bool> verifyToken(Token token) async {
+    final transaction = startTransaction('verifyToken');
     log('Verifying token for ${token.webservice.name}');
 
     try {
@@ -131,6 +137,8 @@ class MoodleAuthService extends AuthService {
       log('Token verification failed', e, stack);
 
       return false;
+    } finally {
+      await transaction.finish();
     }
   }
 }

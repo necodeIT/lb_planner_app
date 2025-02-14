@@ -52,7 +52,6 @@ class _PlanCellState extends State<PlanCell> {
 
     final exams = allTasks.filter(
       type: {MoodleTaskType.exam},
-      deadlineDiff: Duration.zero,
       test: (t) => t.deadline?.isSameDate(widget.date) ?? false,
     );
 
@@ -105,13 +104,14 @@ class _PlanCellState extends State<PlanCell> {
                       .toList()
                       .vSpaced(Spacing.smallSpacing),
                   if (draggedTasks.isNotEmpty) Spacing.smallVertical(),
-                  if (exams.isNotEmpty) Spacing.smallVertical(),
                   ...exams.map(
                     (e) => MoodleTaskWidget(
                       task: e,
                       displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndIcon,
+                      highlight: true,
                     ),
                   ),
+                  if (exams.isNotEmpty) Spacing.smallVertical(),
                   ...tasks
                       .map(
                         (t) => LayoutBuilder(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -19,11 +20,13 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) {
+    final transaction = startTransaction('loadUsers');
     guard(
       () => _datasource.getUsers(
         waitForData(_auth).pick(Webservice.lb_planner_api),
       ),
     );
+    transaction.finish();
   }
 
   @override

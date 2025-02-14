@@ -40,6 +40,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       return;
     }
 
+    final transaction = startTransaction('loadAuth');
+
     final tokens = await _localStorage.read<Set<Token>>();
 
     for (final token in tokens) {
@@ -57,6 +59,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     data(tokens);
 
     if (isAuthenticated) PostHog().enable();
+
+    await transaction.finish();
   }
 
   /// Sign in with [username] and [password].
@@ -64,35 +68,46 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     required String username,
     required String password,
   }) async {
+    final transaction = startTransaction('authenticate');
+
     log('Authenticating with username $username');
 
-    emit(AsyncValue.loading());
+    try {
+      emit(AsyncValue.loading());
 
-    await guard(
-      () => _auth.authenticate(
-        username: username,
-        password: password,
-        webservices: Webservice.values.toSet(),
-      ),
-      onData: (p0) => captureEvent('user_login'),
-    );
+      await guard(
+        () => _auth.authenticate(
+          username: username,
+          password: password,
+          webservices: Webservice.values.toSet(),
+        ),
+        onData: (p0) => captureEvent('user_login'),
+      );
 
-    if (!state.hasData) return;
+      if (!state.hasData) return;
 
-    log('Authentication successful');
+      log('Authentication successful');
 
-    await _localStorage.write(state.requireData);
+      await _localStorage.write(state.requireData);
+    } finally {
+      await transaction.finish();
+    }
   }
 
   /// Sign out.
   Future<void> logout() async {
+    final transaction = startTransaction('logout');
     log('Logging out');
 
-    data({});
+    try {
+      data({});
 
-    await _localStorage.delete<Set<Token>>();
+      await _localStorage.delete<Set<Token>>();
 
-    PostHog().reset();
+      PostHog().reset();
+    } finally {
+      await transaction.finish();
+    }
   }
 
   /// `true` if the user is authenticated.

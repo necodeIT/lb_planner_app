@@ -18,9 +18,12 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
   @override
   Future<void> build(BuildTrigger trigger) async {
+    final transaction = startTransaction('loadCourses');
+
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getCourses(tokens[Webservice.lb_planner_api]));
+    await transaction.finish();
   }
 
   /// Updates the given [course].
@@ -30,6 +33,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
       return;
     }
+
+    final transaction = startTransaction('updateCourse');
 
     final tokens = _auth.state.requireData;
 
@@ -47,6 +52,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
         'shortname': course.shortname,
       },
     );
+
+    await transaction.finish();
   }
 
   /// Enables or disables the given [course].
@@ -67,6 +74,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
       return;
     }
 
+    final transaction = startTransaction('enableCourse');
+
     final updated = courses[index].copyWith(enabled: enabled);
 
     final updatedCourses = List<MoodleCourse>.from(courses)..[index] = updated;
@@ -76,6 +85,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
     await updateCourse(updated);
 
     await captureEvent('course_enabled', properties: {'id': course.id, 'enabled': enabled});
+
+    await transaction.finish();
   }
 
   /// Filters the courses based on the given properties.
