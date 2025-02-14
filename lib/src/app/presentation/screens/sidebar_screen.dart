@@ -32,8 +32,6 @@ class _SidebarScreenState extends State<SidebarScreen> {
     if (!showedDisclaimer) {
       showedDisclaimer = true;
 
-      print('Showing disclaimer dialog');
-
       runAfterBuild(showDisclaimerDialog);
     }
     return const Scaffold(
