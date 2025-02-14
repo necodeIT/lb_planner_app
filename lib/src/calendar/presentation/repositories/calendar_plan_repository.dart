@@ -44,10 +44,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
-    await _loadPlan(waitForData(_auth));
-  }
+    final tokens = waitForData(_auth);
 
-  Future<void> _loadPlan(Set<Token> tokens) async {
     log('Loading plan...');
 
     if (tokens.isEmpty) {
@@ -62,11 +60,18 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       return;
     }
 
+    final transaction = startTransaction('loadPlan');
+
     await guard(
       () => _plan.getPlan(tokens[Webservice.lb_planner_api]),
       onData: (_) => log('Plan loaded.'),
-      onError: (e, s) => log('Failed to load plan.', e, s),
+      onError: (e, s) {
+        transaction.internalError(e);
+        log('Failed to load plan.', e, s);
+      },
     );
+
+    await transaction.finish();
   }
 
   /// Clears the plan.
