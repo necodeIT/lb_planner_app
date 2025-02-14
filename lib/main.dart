@@ -186,8 +186,7 @@ void main() async {
 
   await Sentry.init(
     (options) => options
-      // ..dsn = kDebugMode ? '' : kSentryDSN
-      ..dsn = kSentryDSN
+      ..dsn = kDebugMode ? '' : kSentryDSN
       ..environment = kInstalledRelease.channel.name
       ..release = kInstalledRelease.version.toString()
       ..tracesSampleRate = 1
