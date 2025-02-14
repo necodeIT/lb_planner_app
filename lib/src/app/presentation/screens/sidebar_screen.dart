@@ -4,9 +4,24 @@ import 'package:intl/intl.dart';
 import 'package:lb_planner/src/app/app.dart';
 
 /// A screen that wraps its children in a [Sidebar].
-class SidebarScreen extends StatelessWidget {
+class SidebarScreen extends StatefulWidget {
   /// A screen that wraps its children in a [Sidebar].
   const SidebarScreen({super.key});
+
+  @override
+  State<SidebarScreen> createState() => _SidebarScreenState();
+}
+
+class _SidebarScreenState extends State<SidebarScreen> {
+  bool showedDisclaimer = false;
+
+  void showDisclaimerDialog() {
+    showMarkdownDialog(
+      context,
+      title: context.t.global_disclaimer_title,
+      markdown: context.t.global_disclaimer,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +29,13 @@ class SidebarScreen extends StatelessWidget {
     Intl.defaultLocale = currentLocale.languageCode;
     DesktopGuard.listen(context);
 
+    if (!showedDisclaimer) {
+      showedDisclaimer = true;
+
+      print('Showing disclaimer dialog');
+
+      runAfterBuild(showDisclaimerDialog);
+    }
     return const Scaffold(
       body: Row(
         children: [
