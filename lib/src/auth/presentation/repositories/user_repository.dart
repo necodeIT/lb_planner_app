@@ -26,6 +26,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
+    final transaction = startTransaction('loadUsers');
+
     final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
@@ -44,7 +46,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       );
 
       _isHandlingAuthChange = false;
-
+      await transaction.finish();
       return;
     }
 
@@ -79,9 +81,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     } catch (e, s) {
       log('Failed to fetch user data', e, s);
+    } finally {
+      _isHandlingAuthChange = false;
+      await transaction.finish();
     }
-
-    _isHandlingAuthChange = false;
   }
 
   Future<void> _updateUser(User patch) async {
@@ -92,6 +95,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     }
 
+    final transaction = startTransaction('updateUser');
     await guard(
       () => _userDatasource.updateUser(
         _auth.state.requireData[Webservice.lb_planner_api],
@@ -100,6 +104,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       onError: (e, s) => log('Failed to update user', e, s),
       onData: (user) => log('User updated successfully'),
     );
+    await transaction.finish();
   }
 
   /// Updates the user's theme.
@@ -110,8 +115,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     }
 
+    final transaction = startTransaction('setTheme');
     await captureEvent('theme_changed', properties: {'theme': theme});
 
+    await transaction.finish();
     return _updateUser(
       state.requireData.copyWith(themeName: theme),
     );
@@ -129,6 +136,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     }
 
+    final transaction = startTransaction('deleteUser');
+
     try {
       await _userDatasource.deleteUser(_auth.state.requireData[Webservice.lb_planner_api]);
 
@@ -139,6 +148,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('User deleted successfully.');
     } catch (e, s) {
       log('Failed to delete User.', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -157,6 +168,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       return;
     }
+
+    final transaction = startTransaction('enableOptionalTasks');
 
     try {
       final patch = state.requireData.copyWith(
@@ -177,6 +190,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('Failed to set optional tasks enabled.', e, st);
 
       return;
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -195,6 +210,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       return;
     }
+
+    final transaction = startTransaction('setDisplayTaskCount');
 
     try {
       final patch = state.requireData.copyWith(
@@ -215,6 +232,8 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('Failed to set optional tasks enabled.', e, st);
 
       return;
+    } finally {
+      await transaction.finish();
     }
   }
 

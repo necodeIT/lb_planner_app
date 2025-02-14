@@ -20,11 +20,13 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) {
+    final transaction = startTransaction('loadSupervisorSlots');
     waitForData(_auth);
 
     guard(
       () async => _datasource.getSupervisedSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
     );
+    transaction.finish();
   }
 
   /// Returns a list of reservations for the given [slotId].
@@ -33,8 +35,11 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Cannot get reservations for slot $slotId: No data');
       return [];
     }
+    final transaction = startTransaction('getSlotReservations');
 
     final token = waitForData(_auth).pick(Webservice.lb_planner_api);
+
+    await transaction.finish();
 
     return _datasource.getSlotReservations(token: token, slotId: slotId);
   }
