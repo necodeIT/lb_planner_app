@@ -105,102 +105,106 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthRepository>();
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          children: [
-            Assets.logo.themed(context, height: 100),
-            Spacing.mediumVertical(),
-            Text(context.t.auth_subtitle),
-            Spacing.mediumVertical(),
-            TextField(
-              controller: usernameController,
-              autofocus: true,
-              decoration: InputDecoration(
-                border: const UnderlineInputBorder(),
-                isDense: false,
-                filled: false,
-                labelText: context.t.auth_username,
-                prefixIcon: const Icon(Icons.person),
-                errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
-              ),
-              focusNode: usernameFocusNode,
-              onSubmitted: (_) => passwordFocusNode.requestFocus(),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: passwordController,
-              obscureText: !showPassword,
-              decoration: InputDecoration(
-                labelText: context.t.auth_password,
-                border: const UnderlineInputBorder(),
-                isDense: false,
-                filled: false,
-                prefixIcon: const Icon(Icons.key),
-                suffixIcon: IconButton(
-                  splashColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  icon: Icon(
-                    showPassword ? Icons.visibility : Icons.visibility_off,
-                    size: 20,
-                  ),
-                  onPressed: togglePasswordVisibility,
+    return AutofillGroup(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              Assets.logo.themed(context, height: 100),
+              Spacing.mediumVertical(),
+              Text(context.t.auth_subtitle),
+              Spacing.mediumVertical(),
+              TextField(
+                controller: usernameController,
+                autofocus: true,
+                autofillHints: const [AutofillHints.username],
+                decoration: InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  isDense: false,
+                  filled: false,
+                  labelText: context.t.auth_username,
+                  prefixIcon: const Icon(Icons.person),
+                  errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
                 ),
-                errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
+                focusNode: usernameFocusNode,
+                onSubmitted: (_) => passwordFocusNode.requestFocus(),
               ),
-              focusNode: passwordFocusNode,
-              onSubmitted: (_) => checkboxFocusNode.requestFocus(),
-            ),
-            Spacing.mediumVertical(),
-            GestureDetector(
-              onTap: acceptTerms,
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: acceptedTerms,
-                    onChanged: acceptTerms,
-                    focusNode: checkboxFocusNode,
-                  ),
-                  Spacing.xsHorizontal(),
-                  Text.rich(
-                    TextSpan(
-                      text: context.t.auth_dataCollectionConsent,
-                      style: const TextStyle(fontSize: 12),
-                      children: [
-                        TextSpan(
-                          text: context.t.auth_privacyPolicy,
-                          style: context.bodySmall?.copyWith(color: context.theme.colorScheme.primary),
-                          mouseCursor: SystemMouseCursors.click,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchUrl(kPrivacyPolicyUrl);
-                            },
-                        ),
-                        TextSpan(
-                          text: context.t.auth_dataCollectionConsentSuffix,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
+              const SizedBox(height: 16),
+              TextField(
+                controller: passwordController,
+                obscureText: !showPassword,
+                decoration: InputDecoration(
+                  labelText: context.t.auth_password,
+                  border: const UnderlineInputBorder(),
+                  isDense: false,
+                  filled: false,
+                  prefixIcon: const Icon(Icons.key),
+                  suffixIcon: IconButton(
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    icon: Icon(
+                      showPassword ? Icons.visibility : Icons.visibility_off,
+                      size: 20,
                     ),
-                  ).expanded(),
-                ],
+                    onPressed: togglePasswordVisibility,
+                  ),
+                  errorText: auth.state.hasError && !doesNotHavePermissions(auth) ? context.t.auth_invalidCredentials : null,
+                ),
+                autofillHints: const [AutofillHints.password],
+                focusNode: passwordFocusNode,
+                onSubmitted: (_) => checkboxFocusNode.requestFocus(),
               ),
-            ),
-            if (auth.state.hasError) const SizedBox(height: 16) else const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: passwordController.text.isEmpty || usernameController.text.isEmpty || !acceptedTerms ? null : login,
-              child: loggingIn ? const CircularProgressIndicator().button() : Text(context.t.auth_login).bold(),
-            ).stretch(),
-          ].show(),
-        ),
-        const SizedBox(height: 8),
-        if (!loggingIn && doesNotHavePermissions(auth))
-          Text(
-            context.t.auth_accessHint(kAppName),
-            style: context.bodySmall?.copyWith(color: context.theme.colorScheme.error),
-          ).animate().fadeIn(),
-      ],
+              Spacing.mediumVertical(),
+              GestureDetector(
+                onTap: acceptTerms,
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: acceptedTerms,
+                      onChanged: acceptTerms,
+                      focusNode: checkboxFocusNode,
+                    ),
+                    Spacing.xsHorizontal(),
+                    Text.rich(
+                      TextSpan(
+                        text: context.t.auth_dataCollectionConsent,
+                        style: const TextStyle(fontSize: 12),
+                        children: [
+                          TextSpan(
+                            text: context.t.auth_privacyPolicy,
+                            style: context.bodySmall?.copyWith(color: context.theme.colorScheme.primary),
+                            mouseCursor: SystemMouseCursors.click,
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrl(kPrivacyPolicyUrl);
+                              },
+                          ),
+                          TextSpan(
+                            text: context.t.auth_dataCollectionConsentSuffix,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ).expanded(),
+                  ],
+                ),
+              ),
+              if (auth.state.hasError) const SizedBox(height: 16) else const SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: passwordController.text.isEmpty || usernameController.text.isEmpty || !acceptedTerms ? null : login,
+                child: loggingIn ? const CircularProgressIndicator().button() : Text(context.t.auth_login).bold(),
+              ).stretch(),
+            ].show(),
+          ),
+          const SizedBox(height: 8),
+          if (!loggingIn && doesNotHavePermissions(auth))
+            Text(
+              context.t.auth_accessHint(kAppName),
+              style: context.bodySmall?.copyWith(color: context.theme.colorScheme.error),
+            ).animate().fadeIn(),
+        ],
+      ),
     );
   }
 }

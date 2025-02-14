@@ -190,7 +190,8 @@ void main() async {
       ..dsn = kSentryDSN
       ..environment = kInstalledRelease.channel.name
       ..release = kInstalledRelease.version.toString()
-      ..sampleRate = 1
+      ..tracesSampleRate = 1
+      ..tracePropagationTargets.clear()
       ..debug = kDebugMode,
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();

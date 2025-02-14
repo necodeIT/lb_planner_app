@@ -6,6 +6,7 @@ import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:posthog_dart/posthog_dart.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// UI state controller for the current user.
 class UserRepository extends Repository<AsyncValue<User>> {
@@ -56,8 +57,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       data(user);
 
+      final hash = sha256.convert(user.id.toString().codeUnits).toString();
+
       await PostHog().identify(
-        distinctId: sha256.convert(user.id.toString().codeUnits).toString(),
+        distinctId: hash,
         properties: {
           'capabilities': user.capabilities.map((c) => c.name).toList(),
           'vintage': user.vintage,
@@ -66,6 +69,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
           'display_task_count': user.displayTaskCount,
         },
       );
+
+      Sentry.configureScope((scope) {
+        scope.setUser(SentryUser(id: hash));
+      });
 
       _isHandlingAuthChange = false;
 
