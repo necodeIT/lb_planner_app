@@ -39,16 +39,18 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
 
     return Padding(
       padding: PaddingAll(),
-      child: Wrap(
-        runSpacing: Spacing.mediumSpacing,
-        spacing: Spacing.mediumSpacing,
-        children: [
-          for (final course in courses)
-            CourseOverviewCourse(
-              key: ValueKey('course_overview_${course.id}'),
-              course: course,
-            ),
-        ].show(),
+      child: SingleChildScrollView(
+        child: Wrap(
+          runSpacing: Spacing.mediumSpacing,
+          spacing: Spacing.mediumSpacing,
+          children: [
+            for (final course in courses)
+              CourseOverviewCourse(
+                key: ValueKey('course_overview_${course.id}'),
+                course: course,
+              ),
+          ].show(),
+        ),
       ),
     );
   }
