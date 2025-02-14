@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -19,9 +20,11 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
+    final transaction = startTransaction('loadSlotsMasterCourses');
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getAllCourses(tokens[Webservice.lb_planner_api]));
+    await transaction.finish();
   }
 
   /// Filters the courses based on the given properties.

@@ -25,11 +25,13 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) {
+    final transaction = startTransaction('loadSlots');
     waitForData(_auth);
 
     guard(
       () async => _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
     );
+    transaction.finish();
   }
 
   /// Books the given [slot] for the current user at the given [date].
@@ -50,6 +52,8 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
       return;
     }
+
+    final transaction = startTransaction('bookSlot');
 
     log('Reserving slot ${slot.id} for current user');
     try {
@@ -87,6 +91,8 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e) {
       log('Failed to reserve slot: $e');
+    } finally {
+      await transaction.finish();
     }
   }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:crypto/crypto.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -18,6 +19,8 @@ class EchidnaUserRepository extends UserIdRepository {
   FutureOr<void> build(BuildTrigger trigger) async {
     if (trigger is! UserRepository) return;
 
+    final transaction = startTransaction('loadEchidnaUser');
+
     final user = waitForData(_user);
 
     data(
@@ -25,5 +28,6 @@ class EchidnaUserRepository extends UserIdRepository {
         userId: sha256.convert(user.id.toString().codeUnits).toString(),
       ),
     );
+    await transaction.finish();
   }
 }

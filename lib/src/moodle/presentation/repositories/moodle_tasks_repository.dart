@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:lb_planner/config/endpoints.dart';
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
@@ -22,9 +23,11 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
+    final transaction = startTransaction("loadTasks");
     final tokens = waitForData(_auth);
 
     await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
+    await transaction.finish();
   }
 
   /// Filters all [MoodleTask]s based on the provided criteria.

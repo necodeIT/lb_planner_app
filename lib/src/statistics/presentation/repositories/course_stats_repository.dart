@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:lb_planner/src/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
@@ -23,6 +24,8 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
   FutureOr<void> build(BuildTrigger trigger) async {
     if (!_courses.state.hasData || !_tasks.state.hasData) return;
 
+    final transaction = startTransaction('loadCourseStats');
+
     final courses = _courses.state.requireData;
     final tasks = _tasks.state.requireData;
 
@@ -38,6 +41,7 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
         ),
       ),
     );
+    await transaction.finish();
   }
 
   /// Returns the statistics for the course with the given [courseId].

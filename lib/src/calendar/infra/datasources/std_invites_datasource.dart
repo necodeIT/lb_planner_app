@@ -1,3 +1,4 @@
+import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:lb_planner/src/moodle/moodle.dart';
 
@@ -16,6 +17,7 @@ class StdInvitesDatasource extends InvitesDatasource {
 
   @override
   Future<void> acceptInvite(String token, int id) async {
+    final transaction = startTransaction('acceptInvite');
     log('Accepting invite $id');
 
     try {
@@ -31,11 +33,14 @@ class StdInvitesDatasource extends InvitesDatasource {
     } catch (e, s) {
       log('Failed to accept invite $id', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> declineInvite(String token, int id) async {
+    final transaction = startTransaction('declineInvite');
     log('Declining invite $id');
 
     try {
@@ -51,11 +56,14 @@ class StdInvitesDatasource extends InvitesDatasource {
     } catch (e, s) {
       log('Failed to decline invite $id', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<List<PlanInvite>> getInvites(String token) async {
+    final transaction = startTransaction('getInvites');
     log('Getting invites');
 
     try {
@@ -75,11 +83,14 @@ class StdInvitesDatasource extends InvitesDatasource {
     } catch (e, s) {
       log('Failed to get invites', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<PlanInvite> inviteUser(String token, int userId) async {
+    final transaction = startTransaction('inviteUser');
     log('Inviting user $userId');
 
     try {
@@ -99,6 +110,8 @@ class StdInvitesDatasource extends InvitesDatasource {
     } catch (e, s) {
       log('Failed to invite user $userId', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 }
