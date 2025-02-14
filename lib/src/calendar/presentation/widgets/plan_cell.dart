@@ -52,7 +52,6 @@ class _PlanCellState extends State<PlanCell> {
 
     final exams = allTasks.filter(
       type: {MoodleTaskType.exam},
-      deadlineDiff: Duration.zero,
       test: (t) => t.deadline?.isSameDate(widget.date) ?? false,
     );
 
