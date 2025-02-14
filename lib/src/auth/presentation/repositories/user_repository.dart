@@ -60,6 +60,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
         distinctId: sha256.convert(user.id.toString().codeUnits).toString(),
         properties: {
           'capabilities': user.capabilities.map((c) => c.name).toList(),
+          'vintage': user.vintage,
+          'theme': user.themeName,
+          'optional_tasks_enabled': user.optionalTasksEnabled,
+          'display_task_count': user.displayTaskCount,
         },
       );
 

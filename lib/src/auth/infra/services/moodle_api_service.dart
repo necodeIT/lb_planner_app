@@ -4,6 +4,7 @@ import 'package:either_dart/either.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// Implementation of [ApiService] using the Moodle API.
 class MoodleApiService extends ApiService {
@@ -22,65 +23,77 @@ class MoodleApiService extends ApiService {
   Future<Either<List<JSON>, JSON>> callFunction({required String function, required String token, JSON body = const {}, bool redact = false}) async {
     log("Calling $function ${redact ? "with [redacted body]" : "with body ${jsonEncode(body)}"}");
 
-    var payload = JSON.of(body)
-      ..removeWhere((key, value) {
-        final remove = value == null;
+    final transaction = Sentry.getSpan()?.startChild(function) ?? Sentry.startTransaction(namespace, function);
 
-        if (remove) {
-          log('Removing null value for key $key');
+    try {
+      var payload = JSON.of(body)
+        ..removeWhere((key, value) {
+          final remove = value == null;
+
+          if (remove) {
+            log('Removing null value for key $key');
+          }
+
+          return remove;
+        });
+
+      // check for any bool values and convert them to 0 or 1
+      payload = payload.map((key, value) {
+        if (value is bool) {
+          return MapEntry(key, value ? 1 : 0);
         }
 
-        return remove;
+        return MapEntry(key, value);
       });
 
-    // check for any bool values and convert them to 0 or 1
-    payload = payload.map((key, value) {
-      if (value is bool) {
-        return MapEntry(key, value ? 1 : 0);
+      payload['wstoken'] = token;
+      payload['moodlewsrestformat'] = 'json';
+      payload['wsfunction'] = function;
+
+      final response = await _networkService.post(
+        '$kMoodleServerAdress/webservice/rest/server.php',
+        payload,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
+
+      if (response.isNotOk) {
+        final e = ApiServiceException('Could not reach server', response.statusCode, response.body);
+
+        log('Error calling function $function', e);
+
+        throw e;
       }
 
-      return MapEntry(key, value);
-    });
+      log("$function returned ${redact ? "[redacted body]" : "body ${jsonEncode(response.body)}"}");
 
-    payload['wstoken'] = token;
-    payload['moodlewsrestformat'] = 'json';
-    payload['wsfunction'] = function;
+      if (response.body == null) {
+        return const Right({});
+      }
 
-    final response = await _networkService.post(
-      '$kMoodleServerAdress/webservice/rest/server.php',
-      payload,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    );
+      if (response.body is List) {
+        // convert List<dynamic> to List<JSON>
+        final jsonList = (response.body as List<dynamic>).map((dynamic e) => e as JSON).toList();
 
-    if (response.isNotOk) {
-      final e = ApiServiceException('Could not reach server', response.statusCode, response.body);
+        return Left(jsonList);
+      }
 
-      log('Error calling function $function', e);
+      if (response.body['exception'] != null) {
+        final e = ApiServiceException(response.body['message'], response.statusCode, response.body);
 
-      throw e;
+        log('Error calling function $function', e);
+
+        throw e;
+      }
+
+      return Right(response.body);
+    } catch (e) {
+      transaction
+        ..throwable = e
+        ..status = const SpanStatus.internalError();
+
+      rethrow;
+    } finally {
+      await transaction.finish();
     }
-
-    log("$function returned ${redact ? "[redacted body]" : "body ${jsonEncode(response.body)}"}");
-
-    if (response.body == null) {
-      return const Right({});
-    }
-
-    if (response.body is List) {
-      // convert List<dynamic> to List<JSON>
-      final jsonList = (response.body as List<dynamic>).map((dynamic e) => e as JSON).toList();
-
-      return Left(jsonList);
-    }
-
-    if (response.body['exception'] != null) {
-      final e = ApiServiceException(response.body['message'], response.statusCode, response.body);
-
-      log('Error calling function $function', e);
-
-      throw e;
-    }
-
-    return Right(response.body);
   }
 }
