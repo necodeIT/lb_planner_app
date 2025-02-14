@@ -19,13 +19,15 @@ class LoginForm extends StatefulWidget {
   State<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   final usernameFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
   final checkboxFocusNode = FocusNode();
+
+  AppLifecycleState state = AppLifecycleState.resumed;
 
   bool loggingIn = false;
   bool showPassword = false;
@@ -41,6 +43,26 @@ class _LoginFormState extends State<LoginForm> {
     usernameController.addListener(() {
       setState(() {});
     });
+
+    WidgetsBinding.instance.addObserver(this);
+
+    usernameFocusNode.addListener(() {
+      if (state == AppLifecycleState.inactive) {
+        usernameFocusNode.requestFocus();
+      }
+    });
+
+    passwordFocusNode.addListener(() {
+      if (state == AppLifecycleState.inactive) {
+        passwordFocusNode.requestFocus();
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    this.state = state;
   }
 
   Future<void> login() async {
@@ -153,7 +175,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 autofillHints: const [AutofillHints.password],
                 focusNode: passwordFocusNode,
-                onSubmitted: (_) => checkboxFocusNode.requestFocus(),
+                onSubmitted: (_) => acceptedTerms ? login() : checkboxFocusNode.requestFocus(),
               ),
               Spacing.mediumVertical(),
               GestureDetector(
@@ -206,5 +228,17 @@ class _LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+
+    usernameController.dispose();
+    passwordController.dispose();
+    usernameFocusNode.dispose();
+    passwordFocusNode.dispose();
+    checkboxFocusNode.dispose();
   }
 }
