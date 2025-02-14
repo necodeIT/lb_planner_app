@@ -22,6 +22,7 @@ import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:posthog_dart/posthog_dart.dart';
+import 'package:sentry_dio/sentry_dio.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -104,6 +105,10 @@ void main() async {
     await initializeDateFormatting(locale.languageCode);
   }
 
+  CoreModule.onInitDio = (dio) {
+    dio.addSentry();
+  };
+
   Logger.root.onRecord.listen((record) {
     final scrubbed = LogRecord(
       record.level,
@@ -184,6 +189,7 @@ void main() async {
       ..dsn = kDebugMode ? '' : kSentryDSN
       ..environment = kInstalledRelease.channel.name
       ..release = kInstalledRelease.version.toString()
+      ..sampleRate = 0.5
       ..debug = kDebugMode,
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();

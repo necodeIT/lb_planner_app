@@ -1,5 +1,4 @@
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:lb_planner/lb_planner.dart';
 
 /// Standard [PlanDatasource] implementation.
 class StdPlanDatasource extends PlanDatasource {
@@ -16,6 +15,8 @@ class StdPlanDatasource extends PlanDatasource {
 
   @override
   Future<void> chmod(String token, int userId, PlanMemberAccessType accessType) async {
+    final transaction = startTransaction('chmod');
+
     log('Changing access type of user $userId to $accessType');
 
     try {
@@ -30,13 +31,19 @@ class StdPlanDatasource extends PlanDatasource {
 
       log('Access type of user $userId changed to $accessType');
     } catch (e, s) {
+      transaction.internalError(e);
+
       log('Failed to change access type of user $userId to $accessType', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<CalendarPlan> getPlan(String token) async {
+    final transaction = startTransaction('getPlan');
+
     log('Fetching plan');
 
     try {
@@ -52,13 +59,17 @@ class StdPlanDatasource extends PlanDatasource {
 
       return CalendarPlan.fromJson(response.asJson);
     } catch (e, s) {
+      transaction.internalError(e);
       log('Failed to fetch plan', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> leavePlan(String token) async {
+    final transaction = startTransaction('leavePlan');
     log('Leaving plan');
 
     try {
@@ -70,13 +81,18 @@ class StdPlanDatasource extends PlanDatasource {
 
       log('Successfully left plan');
     } catch (e, s) {
+      transaction.internalError(e);
       log('Failed to leave plan', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> removeMember(String token, int userId) async {
+    final transaction = startTransaction('removeMember');
+
     log('Removing member $userId');
 
     try {
@@ -90,13 +106,17 @@ class StdPlanDatasource extends PlanDatasource {
 
       log('Member $userId removed');
     } catch (e, s) {
+      transaction.internalError(e);
       log('Failed to remove member $userId', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 
   @override
   Future<void> updatePlan(String token, CalendarPlan plan) async {
+    final transaction = startTransaction('updatePlan');
     log('Updating plan');
 
     try {
@@ -110,8 +130,11 @@ class StdPlanDatasource extends PlanDatasource {
 
       log('Plan updated');
     } catch (e, s) {
+      transaction.internalError(e);
       log('Failed to update plan', e, s);
       rethrow;
+    } finally {
+      await transaction.finish();
     }
   }
 }
