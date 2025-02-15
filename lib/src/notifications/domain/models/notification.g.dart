@@ -44,6 +44,9 @@ const _$NotificationTypeEnumMap = {
   NotificationType.planLeft: 3,
   NotificationType.planRemoved: 4,
   NotificationType.newUser: 5,
+  NotificationType.unbookRequested: 6,
+  NotificationType.unbookForced: 7,
+  NotificationType.bookForced: 8,
 };
 
 Json? _$JsonConverterToJson<Json, Value>(
