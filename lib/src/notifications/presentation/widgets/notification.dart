@@ -278,3 +278,8 @@ Widget newUserMessage(BuildContext context, Notification notification) {
     ),
   );
 }
+
+/// Message builder for types not implemented yet.
+Widget unimplementedMessage(BuildContext context, Notification notification) {
+  return const Text('');
+}

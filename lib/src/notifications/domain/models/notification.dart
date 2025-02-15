@@ -4,9 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/notifications/notifications.dart';
+import 'package:lb_planner/lb_planner.dart';
 
 part 'notification.freezed.dart';
 part 'notification.g.dart';
@@ -73,7 +71,25 @@ enum NotificationType {
 
   /// The user has freshly installed the app.
   @JsonValue(5)
-  newUser(newUserMessage, noActions);
+  newUser(newUserMessage, noActions),
+
+  /// A teacher has requested the user to cancel a reservation.
+  ///
+  /// [Notification.context] is the [Reservation.id].
+  @JsonValue(6)
+  unbookRequested(unimplementedMessage, noActions),
+
+  /// A teacher has forcefully cancelled a reservation made by the user.
+  ///
+  /// [Notification.context] is the [Reservation.id].
+  @JsonValue(7)
+  unbookForced(unimplementedMessage, noActions),
+
+  /// A teacher has reserved a slot for the user.
+  ///
+  /// [Notification.context] is the [Reservation.id].
+  @JsonValue(8)
+  bookForced(unimplementedMessage, noActions);
 
   const NotificationType(this.message, this.actions);
 
