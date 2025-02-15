@@ -23,7 +23,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getCourses(tokens[Webservice.lb_planner_api]));
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Updates the given [course].
@@ -53,7 +53,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
       },
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Enables or disables the given [course].
@@ -86,7 +86,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
     await captureEvent('course_enabled', properties: {'id': course.id, 'enabled': enabled});
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Filters the courses based on the given properties.

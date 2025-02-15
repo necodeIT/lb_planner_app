@@ -66,7 +66,7 @@ class MoodleAuthService extends AuthService {
 
       return tokens;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -138,7 +138,7 @@ class MoodleAuthService extends AuthService {
 
       return false;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

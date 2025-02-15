@@ -24,7 +24,7 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
     final tokens = waitForData(_auth);
 
     await guard(() => _courses.getAllCourses(tokens[Webservice.lb_planner_api]));
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Filters the courses based on the given properties.

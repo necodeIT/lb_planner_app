@@ -93,7 +93,7 @@ class MoodleApiService extends ApiService {
 
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

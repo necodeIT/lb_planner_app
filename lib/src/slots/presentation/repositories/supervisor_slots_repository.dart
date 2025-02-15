@@ -39,7 +39,7 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
     final token = waitForData(_auth).pick(Webservice.lb_planner_api);
 
-    await transaction.finish();
+    await transaction.commit();
 
     return _datasource.getSlotReservations(token: token, slotId: slotId);
   }

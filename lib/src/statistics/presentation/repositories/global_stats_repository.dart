@@ -35,6 +35,6 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
         ),
       ),
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 }

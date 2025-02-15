@@ -26,7 +26,7 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Notification.fromJson).toList();
   }
@@ -37,7 +37,7 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
     for (final notification in notifications) {
       await _setReadStatus(token, notification, true);
     }
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -67,6 +67,6 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
         'status': const BoolConverter().toJson(read),
       },
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 }

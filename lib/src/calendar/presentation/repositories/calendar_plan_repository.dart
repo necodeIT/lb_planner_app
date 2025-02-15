@@ -71,7 +71,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       },
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Clears the plan.
@@ -98,7 +98,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
       transaction.internalError(e);
       log('Failed to clear plan.', e, st);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -144,7 +144,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       log('Failed to set deadline.', e, st);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -181,7 +181,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       log('Failed to remove deadline.', e, st);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -208,7 +208,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       transaction.internalError(e);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -236,7 +236,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       transaction.internalError(e);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -265,7 +265,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       transaction.internalError(e);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -291,7 +291,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
 
       transaction.internalError(e);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

@@ -28,6 +28,6 @@ class EchidnaUserRepository extends UserIdRepository {
         userId: sha256.convert(user.id.toString().codeUnits).toString(),
       ),
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 }

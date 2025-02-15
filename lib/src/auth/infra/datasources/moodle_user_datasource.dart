@@ -25,7 +25,7 @@ class MoodleUserDatasource extends UserDatasource {
         body: {},
       );
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -45,7 +45,7 @@ class MoodleUserDatasource extends UserDatasource {
 
       return User.fromJson(response.asJson);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -65,7 +65,7 @@ class MoodleUserDatasource extends UserDatasource {
 
       return response.asList.map(User.fromJson).toList();
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -92,7 +92,7 @@ class MoodleUserDatasource extends UserDatasource {
 
       return User.fromJson(response.asJson);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -114,7 +114,7 @@ class MoodleUserDatasource extends UserDatasource {
 
       return User.fromJson(response.asJson);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

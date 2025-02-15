@@ -32,7 +32,7 @@ class ThemeRepository extends Repository<ThemeData> {
 
     setThemeByName(_user.state.requireData.themeName);
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Sets the theme to the provided [themeBase].

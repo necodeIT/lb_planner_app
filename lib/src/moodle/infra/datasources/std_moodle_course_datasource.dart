@@ -26,7 +26,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       log('Failed to fetch courses', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -48,7 +48,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       log('Failed to fetch courses', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -68,7 +68,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       log('Failed to update course', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

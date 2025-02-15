@@ -92,7 +92,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e) {
       log('Failed to reserve slot: $e');
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

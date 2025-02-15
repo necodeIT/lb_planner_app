@@ -41,7 +41,7 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
         ),
       ),
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Returns the statistics for the course with the given [courseId].

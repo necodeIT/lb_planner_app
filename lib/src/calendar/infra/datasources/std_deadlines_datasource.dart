@@ -32,7 +32,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Failed to clear deadlines', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -55,7 +55,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Failed to remove deadline $id', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -76,7 +76,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Failed to set deadline $deadline', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

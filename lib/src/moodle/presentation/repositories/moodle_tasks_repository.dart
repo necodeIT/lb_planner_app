@@ -27,7 +27,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
     final tokens = waitForData(_auth);
 
     await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Filters all [MoodleTask]s based on the provided criteria.

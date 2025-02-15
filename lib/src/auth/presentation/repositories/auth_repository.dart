@@ -60,7 +60,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     if (isAuthenticated) PostHog().enable();
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Sign in with [username] and [password].
@@ -90,7 +90,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
       await _localStorage.write(state.requireData);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -106,7 +106,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
       PostHog().reset();
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

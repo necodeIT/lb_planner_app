@@ -30,7 +30,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       ),
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Invites the user with the given [userId] to the plan.
@@ -57,7 +57,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -93,7 +93,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -131,7 +131,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
 
       return;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

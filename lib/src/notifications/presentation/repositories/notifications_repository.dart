@@ -36,7 +36,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       ),
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Marks the given [notification] as read.
@@ -62,7 +62,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     await captureEvent('notification_read');
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Marks all notifications as read.
@@ -96,7 +96,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     log('All notifications marked as read');
 
     await captureEvent('notifications_read');
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Marks the given [notification] as unread.
@@ -122,7 +122,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     await captureEvent('notification_unread');
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Marks all notifications as unread.
@@ -157,7 +157,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     await captureEvent('notifications_unread');
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// The unread notifications.

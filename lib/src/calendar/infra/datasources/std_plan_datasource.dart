@@ -36,7 +36,7 @@ class StdPlanDatasource extends PlanDatasource {
       log('Failed to change access type of user $userId to $accessType', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -63,7 +63,7 @@ class StdPlanDatasource extends PlanDatasource {
       log('Failed to fetch plan', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -85,7 +85,7 @@ class StdPlanDatasource extends PlanDatasource {
       log('Failed to leave plan', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -110,7 +110,7 @@ class StdPlanDatasource extends PlanDatasource {
       log('Failed to remove member $userId', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -134,7 +134,7 @@ class StdPlanDatasource extends PlanDatasource {
       log('Failed to update plan', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }
