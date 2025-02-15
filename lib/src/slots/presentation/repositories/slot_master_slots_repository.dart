@@ -76,7 +76,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to create slot', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -104,7 +104,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to delete slot with id $slotId', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -183,7 +183,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to update slot', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -216,7 +216,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to add supervisor $supervisorId to slot $slotId', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -249,7 +249,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to remove supervisor $supervisorId from slot $slotId', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -282,7 +282,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to add mapping $mapping to slot $slotId', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -315,7 +315,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     } catch (e, s) {
       log('Failed to delete mapping $mappingId from slot $slotId', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

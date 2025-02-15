@@ -39,7 +39,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
       log('Failed to fetch task with id $id', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -70,7 +70,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
       log(all ? 'Failed to fetch all tasks' : 'Failed to fetch tasks for course with id $courseId', e, s);
       rethrow;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 }

@@ -46,7 +46,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       );
 
       _isHandlingAuthChange = false;
-      await transaction.finish();
+      await transaction.commit();
       return;
     }
 
@@ -83,7 +83,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('Failed to fetch user data', e, s);
     } finally {
       _isHandlingAuthChange = false;
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -104,7 +104,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       onError: (e, s) => log('Failed to update user', e, s),
       onData: (user) => log('User updated successfully'),
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   /// Updates the user's theme.
@@ -118,7 +118,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
     final transaction = startTransaction('setTheme');
     await captureEvent('theme_changed', properties: {'theme': theme});
 
-    await transaction.finish();
+    await transaction.commit();
     return _updateUser(
       state.requireData.copyWith(themeName: theme),
     );
@@ -149,7 +149,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
     } catch (e, s) {
       log('Failed to delete User.', e, s);
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -191,7 +191,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       return;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 
@@ -233,7 +233,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
 
       return;
     } finally {
-      await transaction.finish();
+      await transaction.commit();
     }
   }
 

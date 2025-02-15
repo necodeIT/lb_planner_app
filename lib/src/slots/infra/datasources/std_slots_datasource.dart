@@ -35,7 +35,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return CourseToSlot.fromJson(response.asJson);
   }
@@ -53,7 +53,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -67,7 +67,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -83,7 +83,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -103,7 +103,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return Slot.fromJson(response.asJson);
   }
@@ -120,7 +120,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -135,7 +135,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       },
       token: token,
     );
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -153,7 +153,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Reservation.fromJson).toList();
   }
@@ -170,7 +170,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Slot.fromJson).toList();
   }
@@ -190,7 +190,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Slot.fromJson).toList();
   }
@@ -207,7 +207,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Slot.fromJson).toList();
   }
@@ -224,7 +224,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertList();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Reservation.fromJson).toList();
   }
@@ -246,7 +246,7 @@ class StdSlotsDatasource extends SlotsDatasource {
 
     response.assertJson();
 
-    await transaction.finish();
+    await transaction.commit();
 
     return Reservation.fromJson(response.asJson);
   }
@@ -264,7 +264,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    await transaction.finish();
+    await transaction.commit();
   }
 
   @override
@@ -277,7 +277,7 @@ class StdSlotsDatasource extends SlotsDatasource {
       token: token,
     );
 
-    await transaction.finish();
+    await transaction.commit();
 
     return response.asList.map(Slot.fromJson).toList();
   }
