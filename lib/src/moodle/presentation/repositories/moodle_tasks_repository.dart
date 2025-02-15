@@ -23,7 +23,8 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
-    final transaction = startTransaction("loadTasks");
+    final transaction = startTransaction('loadTasks');
+
     final tokens = waitForData(_auth);
 
     await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
