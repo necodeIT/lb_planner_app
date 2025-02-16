@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -12,6 +14,30 @@ extension SentryUtils on ILoggable {
         bindToScope: true,
         waitForChildren: true,
       );
+
+  /// Runs the provided [execute] function in a transaction with the given [task].
+  ///
+  /// This method will automatically commit the transaction after the function completes.
+  /// If an error occurs, the transaction will be marked as an internal error and rethrown.
+  /// If [execute] completes successfully, the transaction will be marked as [SpanStatus.ok] and the result will be returned.
+  Future<T> transaction<T>(String task, FutureOr<T> Function() execute, {T? Function(Object, StackTrace)? onError}) async {
+    final transaction = startTransaction(task);
+    try {
+      return await execute();
+    } catch (e) {
+      transaction.internalError(e);
+
+      final errorResult = onError?.call(e, StackTrace.current);
+
+      if (errorResult != null) {
+        return errorResult;
+      } else {
+        rethrow;
+      }
+    } finally {
+      await transaction.commit();
+    }
+  }
 }
 
 /// Utility methods for [ISentrySpan].

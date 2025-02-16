@@ -49,6 +49,11 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         margin: EdgeInsets.zero,
         shape: squircle(),
       ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: themeBase.accentColor,
+        strokeCap: StrokeCap.round,
+        strokeWidth: 5,
+      ),
       dataTableTheme: DataTableThemeData(
         dataRowColor: WidgetStateColor.fromMap({
           WidgetState.hovered: themeBase.accentColor,
