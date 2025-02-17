@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.2.0](https://github.com/necodeIT/lb_planner_app/compare/1.1.0...1.2.0) (2025-02-17)
+
+
+### Features
+
+* add autofill hints in login screen ([aa8cabd](https://github.com/necodeIT/lb_planner_app/commit/aa8cabd37baf7c8279346f4f9b39a3491ad76d05))
+* add public beta disclaimer ([075ad85](https://github.com/necodeIT/lb_planner_app/commit/075ad8567d69394c01211a1318dee72e2b5bac68))
+* add sentry tracing setup ([a823143](https://github.com/necodeIT/lb_planner_app/commit/a823143ab922f226c76819ea6ab25b56922482ca))
+* disable desktop guard as hotfix ([bc9d0e1](https://github.com/necodeIT/lb_planner_app/commit/bc9d0e130b029f3de9eb09435fe7bd8ad45026c4))
+
+
+### Bug Fixes
+
+* add base href option to dockerfile ([7d7825d](https://github.com/necodeIT/lb_planner_app/commit/7d7825dd64647d9a8515edaa8f253eb5b3059efd))
+* add missing notification types ([e71628d](https://github.com/necodeIT/lb_planner_app/commit/e71628d62412fe8214b1c6481354254d54daa9fa))
+* add missing trailing slashes ([5ae6efa](https://github.com/necodeIT/lb_planner_app/commit/5ae6efa31403e87e0ef368a80d70863bee962a56))
+* decrease min window size ([9d229d4](https://github.com/necodeIT/lb_planner_app/commit/9d229d4ab6a59e8dc8e71ee1853608dbc1654681))
+* disable sentry in debug mode ([513c680](https://github.com/necodeIT/lb_planner_app/commit/513c680c6eaa3de6d228271fd7a7c446d34c386b))
+* enhance route logging ([808f4cf](https://github.com/necodeIT/lb_planner_app/commit/808f4cf9d6d5e33266731daeb813d48fecc2e0b2))
+* expand course overview ([effa296](https://github.com/necodeIT/lb_planner_app/commit/effa296a95b53edae33a2775dbdc56c623261ab6))
+* increase default animation limit ([9d1848c](https://github.com/necodeIT/lb_planner_app/commit/9d1848c75827181706bdcd1811626ab239e98f8a))
+* make course overview scrollable ([7a317d8](https://github.com/necodeIT/lb_planner_app/commit/7a317d86432f28e0ecebff9ea03863772811563d))
+* make course overview scrollable ([c2902cf](https://github.com/necodeIT/lb_planner_app/commit/c2902cf03c815dc9e55dc562ad82755367c3f561))
+* reenable licensing ([4f64f6b](https://github.com/necodeIT/lb_planner_app/commit/4f64f6b81e0abc45ccedbb718d725256ded54edf))
+* remove quotation marks from BASE_HREF ([c59d92c](https://github.com/necodeIT/lb_planner_app/commit/c59d92c215e3083a782fc14e49319a0f6fb84170))
+* report transaction errors ([03703b9](https://github.com/necodeIT/lb_planner_app/commit/03703b9d77f9aa03308263a8e0c0b6d134fe4fe1))
+* show exams in calendar view ([7e18ca9](https://github.com/necodeIT/lb_planner_app/commit/7e18ca9dabcbff2e107998947f96ae2cb6dc25f3))
+* use bookworm instead of alpine ([dcf7d84](https://github.com/necodeIT/lb_planner_app/commit/dcf7d840f3257eed67255796fc75b962e22b2bcf))
+* use transaction.commit over finish ([6304c04](https://github.com/necodeIT/lb_planner_app/commit/6304c04ba20eca22799727c5ac0fc5ab4535b12c))
+
 ## 1.1.0 (2025-02-11)
 
 
