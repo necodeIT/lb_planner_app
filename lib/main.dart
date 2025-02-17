@@ -89,6 +89,8 @@ String scrubSensitiveData(String message) {
   return scrubbed;
 }
 
+String _prevRoute = '/';
+
 void main() async {
   Logger.root.level = Level.ALL;
 
@@ -221,10 +223,21 @@ void main() async {
         PostHog().disable();
       }
 
-      Modular.to.addListener(() {
-        Logger('Modular').finest('Route changed to ${Modular.to.path}');
+      Modular.to.addListener(() async {
+        final message = 'Route changed: $_prevRoute --> ${Modular.to.path}';
 
-        PostHog().screen(Modular.to.path);
+        Logger('Modular').finest(message);
+
+        await PostHog().screen(Modular.to.path);
+        await Sentry.addBreadcrumb(
+          Breadcrumb(
+            message: message,
+            category: 'navigation',
+            data: {'from': _prevRoute, 'to': Modular.to.path},
+          ),
+        );
+
+        _prevRoute = Modular.to.path;
       });
 
       runApp(
