@@ -10,8 +10,6 @@ class MobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DesktopGuard.listen(context, invert: true, redirectTo: '/dashboard/');
-
     return Scaffold(
       body: Padding(
         padding: PaddingAll(),
