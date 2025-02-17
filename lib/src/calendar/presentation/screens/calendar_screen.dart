@@ -42,7 +42,7 @@ class CalendarScreenState extends State<CalendarScreen> {
       currentTab = tab;
     });
 
-    Modular.to.navigate('/calendar/${tab == CalendarScreenTab.plan ? 'plan' : 'tasks-overview'}');
+    Modular.to.navigate('/calendar/${tab == CalendarScreenTab.plan ? 'plan/' : 'tasks-overview/'}');
   }
 
   @override
