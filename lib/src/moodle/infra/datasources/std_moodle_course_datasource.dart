@@ -24,6 +24,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       return response.asList.map(MoodleCourse.fromJson).toList();
     } catch (e, s) {
       log('Failed to fetch courses', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -46,6 +47,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       return response.asList.map(MoodleCourse.fromJson).toList();
     } catch (e, s) {
       log('Failed to fetch courses', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -66,6 +68,7 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
       return course;
     } catch (e, s) {
       log('Failed to update course', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();

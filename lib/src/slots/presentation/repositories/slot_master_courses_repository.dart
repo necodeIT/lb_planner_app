@@ -23,7 +23,14 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
     final transaction = startTransaction('loadSlotsMasterCourses');
     final tokens = waitForData(_auth);
 
-    await guard(() => _courses.getAllCourses(tokens[Webservice.lb_planner_api]));
+    await guard(
+      () => _courses.getAllCourses(tokens[Webservice.lb_planner_api]),
+      onData: (_) => log('Courses loaded.'),
+      onError: (e, s) {
+        log('Failed to load courses', e, s);
+        transaction.internalError(e);
+      },
+    );
     await transaction.commit();
   }
 

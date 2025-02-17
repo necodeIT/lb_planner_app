@@ -37,6 +37,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
       return MoodleTask.fromJson(response.asJson);
     } catch (e, s) {
       log('Failed to fetch task with id $id', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -68,6 +69,7 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
       return response.asList.map(MoodleTask.fromJson).toList();
     } catch (e, s) {
       log(all ? 'Failed to fetch all tasks' : 'Failed to fetch tasks for course with id $courseId', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();

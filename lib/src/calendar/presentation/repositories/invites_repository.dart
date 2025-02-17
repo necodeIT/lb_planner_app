@@ -28,6 +28,11 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       () => _invites.getInvites(
         token.pick(Webservice.lb_planner_api),
       ),
+      onData: (_) => log('Invites loaded.'),
+      onError: (e, s) {
+        log('Failed to load invites.', e, s);
+        transaction.internalError(e);
+      },
     );
 
     await transaction.commit();
@@ -54,7 +59,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       await build(this);
     } catch (e, st) {
       log('Failed to invite user.', e, st);
-
+      transaction.internalError(e);
       return;
     } finally {
       await transaction.commit();
@@ -90,7 +95,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       await captureEvent('invite_declined');
     } catch (e, st) {
       log('Failed to decline invite.', e, st);
-
+      transaction.internalError(e);
       return;
     } finally {
       await transaction.commit();
@@ -128,7 +133,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
       await _plan.build(this);
     } catch (e, st) {
       log('Failed to accept invite.', e, st);
-
+      transaction.internalError(e);
       return;
     } finally {
       await transaction.commit();

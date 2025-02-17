@@ -81,6 +81,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       return;
     } catch (e, s) {
       log('Failed to fetch user data', e, s);
+      transaction.internalError(e);
     } finally {
       _isHandlingAuthChange = false;
       await transaction.commit();
@@ -101,7 +102,10 @@ class UserRepository extends Repository<AsyncValue<User>> {
         _auth.state.requireData[Webservice.lb_planner_api],
         patch,
       ),
-      onError: (e, s) => log('Failed to update user', e, s),
+      onError: (e, s) {
+        log('Failed to update user', e, s);
+        transaction.internalError(e);
+      },
       onData: (user) => log('User updated successfully'),
     );
     await transaction.commit();
@@ -116,12 +120,17 @@ class UserRepository extends Repository<AsyncValue<User>> {
     }
 
     final transaction = startTransaction('setTheme');
-    await captureEvent('theme_changed', properties: {'theme': theme});
+    try {
+      await captureEvent('theme_changed', properties: {'theme': theme});
 
-    await transaction.commit();
-    return _updateUser(
-      state.requireData.copyWith(themeName: theme),
-    );
+      return _updateUser(
+        state.requireData.copyWith(themeName: theme),
+      );
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Deletes the current user.
@@ -148,6 +157,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       log('User deleted successfully.');
     } catch (e, s) {
       log('Failed to delete User.', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -188,8 +198,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
-
-      return;
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -230,8 +239,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
       await captureEvent('optional_tasks_enabled', properties: {'enabled': value});
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
-
-      return;
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }

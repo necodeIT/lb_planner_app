@@ -25,6 +25,11 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
     guard(
       () async => _datasource.getSupervisedSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
+      onData: (_) => log('Slots loaded.'),
+      onError: (e, s) {
+        log('Failed to load slots', e, s);
+        transaction.internalError(e);
+      },
     );
     transaction.finish();
   }
@@ -37,11 +42,17 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
     }
     final transaction = startTransaction('getSlotReservations');
 
-    final token = waitForData(_auth).pick(Webservice.lb_planner_api);
+    try {
+      final token = waitForData(_auth).pick(Webservice.lb_planner_api);
 
-    await transaction.commit();
-
-    return _datasource.getSlotReservations(token: token, slotId: slotId);
+      return _datasource.getSlotReservations(token: token, slotId: slotId);
+    } catch (e, s) {
+      log('Failed to get slot reservations', e, s);
+      transaction.internalError(e);
+      return [];
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Groups all slots by their weekday and time unit.

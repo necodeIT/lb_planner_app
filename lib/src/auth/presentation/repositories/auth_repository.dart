@@ -42,25 +42,29 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
 
     final transaction = startTransaction('loadAuth');
 
-    final tokens = await _localStorage.read<Set<Token>>();
+    try {
+      final tokens = await _localStorage.read<Set<Token>>();
 
-    for (final token in tokens) {
-      final valid = await _auth.verifyToken(token);
+      for (final token in tokens) {
+        final valid = await _auth.verifyToken(token);
 
-      if (!valid) {
-        log('Token $token is invalid. Setting clearing state.');
+        if (!valid) {
+          log('Token $token is invalid. Setting clearing state.');
 
-        await logout();
+          await logout();
 
-        return;
+          return;
+        }
       }
+
+      data(tokens);
+
+      if (isAuthenticated) PostHog().enable();
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
     }
-
-    data(tokens);
-
-    if (isAuthenticated) PostHog().enable();
-
-    await transaction.commit();
   }
 
   /// Sign in with [username] and [password].
@@ -82,6 +86,10 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
           webservices: Webservice.values.toSet(),
         ),
         onData: (p0) => captureEvent('user_login'),
+        onError: (e, s) {
+          transaction.internalError(e);
+          log('Failed to load authentification', e, s);
+        },
       );
 
       if (!state.hasData) return;
@@ -89,6 +97,9 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       log('Authentication successful');
 
       await _localStorage.write(state.requireData);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -105,6 +116,8 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       await _localStorage.delete<Set<Token>>();
 
       PostHog().reset();
+    } catch (e) {
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }

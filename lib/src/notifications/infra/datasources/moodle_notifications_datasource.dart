@@ -18,55 +18,96 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
   @override
   Future<List<Notification>> fetchNotifications(String token) async {
     final transaction = startTransaction('fetchNotifications');
-    final response = await _api.callFunction(
-      token: token,
-      function: 'local_lbplanner_notifications_get_all_notifications',
-      body: {},
-    );
+    try {
+      final response = await _api.callFunction(
+        token: token,
+        function: 'local_lbplanner_notifications_get_all_notifications',
+        body: {},
+      );
 
-    response.assertList();
+      response.assertList();
 
-    await transaction.commit();
-
-    return response.asList.map(Notification.fromJson).toList();
+      return response.asList.map(Notification.fromJson).toList();
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
+    }
   }
 
   @override
   Future<void> markAllAsRead(String token, List<Notification> notifications) async {
     final transaction = startTransaction('markAllAsRead');
-    for (final notification in notifications) {
-      await _setReadStatus(token, notification, true);
+    try {
+      for (final notification in notifications) {
+        await _setReadStatus(token, notification, true);
+      }
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
     }
-    await transaction.commit();
   }
 
   @override
   Future<void> markAsRead(String token, Notification notification) async {
-    await _setReadStatus(token, notification, true);
+    final transaction = startTransaction('markAsRead');
+    try {
+      await _setReadStatus(token, notification, true);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
+    }
   }
 
   @override
   Future<void> unread(String token, Notification notification) async {
-    await _setReadStatus(token, notification, false);
+    final transaction = startTransaction('markAsUnread');
+    try {
+      await _setReadStatus(token, notification, false);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
+    }
   }
 
   @override
   Future<void> unreadAll(String token, List<Notification> notifications) async {
-    for (final notification in notifications) {
-      await _setReadStatus(token, notification, false);
+    final transaction = startTransaction('markAllAsUnread');
+    try {
+      for (final notification in notifications) {
+        await _setReadStatus(token, notification, false);
+      }
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
     }
   }
 
   Future<void> _setReadStatus(String token, Notification notification, bool read) async {
     final transaction = startTransaction('setReadStatus');
-    await _api.callFunction(
-      token: token,
-      function: 'local_lbplanner_notifications_update_notification',
-      body: {
-        'notificationid': notification.id,
-        'status': const BoolConverter().toJson(read),
-      },
-    );
-    await transaction.commit();
+    try {
+      await _api.callFunction(
+        token: token,
+        function: 'local_lbplanner_notifications_update_notification',
+        body: {
+          'notificationid': notification.id,
+          'status': const BoolConverter().toJson(read),
+        },
+      );
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
+    } finally {
+      await transaction.commit();
+    }
   }
 }

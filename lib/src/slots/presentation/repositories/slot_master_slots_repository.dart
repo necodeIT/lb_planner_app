@@ -28,6 +28,11 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
     guard(
       () async => _datasource.getAllSlots(token.pick(Webservice.lb_planner_api)),
+      onData: (_) => log('Slots loaded.'),
+      onError: (e, s) {
+        log('Failed to load slots', e, s);
+        transaction.internalError(e);
+      },
     );
     transaction.finish();
   }
@@ -75,6 +80,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e, s) {
       log('Failed to create slot', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -103,6 +109,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       );
     } catch (e, s) {
       log('Failed to delete slot with id $slotId', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -182,6 +189,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e, s) {
       log('Failed to update slot', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -215,6 +223,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Added supervisor $supervisorId to slot $slotId');
     } catch (e, s) {
       log('Failed to add supervisor $supervisorId to slot $slotId', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -248,6 +257,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Removed supervisor $supervisorId from slot $slotId');
     } catch (e, s) {
       log('Failed to remove supervisor $supervisorId from slot $slotId', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -281,6 +291,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Added mapping $mapping to slot $slotId');
     } catch (e, s) {
       log('Failed to add mapping $mapping to slot $slotId', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }
@@ -314,6 +325,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       log('Deleted mapping $mappingId from slot $slotId');
     } catch (e, s) {
       log('Failed to delete mapping $mappingId from slot $slotId', e, s);
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }

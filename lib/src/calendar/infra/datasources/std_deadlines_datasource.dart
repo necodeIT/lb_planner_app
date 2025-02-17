@@ -30,6 +30,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Deadlines cleared');
     } catch (e, s) {
       log('Failed to clear deadlines', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -53,6 +54,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Deadline $id removed');
     } catch (e, s) {
       log('Failed to remove deadline $id', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -74,6 +76,7 @@ class StdDeadlinesDatasource extends DeadlinesDatasource {
       log('Deadline ${deadline.id} set');
     } catch (e, s) {
       log('Failed to set deadline $deadline', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();

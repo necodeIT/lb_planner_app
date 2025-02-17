@@ -22,7 +22,14 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
     final tokens = waitForData(_auth);
 
-    await guard(() => _courses.getCourses(tokens[Webservice.lb_planner_api]));
+    await guard(
+      () => _courses.getCourses(tokens[Webservice.lb_planner_api]),
+      onData: (_) => log('Courses loaded.'),
+      onError: (e, s) {
+        log('Failed to load courses.', e, s);
+        transaction.internalError(e);
+      },
+    );
     await transaction.commit();
   }
 
@@ -38,22 +45,26 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
     final tokens = _auth.state.requireData;
 
-    data(
-      state.requireData.map((e) => e.id == course.id ? course : e).toList(),
-    );
+    try {
+      data(
+        state.requireData.map((e) => e.id == course.id ? course : e).toList(),
+      );
 
-    await _courses.updateCourse(tokens[Webservice.lb_planner_api], course);
+      await _courses.updateCourse(tokens[Webservice.lb_planner_api], course);
 
-    await captureEvent(
-      'course_updated',
-      properties: {
-        'id': course.id,
-        'color': const HexColorConverter().toJson(course.color),
-        'shortname': course.shortname,
-      },
-    );
-
-    await transaction.commit();
+      await captureEvent(
+        'course_updated',
+        properties: {
+          'id': course.id,
+          'color': const HexColorConverter().toJson(course.color),
+          'shortname': course.shortname,
+        },
+      );
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Enables or disables the given [course].
@@ -76,17 +87,21 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
     final transaction = startTransaction('enableCourse');
 
-    final updated = courses[index].copyWith(enabled: enabled);
+    try {
+      final updated = courses[index].copyWith(enabled: enabled);
 
-    final updatedCourses = List<MoodleCourse>.from(courses)..[index] = updated;
+      final updatedCourses = List<MoodleCourse>.from(courses)..[index] = updated;
 
-    emit(AsyncValue.data(updatedCourses));
+      emit(AsyncValue.data(updatedCourses));
 
-    await updateCourse(updated);
+      await updateCourse(updated);
 
-    await captureEvent('course_enabled', properties: {'id': course.id, 'enabled': enabled});
-
-    await transaction.commit();
+      await captureEvent('course_enabled', properties: {'id': course.id, 'enabled': enabled});
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Filters the courses based on the given properties.

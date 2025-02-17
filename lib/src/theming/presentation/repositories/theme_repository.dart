@@ -30,20 +30,31 @@ class ThemeRepository extends Repository<ThemeData> {
 
     final transaction = startTransaction('loadThemes');
 
-    setThemeByName(_user.state.requireData.themeName);
-
-    await transaction.commit();
+    try {
+      setThemeByName(_user.state.requireData.themeName);
+    } catch (e, s) {
+      log('Failed to load themes.', e, s);
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Sets the theme to the provided [themeBase].
   void setTheme(ThemeBase themeBase) {
     final transaction = startTransaction('setTheme');
-    log('Setting theme to ${themeBase.name}');
+    try {
+      log('Setting theme to ${themeBase.name}');
 
-    emit(_generator.generateTheme(themeBase));
+      emit(_generator.generateTheme(themeBase));
 
-    _currentTheme = themeBase;
-    transaction.finish();
+      _currentTheme = themeBase;
+    } catch (e, s) {
+      log('Failed to set Theme', e, s);
+      transaction.internalError(e);
+    } finally {
+      transaction.commit();
+    }
   }
 
   /// Sets the theme by [name].

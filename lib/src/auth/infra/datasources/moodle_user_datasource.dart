@@ -24,6 +24,9 @@ class MoodleUserDatasource extends UserDatasource {
         token: token,
         body: {},
       );
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -44,6 +47,9 @@ class MoodleUserDatasource extends UserDatasource {
       response.assertJson();
 
       return User.fromJson(response.asJson);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -64,6 +70,9 @@ class MoodleUserDatasource extends UserDatasource {
       response.assertList();
 
       return response.asList.map(User.fromJson).toList();
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -91,6 +100,9 @@ class MoodleUserDatasource extends UserDatasource {
       response.assertJson();
 
       return User.fromJson(response.asJson);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -113,6 +125,9 @@ class MoodleUserDatasource extends UserDatasource {
       response.assertJson();
 
       return User.fromJson(response.asJson);
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
