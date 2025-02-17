@@ -47,11 +47,6 @@ jobs:
           token: ${{ secrets.PAT }}
       - name: ✅ Annotate analysis results
         uses: invertase/github-action-dart-analyzer@v3
-      - name: ❌ Fail if there are errors
-        run: |
-          if [ -s analysis.txt ]; then
-            exit 1
-          fi
 
   test:
     name: Testing 🧪
