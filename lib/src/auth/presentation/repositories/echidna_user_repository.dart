@@ -21,13 +21,18 @@ class EchidnaUserRepository extends UserIdRepository {
 
     final transaction = startTransaction('loadEchidnaUser');
 
-    final user = waitForData(_user);
+    try {
+      final user = waitForData(_user);
 
-    data(
-      UserID(
-        userId: sha256.convert(user.id.toString().codeUnits).toString(),
-      ),
-    );
-    await transaction.commit();
+      data(
+        UserID(
+          userId: sha256.convert(user.id.toString().codeUnits).toString(),
+        ),
+      );
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 }

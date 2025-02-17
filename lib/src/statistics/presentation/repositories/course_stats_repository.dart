@@ -26,22 +26,28 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
 
     final transaction = startTransaction('loadCourseStats');
 
-    final courses = _courses.state.requireData;
-    final tasks = _tasks.state.requireData;
+    try {
+      final courses = _courses.state.requireData;
+      final tasks = _tasks.state.requireData;
 
-    data(
-      Map.fromEntries(
-        courses.map(
-          (course) => MapEntry(
-            course.id,
-            TaskAggregate.fromTasks(
-              tasks.where((task) => task.courseId == course.id),
+      data(
+        Map.fromEntries(
+          courses.map(
+            (course) => MapEntry(
+              course.id,
+              TaskAggregate.fromTasks(
+                tasks.where((task) => task.courseId == course.id),
+              ),
             ),
           ),
         ),
-      ),
-    );
-    await transaction.commit();
+      );
+    } catch (e, s) {
+      log('Failed to load statistics.', e, s);
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Returns the statistics for the course with the given [courseId].

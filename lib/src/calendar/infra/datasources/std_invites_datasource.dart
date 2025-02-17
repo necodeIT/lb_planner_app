@@ -32,6 +32,7 @@ class StdInvitesDatasource extends InvitesDatasource {
       log('Invite $id accepted');
     } catch (e, s) {
       log('Failed to accept invite $id', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -55,6 +56,7 @@ class StdInvitesDatasource extends InvitesDatasource {
       log('Invite $id declined');
     } catch (e, s) {
       log('Failed to decline invite $id', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -82,6 +84,7 @@ class StdInvitesDatasource extends InvitesDatasource {
       return invites;
     } catch (e, s) {
       log('Failed to get invites', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();
@@ -109,6 +112,7 @@ class StdInvitesDatasource extends InvitesDatasource {
       return PlanInvite.fromJson(response.asJson);
     } catch (e, s) {
       log('Failed to invite user $userId', e, s);
+      transaction.internalError(e);
       rethrow;
     } finally {
       await transaction.commit();

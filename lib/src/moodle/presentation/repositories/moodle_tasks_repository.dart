@@ -27,7 +27,14 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
 
     final tokens = waitForData(_auth);
 
-    await guard(() => _tasks.getTasks(tokens[Webservice.lb_planner_api]));
+    await guard(
+      () => _tasks.getTasks(tokens[Webservice.lb_planner_api]),
+      onData: (_) => log('Tasks loaded.'),
+      onError: (e, s) {
+        log('Failed to load tasks', e, s);
+        transaction.internalError(e);
+      },
+    );
     await transaction.commit();
   }
 

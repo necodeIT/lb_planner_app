@@ -34,6 +34,11 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
       () => _datasource.fetchNotifications(
         _auth.state.requireData[Webservice.lb_planner_api],
       ),
+      onData: (_) => log('Notifications loaded.'),
+      onError: (e, s) {
+        log('Failed to load Notfications', e, s);
+        transaction.internalError(e);
+      },
     );
 
     await transaction.commit();
@@ -45,24 +50,28 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     final transaction = startTransaction('markAsRead');
 
-    data(
-      state.requireData.map((e) {
-        if (e.id == notification.id) {
-          return e.copyWith(read: true);
-        }
+    try {
+      data(
+        state.requireData.map((e) {
+          if (e.id == notification.id) {
+            return e.copyWith(read: true);
+          }
 
-        return e;
-      }).toList(),
-    );
+          return e;
+        }).toList(),
+      );
 
-    await _datasource.markAsRead(
-      _auth.state.requireData[Webservice.lb_planner_api],
-      notification,
-    );
+      await _datasource.markAsRead(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        notification,
+      );
 
-    await captureEvent('notification_read');
-
-    await transaction.commit();
+      await captureEvent('notification_read');
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Marks all notifications as read.
@@ -82,21 +91,26 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     final transaction = startTransaction('markAllAsRead');
 
-    await _datasource.markAllAsRead(
-      _auth.state.requireData[Webservice.lb_planner_api],
-      unread,
-    );
+    try {
+      await _datasource.markAllAsRead(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        unread,
+      );
 
-    emit(
-      AsyncValue.data(
-        state.requireData.map((e) => e.copyWith(read: true)).toList(),
-      ),
-    );
+      emit(
+        AsyncValue.data(
+          state.requireData.map((e) => e.copyWith(read: true)).toList(),
+        ),
+      );
 
-    log('All notifications marked as read');
+      log('All notifications marked as read');
 
-    await captureEvent('notifications_read');
-    await transaction.commit();
+      await captureEvent('notifications_read');
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Marks the given [notification] as unread.
@@ -105,24 +119,28 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     final transaction = startTransaction('unread');
 
-    data(
-      state.requireData.map((e) {
-        if (e.id == notification.id) {
-          return e.copyWith(read: false);
-        }
+    try {
+      data(
+        state.requireData.map((e) {
+          if (e.id == notification.id) {
+            return e.copyWith(read: false);
+          }
 
-        return e;
-      }).toList(),
-    );
+          return e;
+        }).toList(),
+      );
 
-    await _datasource.unread(
-      _auth.state.requireData[Webservice.lb_planner_api],
-      notification,
-    );
+      await _datasource.unread(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        notification,
+      );
 
-    await captureEvent('notification_unread');
-
-    await transaction.commit();
+      await captureEvent('notification_unread');
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Marks all notifications as unread.
@@ -142,22 +160,26 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
 
     final transaction = startTransaction('unrealAll');
 
-    await _datasource.unreadAll(
-      _auth.state.requireData[Webservice.lb_planner_api],
-      read,
-    );
+    try {
+      await _datasource.unreadAll(
+        _auth.state.requireData[Webservice.lb_planner_api],
+        read,
+      );
 
-    emit(
-      AsyncValue.data(
-        state.requireData.map((e) => e.copyWith(read: false)).toList(),
-      ),
-    );
+      emit(
+        AsyncValue.data(
+          state.requireData.map((e) => e.copyWith(read: false)).toList(),
+        ),
+      );
 
-    log('All notifications marked as unread');
+      log('All notifications marked as unread');
 
-    await captureEvent('notifications_unread');
-
-    await transaction.commit();
+      await captureEvent('notifications_unread');
+    } catch (e) {
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// The unread notifications.

@@ -65,6 +65,9 @@ class MoodleAuthService extends AuthService {
       }
 
       return tokens;
+    } catch (e) {
+      transaction.internalError(e);
+      rethrow;
     } finally {
       await transaction.commit();
     }
@@ -135,7 +138,7 @@ class MoodleAuthService extends AuthService {
       return false;
     } catch (e, stack) {
       log('Token verification failed', e, stack);
-
+      transaction.internalError(e);
       return false;
     } finally {
       await transaction.commit();

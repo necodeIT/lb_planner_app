@@ -25,6 +25,11 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
       () => _datasource.getUsers(
         waitForData(_auth).pick(Webservice.lb_planner_api),
       ),
+      onData: (_) => log('Users loaded.'),
+      onError: (e, s) {
+        log('Failed to load users', e, s);
+        transaction.internalError(e);
+      },
     );
     transaction.finish();
   }

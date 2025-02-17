@@ -30,6 +30,11 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
 
     guard(
       () async => _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
+      onData: (_) => log('Slots loaded.'),
+      onError: (e, s) {
+        log('Failed to load slots', e, s);
+        transaction.internalError(e);
+      },
     );
     transaction.finish();
   }
@@ -91,6 +96,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
       await build(this);
     } catch (e) {
       log('Failed to reserve slot: $e');
+      transaction.internalError(e);
     } finally {
       await transaction.commit();
     }

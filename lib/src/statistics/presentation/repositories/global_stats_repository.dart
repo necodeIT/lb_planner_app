@@ -22,19 +22,25 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
 
     final transaction = startTransaction('loadGlobalStats');
 
-    final user = waitForData(_user);
+    try {
+      final user = waitForData(_user);
 
-    data(
-      TaskAggregate.fromTasks(
-        _tasks.filter(
-          type: {
-            MoodleTaskType.required,
-            MoodleTaskType.participation,
-            if (user.optionalTasksEnabled) MoodleTaskType.optional,
-          },
+      data(
+        TaskAggregate.fromTasks(
+          _tasks.filter(
+            type: {
+              MoodleTaskType.required,
+              MoodleTaskType.participation,
+              if (user.optionalTasksEnabled) MoodleTaskType.optional,
+            },
+          ),
         ),
-      ),
-    );
-    await transaction.commit();
+      );
+    } catch (e, s) {
+      log('Failed to load statistics.', e, s);
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 }
