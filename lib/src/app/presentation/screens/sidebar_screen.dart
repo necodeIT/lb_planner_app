@@ -28,7 +28,6 @@ class _SidebarScreenState extends State<SidebarScreen> {
   Widget build(BuildContext context) {
     final currentLocale = Localizations.localeOf(context);
     Intl.defaultLocale = currentLocale.languageCode;
-    DesktopGuard.listen(context);
 
     if (!showedDisclaimer && !kDebugMode) {
       showedDisclaimer = true;

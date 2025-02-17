@@ -58,7 +58,6 @@ architecture_linter:
 
 linter:
   rules:
-    package_api_docs: true
     public_member_api_docs: true
     package_prefixed_library_names: true
     library_private_types_in_public_api: true

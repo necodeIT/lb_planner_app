@@ -17,7 +17,7 @@ class SlotDetailsScreen extends StatefulWidget {
 }
 
 class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
-  // TODO: implement student unbooking
+  // TODO(MasterMarcoHD): implement student unbooking
   void kickStudent(User student) {}
 
   @override

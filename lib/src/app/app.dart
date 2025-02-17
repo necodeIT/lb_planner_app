@@ -105,7 +105,6 @@ class AppModule extends Module {
         guards: [
           AuthGuard(redirectTo: '/auth/'),
           HasCoursesGuard(),
-          DesktopGuard(),
         ],
       )
       ..module(
@@ -113,9 +112,7 @@ class AppModule extends Module {
         module: AuthModule(),
         customTransition: defaultTransition,
         transition: TransitionType.custom,
-        guards: [
-          DesktopGuard(),
-        ],
+        guards: [],
       )
       ..module(
         '/moodle',
@@ -124,7 +121,6 @@ class AppModule extends Module {
         transition: TransitionType.custom,
         guards: [
           AuthGuard(redirectTo: '/auth/'),
-          DesktopGuard(),
         ],
       )
       ..child(

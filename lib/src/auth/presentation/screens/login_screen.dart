@@ -19,8 +19,6 @@ class LoginScreen extends StatelessWidget {
       Modular.to.navigate('/dashboard/');
     }
 
-    DesktopGuard.listen(context);
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
