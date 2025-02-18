@@ -91,7 +91,7 @@ RUN sed -i "s/RELEASE_DATE=.*/RELEASE_DATE=$(cat .release_date)/g" .env
 RUN fvm flutter pub get
 
 # Build the app without tree shaking icons because it currently crashes the build (idk if its a package issue or a flutter issue)
-RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env --no-tree-shake-icons --base-href $(echo $BASE_HREF | tr -d '"')
+RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env --no-tree-shake-icons --base-href $(echo $BASE_HREF | tr -d '"') -0 1
 
 RUN sed -i "s/secondsSinceEpoch/$(date +%s)/g" /usr/share/nginx/html/index.html
 
