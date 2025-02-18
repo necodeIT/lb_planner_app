@@ -4,7 +4,6 @@ import 'package:either_dart/either.dart';
 import 'package:lb_planner/config/endpoints.dart';
 import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// Implementation of [ApiService] using the Moodle API.
 class MoodleApiService extends ApiService {
@@ -87,9 +86,7 @@ class MoodleApiService extends ApiService {
 
       return Right(response.body);
     } catch (e) {
-      transaction
-        ..throwable = e
-        ..status = const SpanStatus.internalError();
+      transaction.internalError(e);
 
       rethrow;
     } finally {

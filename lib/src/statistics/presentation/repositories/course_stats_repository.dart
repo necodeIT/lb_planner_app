@@ -8,7 +8,7 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 /// Repository responsible for providing statistics on a per-course basis.
 ///
 /// The [state] is a Map of course IDs to their respective statistics.
-class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate>>> {
+class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate>>> with Tracable {
   final MoodleCoursesRepository _courses;
   final MoodleTasksRepository _tasks;
 

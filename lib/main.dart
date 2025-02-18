@@ -193,7 +193,9 @@ void main() async {
       ..release = kInstalledRelease.version.toString()
       ..tracesSampleRate = 1
       ..tracePropagationTargets.clear()
-      ..debug = kDebugMode,
+      ..debug = kDebugMode
+      ..logger = (SentryLevel level, String message, {String? logger, Object? exception, StackTrace? stackTrace}) =>
+          Logger('Sentry${logger != null ? '.$logger' : ''}').finest(message, exception, stackTrace),
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();
 

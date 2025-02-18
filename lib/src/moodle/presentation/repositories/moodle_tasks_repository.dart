@@ -6,7 +6,7 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Provides all tasks from Moodle with the latest updates.
-class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
+class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> with Tracable {
   final MoodleTaskDatasource _tasks;
   final AuthRepository _auth;
 
@@ -16,6 +16,8 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> {
   MoodleTasksRepository(this._tasks, this._auth, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_courses, setError: false, setLoading: false);
+    _tasks.parent = this;
+    _courses.parent = this;
   }
 
   @override

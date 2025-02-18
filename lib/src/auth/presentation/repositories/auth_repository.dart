@@ -9,14 +9,16 @@ import 'package:posthog_dart/posthog_dart.dart';
 /// UI state controller for authentication.
 ///
 /// If the state is an empty set, the user is not authenticated.
-class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
+class AuthRepository extends Repository<AsyncValue<Set<Token>>> with Tracable {
   final AuthService _auth;
   final LocalStorageDatasource _localStorage;
 
   static AsyncValue<Set<Token>>? _state;
 
   /// UI state controller for authentication.
-  AuthRepository(this._auth, this._localStorage) : super(_state ?? AsyncValue.loading());
+  AuthRepository(this._auth, this._localStorage) : super(_state ?? AsyncValue.loading()) {
+    _auth.parent = this;
+  }
 
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
@@ -72,7 +74,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
     required String username,
     required String password,
   }) async {
-    final transaction = startTransaction('authenticate');
+    final transaction = startTransaction('login');
 
     log('Authenticating with username $username');
 
@@ -80,7 +82,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> {
       emit(AsyncValue.loading());
 
       await guard(
-        () => _auth.authenticate(
+        () async => _auth.authenticate(
           username: username,
           password: password,
           webservices: Webservice.values.toSet(),

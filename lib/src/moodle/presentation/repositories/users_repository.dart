@@ -6,23 +6,24 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all users of the application.
-class UsersRepository extends Repository<AsyncValue<List<User>>> {
+class UsersRepository extends Repository<AsyncValue<List<User>>> with Tracable {
   final UserDatasource _datasource;
   final AuthRepository _auth;
 
   /// Holds all users of the application.
   UsersRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    _datasource.parent = this;
   }
 
   @override
   Duration get updateInterval => kLessImportantRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) {
+  FutureOr<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadUsers');
-    guard(
-      () => _datasource.getUsers(
+    await guard(
+      () async => _datasource.getUsers(
         waitForData(_auth).pick(Webservice.lb_planner_api),
       ),
       onData: (_) => log('Users loaded.'),
@@ -31,7 +32,7 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> {
         transaction.internalError(e);
       },
     );
-    transaction.finish();
+    await transaction.finish();
   }
 
   @override

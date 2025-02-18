@@ -1,8 +1,8 @@
-import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Datasource for fetching task data.
-abstract class MoodleTaskDatasource extends Datasource {
+abstract class MoodleTaskDatasource extends Datasource with Tracable {
   @override
   String get name => 'MoodleTask';
 

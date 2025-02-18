@@ -2,7 +2,7 @@ import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Datasource mapping the slots endpoints.
-abstract class SlotsDatasource extends Datasource {
+abstract class SlotsDatasource extends Datasource with Tracable {
   @override
   String get name => 'Slots';
 

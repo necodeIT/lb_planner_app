@@ -8,7 +8,7 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository for managing a user's [CalendarPlan].
-class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
+class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with Tracable {
   final PlanDatasource _plan;
   final DeadlinesDatasource _deadlines;
   final AuthRepository _auth;
@@ -27,6 +27,9 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> {
   ) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_tasks, setError: false, setLoading: false);
+
+    _plan.parent = this;
+    _deadlines.parent = this;
   }
 
   @override

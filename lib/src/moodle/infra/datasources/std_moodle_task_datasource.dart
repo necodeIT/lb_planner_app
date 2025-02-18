@@ -12,7 +12,9 @@ class StdMoodleTaskDatasource extends MoodleTaskDatasource {
   }
 
   /// Standard implementation of [MoodleCourseDatasource].
-  StdMoodleTaskDatasource(this._apiService);
+  StdMoodleTaskDatasource(this._apiService) {
+    _apiService.parent = this;
+  }
 
   @override
   Future<MoodleTask> getTask(String token, int id) async {

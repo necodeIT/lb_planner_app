@@ -7,7 +7,9 @@ class StdInvitesDatasource extends InvitesDatasource {
   final ApiService _apiService;
 
   /// Standard [InvitesDatasource] implementation.
-  StdInvitesDatasource(this._apiService);
+  StdInvitesDatasource(this._apiService) {
+    _apiService.parent = this;
+  }
 
   @override
   void dispose() {

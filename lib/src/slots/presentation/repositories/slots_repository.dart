@@ -8,13 +8,15 @@ import 'package:lb_planner/src/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all slots the current user can reserve.
-class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
+class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   final AuthRepository _auth;
   final SlotsDatasource _datasource;
 
   /// Holds all slots the current user can reserve.
   SlotsRepository(this._auth, this._datasource) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _datasource.parent = this;
   }
 
   @override
@@ -24,11 +26,11 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
   bool get refreshOptimization => true;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) {
+  Future<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadSlots');
     waitForData(_auth);
 
-    guard(
+    await guard(
       () async => _datasource.getSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
       onData: (_) => log('Slots loaded.'),
       onError: (e, s) {
@@ -36,7 +38,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> {
         transaction.internalError(e);
       },
     );
-    transaction.finish();
+    await transaction.finish();
   }
 
   /// Books the given [slot] for the current user at the given [date].

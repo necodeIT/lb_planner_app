@@ -6,7 +6,7 @@ import 'package:lb_planner/src/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository responsible for providing global statistics for all tasks.
-class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> {
+class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> with Tracable {
   final MoodleTasksRepository _tasks;
   final UserRepository _user;
 

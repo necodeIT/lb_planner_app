@@ -1,8 +1,8 @@
-import 'package:lb_planner/src/calendar/calendar.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Data source for managing a user's [CalendarPlan].
-abstract class PlanDatasource extends Datasource {
+abstract class PlanDatasource extends Datasource with Tracable {
   @override
   String get name => 'Plan';
 

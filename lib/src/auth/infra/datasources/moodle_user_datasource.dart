@@ -6,7 +6,9 @@ class MoodleUserDatasource extends UserDatasource {
   final ApiService _api;
 
   /// Implementation of [UserDatasource] for Moodle.
-  MoodleUserDatasource(this._api);
+  MoodleUserDatasource(this._api) {
+    _api.parent = this;
+  }
 
   @override
   void dispose() {

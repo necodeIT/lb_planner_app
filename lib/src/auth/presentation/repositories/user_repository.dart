@@ -6,10 +6,9 @@ import 'package:lb_planner/src/app/app.dart';
 import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:posthog_dart/posthog_dart.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// UI state controller for the current user.
-class UserRepository extends Repository<AsyncValue<User>> {
+class UserRepository extends Repository<AsyncValue<User>> with Tracable {
   final AuthRepository _auth;
   final UserDatasource _userDatasource;
 
@@ -22,6 +21,7 @@ class UserRepository extends Repository<AsyncValue<User>> {
   /// UI state controller for the current user.
   UserRepository(this._auth, this._userDatasource) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    _userDatasource.parent = this;
   }
 
   @override
@@ -71,10 +71,6 @@ class UserRepository extends Repository<AsyncValue<User>> {
           'display_task_count': user.displayTaskCount,
         },
       );
-
-      Sentry.configureScope((scope) {
-        scope.setUser(SentryUser(id: hash));
-      });
 
       _isHandlingAuthChange = false;
 

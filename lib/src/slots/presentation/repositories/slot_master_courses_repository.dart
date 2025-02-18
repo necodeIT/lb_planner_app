@@ -6,13 +6,15 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Provides all courses for the entire moodle instance to the slot master.
-class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>> {
+class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>> with Tracable {
   final AuthRepository _auth;
   final MoodleCourseDatasource _courses;
 
   /// Repository for managing a user's [MoodleCourse]s.
   SlotMasterCoursesRepository(this._auth, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _courses.parent = this;
   }
 
   @override

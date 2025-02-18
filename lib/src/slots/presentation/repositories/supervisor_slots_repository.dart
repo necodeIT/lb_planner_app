@@ -6,24 +6,26 @@ import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Provides data for the supervisor slots screen.
-class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
+class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   final SlotsDatasource _datasource;
   final AuthRepository _auth;
 
   /// Provides data for the supervisor slots screen.
   SupervisorSlotsRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _datasource.parent = this;
   }
 
   @override
   Duration get updateInterval => kImportantRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) {
+  Future<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadSupervisorSlots');
     waitForData(_auth);
 
-    guard(
+    await guard(
       () async => _datasource.getSupervisedSlots(waitForData(_auth).pick(Webservice.lb_planner_api)),
       onData: (_) => log('Slots loaded.'),
       onError: (e, s) {
@@ -31,7 +33,7 @@ class SupervisorSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
         transaction.internalError(e);
       },
     );
-    transaction.finish();
+    await transaction.finish();
   }
 
   /// Returns a list of reservations for the given [slotId].

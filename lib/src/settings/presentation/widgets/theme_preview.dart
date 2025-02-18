@@ -22,7 +22,7 @@ class ThemePreview extends StatelessWidget {
       onTap: () async {
         // Optimistically update the theme
         // so the user sees the change immediately.
-        themes.setTheme(theme);
+        await themes.setTheme(theme);
 
         await user.setTheme(theme.name);
       },

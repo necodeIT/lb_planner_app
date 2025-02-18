@@ -9,24 +9,26 @@ import 'package:lb_planner/src/slots/slots.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Provides data for the slot master screen.
-class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
+class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   final AuthRepository _auth;
   final SlotsDatasource _datasource;
 
   /// Provides data for the slot master screen.
   SlotMasterSlotsRepository(this._auth, this._datasource) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _datasource.parent = this;
   }
 
   @override
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) {
+  Future<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadSlotMasterSlots');
     final token = waitForData(_auth);
 
-    guard(
+    await guard(
       () async => _datasource.getAllSlots(token.pick(Webservice.lb_planner_api)),
       onData: (_) => log('Slots loaded.'),
       onError: (e, s) {
@@ -34,7 +36,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> {
         transaction.internalError(e);
       },
     );
-    transaction.finish();
+    await transaction.finish();
   }
 
   /// Creates a new slot.

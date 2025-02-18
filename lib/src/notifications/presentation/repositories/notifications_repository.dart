@@ -7,13 +7,15 @@ import 'package:lb_planner/src/notifications/notifications.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// UI state control for notifications.
-class NotificationsRepository extends Repository<AsyncValue<List<Notification>>> {
+class NotificationsRepository extends Repository<AsyncValue<List<Notification>>> with Tracable {
   final NotificationsDatasource _datasource;
   final AuthRepository _auth;
 
   /// UI state control for notifications.
   NotificationsRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _datasource.parent = this;
   }
 
   @override
@@ -31,7 +33,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
     final transaction = startTransaction('loadNotifications');
 
     await guard(
-      () => _datasource.fetchNotifications(
+      () async => _datasource.fetchNotifications(
         _auth.state.requireData[Webservice.lb_planner_api],
       ),
       onData: (_) => log('Notifications loaded.'),

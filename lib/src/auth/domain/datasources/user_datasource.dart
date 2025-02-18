@@ -1,8 +1,8 @@
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Datasource for fetching user data.
-abstract class UserDatasource extends Datasource {
+abstract class UserDatasource extends Datasource with Tracable {
   @override
   String get name => 'User';
 

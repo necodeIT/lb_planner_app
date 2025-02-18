@@ -6,7 +6,9 @@ class StdMoodleCourseDatasource extends MoodleCourseDatasource {
   final ApiService _apiService;
 
   /// Standard implementation of [MoodleCourseDatasource].
-  StdMoodleCourseDatasource(this._apiService);
+  StdMoodleCourseDatasource(this._apiService) {
+    _apiService.parent = this;
+  }
 
   @override
   Future<List<MoodleCourse>> getCourses(String token) async {

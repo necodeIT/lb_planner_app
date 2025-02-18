@@ -1,10 +1,10 @@
-import 'package:lb_planner/src/calendar/calendar.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Data source for managing [PlanDeadline]s.
 ///
 /// For retrieving all deadlines, see [PlanDatasource] as deadlines are part of the [CalendarPlan] object.
-abstract class DeadlinesDatasource extends Datasource {
+abstract class DeadlinesDatasource extends Datasource with Tracable {
   @override
   String get name => 'Deadlines';
 

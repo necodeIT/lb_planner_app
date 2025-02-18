@@ -1,8 +1,8 @@
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Service for authenticating users.
-abstract class AuthService extends Service {
+abstract class AuthService extends Service with Tracable {
   @override
   String get name => 'Auth';
 

@@ -7,7 +7,7 @@ import 'package:lb_planner/src/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A repository that manages the current theme.
-class ThemeRepository extends Repository<ThemeData> {
+class ThemeRepository extends Repository<ThemeData> with Tracable {
   final ThemeGeneratorService<ThemeData> _generator;
   final ThemesDatasource _themes;
   final UserRepository _user;
@@ -41,7 +41,7 @@ class ThemeRepository extends Repository<ThemeData> {
   }
 
   /// Sets the theme to the provided [themeBase].
-  void setTheme(ThemeBase themeBase) {
+  Future<void> setTheme(ThemeBase themeBase) async {
     final transaction = startTransaction('setTheme');
     try {
       log('Setting theme to ${themeBase.name}');
@@ -53,7 +53,7 @@ class ThemeRepository extends Repository<ThemeData> {
       log('Failed to set Theme', e, s);
       transaction.internalError(e);
     } finally {
-      transaction.commit();
+      await transaction.commit();
     }
   }
 

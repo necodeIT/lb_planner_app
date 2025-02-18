@@ -8,7 +8,9 @@ class StdSlotsDatasource extends SlotsDatasource {
   final ApiService api;
 
   /// Standard implementation of [SlotsDatasource].
-  StdSlotsDatasource(this.api);
+  StdSlotsDatasource(this.api) {
+    api.parent = this;
+  }
 
   /// Whitelist of keys that are allowed to be sent to the server.
   static const slotKeyWhitelist = [

@@ -7,7 +7,9 @@ class MoodleNotificationsDatasource extends NotificationsDatasource {
   final ApiService _api;
 
   /// Standard implementation of the [NotificationsDatasource] using Moodle API.
-  MoodleNotificationsDatasource(this._api);
+  MoodleNotificationsDatasource(this._api) {
+    _api.parent = this;
+  }
 
   @override
   void dispose() {

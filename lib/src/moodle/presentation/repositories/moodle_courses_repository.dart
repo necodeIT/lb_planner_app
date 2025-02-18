@@ -4,13 +4,14 @@ import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository for managing a user's [MoodleCourse]s.
-class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>> {
+class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>> with Tracable {
   final AuthRepository _auth;
   final MoodleCourseDatasource _courses;
 
   /// Repository for managing a user's [MoodleCourse]s.
   MoodleCoursesRepository(this._auth, this._courses) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    _courses.parent = this;
   }
 
   @override

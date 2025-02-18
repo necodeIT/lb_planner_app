@@ -5,7 +5,7 @@ import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all invites for the current user
-class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
+class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> with Tracable {
   final InvitesDatasource _invites;
   final AuthRepository _auth;
   final CalendarPlanRepository _plan;
@@ -13,6 +13,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> {
   /// Holds all invites for the current user
   InvitesRepository(this._invites, this._auth, this._plan) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    _invites.parent = this;
   }
 
   @override

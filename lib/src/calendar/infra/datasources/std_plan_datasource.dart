@@ -5,7 +5,9 @@ class StdPlanDatasource extends PlanDatasource {
   final ApiService _apiService;
 
   /// Standard [PlanDatasource] implementation.
-  StdPlanDatasource(this._apiService);
+  StdPlanDatasource(this._apiService) {
+    _apiService.parent = this;
+  }
 
   @override
   void dispose() {
