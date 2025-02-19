@@ -6,7 +6,7 @@ import 'package:lb_planner/gen/assets/assets.gen.dart';
 import 'package:lb_planner/lb_planner.dart';
 
 /// Presents an authentication form to the user.
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget with AdaptiveWidget {
   /// Presents an authentication form to the user.
   const LoginScreen({super.key});
 
@@ -19,6 +19,11 @@ class LoginScreen extends StatelessWidget {
       Modular.to.navigate('/dashboard/');
     }
 
+    return super.build(context);
+  }
+
+  @override
+  Widget buildDesktop(BuildContext context) {
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -42,6 +47,27 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: Spacing.mediumSpacing,
+          children: [
+            const Spacer(),
+            const LoginForm(),
+            const Spacer(),
+            Text(
+              context.t.auth_version(kInstalledRelease.toString()),
+            ).color(context.theme.colorScheme.onPrimary),
+          ],
+        ),
       ),
     );
   }

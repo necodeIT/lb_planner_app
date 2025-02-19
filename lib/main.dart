@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:context_menus/context_menus.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,8 @@ void main() async {
   DeclarativeEdgeInsets.defaultPadding = Spacing.mediumSpacing;
   CoreModule.isWeb = kIsWeb;
   CoreModule.debugMode = kDebugMode;
+
+  Adaptive.ignoreHeight = true;
 
   setPathUrlStrategy();
 
@@ -291,64 +294,69 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeRepository>();
 
-    return Theme(
-      data: theme.state,
-      child: ContextMenuOverlay(
-        buttonBuilder: (context, config, [style]) => HoverBuilder(
-          builder: (context, isHovering) => TextButton(
-            onPressed: config.onPressed,
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              overlayColor: WidgetStateProperty.all(Colors.transparent),
-            ),
-            child: IconTheme(
-              data: context.theme.iconTheme.copyWith(color: context.theme.colorScheme.onSurface, size: 15),
-              child: Row(
-                children: [
-                  if (config.icon != null) isHovering ? config.iconHover ?? config.icon! : config.icon!,
-                  if (config.icon != null) Spacing.xsHorizontal(),
-                  Text(
-                    config.label,
-                    style: TextStyle(color: context.theme.colorScheme.onSurface),
-                  ),
-                ],
+    return DevicePreview(
+      // false positive
+      // ignore: avoid_redundant_argument_values
+      enabled: kDebugMode,
+      builder: (_) => Theme(
+        data: theme.state,
+        child: ContextMenuOverlay(
+          buttonBuilder: (context, config, [style]) => HoverBuilder(
+            builder: (context, isHovering) => TextButton(
+              onPressed: config.onPressed,
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+              ),
+              child: IconTheme(
+                data: context.theme.iconTheme.copyWith(color: context.theme.colorScheme.onSurface, size: 15),
+                child: Row(
+                  children: [
+                    if (config.icon != null) isHovering ? config.iconHover ?? config.icon! : config.icon!,
+                    if (config.icon != null) Spacing.xsHorizontal(),
+                    Text(
+                      config.label,
+                      style: TextStyle(color: context.theme.colorScheme.onSurface),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        cardBuilder: (context, children) => Container(
-          padding: PaddingAll(Spacing.xsSpacing),
-          decoration: ShapeDecoration(
-            color: theme.state.cardColor,
-            shape: squircle(),
-            shadows: kElevationToShadow[8],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: children,
-          ),
-        ),
-        child: ConditionalWrapper(
-          condition: kInstalledRelease.channel != ReleaseChannel.stable || kDebugMode,
-          wrapper: (context, child) => Banner(
-            message: kInstalledRelease.channel.name.toUpperCase(),
-            location: BannerLocation.topEnd,
-            color: theme.state.colorScheme.error,
-            child: child,
-          ),
-          child: SkeletonizerConfig(
-            data: SkeletonizerConfigData(
-              containersColor: theme.state.disabledColor.withValues(alpha: 0.1),
+          cardBuilder: (context, children) => Container(
+            padding: PaddingAll(Spacing.xsSpacing),
+            decoration: ShapeDecoration(
+              color: theme.state.cardColor,
+              shape: squircle(),
+              shadows: kElevationToShadow[8],
             ),
-            child: MaterialApp.router(
-              theme: theme.state,
-              title: kAppName,
-              debugShowCheckedModeBanner: false,
-              routerConfig: Modular.routerConfig,
-              onGenerateTitle: (context) => kAppName,
-              supportedLocales: AppLocalizations.supportedLocales,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: children,
+            ),
+          ),
+          child: ConditionalWrapper(
+            condition: kInstalledRelease.channel != ReleaseChannel.stable || kDebugMode,
+            wrapper: (context, child) => Banner(
+              message: kInstalledRelease.channel.name.toUpperCase(),
+              location: BannerLocation.topEnd,
+              color: theme.state.colorScheme.error,
+              child: child,
+            ),
+            child: SkeletonizerConfig(
+              data: SkeletonizerConfigData(
+                containersColor: theme.state.disabledColor.withValues(alpha: 0.1),
+              ),
+              child: MaterialApp.router(
+                theme: theme.state,
+                title: kAppName,
+                debugShowCheckedModeBanner: false,
+                routerConfig: Modular.routerConfig,
+                onGenerateTitle: (context) => kAppName,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+              ),
             ),
           ),
         ),
