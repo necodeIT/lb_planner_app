@@ -1,8 +1,8 @@
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/settings/settings.dart';
 
 /// Renders the settings screen.
 class SettingsScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/statistics/statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
 
 /// A vertical [BarChart] widget.
 class VerticalBarChart extends BarChart {

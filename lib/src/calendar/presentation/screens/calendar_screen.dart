@@ -1,10 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Renders the UI of the calendar feature.
 class CalendarScreen extends StatefulWidget {

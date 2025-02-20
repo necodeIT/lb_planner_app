@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 
 /// Utility functions for [Token] sets.
 extension TokenExt on Set<Token> {

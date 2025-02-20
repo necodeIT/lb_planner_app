@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Guard that checks if the user has any courses enabled.

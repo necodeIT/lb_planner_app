@@ -1,11 +1,12 @@
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 
 import 'infra/infra.dart';
 
-export 'package:lb_planner/src/auth/auth.dart';
+export 'package:eduplanner/src/auth/auth.dart';
+
 export 'domain/domain.dart';
 export 'presentation/presentation.dart';
 export 'utils/utils.dart';

@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Implementation of [ThemeGeneratorService] for [ThemeData].
 class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {

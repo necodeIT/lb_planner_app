@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 
 /// Guard that checks if the user has the required capabilities.
 class CapabilityGuard extends RouteGuard {

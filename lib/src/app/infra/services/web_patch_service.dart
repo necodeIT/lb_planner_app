@@ -1,5 +1,5 @@
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/src/app/app.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/src/app/app.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 
 /// [DistributionType.web] implementation of the [PatchService].

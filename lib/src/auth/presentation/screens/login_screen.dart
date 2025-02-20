@@ -1,9 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Presents an authentication form to the user.
 class LoginScreen extends StatelessWidget with AdaptiveWidget {

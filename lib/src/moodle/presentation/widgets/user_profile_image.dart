@@ -1,9 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Renders a user's profile image.
 class UserProfileImage extends StatelessWidget {

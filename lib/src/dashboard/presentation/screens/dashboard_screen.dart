@@ -1,7 +1,7 @@
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/dashboard/dashboard.dart';
 
 /// Renders the dashboard screen.
 class DashboardScreen extends StatelessWidget {

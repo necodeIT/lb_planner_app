@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 /// A course tile for the course overview screen.

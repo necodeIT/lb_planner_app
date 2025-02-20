@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:eduplanner/lb_planner.dart';
 import 'package:either_dart/either.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Service for making requests a moodle web service.

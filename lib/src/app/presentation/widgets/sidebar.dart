@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 
 /// Navigation sidebar for the application.
 class Sidebar extends StatelessWidget {

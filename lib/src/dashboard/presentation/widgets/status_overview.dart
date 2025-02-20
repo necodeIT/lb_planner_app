@@ -1,10 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/statistics/statistics.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 /// Displays a chart overview of the user's tasks status.

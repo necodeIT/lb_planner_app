@@ -1,9 +1,9 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:eduplanner/config/endpoints.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 part 'moodle_task.freezed.dart';
 part 'moodle_task.g.dart';

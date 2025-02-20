@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A repository that manages the current theme.

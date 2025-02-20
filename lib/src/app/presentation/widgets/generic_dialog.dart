@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// A generic dialog that can be used to display information to the user.
 class GenericDialog extends StatelessWidget {

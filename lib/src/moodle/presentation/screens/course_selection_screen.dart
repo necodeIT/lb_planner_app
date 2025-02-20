@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Prompts the user to select courses to include in the planning process.
 class CourseSelectionScreen extends StatefulWidget {

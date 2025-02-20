@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 import 'package:posthog_dart/posthog_dart.dart';

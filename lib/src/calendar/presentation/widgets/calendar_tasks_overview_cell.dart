@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Cell for the modules overview.
 class CalendarTasksOverviewCell extends StatelessWidget {

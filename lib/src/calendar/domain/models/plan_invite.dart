@@ -1,9 +1,9 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
 
 part 'plan_invite.freezed.dart';
 part 'plan_invite.g.dart';

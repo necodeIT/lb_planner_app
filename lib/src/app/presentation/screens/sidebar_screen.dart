@@ -1,8 +1,8 @@
+import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/src/app/app.dart';
 
 /// A screen that wraps its children in a [Sidebar].
 class SidebarScreen extends StatefulWidget {

@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Theme extension for [MoodleTask.status].
 class TaskStatusTheme extends ThemeExtension<TaskStatusTheme> {

@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:crypto/crypto.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:posthog_dart/posthog_dart.dart';
 

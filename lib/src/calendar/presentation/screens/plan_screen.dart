@@ -1,11 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_utils/flutter_utils.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:popover/popover.dart';
 import 'package:window_manager/window_manager.dart';
 

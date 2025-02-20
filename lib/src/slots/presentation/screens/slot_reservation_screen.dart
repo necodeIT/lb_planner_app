@@ -1,10 +1,10 @@
 import 'dart:collection';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// A screen for reserving slots.
 class SlotReservationScreen extends StatelessWidget {

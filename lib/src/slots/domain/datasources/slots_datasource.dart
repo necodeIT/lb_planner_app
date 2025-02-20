@@ -1,4 +1,4 @@
-import 'package:lb_planner/lb_planner.dart';
+import 'package:eduplanner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Datasource mapping the slots endpoints.

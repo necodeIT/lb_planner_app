@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/statistics/statistics.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
 
 /// Base class for all chart widgets.
 abstract class Chart extends StatefulWidget {
