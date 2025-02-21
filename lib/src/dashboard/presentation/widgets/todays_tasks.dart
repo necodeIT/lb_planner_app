@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// Displays the user's tasks scheduled for today.
-class TodaysTasks extends StatelessWidget {
+class TodaysTasks extends StatelessWidget with AdaptiveWidget {
   /// Displays the user's tasks scheduled for today.
   const TodaysTasks({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>();
     final plan = context.watch<CalendarPlanRepository>();
 
@@ -46,6 +46,48 @@ class TodaysTasks extends StatelessWidget {
                 message: context.t.dashboard_todaysTasks_noTasks,
                 image: Assets.dashboard.nothingPlannedForToday,
               ).expanded(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final tasks = context.watch<MoodleTasksRepository>();
+    final plan = context.watch<CalendarPlanRepository>();
+
+    final canditateIds = plan.filterDeadlines(plannedForToday: true).map((e) => e.id).toSet();
+    final candidates = tasks.filter(taskIds: canditateIds);
+
+    return Card(
+      child: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          children: [
+            Text(
+              context.t.dashboard_todaysTasks,
+              style: context.textTheme.titleMedium?.bold,
+            ).alignAtTopLeft(),
+            Spacing.mediumVertical(),
+            if (candidates.isNotEmpty)
+              Column(
+                children: [
+                  for (final task in candidates)
+                    MoodleTaskWidget(
+                      task: task,
+                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark,
+                    ),
+                ].vSpaced(Spacing.smallSpacing).show(),
+              ),
+            if (candidates.isEmpty)
+              SizedBox(
+                height: 100,
+                child: ImageMessage(
+                  message: context.t.dashboard_todaysTasks_noTasks,
+                  image: Assets.dashboard.nothingPlannedForToday,
+                ),
+              ),
           ],
         ),
       ),

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// Navigation sidebar for the application.
-class Sidebar extends StatelessWidget {
+class Sidebar extends StatelessWidget with AdaptiveWidget {
   /// Navigation sidebar for the application.
   const Sidebar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
 
     return Container(
@@ -68,6 +68,54 @@ class Sidebar extends StatelessWidget {
               ].vSpaced(Spacing.smallSpacing),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  // TODO: determine necessity of fixed height value, optimal mainAxisSpacing and order of Navigation Items
+  @override
+  Widget buildMobile(BuildContext context) {
+    final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
+
+    return Container(
+      // height: 60,
+      decoration: BoxDecoration(
+        color: context.surface,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: PaddingHorizontal(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (capabilities.hasStudent)
+              const SidebarTarget(
+                route: '/dashboard/',
+                icon: Icons.dashboard,
+              ),
+            // if (capabilities.hasStudent)
+            //   const SidebarTarget(
+            //     route: '/calendar/plan/',
+            //     activeRoute: '/calendar/',
+            //     icon: Icons.calendar_month_rounded,
+            //   ),
+            // if (capabilities.hasStudent)
+            //   const SidebarTarget(
+            //     route: '/course-overview/',
+            //     icon: Icons.school,
+            //   ),
+            const SidebarTarget(
+              route: '/slots/book/',
+              activeRoute: '/slots/',
+              icon: Icons.timelapse,
+            ),
+          ].hSpaced(Spacing.smallSpacing),
         ),
       ),
     );

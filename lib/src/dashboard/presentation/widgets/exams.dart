@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// Displays the user's upcoming exams.
-class Exams extends StatelessWidget {
+class Exams extends StatelessWidget with AdaptiveWidget {
   /// Displays the user's upcoming exams.
   const Exams({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>();
 
     final candidates = tasks.filter(
@@ -47,6 +47,50 @@ class Exams extends StatelessWidget {
                 message: context.t.dashboard_exams_noExams,
                 image: Assets.dashboard.noExams,
               ).expanded(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final tasks = context.watch<MoodleTasksRepository>();
+
+    final candidates = tasks.filter(
+      type: {MoodleTaskType.exam},
+      maxDeadlineDiff: const Duration(days: 7),
+      minDeadlineDiff: Duration.zero,
+    );
+
+    return Card(
+      child: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          children: [
+            Text(
+              context.t.dashboard_exams,
+              style: context.textTheme.titleMedium?.bold,
+            ).alignAtTopLeft(),
+            Spacing.mediumVertical(),
+            if (candidates.isNotEmpty)
+              Column(
+                children: [
+                  for (final task in candidates)
+                    MoodleTaskWidget(
+                      task: task,
+                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndDate,
+                    ),
+                ].vSpaced(Spacing.smallSpacing).show(),
+              ),
+            if (candidates.isEmpty)
+              SizedBox(
+                height: 100,
+                child: ImageMessage(
+                  message: context.t.dashboard_exams_noExams,
+                  image: Assets.dashboard.noExams,
+                ),
+              ),
           ],
         ),
       ),

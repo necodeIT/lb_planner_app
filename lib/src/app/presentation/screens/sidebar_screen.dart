@@ -13,7 +13,7 @@ class SidebarScreen extends StatefulWidget {
   State<SidebarScreen> createState() => _SidebarScreenState();
 }
 
-class _SidebarScreenState extends State<SidebarScreen> {
+class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
   bool showedDisclaimer = false;
 
   void showDisclaimerDialog() {
@@ -25,7 +25,7 @@ class _SidebarScreenState extends State<SidebarScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final currentLocale = Localizations.localeOf(context);
     Intl.defaultLocale = currentLocale.languageCode;
 
@@ -45,6 +45,30 @@ class _SidebarScreenState extends State<SidebarScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final currentLocale = Localizations.localeOf(context);
+    Intl.defaultLocale = currentLocale.languageCode;
+
+    if (!showedDisclaimer && !kDebugMode) {
+      showedDisclaimer = true;
+
+      runAfterBuild(showDisclaimerDialog);
+    }
+    return const Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: TitleBar(
+              child: RouterOutlet(),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Sidebar(),
     );
   }
 }
