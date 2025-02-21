@@ -59,14 +59,16 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
       runAfterBuild(showDisclaimerDialog);
     }
     return const Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            child: TitleBar(
-              child: RouterOutlet(),
+      body: SafeArea(
+        child: Row(
+          children: [
+            Expanded(
+              child: TitleBar(
+                child: RouterOutlet(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Sidebar(),
     );
