@@ -25,7 +25,7 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
   }
 
   @override
-  Widget buildDesktop(BuildContext context) {
+  Widget build(BuildContext context) {
     final currentLocale = Localizations.localeOf(context);
     Intl.defaultLocale = currentLocale.languageCode;
 
@@ -34,6 +34,12 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
 
       runAfterBuild(showDisclaimerDialog);
     }
+
+    return super.build(context);
+  }
+
+  @override
+  Widget buildDesktop(BuildContext context) {
     return const Scaffold(
       body: Row(
         children: [
@@ -50,24 +56,12 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
 
   @override
   Widget buildMobile(BuildContext context) {
-    final currentLocale = Localizations.localeOf(context);
-    Intl.defaultLocale = currentLocale.languageCode;
-
-    if (!showedDisclaimer && !kDebugMode) {
-      showedDisclaimer = true;
-
-      runAfterBuild(showDisclaimerDialog);
-    }
     return const Scaffold(
       body: SafeArea(
-        child: Row(
-          children: [
-            Expanded(
-              child: TitleBar(
-                child: RouterOutlet(),
-              ),
-            ),
-          ],
+        child: Expanded(
+          child: TitleBar(
+            child: RouterOutlet(),
+          ),
         ),
       ),
       bottomNavigationBar: Sidebar(),

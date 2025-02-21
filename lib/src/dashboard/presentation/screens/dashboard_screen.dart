@@ -65,19 +65,21 @@ class DashboardScreen extends StatelessWidget with AdaptiveWidget {
 
   @override
   Widget buildMobile(BuildContext context) {
-    final stagger = AnimationStagger(const Duration(milliseconds: 50));
-
-    return Padding(
-      padding: PaddingAll(),
-      child: SingleChildScrollView(
-        // ignore: prefer_const_constructors
+    return SingleChildScrollView(
+      child: Padding(
+        padding: PaddingAll(),
         child: Column(
           children: [
-            const TodaysTasks().stretch().show(stagger),
-            const OverdueTasks().stretch().show(stagger),
-            const Exams().stretch().show(stagger),
-            const ReservedSlots().stretch().show(stagger),
-          ].vSpaced(Spacing.mediumSpacing),
+            SizedBox(
+              height: context.height * 0.4,
+              width: context.width - PaddingAll().horizontal * 2,
+              child: const StatusOverview(),
+            ),
+            const TodaysTasks().stretch(),
+            const OverdueTasks().stretch(),
+            const Exams().stretch(),
+            const ReservedSlots().stretch(),
+          ].show(),
         ),
       ).expanded(),
     );

@@ -19,13 +19,13 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   Future<void> preventMissfire() async {
     if (_checked) return;
 
+    _checked = true;
+
     final user = context.read<UserRepository>();
     final repo = context.read<MoodleCoursesRepository>();
 
     await user.ready;
     await repo.ready;
-
-    _checked = true;
 
     if (repo.filter(enabled: true).isNotEmpty || !(user.state.data?.capabilities.hasStudent ?? false)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

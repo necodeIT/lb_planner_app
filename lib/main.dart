@@ -115,7 +115,7 @@ void main() async {
     dio.options.validateStatus = (_) => true;
     dio.options.connectTimeout = const Duration(seconds: 30);
     dio.options.receiveTimeout = null;
-    dio.options.sendTimeout = const Duration(seconds: 30);
+    if (!kIsWeb) dio.options.sendTimeout = const Duration(seconds: 30);
   };
 
   Logger.root.onRecord.listen((record) {

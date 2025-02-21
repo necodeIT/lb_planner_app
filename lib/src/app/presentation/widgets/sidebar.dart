@@ -79,7 +79,7 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
     final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
 
     return Container(
-      // height: 60,
+      height: 60,
       decoration: BoxDecoration(
         color: context.surface,
         boxShadow: [

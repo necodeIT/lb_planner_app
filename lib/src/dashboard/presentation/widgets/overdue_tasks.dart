@@ -54,36 +54,25 @@ class OverdueTasks extends StatelessWidget with AdaptiveWidget {
 
     final candidates = tasks.filter(status: {MoodleTaskStatus.late});
 
-    return Card(
-      child: Padding(
-        padding: PaddingAll(),
-        child: Column(
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Text(
+          context.t.dashboard_overdueTasks,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Column(
           children: [
-            Text(
-              context.t.dashboard_overdueTasks,
-              style: context.textTheme.titleMedium?.bold,
-            ).alignAtTopLeft(),
-            Spacing.mediumVertical(),
-            if (candidates.isNotEmpty)
-              Column(
-                children: [
-                  for (final task in candidates)
-                    MoodleTaskWidget(
-                      task: task,
-                    ),
-                ].vSpaced(Spacing.smallSpacing).show(),
+            for (final task in candidates)
+              MoodleTaskWidget(
+                task: task,
               ),
-            if (candidates.isEmpty)
-              SizedBox(
-                height: 100,
-                child: ImageMessage(
-                  message: context.t.dashboard_noTasksOverdue,
-                  image: Assets.dashboard.noOverdueTasks,
-                ),
-              ),
-          ],
+          ].vSpaced(Spacing.smallSpacing).show(),
         ),
-      ),
+        Spacing.mediumVertical(),
+      ],
     );
   }
 }

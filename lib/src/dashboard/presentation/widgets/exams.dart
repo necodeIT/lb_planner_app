@@ -63,37 +63,26 @@ class Exams extends StatelessWidget with AdaptiveWidget {
       minDeadlineDiff: Duration.zero,
     );
 
-    return Card(
-      child: Padding(
-        padding: PaddingAll(),
-        child: Column(
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Text(
+          context.t.dashboard_exams,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Column(
           children: [
-            Text(
-              context.t.dashboard_exams,
-              style: context.textTheme.titleMedium?.bold,
-            ).alignAtTopLeft(),
-            Spacing.mediumVertical(),
-            if (candidates.isNotEmpty)
-              Column(
-                children: [
-                  for (final task in candidates)
-                    MoodleTaskWidget(
-                      task: task,
-                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndDate,
-                    ),
-                ].vSpaced(Spacing.smallSpacing).show(),
+            for (final task in candidates)
+              MoodleTaskWidget(
+                task: task,
+                displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndDate,
               ),
-            if (candidates.isEmpty)
-              SizedBox(
-                height: 100,
-                child: ImageMessage(
-                  message: context.t.dashboard_exams_noExams,
-                  image: Assets.dashboard.noExams,
-                ),
-              ),
-          ],
+          ].vSpaced(Spacing.smallSpacing).show(),
         ),
-      ),
+        Spacing.mediumVertical(),
+      ],
     );
   }
 }

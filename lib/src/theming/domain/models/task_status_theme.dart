@@ -41,4 +41,14 @@ class TaskStatusTheme extends ThemeExtension<TaskStatusTheme> {
       uploadedColor: Color.lerp(uploadedColor, other.uploadedColor, t)!,
     );
   }
+
+  /// Returns the color for the given [status].
+  Color colorOf(MoodleTaskStatus status) {
+    return switch (status) {
+      (MoodleTaskStatus.late) => lateColor,
+      (MoodleTaskStatus.pending) => pendingColor,
+      (MoodleTaskStatus.done) => doneColor,
+      (MoodleTaskStatus.uploaded) => uploadedColor,
+    };
+  }
 }

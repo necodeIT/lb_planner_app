@@ -60,37 +60,26 @@ class TodaysTasks extends StatelessWidget with AdaptiveWidget {
     final canditateIds = plan.filterDeadlines(plannedForToday: true).map((e) => e.id).toSet();
     final candidates = tasks.filter(taskIds: canditateIds);
 
-    return Card(
-      child: Padding(
-        padding: PaddingAll(),
-        child: Column(
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Text(
+          context.t.dashboard_todaysTasks,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Column(
           children: [
-            Text(
-              context.t.dashboard_todaysTasks,
-              style: context.textTheme.titleMedium?.bold,
-            ).alignAtTopLeft(),
+            for (final task in candidates)
+              MoodleTaskWidget(
+                task: task,
+                displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark,
+              ),
             Spacing.mediumVertical(),
-            if (candidates.isNotEmpty)
-              Column(
-                children: [
-                  for (final task in candidates)
-                    MoodleTaskWidget(
-                      task: task,
-                      displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndCheckmark,
-                    ),
-                ].vSpaced(Spacing.smallSpacing).show(),
-              ),
-            if (candidates.isEmpty)
-              SizedBox(
-                height: 100,
-                child: ImageMessage(
-                  message: context.t.dashboard_todaysTasks_noTasks,
-                  image: Assets.dashboard.nothingPlannedForToday,
-                ),
-              ),
-          ],
+          ].vSpaced(Spacing.smallSpacing).show(),
         ),
-      ),
+      ],
     );
   }
 }
