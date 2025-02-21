@@ -1,4 +1,4 @@
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 
 /// Displays the user's profile image and name.

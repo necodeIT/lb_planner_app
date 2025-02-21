@@ -1,4 +1,4 @@
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 
 /// Standard [PlanDatasource] implementation.
 class StdPlanDatasource extends PlanDatasource {

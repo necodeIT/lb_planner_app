@@ -1,5 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 
 export 'package:eduplanner/gen/l10n/app_localizations.dart';

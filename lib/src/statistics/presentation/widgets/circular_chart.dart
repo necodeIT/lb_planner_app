@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 
 /// A widget that displays a circular chart.

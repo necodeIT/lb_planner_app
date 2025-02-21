@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:eduplanner/config/endpoints.dart';
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:either_dart/either.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 

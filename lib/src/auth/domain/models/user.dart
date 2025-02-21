@@ -1,6 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 import 'package:color_blindness/color_blindness.dart';
-import 'package:eduplanner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
