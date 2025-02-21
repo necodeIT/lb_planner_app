@@ -73,7 +73,6 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
     );
   }
 
-  // TODO: determine necessity of fixed height value, optimal mainAxisSpacing and order of Navigation Items
   @override
   Widget buildMobile(BuildContext context) {
     final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
