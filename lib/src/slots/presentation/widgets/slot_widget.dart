@@ -183,7 +183,6 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
     );
   }
 
-  // TODO: optimize view for mobile devices.
   @override
   Widget buildMobile(BuildContext context) {
     final repo = context.watch<UserRepository>();
@@ -216,98 +215,100 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
 
     return Skeletonizer(
       enabled: loading,
-      child: HoverBuilder(
+      child: GestureDetector(
         onTap: widget.slot.reserved ? null : _onTap,
-        builder: (context, hover) {
-          hover = hover && canBook;
-          final active = hover || widget.slot.reserved;
-
-          return Container(
-            padding: PaddingAll(),
-            decoration: ShapeDecoration(
-              color: active ? context.theme.colorScheme.primary.withValues(alpha: 0.1) : context.theme.cardColor,
-              shape: squircle(
-                side: active
-                    ? BorderSide(
-                        color: context.theme.colorScheme.primary.withValues(alpha: 0.4),
-                      )
-                    : BorderSide.none,
-                borderAlign: BorderAlign.outside,
-              ),
-              shadows: active ? null : kElevationToShadow[4],
+        child: Container(
+          height: 100,
+          padding: PaddingAll(),
+          decoration: ShapeDecoration(
+            shape: squircle(
+              side: widget.slot.reserved ? BorderSide(color: context.theme.colorScheme.primary) : BorderSide.none,
+              borderAlign: BorderAlign.outside,
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        enableInfiniteScroll: false,
-                        height: 40,
-                        scrollDirection: Axis.vertical,
+            color: widget.slot.reserved ? context.theme.colorScheme.primary.withValues(alpha: 0.1) : context.theme.cardColor,
+          ),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      enableInfiniteScroll: false,
+                      height: 40,
+                      scrollDirection: Axis.vertical,
+                      viewportFraction: 1,
+                    ),
+                    items: [
+                      for (final course in mappings)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CourseTag(course: course),
+                            Spacing.smallHorizontal(),
+                            Text(
+                              course.name,
+                              overflow: TextOverflow.ellipsis,
+                            ).expanded(),
+                          ],
+                        ),
+                    ],
+                  ).expanded(),
+                  Spacing.xsVertical(),
+                  Row(
+                    spacing: Spacing.smallSpacing,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.room, size: 20),
+                          Spacing.xsHorizontal(),
+                          Text(widget.slot.room),
+                        ],
                       ),
-                      items: [
-                        for (final course in mappings)
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CourseTag(course: course),
-                              Spacing.smallHorizontal(),
-                              Text(
-                                course.name,
-                                overflow: TextOverflow.ellipsis,
-                              ).expanded(),
-                            ],
-                          ),
-                      ],
-                    ).expanded(),
-                    Spacing.mediumHorizontal(),
-                    if (!reserving)
-                      Icon(
-                        widget.slot.reserved
-                            ? Icons.check_circle
-                            : hover
-                                ? Icons.circle
-                                : Icons.circle_outlined,
-                        color: active ? context.theme.colorScheme.primary : context.theme.disabledColor,
-                      ),
-                    if (reserving) const CircularProgressIndicator(),
-                  ],
+                      CarouselSlider(
+                        disableGesture: true,
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enableInfiniteScroll: false,
+                          height: 40,
+                          scrollDirection: Axis.vertical,
+                          viewportFraction: 1,
+                        ),
+                        items: [
+                          for (final supervisor in supervisors)
+                            UserWidget(
+                              user: supervisor,
+                              expand: true,
+                            ),
+                        ],
+                      ).expanded(),
+                    ],
+                  ).expanded(),
+                ],
+              ).expanded(),
+              Spacing.mediumHorizontal(),
+              if (!reserving)
+                Icon(
+                  widget.slot.reserved
+                      ? Icons.check_circle
+                      : canBook
+                          ? Icons.circle
+                          : Icons.circle_outlined,
+                  color: widget.slot.reserved ? context.theme.colorScheme.primary : context.theme.disabledColor,
                 ),
-                Spacing.mediumVertical(),
-                Row(
-                  children: [
-                    const Icon(Icons.people),
-                    Spacing.smallHorizontal(),
-                    Text(' ${widget.slot.reservations} / ${widget.slot.size}'),
-                  ],
-                ),
-                Spacing.xsVertical(),
-                Row(
-                  children: [
-                    const Icon(Icons.room),
-                    Spacing.smallHorizontal(),
-                    Text(widget.slot.room),
-                  ],
-                ),
-                CarouselSlider(
-                  disableGesture: true,
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    enableInfiniteScroll: false,
-                    height: 40,
-                    scrollDirection: Axis.vertical,
+              if (reserving)
+                const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 4,
                   ),
-                  items: [
-                    for (final supervisor in supervisors) UserWidget(user: supervisor),
-                  ],
                 ),
-              ],
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }

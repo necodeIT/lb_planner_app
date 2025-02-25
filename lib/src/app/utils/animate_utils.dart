@@ -9,7 +9,6 @@ extension AnimateUtils on List<Widget> {
   /// Animate a list of widgets with a default slide and fade animation.
   ///
   /// - [delay] is the delay before the first animation starts.
-  /// - [increment] is the delay between each animation.
   /// - [duration] is the duration of the animation.
   /// - [curve] is the curve of the animation.
   /// - [begin] is the starting position of the animation.
@@ -17,7 +16,7 @@ extension AnimateUtils on List<Widget> {
   /// - [limit] is the maximum number of widgets to animate (0 for all).
   List<Widget> show({
     Duration delay = Duration.zero,
-    Duration increment = const Duration(milliseconds: 100),
+    AnimationStagger? stagger,
     Duration duration = const Duration(seconds: 1, milliseconds: 500),
     Curve? curve,
     double begin = 2,
@@ -25,6 +24,8 @@ extension AnimateUtils on List<Widget> {
     int limit = 16,
   }) {
     assert(limit >= 0, 'Limit must be positive');
+
+    stagger ??= AnimationStagger();
 
     curve ??= Sprung.custom(damping: 19);
 
@@ -39,10 +40,17 @@ extension AnimateUtils on List<Widget> {
         continue;
       }
 
+      if (this[i] is Static) {
+        widgets.add(this[i]);
+        continue;
+      }
+
       if (limit > 0 && animated >= limit) {
         widgets.add(this[i]);
         continue;
       }
+
+      final staggeredDelay = delay + stagger.add();
 
       widgets.add(
         this[i]
@@ -52,12 +60,12 @@ extension AnimateUtils on List<Widget> {
               end: end,
               curve: curve,
               duration: duration,
-              delay: delay + increment * i,
+              delay: staggeredDelay,
             )
             .fadeIn(
               curve: curve,
               duration: duration,
-              delay: delay + increment * i,
+              delay: staggeredDelay,
             ),
       );
 
@@ -78,6 +86,9 @@ extension AnimateX on Widget {
   }) {
     return animate().scale(duration: duration, delay: stagger?.add() ?? delay, curve: Curves.easeOutCubic);
   }
+
+  /// Wraps this widget in [Static] to disable animations.
+  Static static() => Static(child: this);
 }
 
 /// Adds shimmer animation to a widget.
@@ -89,4 +100,18 @@ extension ShimmerX on Widget {
       highlightColor: context.theme.colorScheme.onSurface.withValues(alpha: 0.1),
     );
   }
+}
+
+/// Use this to wrap a widget and mark it as static (i.e. not animated).
+/// This is useful when you want to disable animations for a widget when using [AnimateUtils.show].
+class Static extends StatelessWidget {
+  /// Use this to wrap a widget and mark it as static (i.e. not animated).
+  /// This is useful when you want to disable animations for a widget when using [AnimateUtils.show].
+  const Static({super.key, required this.child});
+
+  /// The child widget.
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => child;
 }

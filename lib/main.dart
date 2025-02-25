@@ -13,6 +13,7 @@ import 'package:eduplanner/config/version.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/auth/auth.dart';
 import 'package:eduplanner/src/theming/theming.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -356,6 +357,7 @@ class _AppWidgetState extends State<AppWidget> {
                 onGenerateTitle: (context) => kAppName,
                 supportedLocales: AppLocalizations.supportedLocales,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, child) => ScrollConfiguration(behavior: const CupertinoScrollBehavior(), child: child!),
               ),
             ),
           ),

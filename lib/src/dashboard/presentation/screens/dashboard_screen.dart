@@ -78,7 +78,7 @@ class DashboardScreen extends StatelessWidget with AdaptiveWidget {
             const TodaysTasks().stretch(),
             const OverdueTasks().stretch(),
             const Exams().stretch(),
-            const ReservedSlots().stretch(),
+            const ReservedSlots().stretch().static(),
           ].show(),
         ),
       ).expanded(),
