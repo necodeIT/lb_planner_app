@@ -91,7 +91,8 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
       child: Padding(
         padding: PaddingHorizontal(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: Spacing.xlSpacing,
           children: [
             if (capabilities.hasStudent)
               const SidebarTarget(
@@ -109,10 +110,15 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
             //     route: '/course-overview/',
             //     icon: Icons.school,
             //   ),
+
             const SidebarTarget(
               route: '/slots/book/',
               activeRoute: '/slots/',
               icon: Icons.timelapse,
+            ),
+            const SidebarTarget(
+              route: '/settings/',
+              icon: Icons.settings,
             ),
           ].hSpaced(Spacing.smallSpacing),
         ),

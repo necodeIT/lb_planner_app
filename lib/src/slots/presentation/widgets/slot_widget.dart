@@ -290,13 +290,11 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
               ).expanded(),
               Spacing.mediumHorizontal(),
               if (!reserving)
-                Icon(
-                  widget.slot.reserved
-                      ? Icons.check_circle
-                      : canBook
-                          ? Icons.circle
-                          : Icons.circle_outlined,
-                  color: widget.slot.reserved ? context.theme.colorScheme.primary : context.theme.disabledColor,
+                Text(
+                  '${widget.slot.reservations}/${widget.slot.size}',
+                  style: TextStyle(
+                    color: widget.slot.reserved ? context.theme.colorScheme.primary : context.theme.disabledColor,
+                  ),
                 ),
               if (reserving)
                 const SizedBox(

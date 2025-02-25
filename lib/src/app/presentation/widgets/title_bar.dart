@@ -411,7 +411,6 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                   if (_trailing != null) _trailing!,
                 ],
               ),
-              // TODO: implement mobile notifications and user settings
               Skeletonizer(
                 enabled: user.id == -1,
                 child: Row(

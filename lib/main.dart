@@ -56,6 +56,7 @@ const sensitiveKeys = kDebugMode
         'colorblindnessString',
         'displaytaskcount',
         'userid',
+        'privatetoken',
       ];
 
 /// Censores sensitive data in log messages.
