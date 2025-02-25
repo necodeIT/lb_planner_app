@@ -129,6 +129,12 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
   Future<void> _showNotifications(BuildContext context) async {
     if (_popupContext != null) return;
 
+    if (context.isMobile) {
+      await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const NotificationsList());
+
+      return;
+    }
+
     final height = context.height * 0.5;
     final width = context.width * 0.2;
 

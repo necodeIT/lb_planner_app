@@ -28,6 +28,8 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
   FutureOr<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadUsers');
 
+    await _auth.ready;
+
     final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
