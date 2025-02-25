@@ -123,12 +123,6 @@ class AppModule extends Module {
           AuthGuard(redirectTo: '/auth/'),
         ],
       )
-      ..child(
-        '/mobile',
-        child: (_) => const MobileScreen(),
-        transition: TransitionType.custom,
-        customTransition: defaultTransition,
-      )
       ..wildcard(child: (_) => const NotFoundScreen());
   }
 }
