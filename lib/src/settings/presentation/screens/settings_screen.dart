@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// Renders the settings screen.
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatelessWidget with AdaptiveWidget {
   /// Renders the settings screen.
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final stagger = AnimationStagger(const Duration(milliseconds: 50));
     final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
 
@@ -49,5 +49,11 @@ class SettingsScreen extends StatelessWidget {
         ].hSpaced(Spacing.mediumSpacing),
       ),
     );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    // TODO(MasterMarcoHD): implement buildMobil  e
+    throw UnimplementedError();
   }
 }

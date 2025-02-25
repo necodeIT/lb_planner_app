@@ -15,7 +15,7 @@ class TasksOverviewScreen extends StatefulWidget {
   State<TasksOverviewScreen> createState() => _TasksOverviewScreenState();
 }
 
-class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
+class _TasksOverviewScreenState extends State<TasksOverviewScreen> with AdaptiveState, NoMobile {
   final scrollController = ScrollController();
 
   // A list of months which are in the winter (the first) semester of school.
@@ -51,7 +51,7 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final enabledCourses = context.watch<MoodleCoursesRepository>().filter(enabled: true);
 
     final isSummer = summerMonths.contains(DateTime.now().month);

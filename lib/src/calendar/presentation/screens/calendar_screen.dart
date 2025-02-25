@@ -16,7 +16,7 @@ class CalendarScreen extends StatefulWidget {
 }
 
 /// State of the [CalendarScreen].
-class CalendarScreenState extends State<CalendarScreen> {
+class CalendarScreenState extends State<CalendarScreen> with AdaptiveState, NoMobile {
   List<Widget> Function(BuildContext)? _actionBuilder;
 
   /// The current tab of the screen.
@@ -46,7 +46,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final nextTab = currentTab == CalendarScreenTab.plan ? CalendarScreenTab.moduleOverview : CalendarScreenTab.plan;
 
     return Container(

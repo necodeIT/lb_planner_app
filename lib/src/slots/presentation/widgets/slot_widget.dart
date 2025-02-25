@@ -209,10 +209,6 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
       mappings.add(MoodleCourse.skeleton());
     }
 
-    final canBook = widget.slot.reservations < widget.slot.size &&
-        !widget.slot.reserved &&
-        (TimeOfDay.now().isBefore(widget.slot.startUnit.timeOfDay) || widget.date.isAfter(DateTime.now()));
-
     return Skeletonizer(
       enabled: loading,
       child: GestureDetector(

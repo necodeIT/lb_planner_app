@@ -278,6 +278,7 @@ class _AppWidgetState extends State<AppWidget> {
   void initState() {
     super.initState();
     _authSubscription = Modular.get<AuthRepository>().listen(_listener);
+    Modular.to.addListener(_preventEmptyRoute);
   }
 
   Future<void> _listener(AsyncValue<Set<Token>> state) async {
@@ -290,6 +291,16 @@ class _AppWidgetState extends State<AppWidget> {
     if (Modular.to.isActive('/auth')) return;
 
     Modular.to.navigate('/auth/');
+  }
+
+  void _preventEmptyRoute() {
+    if (Modular.to.path.isEmpty) {
+      Modular.to.navigate('/dashboard/');
+    }
+
+    if (Modular.to.path == '/') {
+      Modular.to.navigate('/dashboard/');
+    }
   }
 
   @override
