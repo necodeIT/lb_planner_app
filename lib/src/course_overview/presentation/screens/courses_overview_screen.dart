@@ -12,7 +12,7 @@ class CoursesOverviewScreen extends StatefulWidget {
   State<CoursesOverviewScreen> createState() => _CoursesOverviewScreenState();
 }
 
-class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
+class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> with AdaptiveState, NoMobile {
   final _searchController = TextEditingController();
 
   @override
@@ -32,7 +32,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
     final courses = repo.filter(enabled: true, name: _searchController.text);

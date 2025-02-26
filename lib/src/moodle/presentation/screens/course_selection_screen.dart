@@ -13,7 +13,7 @@ class CourseSelectionScreen extends StatefulWidget {
   State<CourseSelectionScreen> createState() => _CourseSelectionScreenState();
 }
 
-class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
+class _CourseSelectionScreenState extends State<CourseSelectionScreen> with AdaptiveState {
   bool _checked = false;
 
   Future<void> preventMissfire() async {
@@ -35,7 +35,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
     runAfterBuild(preventMissfire);
@@ -82,5 +82,11 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    // TODO: implement buildMobile
+    throw UnimplementedError();
   }
 }

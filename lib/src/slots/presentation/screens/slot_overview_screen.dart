@@ -7,15 +7,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 /// Displays an overview of all slots for a supervisor.
-class SlotOverviewScreen extends StatelessWidget {
+class SlotOverviewScreen extends StatelessWidget with AdaptiveWidget, NoMobile {
   /// Displays an overview of all slots for a supervisor.
   const SlotOverviewScreen({super.key});
 
   /// The date formatter.
   static final formatter = DateFormat('dd.MM.yyyy');
 
+  // TODO: implement mobile view
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final slots = context.watch<SupervisorSlotsRepository>();
 
     final groups = SplayTreeMap<Weekday, Map<(SlotTimeUnit, SlotTimeUnit), List<Slot>>>.from(

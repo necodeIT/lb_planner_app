@@ -22,7 +22,7 @@ class CourseOverviewScreen extends StatefulWidget {
   State<CourseOverviewScreen> createState() => _CourseOverviewScreenState();
 }
 
-class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
+class _CourseOverviewScreenState extends State<CourseOverviewScreen> with AdaptiveState, NoMobile {
   final _searchController = TextEditingController();
 
   @override
@@ -64,7 +64,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>().filter(courseId: widget.id, query: _searchController.text)
       ..sort(
         (a, b) => sorter(a, b) * (sortAscending ? 1 : -1),

@@ -16,7 +16,7 @@ class SlotDetailsScreen extends StatefulWidget {
   State<SlotDetailsScreen> createState() => _SlotDetailsScreenState();
 }
 
-class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
+class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveState, NoMobile {
   // TODO(MasterMarcoHD): implement student unbooking
   void kickStudent(User student) {}
 
@@ -28,7 +28,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final users = context.watch<UsersRepository>();
 
     final slots = context.watch<SupervisorSlotsRepository>();

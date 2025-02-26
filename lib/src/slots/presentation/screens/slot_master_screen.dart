@@ -13,7 +13,7 @@ class SlotMasterScreen extends StatefulWidget {
   State<SlotMasterScreen> createState() => _SlotMasterScreenState();
 }
 
-class _SlotMasterScreenState extends State<SlotMasterScreen> {
+class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState, NoMobile {
   final searchController = TextEditingController();
 
   @override
@@ -43,7 +43,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> {
   static const tileHeight = 250.0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final slots = context.watch<SlotMasterSlotsRepository>();
 
     final groups = slots.group();
