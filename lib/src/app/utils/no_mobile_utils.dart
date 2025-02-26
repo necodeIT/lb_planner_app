@@ -10,20 +10,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 mixin NoMobile on Adaptive {
   @override
   Widget buildMobile(BuildContext context) {
-    // TODO(MasterMarcoHD): Localize messages.
     return Scaffold(
       body: Padding(
         padding: PaddingAll(),
         child: Column(
           spacing: Spacing.mediumSpacing,
           children: [
-            const ImageMessage(
-              message: 'This feature is not available on mobile devices.',
+            ImageMessage(
+              message: context.t.app_noMobile_message,
               image: Assets.mobile,
             ).expanded(),
             ElevatedButton(
               onPressed: () => Modular.to.navigate('/dashboard/'),
-              child: const Text('Go back'),
+              child: Text(context.t.app_noMobile_goBack),
             ),
           ],
         ),

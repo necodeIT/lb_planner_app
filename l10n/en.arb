@@ -86,6 +86,8 @@
     "@app_update_web": {
         "description": "Instruction for updating the web version by refreshing the page."
     },
+    "app_noMobile_message": "This feature is not available on mobile devices.",
+    "app_noMobile_goBack": "Go back",
     "auth_accessHint": "You are not allowed to use {appname}. If you believe this is an error, please contact your Moodle administrator to request access.",
     "@auth_accessHint": {
         "description": "Access restriction message that uses the app name placeholder.",
