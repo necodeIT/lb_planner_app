@@ -355,7 +355,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
 
     final showLicenseBadge = featureId != null && license.state.data != null;
 
-    // TODO: fix license widget not rendering if title is too long.
+    // TODO(mcquenji): fix license widget not rendering if title is too long.
     return Column(
       children: [
         Padding(

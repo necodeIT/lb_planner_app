@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
 
   @override
   Widget buildMobile(BuildContext context) {
-    // TODO(MasterMarcoHD): implement buildMobil  e
+    // TODO(MasterMarcoHD): implement buildMobile
     throw UnimplementedError();
   }
 }

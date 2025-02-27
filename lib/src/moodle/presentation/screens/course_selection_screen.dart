@@ -86,7 +86,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> with Adap
 
   @override
   Widget buildMobile(BuildContext context) {
-    // TODO: implement buildMobile
+    // TODO(MasterMarcoHD): implement buildMobile
     throw UnimplementedError();
   }
 }

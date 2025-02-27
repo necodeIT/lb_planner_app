@@ -14,7 +14,6 @@ class SlotOverviewScreen extends StatelessWidget with AdaptiveWidget, NoMobile {
   /// The date formatter.
   static final formatter = DateFormat('dd.MM.yyyy');
 
-  // TODO: implement mobile view
   @override
   Widget buildDesktop(BuildContext context) {
     final slots = context.watch<SupervisorSlotsRepository>();
