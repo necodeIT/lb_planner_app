@@ -81,7 +81,7 @@ class DashboardScreen extends StatelessWidget with AdaptiveWidget {
             const ReservedSlots().stretch().static(),
           ].show(),
         ),
-      ).expanded(),
+      ),
     );
   }
 }

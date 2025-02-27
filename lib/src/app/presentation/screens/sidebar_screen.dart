@@ -58,10 +58,8 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
   Widget buildMobile(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
-        child: Expanded(
-          child: TitleBar(
-            child: RouterOutlet(),
-          ),
+        child: TitleBar(
+          child: RouterOutlet(),
         ),
       ),
       bottomNavigationBar: Sidebar(),
