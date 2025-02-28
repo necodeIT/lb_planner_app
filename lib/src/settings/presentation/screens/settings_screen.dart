@@ -1,3 +1,4 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:eduplanner/src/settings/settings.dart';
@@ -53,7 +54,20 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
 
   @override
   Widget buildMobile(BuildContext context) {
-    // TODO(MasterMarcoHD): implement buildMobile
-    throw UnimplementedError();
+    final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
+
+    return SingleChildScrollView(
+      child: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          children: [
+            const GeneralSettings().stretch(),
+            const ThemesSettings().stretch(),
+            if (capabilities.hasStudent) const CourseSelector().stretch(),
+            const FeedbackWidget().stretch(),
+          ].vSpaced(Spacing.mediumSpacing).show(),
+        ),
+      ),
+    );
   }
 }

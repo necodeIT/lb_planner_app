@@ -86,7 +86,35 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> with Adap
 
   @override
   Widget buildMobile(BuildContext context) {
-    // TODO(MasterMarcoHD): implement buildMobile
-    throw UnimplementedError();
+    final repo = context.watch<MoodleCoursesRepository>();
+
+    runAfterBuild(preventMissfire);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              Text(
+                context.t.moodle_courseSelectionScreen_selectCourses,
+                style: context.textTheme.titleLarge,
+              ),
+              Spacing.large(),
+              Column(
+                children: [
+                  const CourseSelector().expanded(),
+                  Spacing.mediumVertical(),
+                  ElevatedButton(
+                    onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.navigate('/dashboard/') : null,
+                    child: Text(context.t.global_continue),
+                  ).stretch(),
+                ],
+              ).expanded(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
