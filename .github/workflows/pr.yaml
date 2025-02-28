@@ -109,12 +109,18 @@ jobs:
       - run: pip install requests
       - name: 📝 Construct test comment
         run: python .github/workflows/construct_unit_test_comment.py ${{ steps.reporter.outputs.url }} ${{ github.event.pull_request.head.sha }} comment.txt
+      - name: 🤌 Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.5
+        id: token
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_PRIVATE_KEY }}
       - name: 💬 Post test comment
         uses: peter-evans/create-or-update-comment@v3.1.0
         with:
           body-path: comment.txt
           issue-number: ${{ github.event.pull_request.number }}
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.token.outputs.token }}
   validate-title:
     name: Validate PR title
     runs-on: ubuntu-latest
