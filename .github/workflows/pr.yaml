@@ -39,12 +39,18 @@ jobs:
           python-version: '3.10'
       - name: 📝 Construct analysis comment
         run: python .github/workflows/construct_analysis_comment.py analysis.txt ${{ github.event.pull_request.head.sha }} ${{ github.event.number }} comment.txt
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.5
+        id: token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - name: 💬 Post analysis comment
         uses: peter-evans/create-or-update-comment@v3.1.0
         with:
           body-path: comment.txt
           issue-number: ${{ github.event.pull_request.number }}
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.token.outputs.token }}
       - name: ✅ Annotate analysis results
         uses: invertase/github-action-dart-analyzer@v3
 
