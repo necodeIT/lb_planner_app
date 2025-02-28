@@ -1,17 +1,17 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Displays the user's upcoming exams.
-class Exams extends StatelessWidget {
+class Exams extends StatelessWidget with AdaptiveWidget {
   /// Displays the user's upcoming exams.
   const Exams({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>();
 
     final candidates = tasks.filter(
@@ -50,6 +50,39 @@ class Exams extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final tasks = context.watch<MoodleTasksRepository>();
+
+    final candidates = tasks.filter(
+      type: {MoodleTaskType.exam},
+      maxDeadlineDiff: const Duration(days: 7),
+      minDeadlineDiff: Duration.zero,
+    );
+
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Text(
+          context.t.dashboard_exams,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Column(
+          children: [
+            for (final task in candidates)
+              MoodleTaskWidget(
+                task: task,
+                displayMode: MoodleTaskWidgetDisplayMode.nameAndCourseAndDate,
+              ),
+          ].vSpaced(Spacing.smallSpacing).show(),
+        ),
+        Spacing.mediumVertical(),
+      ],
     );
   }
 }

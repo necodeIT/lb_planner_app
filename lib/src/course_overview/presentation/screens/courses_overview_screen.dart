@@ -1,7 +1,7 @@
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Displays an overview of all courses.
 class CoursesOverviewScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class CoursesOverviewScreen extends StatefulWidget {
   State<CoursesOverviewScreen> createState() => _CoursesOverviewScreenState();
 }
 
-class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
+class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> with AdaptiveState, NoMobile {
   final _searchController = TextEditingController();
 
   @override
@@ -32,7 +32,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
     final courses = repo.filter(enabled: true, name: _searchController.text);

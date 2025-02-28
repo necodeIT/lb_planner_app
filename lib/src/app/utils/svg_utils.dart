@@ -1,6 +1,6 @@
+import 'package:eduplanner/gen/assets/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
 
 /// Utility class for theming SVG images.
 extension SvgUtils on SvgGenImage {

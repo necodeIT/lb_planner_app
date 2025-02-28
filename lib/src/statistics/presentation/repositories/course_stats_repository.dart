@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/statistics/statistics.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Repository responsible for providing statistics on a per-course basis.

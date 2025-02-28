@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Modules overview of a course.
 class CalendarCourseTasksOverview extends StatelessWidget {

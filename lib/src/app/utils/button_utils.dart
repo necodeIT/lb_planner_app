@@ -1,6 +1,6 @@
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Provides button extensions on [CircularProgressIndicator].
 extension ButtonUtils on CircularProgressIndicator {

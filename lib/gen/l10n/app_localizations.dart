@@ -209,6 +209,18 @@ abstract class AppLocalizations {
   /// **'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.'**
   String get app_update_web;
 
+  /// No description provided for @app_noMobile_message.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is not available on mobile devices.'**
+  String get app_noMobile_message;
+
+  /// No description provided for @app_noMobile_goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get app_noMobile_goBack;
+
   /// Access restriction message that uses the app name placeholder.
   ///
   /// In en, this message translates to:

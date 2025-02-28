@@ -1,8 +1,8 @@
+import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/src/app/app.dart';
 
 /// A screen that wraps its children in a [Sidebar].
 class SidebarScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class SidebarScreen extends StatefulWidget {
   State<SidebarScreen> createState() => _SidebarScreenState();
 }
 
-class _SidebarScreenState extends State<SidebarScreen> {
+class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
   bool showedDisclaimer = false;
 
   void showDisclaimerDialog() {
@@ -34,6 +34,12 @@ class _SidebarScreenState extends State<SidebarScreen> {
 
       runAfterBuild(showDisclaimerDialog);
     }
+
+    return super.build(context);
+  }
+
+  @override
+  Widget buildDesktop(BuildContext context) {
     return const Scaffold(
       body: Row(
         children: [
@@ -45,6 +51,18 @@ class _SidebarScreenState extends State<SidebarScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    return const Scaffold(
+      body: SafeArea(
+        child: TitleBar(
+          child: RouterOutlet(),
+        ),
+      ),
+      bottomNavigationBar: Sidebar(),
     );
   }
 }

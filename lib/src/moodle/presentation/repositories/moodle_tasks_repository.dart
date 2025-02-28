@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:eduplanner/config/endpoints.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Provides all tasks from Moodle with the latest updates.

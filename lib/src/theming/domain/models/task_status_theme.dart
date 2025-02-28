@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Theme extension for [MoodleTask.status].
 class TaskStatusTheme extends ThemeExtension<TaskStatusTheme> {
@@ -40,5 +40,15 @@ class TaskStatusTheme extends ThemeExtension<TaskStatusTheme> {
       doneColor: Color.lerp(doneColor, other.doneColor, t)!,
       uploadedColor: Color.lerp(uploadedColor, other.uploadedColor, t)!,
     );
+  }
+
+  /// Returns the color for the given [status].
+  Color colorOf(MoodleTaskStatus status) {
+    return switch (status) {
+      (MoodleTaskStatus.late) => lateColor,
+      (MoodleTaskStatus.pending) => pendingColor,
+      (MoodleTaskStatus.done) => doneColor,
+      (MoodleTaskStatus.uploaded) => uploadedColor,
+    };
   }
 }

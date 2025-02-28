@@ -57,11 +57,18 @@ jobs:
       - name: Copy generated docs to /app subdir
         run: | 
           cp -R app/doc/api/* docs/app/
+
+      - name: 🤌 Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.5
+        id: token
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_PRIVATE_KEY }}
         
       - name: Push new documentation to docs repo
         uses: actions-js/push@v1.5
         with:
-            github_token: ${{ secrets.REPO_DOCS_TOKEN }}
+            github_token: ${{ steps.token.outputs.token }}
             repository: 'necodeIT/lb_planner_docs'
             branch: main
             message: "GitHub Actions - Update client-side API documentation to ${{ github.sha }}"

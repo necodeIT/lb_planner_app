@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:crypto/crypto.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
-import 'package:lb_planner/src/auth/auth.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// User ID repository for the echidna package.

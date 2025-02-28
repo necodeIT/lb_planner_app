@@ -1,4 +1,4 @@
-import 'package:lb_planner/config/version.dart';
+import 'package:eduplanner/config/version.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 
 /// Standard implementation of the [AppInfoService].

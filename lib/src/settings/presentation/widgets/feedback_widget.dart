@@ -1,12 +1,12 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/config/posthog.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:lb_planner/config/posthog.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:uicons_updated/uicons.dart';
 import 'package:url_launcher/url_launcher.dart';

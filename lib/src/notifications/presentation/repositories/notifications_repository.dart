@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/notifications/notifications.dart';
+import 'package:eduplanner/config/endpoints.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/notifications/notifications.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// UI state control for notifications.

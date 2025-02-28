@@ -5,5 +5,6 @@ export 'context_utils.dart';
 export 'dialog_utils.dart';
 export 'icon_button_utils.dart';
 export 'json_serializable_utils.dart';
+export 'no_mobile_utils.dart';
 export 'sentry_utils.dart';
 export 'svg_utils.dart';

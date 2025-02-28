@@ -70,6 +70,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_update_web => 'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.';
 
   @override
+  String get app_noMobile_message => 'This feature is not available on mobile devices.';
+
+  @override
+  String get app_noMobile_goBack => 'Go back';
+
+  @override
   String auth_accessHint(String appname) {
     return 'You are not allowed to use $appname. If you believe this is an error, please contact your Moodle administrator to request access.';
   }

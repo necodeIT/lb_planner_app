@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:lb_planner/src/app/app.dart';
 
 /// Shows a dialog with default animations.
 Future<T?> showAnimatedDialog<T>({required BuildContext context, required RoutePageBuilder pageBuilder}) {

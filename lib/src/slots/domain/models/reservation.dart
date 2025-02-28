@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:eduplanner/src/slots/slots.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/slots/slots.dart';
 
 part 'reservation.freezed.dart';
 part 'reservation.g.dart';

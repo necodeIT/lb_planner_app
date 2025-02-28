@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:lb_planner/config/endpoints.dart';
+import 'package:eduplanner/config/endpoints.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 

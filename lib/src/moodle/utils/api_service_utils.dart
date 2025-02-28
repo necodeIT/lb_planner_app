@@ -1,5 +1,5 @@
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:either_dart/either.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Utility functions for [Either<List<JSON>, JSON>].

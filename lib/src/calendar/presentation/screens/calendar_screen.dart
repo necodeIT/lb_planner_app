@@ -1,10 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Renders the UI of the calendar feature.
 class CalendarScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class CalendarScreen extends StatefulWidget {
 }
 
 /// State of the [CalendarScreen].
-class CalendarScreenState extends State<CalendarScreen> {
+class CalendarScreenState extends State<CalendarScreen> with AdaptiveState, NoMobile {
   List<Widget> Function(BuildContext)? _actionBuilder;
 
   /// The current tab of the screen.
@@ -46,7 +46,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final nextTab = currentTab == CalendarScreenTab.plan ? CalendarScreenTab.moduleOverview : CalendarScreenTab.plan;
 
     return Container(

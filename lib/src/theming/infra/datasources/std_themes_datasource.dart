@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// Standard implementation of [ThemesDatasource].
 class StdThemesDatasource extends ThemesDatasource {

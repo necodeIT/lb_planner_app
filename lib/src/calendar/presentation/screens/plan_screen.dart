@@ -1,11 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_utils/flutter_utils.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
 import 'package:popover/popover.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -21,7 +20,7 @@ class PlanScreen extends StatefulWidget {
   State<PlanScreen> createState() => _PlanScreenState();
 }
 
-class _PlanScreenState extends State<PlanScreen> with WindowListener {
+class _PlanScreenState extends State<PlanScreen> with WindowListener, AdaptiveState, NoMobile {
   /// The first day of the month to currently display.
   DateTime currentMonth = DateTime.now();
   DateTime prevMonth = DateTime.now();
@@ -248,7 +247,7 @@ class _PlanScreenState extends State<PlanScreen> with WindowListener {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     // fill in the days of the month so that the beginning and the end are full weeks (use previous and next month)
     final days = <DateTime>[];
 

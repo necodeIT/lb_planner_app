@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:lb_planner/config/endpoints.dart';
-import 'package:lb_planner/lb_planner.dart';
+import 'package:eduplanner/config/endpoints.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Holds all invites for the current user

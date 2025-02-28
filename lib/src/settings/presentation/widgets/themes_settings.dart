@@ -1,9 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/settings/settings.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/settings/settings.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// A section of the settings screen that allows the user to change the app's theme.
 class ThemesSettings extends StatelessWidget {

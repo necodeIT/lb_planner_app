@@ -1,6 +1,6 @@
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/calendar/calendar.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/calendar/calendar.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 
 /// Standard [DeadlinesDatasource] implementation.
 class StdDeadlinesDatasource extends DeadlinesDatasource {

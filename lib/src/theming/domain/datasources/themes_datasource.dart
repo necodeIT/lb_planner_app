@@ -1,4 +1,4 @@
-import 'package:lb_planner/src/theming/theming.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A datasource providing all available themes.

@@ -1,13 +1,13 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/config/posthog.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/config/posthog.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// A form prompting the user to input their credentials.

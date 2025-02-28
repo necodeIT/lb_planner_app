@@ -4,20 +4,22 @@ import 'dart:io';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:context_menus/context_menus.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
+import 'package:eduplanner/config/echidna.dart';
+import 'package:eduplanner/config/posthog.dart';
+import 'package:eduplanner/config/sentry.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/theming/theming.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_single_instance/flutter_single_instance.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:lb_planner/config/echidna.dart';
-import 'package:lb_planner/config/posthog.dart';
-import 'package:lb_planner/config/sentry.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
@@ -54,6 +56,7 @@ const sensitiveKeys = kDebugMode
         'colorblindnessString',
         'displaytaskcount',
         'userid',
+        'privatetoken',
       ];
 
 /// Censores sensitive data in log messages.
@@ -98,6 +101,8 @@ void main() async {
   CoreModule.isWeb = kIsWeb;
   CoreModule.debugMode = kDebugMode;
 
+  Adaptive.ignoreHeight = true;
+
   setPathUrlStrategy();
 
   initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
@@ -112,7 +117,7 @@ void main() async {
     dio.options.validateStatus = (_) => true;
     dio.options.connectTimeout = const Duration(seconds: 30);
     dio.options.receiveTimeout = null;
-    dio.options.sendTimeout = const Duration(seconds: 30);
+    if (!kIsWeb) dio.options.sendTimeout = const Duration(seconds: 30);
   };
 
   Logger.root.onRecord.listen((record) {
@@ -273,6 +278,7 @@ class _AppWidgetState extends State<AppWidget> {
   void initState() {
     super.initState();
     _authSubscription = Modular.get<AuthRepository>().listen(_listener);
+    Modular.to.addListener(_preventEmptyRoute);
   }
 
   Future<void> _listener(AsyncValue<Set<Token>> state) async {
@@ -287,68 +293,84 @@ class _AppWidgetState extends State<AppWidget> {
     Modular.to.navigate('/auth/');
   }
 
+  void _preventEmptyRoute() {
+    if (Modular.to.path.isEmpty) {
+      Modular.to.navigate('/dashboard/');
+    }
+
+    if (Modular.to.path == '/') {
+      Modular.to.navigate('/dashboard/');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = context.watch<ThemeRepository>();
 
-    return Theme(
-      data: theme.state,
-      child: ContextMenuOverlay(
-        buttonBuilder: (context, config, [style]) => HoverBuilder(
-          builder: (context, isHovering) => TextButton(
-            onPressed: config.onPressed,
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              overlayColor: WidgetStateProperty.all(Colors.transparent),
-            ),
-            child: IconTheme(
-              data: context.theme.iconTheme.copyWith(color: context.theme.colorScheme.onSurface, size: 15),
-              child: Row(
-                children: [
-                  if (config.icon != null) isHovering ? config.iconHover ?? config.icon! : config.icon!,
-                  if (config.icon != null) Spacing.xsHorizontal(),
-                  Text(
-                    config.label,
-                    style: TextStyle(color: context.theme.colorScheme.onSurface),
-                  ),
-                ],
+    return DevicePreview(
+      // false positive
+      // ignore: avoid_redundant_argument_values
+      enabled: kDebugMode,
+      builder: (_) => Theme(
+        data: theme.state,
+        child: ContextMenuOverlay(
+          buttonBuilder: (context, config, [style]) => HoverBuilder(
+            builder: (context, isHovering) => TextButton(
+              onPressed: config.onPressed,
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                overlayColor: WidgetStateProperty.all(Colors.transparent),
+              ),
+              child: IconTheme(
+                data: context.theme.iconTheme.copyWith(color: context.theme.colorScheme.onSurface, size: 15),
+                child: Row(
+                  children: [
+                    if (config.icon != null) isHovering ? config.iconHover ?? config.icon! : config.icon!,
+                    if (config.icon != null) Spacing.xsHorizontal(),
+                    Text(
+                      config.label,
+                      style: TextStyle(color: context.theme.colorScheme.onSurface),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        cardBuilder: (context, children) => Container(
-          padding: PaddingAll(Spacing.xsSpacing),
-          decoration: ShapeDecoration(
-            color: theme.state.cardColor,
-            shape: squircle(),
-            shadows: kElevationToShadow[8],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: children,
-          ),
-        ),
-        child: ConditionalWrapper(
-          condition: kInstalledRelease.channel != ReleaseChannel.stable || kDebugMode,
-          wrapper: (context, child) => Banner(
-            message: kInstalledRelease.channel.name.toUpperCase(),
-            location: BannerLocation.topEnd,
-            color: theme.state.colorScheme.error,
-            child: child,
-          ),
-          child: SkeletonizerConfig(
-            data: SkeletonizerConfigData(
-              containersColor: theme.state.disabledColor.withValues(alpha: 0.1),
+          cardBuilder: (context, children) => Container(
+            padding: PaddingAll(Spacing.xsSpacing),
+            decoration: ShapeDecoration(
+              color: theme.state.cardColor,
+              shape: squircle(),
+              shadows: kElevationToShadow[8],
             ),
-            child: MaterialApp.router(
-              theme: theme.state,
-              title: kAppName,
-              debugShowCheckedModeBanner: false,
-              routerConfig: Modular.routerConfig,
-              onGenerateTitle: (context) => kAppName,
-              supportedLocales: AppLocalizations.supportedLocales,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: children,
+            ),
+          ),
+          child: ConditionalWrapper(
+            condition: kInstalledRelease.channel != ReleaseChannel.stable || kDebugMode,
+            wrapper: (context, child) => Banner(
+              message: kInstalledRelease.channel.name.toUpperCase(),
+              location: BannerLocation.topEnd,
+              color: theme.state.colorScheme.error,
+              child: child,
+            ),
+            child: SkeletonizerConfig(
+              data: SkeletonizerConfigData(
+                containersColor: theme.state.disabledColor.withValues(alpha: 0.1),
+              ),
+              child: MaterialApp.router(
+                theme: theme.state,
+                title: kAppName,
+                debugShowCheckedModeBanner: false,
+                routerConfig: Modular.routerConfig,
+                onGenerateTitle: (context) => kAppName,
+                supportedLocales: AppLocalizations.supportedLocales,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                builder: (context, child) => ScrollConfiguration(behavior: const CupertinoScrollBehavior(), child: child!),
+              ),
             ),
           ),
         ),

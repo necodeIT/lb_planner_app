@@ -1,10 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Displays the monthly distribution of tasks.
 class TasksOverviewScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class TasksOverviewScreen extends StatefulWidget {
   State<TasksOverviewScreen> createState() => _TasksOverviewScreenState();
 }
 
-class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
+class _TasksOverviewScreenState extends State<TasksOverviewScreen> with AdaptiveState, NoMobile {
   final scrollController = ScrollController();
 
   // A list of months which are in the winter (the first) semester of school.
@@ -51,7 +51,7 @@ class _TasksOverviewScreenState extends State<TasksOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final enabledCourses = context.watch<MoodleCoursesRepository>().filter(enabled: true);
 
     final isSummer = summerMonths.contains(DateTime.now().month);

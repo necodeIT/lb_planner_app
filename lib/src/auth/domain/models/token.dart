@@ -31,7 +31,7 @@ enum Webservice {
 
   /// Our own inhouse webservice.
   ///
-  /// See [https://github.com/necodeIT/lb_planner/tree/moodle](https://github.com/necodeIT/lb_planner/tree/moodle)
+  /// See [https://github.com/necodeIT/lb_planner_plugin](https://github.com/necodeIT/lb_planner_plugin)
   // ignore: constant_identifier_names
   lb_planner_api,
 }
