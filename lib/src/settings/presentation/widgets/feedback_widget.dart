@@ -54,6 +54,8 @@ class _FeedbackWidgetState extends State<FeedbackWidget> with AdaptiveState {
 
     final message = messageController.text.trim();
 
+    final mobile = context.isMobile;
+
     try {
       final user = context.read<UserRepository>().state.requireData;
 
@@ -79,7 +81,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> with AdaptiveState {
           message: context.t.settings_feedback_sent_message(sentryId.toString()),
         );
 
-        if (context.isMobile) {
+        if (mobile && mounted) {
           Navigator.of(context).pop();
         }
       }
@@ -246,19 +248,19 @@ class _FeedbackWidgetState extends State<FeedbackWidget> with AdaptiveState {
         child: Padding(
           padding: PaddingAll(),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: Navigator.of(context).pop,
-                    icon: const Icon(Icons.chevron_left),
-                    splashRadius: 20,
-                  ),
-                  Text(
-                    context.t.settings_feedback_title,
-                    style: context.textTheme.titleMedium?.bold,
-                  ).alignAtTopLeft(),
-                ],
+              GestureDetector(
+                onTap: Navigator.of(context).pop,
+                child: Row(
+                  children: [
+                    const Icon(Icons.chevron_left),
+                    Text(
+                      context.t.settings_feedback_title,
+                      style: context.textTheme.titleMedium?.bold,
+                    ).alignAtTopLeft(),
+                  ],
+                ),
               ),
               Spacing.small(),
               Expanded(

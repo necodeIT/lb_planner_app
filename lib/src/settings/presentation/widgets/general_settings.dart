@@ -61,16 +61,62 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
     deletingProfile = false;
   }
 
-  @override
-  Widget buildDesktop(BuildContext context) {
+  Future<void> logout() async {
+    final auth = context.read<AuthRepository>();
+
+    await auth.logout();
+
+    Modular.to.navigate('/auth/');
+  }
+
+  List<Widget> buildItems(BuildContext context) {
     final user = context.watch<UserRepository>();
 
     final isStudent = user.state.data?.capabilities.hasStudent ?? false;
+    return [
+      iconItem(
+        title: context.t.settings_general_version(kInstalledRelease.toString()),
+        icon: Icons.update,
+        onPressed: checkUpdates,
+      ),
 
+      // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
+      if (isStudent)
+        checkboxItem(
+          title: context.t.settings_general_enableEK,
+          value: user.state.data?.optionalTasksEnabled ?? false,
+          onChanged: user.enableOptionalTasks,
+        ),
+      if (isStudent)
+        checkboxItem(
+          title: context.t.settings_general_displayTaskCount,
+          value: user.state.data?.displayTaskCount ?? false,
+          onChanged: user.setDisplayTaskCount,
+        ),
+      iconItem(
+        title: context.t.auth_privacyPolicy,
+        icon: FontAwesome5Solid.balance_scale,
+        onPressed: () => launchUrl(kPrivacyPolicyUrl),
+        iconSize: 14,
+      ),
+      // iconItem(
+      //   title: context.t.settings_general_manageSubscription,
+      //   icon: FontAwesome5Solid.credit_card,
+      //   onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
+      //   iconSize: 14,
+      // ),
+
+      if (context.isMobile) iconItem(title: 'Logout', icon: Icons.logout, onPressed: logout), // TODO(MasterMarcoHD): Localize
+    ];
+  }
+
+  @override
+  Widget buildDesktop(BuildContext context) {
     return Card(
       child: Padding(
         padding: PaddingAll(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               context.t.settings_general,
@@ -78,39 +124,7 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
             ).alignAtTopLeft(),
             Expanded(
               child: ListView(
-                children: [
-                  iconItem(
-                    title: context.t.settings_general_version(kInstalledRelease.toString()),
-                    icon: Icons.update,
-                    onPressed: checkUpdates,
-                  ),
-
-                  // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
-                  if (isStudent)
-                    checkboxItem(
-                      title: context.t.settings_general_enableEK,
-                      value: user.state.data?.optionalTasksEnabled ?? false,
-                      onChanged: user.enableOptionalTasks,
-                    ),
-                  if (isStudent)
-                    checkboxItem(
-                      title: context.t.settings_general_displayTaskCount,
-                      value: user.state.data?.displayTaskCount ?? false,
-                      onChanged: user.setDisplayTaskCount,
-                    ),
-                  iconItem(
-                    title: context.t.auth_privacyPolicy,
-                    icon: FontAwesome5Solid.balance_scale,
-                    onPressed: () => launchUrl(kPrivacyPolicyUrl),
-                    iconSize: 14,
-                  ),
-                  iconItem(
-                    title: context.t.settings_general_manageSubscription,
-                    icon: FontAwesome5Solid.credit_card,
-                    onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
-                    iconSize: 14,
-                  ),
-                ].vSpaced(Spacing.smallSpacing),
+                children: buildItems(context).vSpaced(Spacing.smallSpacing),
               ),
             ),
           ],
@@ -121,78 +135,45 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
 
   @override
   Widget buildMobile(BuildContext context) {
-    final user = context.watch<UserRepository>();
-
-    final isStudent = user.state.data?.capabilities.hasStudent ?? false;
-
-    // TODO(MasterMarcoHD): expand interactable area of item
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           context.t.settings_general,
           style: context.textTheme.titleMedium?.bold,
         ).alignAtTopLeft(),
+        Spacing.smallVertical(),
         Column(
-          children: [
-            iconItem(
-              title: context.t.settings_general_version(kInstalledRelease.toString()),
-              icon: Icons.update,
-              onPressed: checkUpdates,
-            ),
-
-            // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
-            if (isStudent)
-              checkboxItem(
-                title: context.t.settings_general_enableEK,
-                value: user.state.data?.optionalTasksEnabled ?? false,
-                onChanged: user.enableOptionalTasks,
-              ),
-            if (isStudent)
-              checkboxItem(
-                title: context.t.settings_general_displayTaskCount,
-                value: user.state.data?.displayTaskCount ?? false,
-                onChanged: user.setDisplayTaskCount,
-              ),
-            iconItem(
-              title: context.t.auth_privacyPolicy,
-              icon: FontAwesome5Solid.balance_scale,
-              onPressed: () => launchUrl(kPrivacyPolicyUrl),
-              iconSize: 14,
-            ),
-            iconItem(
-              title: context.t.settings_general_manageSubscription,
-              icon: FontAwesome5Solid.credit_card,
-              onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
-              iconSize: 14,
-            ),
-          ].vSpaced(Spacing.smallSpacing),
+          children: buildItems(context).vSpaced(Spacing.smallSpacing),
         ),
       ],
     );
   }
 
   Widget iconItem({required String title, required IconData icon, VoidCallback? onPressed, Color? hoverColor, double? iconSize = 20}) {
-    return item(
-      title: title,
-      suffix: HoverBuilder(
-        onTap: onPressed,
-        builder: (context, hovering) {
-          return Container(
+    return HoverBuilder(
+      onTap: onPressed,
+      builder: (context, hovering) => item(
+        title: title,
+        suffix: ConditionalWrapper(
+          condition: !context.isMobile,
+          child: Icon(
+            icon,
+            color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
+            size: iconSize,
+          ),
+          wrapper: (context, child) => Container(
             height: 35,
             width: 35,
             decoration: ShapeDecoration(
               shape: squircle(),
               color: context.theme.scaffoldBackgroundColor,
             ),
-            child: Icon(
-              icon,
-              color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
-              size: iconSize,
-            ),
-          );
-        },
+            child: child,
+          ),
+        ),
+        onPressed: onPressed,
       ),
-      onPressed: onPressed,
     );
   }
 
@@ -204,22 +185,25 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
         value: value,
         onChanged: onChanged,
       ),
+      onPressed: () => onChanged(!value),
     );
   }
 
   // ignore: avoid_positional_boolean_parameters
   Widget item({required String title, required Widget suffix, VoidCallback? onPressed}) {
+    final children = [
+      Text(title).expanded(),
+      Spacing.smallHorizontal(),
+      suffix,
+    ];
+
     return SizedBox(
       height: 35,
       child: GestureDetector(
         onTap: onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(title).expanded(),
-            Spacing.xs(),
-            suffix,
-          ],
+          children: context.isMobile ? children.reversed.toList() : children,
         ),
       ),
     );

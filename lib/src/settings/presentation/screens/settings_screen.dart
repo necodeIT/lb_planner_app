@@ -66,7 +66,6 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
             children: [
               SizedBox(child: const GeneralSettings().stretch()),
               const ThemesSettings().stretch(),
-              // TODO(MasterMarcoHD): expand Gesturedetector to cover whole row.
               if (capabilities.hasStudent)
                 Column(
                   children: [

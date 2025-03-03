@@ -9,24 +9,24 @@ class CourseSelectorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Dialog.fullscreen(
       child: SafeArea(
         child: Padding(
           padding: PaddingAll(),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: Navigator.of(context).pop,
-                    icon: const Icon(Icons.chevron_left),
-                    splashRadius: 20,
-                  ),
-                  Text(
-                    context.t.moodle_courseSelectionScreen_selectCourses,
-                    style: context.textTheme.titleMedium?.bold,
-                  ).alignAtTopLeft(),
-                ],
+              GestureDetector(
+                onTap: Navigator.of(context).pop,
+                child: Row(
+                  children: [
+                    const Icon(Icons.chevron_left),
+                    Text(
+                      context.t.moodle_courseSelectionScreen_selectCourses,
+                      style: context.textTheme.titleMedium?.bold,
+                    ).alignAtTopLeft(),
+                  ],
+                ),
               ),
               Spacing.small(),
               const Expanded(child: CourseSelector()),

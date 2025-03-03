@@ -194,6 +194,8 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
       );
 
       await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
+
+      log('Optional tasks enabled set to $enabled');
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
       transaction.internalError(e);
