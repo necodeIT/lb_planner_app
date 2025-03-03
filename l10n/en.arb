@@ -87,7 +87,9 @@
         "description": "Instruction for updating the web version by refreshing the page."
     },
     "app_noMobile_message": "This feature is not available on mobile devices.",
+    "@app_noMobile_message": {},
     "app_noMobile_goBack": "Go back",
+    "@app_noMobile_goBack": {},
     "auth_accessHint": "You are not allowed to use {appname}. If you believe this is an error, please contact your Moodle administrator to request access.",
     "@auth_accessHint": {
         "description": "Access restriction message that uses the app name placeholder.",
@@ -545,9 +547,17 @@
     "@settings_general_displayTaskCount": {
         "description": "Option to toggle the display of the task count."
     },
+    "settings_general_manageSubscription": "Manage Subscription",
+    "@settings_general_manageSubscription": {
+        "description": "Link to subscription management."
+    },
     "settings_theme": "Theme",
     "@settings_theme": {
         "description": "Label for theme selection in settings."
+    },
+    "settings_courses": "Courses",
+    "@settings_courses": {
+        "description": "Label for course selection in settings."
     },
     "slots_title": "Slots",
     "@slots_title": {

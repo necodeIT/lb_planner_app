@@ -407,7 +407,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_general_displayTaskCount => 'Display task count';
 
   @override
+  String get settings_general_manageSubscription => 'Manage Subscription';
+
+  @override
   String get settings_theme => 'Theme';
+
+  @override
+  String get settings_courses => 'Courses';
 
   @override
   String get slots_title => 'Slots';

@@ -56,16 +56,50 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
   Widget buildMobile(BuildContext context) {
     final capabilities = context.watch<UserRepository>().state.data?.capabilities ?? {};
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: PaddingAll(),
-        child: Column(
-          children: [
-            const GeneralSettings().stretch(),
-            const ThemesSettings().stretch(),
-            if (capabilities.hasStudent) const CourseSelector().stretch(),
-            const FeedbackWidget().stretch(),
-          ].vSpaced(Spacing.mediumSpacing).show(),
+    // return GeneralSettings().expanded();
+    return Align(
+      alignment: Alignment.topCenter,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              SizedBox(child: const GeneralSettings().stretch()),
+              const ThemesSettings().stretch(),
+              // TODO(MasterMarcoHD): expand Gesturedetector to cover whole row.
+              if (capabilities.hasStudent)
+                Column(
+                  children: [
+                    Text(
+                      context.t.settings_courses,
+                      style: context.textTheme.titleMedium?.bold,
+                    ).alignAtTopLeft(),
+                    Spacing.mediumVertical(),
+                    GestureDetector(
+                      onTap: () async {
+                        await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const CourseSelectorDialog());
+                      },
+                      child: Text(context.t.moodle_courseSelectionScreen_selectCourses),
+                    ).alignAtCenterLeft().stretch(),
+                  ],
+                ),
+              Column(
+                children: [
+                  Text(
+                    context.t.settings_feedback_title,
+                    style: context.textTheme.titleMedium?.bold,
+                  ).alignAtTopLeft(),
+                  Spacing.mediumVertical(),
+                  GestureDetector(
+                    onTap: () async {
+                      await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const FeedbackWidget());
+                    },
+                    child: Text(context.t.settings_feedback_title),
+                  ).alignAtCenterLeft().stretch(),
+                ],
+              ),
+            ].vSpaced(Spacing.mediumSpacing).show(),
+          ),
         ),
       ),
     );

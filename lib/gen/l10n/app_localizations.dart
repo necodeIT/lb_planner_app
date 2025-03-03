@@ -809,11 +809,23 @@ abstract class AppLocalizations {
   /// **'Display task count'**
   String get settings_general_displayTaskCount;
 
+  /// Link to subscription management.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get settings_general_manageSubscription;
+
   /// Label for theme selection in settings.
   ///
   /// In en, this message translates to:
   /// **'Theme'**
   String get settings_theme;
+
+  /// Label for course selection in settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get settings_courses;
 
   /// Title for the slots section.
   ///

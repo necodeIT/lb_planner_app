@@ -545,9 +545,17 @@
     "@settings_general_displayTaskCount": {
         "description": "Option to toggle the display of the task count."
     },
+    "settings_general_manageSubscription": "Abonament verwalten",
+    "@settings_general_manageSubscription": {
+        "description": "Link to subscription management."
+    },
     "settings_theme": "Design",
     "@settings_theme": {
         "description": "Label for theme selection in settings."
+    },
+    "settings_courses": "Kurse",
+    "@settings_courses": {
+        "description": "Label for course selection in settings."
     },
     "slots_title": "Slots",
     "@slots_title": {

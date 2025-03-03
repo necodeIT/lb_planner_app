@@ -407,7 +407,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_general_displayTaskCount => 'Anzahl der Aufgaben anzeigen';
 
   @override
+  String get settings_general_manageSubscription => 'Abonament verwalten';
+
+  @override
   String get settings_theme => 'Design';
+
+  @override
+  String get settings_courses => 'Kurse';
 
   @override
   String get slots_title => 'Slots';

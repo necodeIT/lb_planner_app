@@ -18,7 +18,7 @@ class GeneralSettings extends StatefulWidget {
   State<GeneralSettings> createState() => _GeneralSettingsState();
 }
 
-class _GeneralSettingsState extends State<GeneralSettings> {
+class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
   bool checkingUpdates = false;
   bool clearingCache = false;
   bool deletingProfile = false;
@@ -62,7 +62,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final user = context.watch<UserRepository>();
 
     final isStudent = user.state.data?.capabilities.hasStudent ?? false;
@@ -99,13 +99,13 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                       onChanged: user.setDisplayTaskCount,
                     ),
                   iconItem(
-                    title: 'Privacy Policy', // TODO(MasterMarcoHD): Localize
+                    title: context.t.auth_privacyPolicy,
                     icon: FontAwesome5Solid.balance_scale,
                     onPressed: () => launchUrl(kPrivacyPolicyUrl),
                     iconSize: 14,
                   ),
                   iconItem(
-                    title: 'Manage Subscription', // TODO(MasterMarcoHD): Localize
+                    title: context.t.settings_general_manageSubscription,
                     icon: FontAwesome5Solid.credit_card,
                     onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
                     iconSize: 14,
@@ -116,6 +116,58 @@ class _GeneralSettingsState extends State<GeneralSettings> {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final user = context.watch<UserRepository>();
+
+    final isStudent = user.state.data?.capabilities.hasStudent ?? false;
+
+    // TODO(MasterMarcoHD): expand interactable area of item
+    return Column(
+      children: [
+        Text(
+          context.t.settings_general,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Column(
+          children: [
+            iconItem(
+              title: context.t.settings_general_version(kInstalledRelease.toString()),
+              icon: Icons.update,
+              onPressed: checkUpdates,
+            ),
+
+            // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
+            if (isStudent)
+              checkboxItem(
+                title: context.t.settings_general_enableEK,
+                value: user.state.data?.optionalTasksEnabled ?? false,
+                onChanged: user.enableOptionalTasks,
+              ),
+            if (isStudent)
+              checkboxItem(
+                title: context.t.settings_general_displayTaskCount,
+                value: user.state.data?.displayTaskCount ?? false,
+                onChanged: user.setDisplayTaskCount,
+              ),
+            iconItem(
+              title: context.t.auth_privacyPolicy,
+              icon: FontAwesome5Solid.balance_scale,
+              onPressed: () => launchUrl(kPrivacyPolicyUrl),
+              iconSize: 14,
+            ),
+            iconItem(
+              title: context.t.settings_general_manageSubscription,
+              icon: FontAwesome5Solid.credit_card,
+              onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
+              iconSize: 14,
+            ),
+          ].vSpaced(Spacing.smallSpacing),
+        ),
+      ],
     );
   }
 

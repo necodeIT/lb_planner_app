@@ -20,7 +20,7 @@ class FeedbackWidget extends StatefulWidget {
   State<FeedbackWidget> createState() => _FeedbackWidgetState();
 }
 
-class _FeedbackWidgetState extends State<FeedbackWidget> {
+class _FeedbackWidgetState extends State<FeedbackWidget> with AdaptiveState {
   FeedbackType dropdownValue = FeedbackType.values.first;
   TextEditingController messageController = TextEditingController();
 
@@ -78,6 +78,10 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
           title: context.t.settings_feedback_sent_title,
           message: context.t.settings_feedback_sent_message(sentryId.toString()),
         );
+
+        if (context.isMobile) {
+          Navigator.of(context).pop();
+        }
       }
     } catch (e, s) {
       messageController.text = message;
@@ -118,7 +122,7 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     return Card(
       child: Padding(
         padding: PaddingAll(),
@@ -230,6 +234,135 @@ class _FeedbackWidgetState extends State<FeedbackWidget> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    return Card(
+      child: SafeArea(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: Navigator.of(context).pop,
+                    icon: const Icon(Icons.chevron_left),
+                    splashRadius: 20,
+                  ),
+                  Text(
+                    context.t.settings_feedback_title,
+                    style: context.textTheme.titleMedium?.bold,
+                  ).alignAtTopLeft(),
+                ],
+              ),
+              Spacing.small(),
+              Expanded(
+                child: Form(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Theme(
+                            data: context.theme.copyWith(
+                              colorScheme: context.theme.colorScheme.copyWith(onSurface: context.theme.colorScheme.primary),
+                            ),
+                            child: DropdownMenu(
+                              width: 135,
+                              alignmentOffset: const Offset(60, 65),
+                              trailingIcon: const Icon(
+                                FontAwesome5Solid.chevron_down,
+                                size: 13,
+                              ),
+                              requestFocusOnTap: false, // disable text input
+                              initialSelection: dropdownValue,
+                              leadingIcon: feedbackTypeIcon(dropdownValue),
+                              dropdownMenuEntries: FeedbackType.values.map<DropdownMenuEntry<FeedbackType>>((type) {
+                                return DropdownMenuEntry<FeedbackType>(
+                                  value: type,
+                                  label: type.translate(context),
+                                  leadingIcon: feedbackTypeIcon(type),
+                                );
+                              }).toList(),
+                              onSelected: (FeedbackType? value) {
+                                if (value == null) return;
+
+                                setState(() {
+                                  dropdownValue = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacing.small(),
+                      TextField(
+                        maxLines: null,
+                        expands: true,
+                        controller: messageController,
+                        textAlignVertical: TextAlignVertical.top,
+                        decoration: InputDecoration(
+                          fillColor: context.theme.scaffoldBackgroundColor,
+                          filled: true,
+                          contentPadding: PaddingAll(Spacing.mediumSpacing),
+                          hoverColor: context.theme.scaffoldBackgroundColor,
+                          focusColor: context.theme.scaffoldBackgroundColor,
+                          hintText: context.t.settings_feedback_description,
+                          border: OutlineInputBorder(
+                            borderRadius: squircle().borderRadius,
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ).expanded(),
+                      Spacing.small(),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => onChanged(null),
+                          child: Row(
+                            children: [
+                              Checkbox(value: agreed, onChanged: onChanged),
+                              Text.rich(
+                                TextSpan(
+                                  text: context.t.settings_feedback_consent,
+                                  children: [
+                                    TextSpan(
+                                      text: context.t.auth_privacyPolicy,
+                                      style: context.bodySmall?.copyWith(
+                                        color: context.theme.colorScheme.primary,
+                                      ),
+                                      mouseCursor: SystemMouseCursors.click,
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          launchUrl(kPrivacyPolicyUrl);
+                                        },
+                                    ),
+                                    TextSpan(
+                                      text: context.t.settings_feedback_consentSuffix,
+                                    ),
+                                  ],
+                                ),
+                                style: const TextStyle(fontSize: 12),
+                              ).expanded(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Spacing.small(),
+                      ElevatedButton(
+                        onPressed: agreed && messageController.text.isNotEmpty ? _sendFeedback : null,
+                        child: Text(context.t.settings_feedback_submit),
+                      ).stretch(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

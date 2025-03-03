@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// A section of the settings screen that allows the user to change the app's theme.
-class ThemesSettings extends StatelessWidget {
+class ThemesSettings extends StatelessWidget with AdaptiveWidget {
   /// A section of the settings screen that allows the user to change the app's theme.
   const ThemesSettings({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final themes = context.watch<ThemesDatasource>();
 
     return Card(
@@ -41,6 +41,31 @@ class ThemesSettings extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final themes = context.watch<ThemesDatasource>();
+
+    return Column(
+      children: [
+        Text(
+          context.t.settings_theme,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Wrap(
+          spacing: Spacing.mediumSpacing,
+          runSpacing: Spacing.mediumSpacing,
+          children: [
+            ThemePreview(theme: themes.systemTheme()),
+            for (final theme in themes.getThemes()) ThemePreview(theme: theme),
+          ].show(
+            begin: .5,
+          ),
+        ).alignAtTopLeft(),
+      ],
     );
   }
 }
