@@ -78,7 +78,7 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
                       onTap: () async {
                         await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const CourseSelectorDialog());
                       },
-                      child: Text(context.t.moodle_courseSelectionScreen_selectCourses),
+                      child: Text(context.t.moodle_courseSelectionScreen_selectCourses).stretch(),
                     ).alignAtCenterLeft().stretch(),
                   ],
                 ),
@@ -93,7 +93,7 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
                     onTap: () async {
                       await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const FeedbackWidget());
                     },
-                    child: Text(context.t.settings_feedback_title),
+                    child: Text(context.t.settings_feedback_title).stretch(),
                   ).alignAtCenterLeft().stretch(),
                 ],
               ),
