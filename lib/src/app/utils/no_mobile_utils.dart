@@ -4,8 +4,6 @@ import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-// TODO(MasterMarcoHD): Use this mixin in all routes that don't support mobile.
-
 /// Shows a mobile unsupported message for adaptive widgets when on mobile.
 mixin NoMobile on Adaptive {
   @override
