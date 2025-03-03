@@ -557,6 +557,10 @@
     "@settings_courses": {
         "description": "Label for course selection in settings."
     },
+    "settings_logout": "Abmelden",
+    "@settings_logout": {
+        "description": "Label for user logout in settings."
+    },
     "slots_title": "Slots",
     "@slots_title": {
         "description": "Title for the slots section."

@@ -827,6 +827,12 @@ abstract class AppLocalizations {
   /// **'Courses'**
   String get settings_courses;
 
+  /// Label for user logout in settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get settings_logout;
+
   /// Title for the slots section.
   ///
   /// In en, this message translates to:

@@ -416,6 +416,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_courses => 'Courses';
 
   @override
+  String get settings_logout => 'Logout';
+
+  @override
   String get slots_title => 'Slots';
 
   @override

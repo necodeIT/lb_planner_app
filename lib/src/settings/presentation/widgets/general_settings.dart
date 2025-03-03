@@ -106,7 +106,7 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
       //   iconSize: 14,
       // ),
 
-      if (context.isMobile) iconItem(title: 'Logout', icon: Icons.logout, onPressed: logout), // TODO(MasterMarcoHD): Localize
+      if (context.isMobile) iconItem(title: context.t.settings_logout, icon: Icons.logout, onPressed: logout),
     ];
   }
 

@@ -416,6 +416,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_courses => 'Kurse';
 
   @override
+  String get settings_logout => 'Logout';
+
+  @override
   String get slots_title => 'Slots';
 
   @override
