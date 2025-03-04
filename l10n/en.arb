@@ -681,6 +681,10 @@
     "@slots_reserve_error": {
         "description": "Error message displayed when a slot reservation fails."
     },
+    "slots_unbook_error": "An unexpected error occurred while canceling your reservation. Please try again later.",
+    "@slots_unbook_error": {
+        "description": "Error message displayed when unbooking a slot fails."
+    },
     "slots_weekday_monday": "Monday",
     "@slots_weekday_monday": {
         "description": "Label for Monday in slot editing."

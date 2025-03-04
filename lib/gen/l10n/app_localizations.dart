@@ -959,6 +959,12 @@ abstract class AppLocalizations {
   /// **'Failed to reserve slot'**
   String get slots_reserve_error;
 
+  /// Error message displayed when unbooking a slot fails.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred while canceling your reservation. Please try again later.'**
+  String get slots_unbook_error;
+
   /// Label for Monday in slot editing.
   ///
   /// In en, this message translates to:

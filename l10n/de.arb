@@ -725,5 +725,9 @@
         "description": "Button label to return to the home page."
     },
     "global_disclaimer_title": "Öffentliche Beta",
-    "global_disclaimer": "Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️"
+    "global_disclaimer": "Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️",
+    "slots_unbook_error": "Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.",
+    "@slots_unbook_error": {
+        "description": "Error message displayed when unbooking a slot fails."
+    }
 }

@@ -35,16 +35,25 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
 
     final slots = context.read<SlotsRepository>();
 
+    final unbook = widget.slot.reserved;
+
     try {
-      await slots.book(
-        date: widget.date,
-        slot: widget.slot,
-      );
+      if (unbook) {
+        await slots.unbook(
+          date: widget.date,
+          slot: widget.slot,
+        );
+      } else {
+        await slots.book(
+          date: widget.date,
+          slot: widget.slot,
+        );
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.t.slots_reserve_error),
+            content: Text(unbook ? context.t.slots_unbook_error : context.t.slots_reserve_error),
           ),
         );
       }
@@ -88,7 +97,7 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
     return Skeletonizer(
       enabled: loading,
       child: HoverBuilder(
-        onTap: widget.slot.reserved ? null : _onTap,
+        onTap: _onTap,
         builder: (context, hover) {
           hover = hover && canBook;
           final active = hover || widget.slot.reserved;
@@ -212,7 +221,7 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
     return Skeletonizer(
       enabled: loading,
       child: GestureDetector(
-        onTap: widget.slot.reserved ? null : _onTap,
+        onTap: _onTap,
         child: Container(
           height: 100,
           padding: PaddingAll(),

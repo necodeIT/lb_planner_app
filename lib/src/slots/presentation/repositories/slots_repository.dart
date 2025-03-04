@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:collection/collection.dart';
 import 'package:eduplanner/config/endpoints.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
@@ -98,6 +99,73 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
       await build(this);
     } catch (e) {
       log('Failed to reserve slot: $e');
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
+  }
+
+  /// Unbooks the given [slot] for the current user at the given [date].
+  Future<void> unbook({required Slot slot, required DateTime date}) async {
+    if (!state.hasData) {
+      log('Cannot unbook slot ${slot.id} for current user: No data');
+      return;
+    }
+
+    if (!slot.reserved) {
+      log('Cannot unbook slot ${slot.id} for current user: Slot is not reserved');
+
+      return;
+    }
+
+    final transaction = startTransaction('unbookSlot');
+
+    log('Unreserving slot ${slot.id} for current user');
+
+    try {
+      data(
+        state.requireData.map(
+          (s) {
+            if (s.id == slot.id) {
+              return s.copyWith(
+                reservations: s.reservations - 1,
+                reserved: false,
+              );
+            }
+
+            return s;
+          },
+        ).toList(),
+      );
+
+      final token = _auth.state.requireData.pick(Webservice.lb_planner_api);
+
+      final reservations = await _datasource.getUserReservations(token);
+
+      final reservation = reservations.firstWhereOrNull((r) => r.slotId == slot.id && r.date == date);
+
+      if (reservation == null) {
+        log('Cannot unbook slot ${slot.id} for current user: No reservation found');
+
+        transaction.internalError('No reservation found');
+        return;
+      }
+
+      await _datasource.cancelReservation(token: token, reservationId: reservation.id);
+
+      await captureEvent(
+        'slot_unreserved',
+        properties: {
+          'reservation_date': DateTime.now().toIso8601String(),
+          'date': date.toIso8601String(),
+        },
+      );
+
+      log('Unreserved slot ${slot.id} for current user');
+
+      await build(this);
+    } catch (e) {
+      log('Failed to unreserve slot: $e');
       transaction.internalError(e);
     } finally {
       await transaction.commit();

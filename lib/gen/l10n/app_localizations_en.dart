@@ -492,6 +492,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slots_reserve_error => 'Failed to reserve slot';
 
   @override
+  String get slots_unbook_error => 'An unexpected error occurred while canceling your reservation. Please try again later.';
+
+  @override
   String get slots_weekday_monday => 'Monday';
 
   @override

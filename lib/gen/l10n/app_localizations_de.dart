@@ -416,7 +416,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_courses => 'Kurse';
 
   @override
-  String get settings_logout => 'Logout';
+  String get settings_logout => 'Abmelden';
 
   @override
   String get slots_title => 'Slots';
@@ -490,6 +490,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get slots_reserve_error => 'Slot konnte nicht reserviert werden';
+
+  @override
+  String get slots_unbook_error => 'Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.';
 
   @override
   String get slots_weekday_monday => 'Montag';

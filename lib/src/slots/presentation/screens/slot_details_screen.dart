@@ -17,7 +17,6 @@ class SlotDetailsScreen extends StatefulWidget {
 }
 
 class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveState, NoMobile {
-  // TODO(MasterMarcoHD): implement student unbooking
   void kickStudent(User student) {}
 
   @override
