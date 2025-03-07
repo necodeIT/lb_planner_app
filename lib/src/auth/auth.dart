@@ -1,6 +1,6 @@
 import 'package:echidna_flutter/echidna_flutter.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';
 

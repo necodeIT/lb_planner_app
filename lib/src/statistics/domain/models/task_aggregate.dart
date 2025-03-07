@@ -1,8 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/statistics/statistics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
 
 part 'task_aggregate.freezed.dart';
 part 'task_aggregate.g.dart';

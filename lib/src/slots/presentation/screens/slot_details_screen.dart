@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Displays the details of a slot.
 class SlotDetailsScreen extends StatefulWidget {
@@ -16,8 +16,7 @@ class SlotDetailsScreen extends StatefulWidget {
   State<SlotDetailsScreen> createState() => _SlotDetailsScreenState();
 }
 
-class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
-  // TODO(MasterMarcoHD): implement student unbooking
+class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveState, NoMobile {
   void kickStudent(User student) {}
 
   @override
@@ -28,7 +27,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final users = context.watch<UsersRepository>();
 
     final slots = context.watch<SupervisorSlotsRepository>();

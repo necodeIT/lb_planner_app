@@ -1,15 +1,16 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/dashboard/dashboard.dart';
 
 /// Renders the dashboard screen.
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatelessWidget with AdaptiveWidget {
   /// Renders the dashboard screen.
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final stagger = AnimationStagger(const Duration(milliseconds: 50));
 
     return Padding(
@@ -58,6 +59,28 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: context.height * 0.4,
+              width: context.width - PaddingAll().horizontal * 2,
+              child: const StatusOverview(),
+            ),
+            const TodaysTasks().stretch(),
+            const OverdueTasks().stretch(),
+            const Exams().stretch(),
+            const ReservedSlots().stretch().static(),
+          ].show(),
+        ),
       ),
     );
   }

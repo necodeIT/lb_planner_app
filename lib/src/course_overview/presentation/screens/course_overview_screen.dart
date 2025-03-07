@@ -1,10 +1,10 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:collection/collection.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// Displays an overview of all tasks for a course.
@@ -22,7 +22,7 @@ class CourseOverviewScreen extends StatefulWidget {
   State<CourseOverviewScreen> createState() => _CourseOverviewScreenState();
 }
 
-class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
+class _CourseOverviewScreenState extends State<CourseOverviewScreen> with AdaptiveState, NoMobile {
   final _searchController = TextEditingController();
 
   @override
@@ -64,7 +64,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>().filter(courseId: widget.id, query: _searchController.text)
       ..sort(
         (a, b) => sorter(a, b) * (sortAscending ? 1 : -1),

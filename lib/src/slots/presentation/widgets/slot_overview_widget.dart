@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Displays details of a slot in a compact form for a supervisor.
 class SlotOverviewWidget extends StatefulWidget {

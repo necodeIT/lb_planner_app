@@ -1,17 +1,17 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 
 /// Displays the user's tasks scheduled for today.
-class OverdueTasks extends StatelessWidget {
+class OverdueTasks extends StatelessWidget with AdaptiveWidget {
   /// Displays the user's tasks scheduled for today.
   const OverdueTasks({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final tasks = context.watch<MoodleTasksRepository>();
 
     final candidates = tasks.filter(status: {MoodleTaskStatus.late});
@@ -45,6 +45,34 @@ class OverdueTasks extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final tasks = context.watch<MoodleTasksRepository>();
+
+    final candidates = tasks.filter(status: {MoodleTaskStatus.late});
+
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Text(
+          context.t.dashboard_overdueTasks,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.mediumVertical(),
+        Column(
+          children: [
+            for (final task in candidates)
+              MoodleTaskWidget(
+                task: task,
+              ),
+          ].vSpaced(Spacing.smallSpacing).show(),
+        ),
+        Spacing.mediumVertical(),
+      ],
     );
   }
 }

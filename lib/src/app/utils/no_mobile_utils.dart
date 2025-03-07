@@ -4,28 +4,23 @@ import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-/// Displays a 404 error message.
-class NotFoundScreen extends StatelessWidget {
-  /// Displays a 404 error message.
-  const NotFoundScreen({super.key});
-
+/// Shows a mobile unsupported message for adaptive widgets when on mobile.
+mixin NoMobile on Adaptive {
   @override
-  Widget build(BuildContext context) {
+  Widget buildMobile(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: PaddingAll(),
         child: Column(
+          spacing: Spacing.mediumSpacing,
           children: [
             ImageMessage(
-              message: context.t.notFound,
-              image: Assets.a404,
+              message: context.t.app_noMobile_message,
+              image: Assets.mobile,
             ).expanded(),
-            Spacing.mediumVertical(),
             ElevatedButton(
-              onPressed: () {
-                Modular.to.navigate('/dashboard/');
-              },
-              child: Text(context.t.notFound_returnHome),
+              onPressed: () => Modular.to.navigate('/dashboard/'),
+              child: Text(context.t.app_noMobile_goBack),
             ),
           ],
         ),

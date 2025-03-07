@@ -2,9 +2,9 @@
 
 import 'dart:async';
 
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 part 'notification.freezed.dart';
 part 'notification.g.dart';

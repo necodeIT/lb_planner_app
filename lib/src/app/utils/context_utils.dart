@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
-import 'package:lb_planner/lb_planner.dart';
 
-export 'package:lb_planner/gen/l10n/app_localizations.dart';
+export 'package:eduplanner/gen/l10n/app_localizations.dart';
 
 /// Adds a [AppLocalizations] getter to [BuildContext].
 extension ContextUtils on BuildContext {

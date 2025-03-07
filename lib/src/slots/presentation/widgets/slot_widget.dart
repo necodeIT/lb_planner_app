@@ -1,9 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 /// A widget that displays a [Slot].
@@ -21,7 +21,7 @@ class SlotWidget extends StatefulWidget {
   State<SlotWidget> createState() => _SlotWidgetState();
 }
 
-class _SlotWidgetState extends State<SlotWidget> {
+class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
   bool reserving = false;
 
   Future<void> _onTap() async {
@@ -35,16 +35,25 @@ class _SlotWidgetState extends State<SlotWidget> {
 
     final slots = context.read<SlotsRepository>();
 
+    final unbook = widget.slot.reserved;
+
     try {
-      await slots.book(
-        date: widget.date,
-        slot: widget.slot,
-      );
+      if (unbook) {
+        await slots.unbook(
+          date: widget.date,
+          slot: widget.slot,
+        );
+      } else {
+        await slots.book(
+          date: widget.date,
+          slot: widget.slot,
+        );
+      }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(context.t.slots_reserve_error),
+            content: Text(unbook ? context.t.slots_unbook_error : context.t.slots_reserve_error),
           ),
         );
       }
@@ -56,7 +65,7 @@ class _SlotWidgetState extends State<SlotWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<UserRepository>();
     final users = context.watch<UsersRepository>();
     final courses = context.watch<MoodleCoursesRepository>();
@@ -88,7 +97,7 @@ class _SlotWidgetState extends State<SlotWidget> {
     return Skeletonizer(
       enabled: loading,
       child: HoverBuilder(
-        onTap: widget.slot.reserved ? null : _onTap,
+        onTap: _onTap,
         builder: (context, hover) {
           hover = hover && canBook;
           final active = hover || widget.slot.reserved;
@@ -179,6 +188,130 @@ class _SlotWidgetState extends State<SlotWidget> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final repo = context.watch<UserRepository>();
+    final users = context.watch<UsersRepository>();
+    final courses = context.watch<MoodleCoursesRepository>();
+
+    var loading = false;
+
+    final supervisors = users.state.data?.filter(ids: widget.slot.supervisors) ?? [];
+
+    if (!repo.state.hasData) {
+      loading = true;
+    }
+
+    final user = repo.state.requireData;
+
+    final mappings = widget.slot.mappings
+        .where((m) => user.vintage != null && m.vintage == user.vintage && courses.filter(id: m.courseId).isNotEmpty)
+        .map((m) => courses.filter(id: m.courseId).first)
+        .toList();
+
+    if (mappings.isEmpty) {
+      loading = true;
+      mappings.add(MoodleCourse.skeleton());
+    }
+
+    return Skeletonizer(
+      enabled: loading,
+      child: GestureDetector(
+        onTap: _onTap,
+        child: Container(
+          height: 100,
+          padding: PaddingAll(),
+          decoration: ShapeDecoration(
+            shape: squircle(
+              side: widget.slot.reserved ? BorderSide(color: context.theme.colorScheme.primary) : BorderSide.none,
+              borderAlign: BorderAlign.outside,
+            ),
+            color: widget.slot.reserved ? context.theme.colorScheme.primary.withValues(alpha: 0.1) : context.theme.cardColor,
+          ),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      enableInfiniteScroll: false,
+                      height: 40,
+                      scrollDirection: Axis.vertical,
+                      viewportFraction: 1,
+                    ),
+                    items: [
+                      for (final course in mappings)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CourseTag(course: course),
+                            Spacing.smallHorizontal(),
+                            Text(
+                              course.name,
+                              overflow: TextOverflow.ellipsis,
+                            ).expanded(),
+                          ],
+                        ),
+                    ],
+                  ).expanded(),
+                  Spacing.xsVertical(),
+                  Row(
+                    spacing: Spacing.smallSpacing,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.room, size: 20),
+                          Spacing.xsHorizontal(),
+                          Text(widget.slot.room),
+                        ],
+                      ),
+                      CarouselSlider(
+                        disableGesture: true,
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          enableInfiniteScroll: false,
+                          height: 40,
+                          scrollDirection: Axis.vertical,
+                          viewportFraction: 1,
+                        ),
+                        items: [
+                          for (final supervisor in supervisors)
+                            UserWidget(
+                              user: supervisor,
+                              expand: true,
+                            ),
+                        ],
+                      ).expanded(),
+                    ],
+                  ).expanded(),
+                ],
+              ).expanded(),
+              Spacing.mediumHorizontal(),
+              if (!reserving)
+                Text(
+                  '${widget.slot.reservations}/${widget.slot.size}',
+                  style: TextStyle(
+                    color: widget.slot.reserved ? context.theme.colorScheme.primary : context.theme.disabledColor,
+                  ),
+                ),
+              if (reserving)
+                const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 4,
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

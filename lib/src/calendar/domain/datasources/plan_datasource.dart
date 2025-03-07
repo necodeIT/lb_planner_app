@@ -1,4 +1,4 @@
-import 'package:lb_planner/lb_planner.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Data source for managing a user's [CalendarPlan].

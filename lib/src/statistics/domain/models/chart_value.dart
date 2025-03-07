@@ -2,8 +2,8 @@
 
 import 'dart:ui';
 
+import 'package:eduplanner/src/statistics/statistics.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:lb_planner/src/statistics/statistics.dart';
 
 part 'chart_value.freezed.dart';
 

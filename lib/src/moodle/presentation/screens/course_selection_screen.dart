@@ -1,8 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/eduplanner.dart';
+import 'package:eduplanner/gen/assets/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/gen/assets/assets.gen.dart';
-import 'package:lb_planner/lb_planner.dart';
 
 /// Prompts the user to select courses to include in the planning process.
 class CourseSelectionScreen extends StatefulWidget {
@@ -13,19 +13,19 @@ class CourseSelectionScreen extends StatefulWidget {
   State<CourseSelectionScreen> createState() => _CourseSelectionScreenState();
 }
 
-class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
+class _CourseSelectionScreenState extends State<CourseSelectionScreen> with AdaptiveState {
   bool _checked = false;
 
   Future<void> preventMissfire() async {
     if (_checked) return;
+
+    _checked = true;
 
     final user = context.read<UserRepository>();
     final repo = context.read<MoodleCoursesRepository>();
 
     await user.ready;
     await repo.ready;
-
-    _checked = true;
 
     if (repo.filter(enabled: true).isNotEmpty || !(user.state.data?.capabilities.hasStudent ?? false)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -35,7 +35,7 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<MoodleCoursesRepository>();
 
     runAfterBuild(preventMissfire);
@@ -80,6 +80,40 @@ class _CourseSelectionScreenState extends State<CourseSelectionScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    final repo = context.watch<MoodleCoursesRepository>();
+
+    runAfterBuild(preventMissfire);
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              Text(
+                context.t.moodle_courseSelectionScreen_selectCourses,
+                style: context.textTheme.titleLarge,
+              ),
+              Spacing.large(),
+              Column(
+                children: [
+                  const CourseSelector().expanded(),
+                  Spacing.mediumVertical(),
+                  ElevatedButton(
+                    onPressed: repo.filter(enabled: true).isNotEmpty ? () => Modular.to.navigate('/dashboard/') : null,
+                    child: Text(context.t.global_continue),
+                  ).stretch(),
+                ],
+              ).expanded(),
+            ],
+          ),
+        ),
       ),
     );
   }

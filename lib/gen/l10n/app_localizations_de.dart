@@ -70,6 +70,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get app_update_web => 'Bitte aktualisiere die Seite mit `Strg + Shift + F5`, um auf die neueste Version zu aktualisieren.';
 
   @override
+  String get app_noMobile_message => 'Diese Seite ist nicht auf Mobilgeräten verfügbar.';
+
+  @override
+  String get app_noMobile_goBack => 'Zurück';
+
+  @override
   String auth_accessHint(String appname) {
     return 'Du darfst $appname nicht nutzen. Falls du glaubst, dass dies ein Fehler ist, kontaktiere bitte deinen Moodle-Administrator, um Zugang anzufordern.';
   }
@@ -401,7 +407,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_general_displayTaskCount => 'Anzahl der Aufgaben anzeigen';
 
   @override
+  String get settings_general_manageSubscription => 'Abonament verwalten';
+
+  @override
   String get settings_theme => 'Design';
+
+  @override
+  String get settings_courses => 'Kurse';
+
+  @override
+  String get settings_logout => 'Abmelden';
 
   @override
   String get slots_title => 'Slots';
@@ -475,6 +490,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get slots_reserve_error => 'Slot konnte nicht reserviert werden';
+
+  @override
+  String get slots_unbook_error => 'Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.';
 
   @override
   String get slots_weekday_monday => 'Montag';

@@ -209,6 +209,18 @@ abstract class AppLocalizations {
   /// **'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.'**
   String get app_update_web;
 
+  /// No description provided for @app_noMobile_message.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is not available on mobile devices.'**
+  String get app_noMobile_message;
+
+  /// No description provided for @app_noMobile_goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get app_noMobile_goBack;
+
   /// Access restriction message that uses the app name placeholder.
   ///
   /// In en, this message translates to:
@@ -797,11 +809,29 @@ abstract class AppLocalizations {
   /// **'Display task count'**
   String get settings_general_displayTaskCount;
 
+  /// Link to subscription management.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get settings_general_manageSubscription;
+
   /// Label for theme selection in settings.
   ///
   /// In en, this message translates to:
   /// **'Theme'**
   String get settings_theme;
+
+  /// Label for course selection in settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get settings_courses;
+
+  /// Label for user logout in settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get settings_logout;
 
   /// Title for the slots section.
   ///
@@ -928,6 +958,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to reserve slot'**
   String get slots_reserve_error;
+
+  /// Error message displayed when unbooking a slot fails.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred while canceling your reservation. Please try again later.'**
+  String get slots_unbook_error;
 
   /// Label for Monday in slot editing.
   ///

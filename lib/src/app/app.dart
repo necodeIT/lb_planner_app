@@ -2,11 +2,11 @@ library lb_planner.modules.app;
 
 import 'package:animations/animations.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
+import 'package:eduplanner/config/echidna.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/config/echidna.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/lb_planner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:posthog_dart/posthog_dart.dart';
@@ -122,12 +122,6 @@ class AppModule extends Module {
         guards: [
           AuthGuard(redirectTo: '/auth/'),
         ],
-      )
-      ..child(
-        '/mobile',
-        child: (_) => const MobileScreen(),
-        transition: TransitionType.custom,
-        customTransition: defaultTransition,
       )
       ..wildcard(child: (_) => const NotFoundScreen());
   }

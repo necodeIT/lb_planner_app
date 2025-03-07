@@ -1,10 +1,13 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/config/posthog.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/theming/theming.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Displays the general settings of the app.
 class GeneralSettings extends StatefulWidget {
@@ -15,7 +18,7 @@ class GeneralSettings extends StatefulWidget {
   State<GeneralSettings> createState() => _GeneralSettingsState();
 }
 
-class _GeneralSettingsState extends State<GeneralSettings> {
+class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
   bool checkingUpdates = false;
   bool clearingCache = false;
   bool deletingProfile = false;
@@ -58,16 +61,62 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     deletingProfile = false;
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Future<void> logout() async {
+    final auth = context.read<AuthRepository>();
+
+    await auth.logout();
+
+    Modular.to.navigate('/auth/');
+  }
+
+  List<Widget> buildItems(BuildContext context) {
     final user = context.watch<UserRepository>();
 
     final isStudent = user.state.data?.capabilities.hasStudent ?? false;
+    return [
+      iconItem(
+        title: context.t.settings_general_version(kInstalledRelease.toString()),
+        icon: Icons.update,
+        onPressed: checkUpdates,
+      ),
 
+      // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
+      if (isStudent)
+        checkboxItem(
+          title: context.t.settings_general_enableEK,
+          value: user.state.data?.optionalTasksEnabled ?? false,
+          onChanged: user.enableOptionalTasks,
+        ),
+      if (isStudent)
+        checkboxItem(
+          title: context.t.settings_general_displayTaskCount,
+          value: user.state.data?.displayTaskCount ?? false,
+          onChanged: user.setDisplayTaskCount,
+        ),
+      iconItem(
+        title: context.t.auth_privacyPolicy,
+        icon: FontAwesome5Solid.balance_scale,
+        onPressed: () => launchUrl(kPrivacyPolicyUrl),
+        iconSize: 14,
+      ),
+      // iconItem(
+      //   title: context.t.settings_general_manageSubscription,
+      //   icon: FontAwesome5Solid.credit_card,
+      //   onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
+      //   iconSize: 14,
+      // ),
+
+      if (context.isMobile) iconItem(title: context.t.settings_logout, icon: Icons.logout, onPressed: logout),
+    ];
+  }
+
+  @override
+  Widget buildDesktop(BuildContext context) {
     return Card(
       child: Padding(
         padding: PaddingAll(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               context.t.settings_general,
@@ -75,26 +124,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
             ).alignAtTopLeft(),
             Expanded(
               child: ListView(
-                children: [
-                  iconItem(
-                    title: context.t.settings_general_version(kInstalledRelease.toString()),
-                    icon: Icons.update,
-                    onPressed: checkUpdates,
-                  ),
-                  // item(context.t.settings_general_deleteProfile, Icons.delete, deleteProfile, context.theme.colorScheme.error),
-                  if (isStudent)
-                    checkboxItem(
-                      title: context.t.settings_general_enableEK,
-                      value: user.state.data?.optionalTasksEnabled ?? false,
-                      onChanged: user.enableOptionalTasks,
-                    ),
-                  if (isStudent)
-                    checkboxItem(
-                      title: context.t.settings_general_displayTaskCount,
-                      value: user.state.data?.displayTaskCount ?? false,
-                      onChanged: user.setDisplayTaskCount,
-                    ),
-                ].vSpaced(Spacing.smallSpacing),
+                children: buildItems(context).vSpaced(Spacing.smallSpacing),
               ),
             ),
           ],
@@ -103,26 +133,47 @@ class _GeneralSettingsState extends State<GeneralSettings> {
     );
   }
 
-  Widget iconItem({required String title, required IconData icon, VoidCallback? onPressed, Color? hoverColor}) {
-    return item(
-      title: title,
-      suffix: HoverBuilder(
-        onTap: onPressed,
-        builder: (context, hovering) {
-          return Container(
-            padding: PaddingAll(Spacing.xsSpacing),
+  @override
+  Widget buildMobile(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.t.settings_general,
+          style: context.textTheme.titleMedium?.bold,
+        ).alignAtTopLeft(),
+        Spacing.smallVertical(),
+        Column(
+          children: buildItems(context).vSpaced(Spacing.smallSpacing),
+        ),
+      ],
+    );
+  }
+
+  Widget iconItem({required String title, required IconData icon, VoidCallback? onPressed, Color? hoverColor, double? iconSize = 20}) {
+    return HoverBuilder(
+      onTap: onPressed,
+      builder: (context, hovering) => item(
+        title: title,
+        suffix: ConditionalWrapper(
+          condition: !context.isMobile,
+          child: Icon(
+            icon,
+            color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
+            size: iconSize,
+          ),
+          wrapper: (context, child) => Container(
+            height: 35,
+            width: 35,
             decoration: ShapeDecoration(
               shape: squircle(),
               color: context.theme.scaffoldBackgroundColor,
             ),
-            child: Icon(
-              icon,
-              color: hovering ? hoverColor ?? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
-            ),
-          );
-        },
+            child: child,
+          ),
+        ),
+        onPressed: onPressed,
       ),
-      onPressed: onPressed,
     );
   }
 
@@ -134,18 +185,27 @@ class _GeneralSettingsState extends State<GeneralSettings> {
         value: value,
         onChanged: onChanged,
       ),
+      onPressed: () => onChanged(!value),
     );
   }
 
   // ignore: avoid_positional_boolean_parameters
   Widget item({required String title, required Widget suffix, VoidCallback? onPressed}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title).expanded(),
-        Spacing.xs(),
-        suffix,
-      ],
+    final children = [
+      Text(title).expanded(),
+      Spacing.smallHorizontal(),
+      suffix,
+    ];
+
+    return SizedBox(
+      height: 35,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: context.isMobile ? children.reversed.toList() : children,
+        ),
+      ),
     );
   }
 }

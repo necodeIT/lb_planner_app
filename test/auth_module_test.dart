@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:eduplanner/src/auth/auth.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lb_planner/src/auth/auth.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
 import 'package:logging/logging.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:mcquenji_local_storage/mcquenji_local_storage.dart';

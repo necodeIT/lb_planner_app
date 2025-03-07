@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:crypto/crypto.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/auth/auth.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
 import 'package:posthog_dart/posthog_dart.dart';
 
@@ -27,6 +27,8 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
   @override
   FutureOr<void> build(BuildTrigger trigger) async {
     final transaction = startTransaction('loadUsers');
+
+    await _auth.ready;
 
     final tokens = waitForData(_auth);
 
@@ -192,6 +194,8 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
       );
 
       await captureEvent('optional_tasks_enabled', properties: {'enabled': enabled});
+
+      log('Optional tasks enabled set to $enabled');
     } catch (e, st) {
       log('Failed to set optional tasks enabled.', e, st);
       transaction.internalError(e);

@@ -1,10 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 
 /// A generic dialog that can be used to display information to the user.
-class GenericDialog extends StatelessWidget {
+class GenericDialog extends StatelessWidget with AdaptiveWidget {
   /// A generic dialog that can be used to display information to the user.
   const GenericDialog({super.key, required this.title, required this.content, this.actions, this.shrinkWrap = true, this.shrinkWrapWidth = false});
 
@@ -24,7 +25,7 @@ class GenericDialog extends StatelessWidget {
   final List<DialogAction>? actions;
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     return KeyboardListener(
       focusNode: FocusNode(),
       onKeyEvent: (value) {
@@ -46,6 +47,31 @@ class GenericDialog extends StatelessWidget {
           child: content,
         ),
         actions: actions,
+      ),
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    return Dialog.fullscreen(
+      backgroundColor: context.theme.cardColor,
+      child: SafeArea(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              if (title is Text) (title as Text).bold() else title,
+              Spacing.mediumVertical(),
+              Expanded(child: content),
+              if (actions != null) Spacing.smallVertical(),
+              if (actions != null)
+                Column(
+                  spacing: Spacing.smallSpacing,
+                  children: actions!.map((a) => a.stretch()).toList(),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

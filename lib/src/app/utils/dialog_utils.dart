@@ -1,24 +1,35 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:lb_planner/src/app/app.dart';
 
 /// Shows a dialog with default animations.
 Future<T?> showAnimatedDialog<T>({required BuildContext context, required RoutePageBuilder pageBuilder}) {
+  final mobile = context.isMobile;
+
   return showGeneralDialog<T>(
     context: context,
-    transitionBuilder: (context, a1, a2, child) => ScaleTransition(
-      scale: Tween<double>(begin: 1.2, end: 1).animate(
-        a1.drive(
-          CurveTween(curve: Curves.easeInOut),
-        ),
+    transitionBuilder: (context, a1, a2, child) => FadeTransition(
+      opacity: a1.drive(
+        CurveTween(curve: Curves.easeInOut),
       ),
-      child: FadeTransition(
-        opacity: a1.drive(
-          CurveTween(curve: Curves.easeInOut),
-        ),
-        child: child,
-      ),
+      child: !mobile
+          ? ScaleTransition(
+              scale: Tween<double>(begin: 1.2, end: 1).animate(
+                a1.drive(
+                  CurveTween(curve: Curves.easeInOut),
+                ),
+              ),
+              child: child,
+            )
+          : SlideTransition(
+              position: Tween<Offset>(begin: const Offset(0, 0.5), end: Offset.zero).animate(
+                a1.drive(
+                  CurveTween(curve: Curves.easeInOut),
+                ),
+              ),
+              child: child,
+            ),
     ),
     transitionDuration: const Duration(milliseconds: 300),
     pageBuilder: pageBuilder,

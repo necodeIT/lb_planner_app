@@ -1,14 +1,14 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:echidna_flutter/echidna_flutter.dart';
+import 'package:eduplanner/config/version.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/notifications/notifications.dart';
+import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:lb_planner/config/version.dart';
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/notifications/notifications.dart';
-import 'package:lb_planner/src/theming/theming.dart';
 import 'package:popover/popover.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
@@ -26,7 +26,7 @@ class TitleBar extends StatefulWidget {
 }
 
 /// The state of the current route's title bar.
-class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
+class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, AdaptiveState {
   String? _prevRoute;
 
   @override
@@ -129,6 +129,12 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
   Future<void> _showNotifications(BuildContext context) async {
     if (_popupContext != null) return;
 
+    if (context.isMobile) {
+      await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const NotificationsList());
+
+      return;
+    }
+
     final height = context.height * 0.5;
     final width = context.width * 0.2;
 
@@ -172,7 +178,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     // check if the route has changed and reset the search controller and parent route
     if (_prevRoute != Modular.to.path) {
       _prevRoute = Modular.to.path;
@@ -313,6 +319,139 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware {
                           Text(user.capabilities.highest.translate(context)).color(context.theme.colorScheme.primary),
                       ],
                     ),
+                  ].show(),
+                ),
+              ),
+            ].show(),
+          ),
+        ),
+        Data.inherit(data: this, child: widget.child).expanded(),
+      ],
+    );
+  }
+
+  @override
+  Widget buildMobile(BuildContext context) {
+    // check if the route has changed and reset the search controller and parent route
+    if (_prevRoute != Modular.to.path) {
+      _prevRoute = Modular.to.path;
+
+      setSearchController(null);
+      setParentRoute(null);
+    }
+
+    final user = context.watch<UserRepository>().state.data ??
+        User(
+          id: -1,
+          username: 'Loading',
+          firstname: 'Loading',
+          lastname: 'Loading',
+        );
+
+    final (title, featureId) = Modular.tryGet<TitleBuilder>()?.call(context) ?? (null, null);
+
+    final notifications = context.watch<NotificationsRepository>();
+    final license = context.watch<LicenseRepository>();
+
+    final showLicenseBadge = featureId != null && license.state.data != null;
+
+    return Column(
+      children: [
+        Padding(
+          padding: PaddingAll(Spacing.mediumSpacing).Bottom(0),
+          child: Row(
+            key: ValueKey(title),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  ConditionalWrapper(
+                    condition: _parentRoute != null,
+                    wrapper: (_, child) => TextButton(
+                      onPressed: () => Modular.to.navigate(_parentRoute!),
+                      child: Row(
+                        children: [
+                          const Icon(FontAwesome5Solid.angle_left),
+                          Spacing.xsHorizontal(),
+                          child,
+                        ],
+                      ),
+                    ),
+                    child: Skeletonizer(
+                      enabled: title == null,
+                      child: Text(
+                        title ?? kAppName,
+                        style: context.textTheme.titleLarge,
+                      ).fontSize(24),
+                    ),
+                  ),
+                  if (showLicenseBadge) Spacing.smallHorizontal(),
+                  if (showLicenseBadge)
+                    Container(
+                      padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                      decoration: ShapeDecoration(
+                        shape: squircle(
+                          radius: 5000,
+                          side: BorderSide(
+                            color: context.theme.colorScheme.primary,
+                          ),
+                        ),
+                        color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                      ),
+                      child: Text(
+                        license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.theme.colorScheme.primary,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                  if (showLicenseBadge) Spacing.smallHorizontal(),
+                  if (_trailing != null) _trailing!,
+                ],
+              ),
+              Skeletonizer(
+                enabled: user.id == -1,
+                child: Row(
+                  children: [
+                    Builder(
+                      builder: (context) {
+                        return IconButton(
+                          onPressed: () => _showNotifications(context),
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          icon: ConditionalWrapper(
+                            condition: notifications.hasUnreadNotifications,
+                            wrapper: (_, child) => Badge(
+                              backgroundColor: context.theme.colorScheme.primary,
+                              child: child,
+                            ),
+                            child: Icon(
+                              _popupContext != null ? FontAwesome5Solid.bell : FontAwesome5Regular.bell,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    Spacing.xsHorizontal(),
+                    const UserProfileImage(),
+                    // Spacing.xsHorizontal(),
+                    // Column(
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text(
+                    //       user.fullname,
+                    //       style: context.textTheme.titleMedium?.semiBold,
+                    //     ).fontSize(17),
+                    //     if (user.vintage != null)
+                    //       user.vintage!.humanReadable.text.color(context.theme.colorScheme.primary).color(context.theme.colorScheme.primary)
+                    //     else if (user.capabilities.isNotEmpty)
+                    //       Text(user.capabilities.highest.translate(context)).color(context.theme.colorScheme.primary),
+                    //   ],
+                    // ),
                   ].show(),
                 ),
               ),

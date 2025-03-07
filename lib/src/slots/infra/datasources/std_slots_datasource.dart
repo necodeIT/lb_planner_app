@@ -1,6 +1,6 @@
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/slots/slots.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/slots/slots.dart';
 
 /// Standard implementation of [SlotsDatasource].
 class StdSlotsDatasource extends SlotsDatasource {

@@ -1,6 +1,6 @@
-import 'package:lb_planner/src/app/app.dart';
-import 'package:lb_planner/src/moodle/moodle.dart';
-import 'package:lb_planner/src/notifications/notifications.dart';
+import 'package:eduplanner/src/app/app.dart';
+import 'package:eduplanner/src/moodle/moodle.dart';
+import 'package:eduplanner/src/notifications/notifications.dart';
 
 /// Standard implementation of the [NotificationsDatasource] using Moodle API.
 class MoodleNotificationsDatasource extends NotificationsDatasource {
