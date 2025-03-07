@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.3.0](https://github.com/necodeIT/lb_planner_app/compare/1.2.0...1.3.0) (2025-03-07)
+
+
+### Features
+
+* Add mobile support ([#19](https://github.com/necodeIT/lb_planner_app/issues/19)) ([3f58a7d](https://github.com/necodeIT/lb_planner_app/commit/3f58a7d842892cc0254887a4a7fbd669e84f18ea))
+
+
+### Bug Fixes
+
+* allow child transactions ([8324080](https://github.com/necodeIT/lb_planner_app/commit/8324080d71b25361cb2938f9b080c6b075f82877))
+* set web O level to 1 for better logs ([c540b23](https://github.com/necodeIT/lb_planner_app/commit/c540b23229b498aa2464c68996372357de2b3e1a))
+
 ## [1.2.0](https://github.com/necodeIT/lb_planner_app/compare/1.1.0...1.2.0) (2025-02-17)
 
 
