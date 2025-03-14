@@ -18,7 +18,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     _auth.requireAuth();
 
     final transaction = startTransaction('loadCourses');

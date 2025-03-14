@@ -39,7 +39,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
   bool get refreshOptimization => true;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     // We don't need to refresh the plan as it's only loosely connected to the tasks.
     if (trigger is MoodleTasksRepository) {
       log('Skipping refresh triggered by $trigger');

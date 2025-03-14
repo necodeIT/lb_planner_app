@@ -20,7 +20,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> with Tr
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadInvites');
 
     final token = waitForData(_auth);

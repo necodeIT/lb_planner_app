@@ -17,7 +17,7 @@ class GlobalStatsRepository extends Repository<AsyncValue<TaskAggregate>> with T
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     if (!_tasks.state.hasData) return;
 
     final transaction = startTransaction('loadGlobalStats');

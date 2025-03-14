@@ -21,7 +21,7 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadSlotsMasterCourses');
     final tokens = waitForData(_auth);
 

@@ -24,7 +24,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadSlotMasterSlots');
     final token = waitForData(_auth);
 

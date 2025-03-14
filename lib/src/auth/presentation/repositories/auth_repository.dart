@@ -21,7 +21,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> with Tracable {
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     if (trigger is! InitialBuildTrigger) return;
 
     if (_state != null && isAuthenticated) {

@@ -27,7 +27,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   bool get refreshOptimization => true;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadSlots');
     waitForData(_auth);
 
