@@ -79,7 +79,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
         );
       }
 
-      await build(this);
+      await refresh(this);
     } catch (e, s) {
       log('Failed to create slot', e, s);
       transaction.internalError(e);
@@ -188,7 +188,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
         );
       }
 
-      await build(this);
+      await refresh(this);
     } catch (e, s) {
       log('Failed to update slot', e, s);
       transaction.internalError(e);

@@ -57,7 +57,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> with Tr
 
       await captureEvent('user_invited');
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       log('Failed to invite user.', e, st);
       transaction.internalError(e);
@@ -131,7 +131,7 @@ class InvitesRepository extends Repository<AsyncValue<List<PlanInvite>>> with Tr
 
       await captureEvent('invite_accepted');
 
-      await _plan.build(this);
+      await _plan.refresh(this);
     } catch (e, st) {
       log('Failed to accept invite.', e, st);
       transaction.internalError(e);

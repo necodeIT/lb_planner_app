@@ -19,6 +19,8 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
   @override
   Future<void> build(BuildTrigger trigger) async {
+    _auth.requireAuth();
+
     final transaction = startTransaction('loadCourses');
 
     final tokens = waitForData(_auth);

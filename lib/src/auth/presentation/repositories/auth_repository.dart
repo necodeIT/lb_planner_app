@@ -70,7 +70,7 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> with Tracable {
   }
 
   /// Sign in with [username] and [password].
-  Future<void> authenticate({
+  Future<bool> authenticate({
     required String username,
     required String password,
   }) async {
@@ -94,14 +94,17 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> with Tracable {
         },
       );
 
-      if (!state.hasData) return;
+      if (!state.hasData) return false;
 
       log('Authentication successful');
 
       await _localStorage.write(state.requireData);
+
+      return true;
     } catch (e) {
       transaction.internalError(e);
-      rethrow;
+
+      return false;
     } finally {
       await transaction.commit();
     }
@@ -127,6 +130,11 @@ class AuthRepository extends Repository<AsyncValue<Set<Token>>> with Tracable {
 
   /// `true` if the user is authenticated.
   bool get isAuthenticated => state.hasData && state.requireData.isNotEmpty;
+
+  /// Throws a [WaitForDataException] if the user is not authenticated.
+  void requireAuth() {
+    if (!isAuthenticated) throw WaitForDataException(AuthRepository);
+  }
 
   @override
   void emit(AsyncValue<Set<Token>> state) {
