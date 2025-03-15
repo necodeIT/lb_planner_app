@@ -10,16 +10,8 @@ class LoginScreen extends StatelessWidget with AdaptiveWidget {
   /// Presents an authentication form to the user.
   const LoginScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    final user = context.watch<UserRepository>();
-    final auth = context.watch<AuthRepository>();
-
-    if (auth.isAuthenticated && user.state.hasData) {
-      Modular.to.navigate('/dashboard/');
-    }
-
-    return super.build(context);
+  static void _onLogin() {
+    Modular.to.navigate('/dashboard/');
   }
 
   @override
@@ -42,7 +34,9 @@ class LoginScreen extends StatelessWidget with AdaptiveWidget {
               padding: EdgeInsets.only(right: 150),
               child: SizedBox(
                 width: 350,
-                child: LoginForm(),
+                child: LoginForm(
+                  onLogin: _onLogin,
+                ),
               ),
             ),
           ),
@@ -61,7 +55,9 @@ class LoginScreen extends StatelessWidget with AdaptiveWidget {
           spacing: Spacing.mediumSpacing,
           children: [
             const Spacer(),
-            const LoginForm(),
+            const LoginForm(
+              onLogin: _onLogin,
+            ),
             const Spacer(),
             Text(
               context.t.auth_version(kInstalledRelease.toString()),

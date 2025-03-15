@@ -25,7 +25,7 @@ class ThemeRepository extends Repository<ThemeData> with Tracable {
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     if (!_user.state.hasData) return;
 
     final transaction = startTransaction('loadThemes');

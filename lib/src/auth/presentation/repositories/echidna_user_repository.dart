@@ -15,7 +15,7 @@ class EchidnaUserRepository extends UserIdRepository {
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     if (trigger is! UserRepository) return;
 
     final user = waitForData(_user);

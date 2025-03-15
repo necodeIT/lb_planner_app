@@ -1,10 +1,11 @@
 import 'package:eduplanner/src/auth/auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Guard that checks if the user is authenticated.
 ///
 /// You must import [AuthModule] in the module using this guard.
-class AuthGuard extends RouteGuard {
+class AuthGuard extends RouteGuard with MiddlewareLogger {
   /// Guard that checks if the user is authenticated.
   ///
   /// You must import [AuthModule] in the module using this guard.
@@ -14,10 +15,15 @@ class AuthGuard extends RouteGuard {
   Future<bool> canActivate(String path, ModularRoute route) async {
     final auth = Modular.tryGet<AuthRepository>();
 
-    if (auth == null) return false;
+    if (auth == null) {
+      log('AuthRepository not found');
+      return false;
+    }
 
     await auth.ready;
 
-    return Modular.get<AuthRepository>().isAuthenticated;
+    log('Authenticated: ${auth.isAuthenticated}');
+
+    return auth.isAuthenticated;
   }
 }

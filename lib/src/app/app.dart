@@ -66,6 +66,9 @@ class AppModule extends Module {
             customTransition: defaultTransition,
             guards: [
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
+              // apparently having a guard in a child route will override the parent's guard so we need it here too
+              // Important to have this guard last as the order of guards is reversed
+              AuthGuard(redirectTo: '/auth/'),
             ],
           ),
           ModuleRoute(
@@ -74,8 +77,9 @@ class AppModule extends Module {
             transition: TransitionType.custom,
             customTransition: defaultTransition,
             guards: [
-              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
               FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
+              AuthGuard(redirectTo: '/auth/'),
             ],
           ),
           ModuleRoute(
@@ -97,14 +101,15 @@ class AppModule extends Module {
             customTransition: defaultTransition,
             guards: [
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
+              AuthGuard(redirectTo: '/auth/'),
             ],
           ),
         ],
         customTransition: defaultTransition,
         transition: TransitionType.custom,
         guards: [
-          AuthGuard(redirectTo: '/auth/'),
           HasCoursesGuard(),
+          AuthGuard(redirectTo: '/auth/'),
         ],
       )
       ..module(

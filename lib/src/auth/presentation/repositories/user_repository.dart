@@ -25,16 +25,14 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadUsers');
-
-    await _auth.ready;
 
     final tokens = waitForData(_auth);
 
     _isHandlingAuthChange = true;
 
-    if (tokens.isEmpty) {
+    if (!_auth.isAuthenticated) {
       log('User is unauthenticated');
 
       error(
@@ -67,7 +65,7 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
         distinctId: hash,
         properties: {
           'capabilities': user.capabilities.map((c) => c.name).toList(),
-          'vintage': user.vintage,
+          'vintage': user.vintage?.humanReadable,
           'theme': user.themeName,
           'optional_tasks_enabled': user.optionalTasksEnabled,
           'display_task_count': user.displayTaskCount,

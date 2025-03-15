@@ -21,7 +21,7 @@ class CourseStatsRepository extends Repository<AsyncValue<Map<int, TaskAggregate
   }
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     if (!_courses.state.hasData || !_tasks.state.hasData) return;
 
     final transaction = startTransaction('loadCourseStats');

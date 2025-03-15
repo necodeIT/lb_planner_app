@@ -27,7 +27,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   bool get refreshOptimization => true;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadSlots');
     waitForData(_auth);
 
@@ -96,7 +96,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
 
       log('Reserved slot ${slot.id} for current user');
 
-      await build(this);
+      await refresh(this);
     } catch (e) {
       log('Failed to reserve slot: $e');
       transaction.internalError(e);
@@ -163,7 +163,7 @@ class SlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
 
       log('Unreserved slot ${slot.id} for current user');
 
-      await build(this);
+      await refresh(this);
     } catch (e) {
       log('Failed to unreserve slot: $e');
       transaction.internalError(e);

@@ -20,7 +20,7 @@ class UsersRepository extends Repository<AsyncValue<List<User>>> with Tracable {
   Duration get updateInterval => kLessImportantRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadUsers');
     await guard(
       () async => _datasource.getUsers(

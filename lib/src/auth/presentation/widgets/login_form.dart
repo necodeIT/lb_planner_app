@@ -13,7 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 /// A form prompting the user to input their credentials.
 class LoginForm extends StatefulWidget {
   /// A form prompting the user to input their credentials.
-  const LoginForm({super.key});
+  const LoginForm({super.key, this.onLogin});
+
+  /// Callback to be called when the user logs in successfully.
+  final void Function()? onLogin;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -79,17 +82,17 @@ class _LoginFormState extends State<LoginForm> with WidgetsBindingObserver {
 
     final auth = Modular.get<AuthRepository>();
 
-    await auth.authenticate(username: username, password: password);
+    final success = await auth.authenticate(username: username, password: password);
 
     setState(() {
       loggingIn = false;
     });
 
-    if (auth.state.hasError) {
-      return;
+    if (success) {
+      widget.onLogin?.call();
+    } else {
+      usernameFocusNode.requestFocus();
     }
-
-    usernameFocusNode.requestFocus();
   }
 
   void togglePasswordVisibility() {
