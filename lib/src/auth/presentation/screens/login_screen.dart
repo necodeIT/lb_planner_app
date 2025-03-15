@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget with AdaptiveWidget {
   const LoginScreen({super.key});
 
   static void _onLogin() {
-    Modular.to.navigate('/dashboard');
+    Modular.to.navigate('/dashboard/');
   }
 
   @override
