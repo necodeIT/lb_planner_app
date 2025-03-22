@@ -4,7 +4,7 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// Guard that checks if the user has any courses enabled.
 /// Redirects to the course selection screen per default if no courses are enabled.
-class HasCoursesGuard extends RouteGuard implements BuildTrigger {
+class HasCoursesGuard extends RouteGuard with MiddlewareLogger implements Trigger {
   /// Guard that checks if the user has any courses enabled.
   /// Redirects to the course selection screen per default if no courses are enabled.
   HasCoursesGuard({super.redirectTo = '/moodle/select-courses/'});
@@ -23,7 +23,7 @@ class HasCoursesGuard extends RouteGuard implements BuildTrigger {
 
     if (!user.state.requireData.capabilities.hasStudent) return true;
 
-    await courses.build(this);
+    await courses.refresh(this);
 
     return courses.filter(enabled: true).isNotEmpty;
   }

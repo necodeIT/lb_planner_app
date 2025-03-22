@@ -25,7 +25,7 @@ class NotificationsRepository extends Repository<AsyncValue<List<Notification>>>
   bool get hasUnreadNotifications => state.data?.any((element) => !element.read) ?? false;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     waitForData(_auth);
 
     if (_auth.state.requireData.isEmpty) return;

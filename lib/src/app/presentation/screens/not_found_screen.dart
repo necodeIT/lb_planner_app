@@ -12,22 +12,24 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: PaddingAll(),
-        child: Column(
-          children: [
-            ImageMessage(
-              message: context.t.notFound,
-              image: Assets.a404,
-            ).expanded(),
-            Spacing.mediumVertical(),
-            ElevatedButton(
-              onPressed: () {
-                Modular.to.navigate('/dashboard/');
-              },
-              child: Text(context.t.notFound_returnHome),
-            ),
-          ],
+      body: Center(
+        child: Padding(
+          padding: PaddingAll(),
+          child: Column(
+            children: [
+              ImageMessage(
+                message: context.t.notFound,
+                image: Assets.a404,
+              ).expanded(),
+              Spacing.mediumVertical(),
+              ElevatedButton(
+                onPressed: () {
+                  Modular.to.navigate('/dashboard/');
+                },
+                child: Text(context.t.notFound_returnHome),
+              ),
+            ],
+          ),
         ),
       ),
     );

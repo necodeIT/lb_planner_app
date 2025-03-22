@@ -24,7 +24,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> wit
   Duration get updateInterval => kRefreshIntervalDuration;
 
   @override
-  FutureOr<void> build(BuildTrigger trigger) async {
+  FutureOr<void> build(Trigger trigger) async {
     final transaction = startTransaction('loadTasks');
 
     final tokens = waitForData(_auth);

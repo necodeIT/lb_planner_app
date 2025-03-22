@@ -21,7 +21,7 @@ extension TransactionX on ISentrySpan {
 }
 
 /// A mixin that adds transaction tracing to a class.
-mixin Tracable on ILoggable {
+mixin Tracable on Loggable {
   ISentrySpan? _transaction;
 
   /// The parent tracable to attach transactions to.

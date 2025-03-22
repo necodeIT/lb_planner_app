@@ -39,7 +39,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
   bool get refreshOptimization => true;
 
   @override
-  Future<void> build(BuildTrigger trigger) async {
+  Future<void> build(Trigger trigger) async {
     // We don't need to refresh the plan as it's only loosely connected to the tasks.
     if (trigger is MoodleTasksRepository) {
       log('Skipping refresh triggered by $trigger');
@@ -96,7 +96,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('plan_cleared');
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       transaction.internalError(e);
       log('Failed to clear plan.', e, st);
@@ -140,8 +140,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('deadline_set', properties: {'id': taskId, 'start': start, 'end': end});
 
-      await _tasks.build(this);
-      await build(this);
+      await _tasks.refresh(this);
+      await refresh(this);
     } catch (e, st) {
       transaction.internalError(e);
 
@@ -177,8 +177,8 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('deadline_removed', properties: {'id': id});
 
-      await _tasks.build(this);
-      await build(this);
+      await _tasks.refresh(this);
+      await refresh(this);
     } catch (e, st) {
       transaction.internalError(e);
 
@@ -205,7 +205,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('plan_left');
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       log('Failed to leave plan.', e, st);
 
@@ -233,7 +233,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('member_kicked');
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       log('Failed to remove member.', e, st);
 
@@ -262,7 +262,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
 
       await captureEvent('member_access_changed', properties: {'access_type': accessType});
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       log('Failed to modify member.', e, st);
 
@@ -288,7 +288,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
         state.requireData.copyWith(name: name),
       );
 
-      await build(this);
+      await refresh(this);
     } catch (e, st) {
       log('Failed to change name.', e, st);
 
