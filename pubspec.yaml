@@ -26,7 +26,7 @@ dependencies:
       url: https://github.com/necodeIT/echidna_flutter.git
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
-  fl_chart: ^0.69.2
+  fl_chart: ^0.70.2
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.0
