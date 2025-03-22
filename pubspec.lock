@@ -50,10 +50,10 @@ packages:
     dependency: "direct dev"
     description:
       name: architecture_linter
-      sha256: e76e6a9707ad64d3fee306f8f4d28e183d51ca38f6425027b340e59eb83068b5
+      sha256: "2224c043f5ec436bc739dc388a4633c7ac54d41c69c1a1e41d7ebea95a8665b5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.2"
+    version: "0.3.0"
   args:
     dependency: transitive
     description:

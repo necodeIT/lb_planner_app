@@ -75,7 +75,7 @@ dependencies:
   window_manager: ^0.4.3
 
 dev_dependencies:
-  architecture_linter: ^0.2.2
+  architecture_linter: ^0.3.0
   bloc_test: ^9.1.7
   build_runner: ^2.4.11
   flutter_lints: ^5.0.0
