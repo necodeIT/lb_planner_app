@@ -83,7 +83,7 @@ dev_dependencies:
     sdk: flutter
   flutterando_analysis: ^0.0.2
   freezed: ^3.0.0-0.0.dev
-  json_serializable: ^6.8.0
+  json_serializable: ^6.9.4
   sentry_dart_plugin: ^2.1.0
   test: ^1.25.2
 
