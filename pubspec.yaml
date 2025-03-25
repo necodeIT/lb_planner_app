@@ -63,7 +63,7 @@ dependencies:
   posthog_dart:
     git:
       url: https://github.com/necodeIT/posthog_dart.git
-  sentry_dio: ^8.13.0
+  sentry_dio: ^8.14.1
   sentry_flutter: ^8.9.0
   skeletonizer: ^1.4.2
   sliver_tools: ^0.2.12
