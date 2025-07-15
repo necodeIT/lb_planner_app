@@ -860,7 +860,7 @@ abstract class AppLocalizations {
   /// Displays the size of the slot, using a count placeholder.
   ///
   /// In en, this message translates to:
-  /// **'Size {count}'**
+  /// **'Students: {count}'**
   String slots_details_sizeCount(int count);
 
   /// Button label to create a new slot.
@@ -920,7 +920,7 @@ abstract class AppLocalizations {
   /// Label for the size input in slot editing.
   ///
   /// In en, this message translates to:
-  /// **'Size'**
+  /// **'Students'**
   String get slots_edit_size;
 
   /// Label for the supervisors section in slot editing.

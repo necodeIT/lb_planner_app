@@ -438,7 +438,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String slots_details_sizeCount(int count) {
-    return 'Size $count';
+    return 'Students: $count';
   }
 
   @override
@@ -471,7 +471,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slots_edit_room => 'Room';
 
   @override
-  String get slots_edit_size => 'Size';
+  String get slots_edit_size => 'Students';
 
   @override
   String get slots_edit_supervisors => 'Supervisors';

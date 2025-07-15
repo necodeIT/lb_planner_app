@@ -595,7 +595,7 @@
             }
         }
     },
-    "slots_details_sizeCount": "Größe {count}",
+    "slots_details_sizeCount": "Schüler: {count}",
     "@slots_details_sizeCount": {
         "description": "Displays the size of the slot, using a count placeholder.",
         "placeholders": {
@@ -651,7 +651,7 @@
     "@slots_edit_room": {
         "description": "Label for the room input in slot editing."
     },
-    "slots_edit_size": "Größe",
+    "slots_edit_size": "Schüler",
     "@slots_edit_size": {
         "description": "Label for the size input in slot editing."
     },
