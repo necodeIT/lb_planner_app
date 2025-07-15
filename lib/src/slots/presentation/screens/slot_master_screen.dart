@@ -16,6 +16,8 @@ class SlotMasterScreen extends StatefulWidget {
 class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState, NoMobile {
   final searchController = TextEditingController();
 
+  Weekday activeDay = Weekday.monday;
+
   @override
   void initState() {
     super.initState();
@@ -50,46 +52,66 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
 
     return Padding(
       padding: PaddingAll(),
-      child: SingleChildScrollView(
-        child: Column(
-          spacing: Spacing.largeSpacing,
-          children: [
-            for (final weekday in Weekday.values)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        weekday.translate(context),
-                        style: context.theme.textTheme.titleMedium,
-                      ),
-                      Spacing.xsHorizontal(),
-                      TextButton(
-                        onPressed: () => createSlot(weekday),
-                        child: const Text('New slot'),
-                      ),
-                    ],
+      child: Column(
+        children: [
+          Row(
+            spacing: Spacing.mediumSpacing,
+            children: [
+              for (final weekday in Weekday.values)
+                TextButton(
+                  onPressed: weekday == activeDay
+                      ? null
+                      : () {
+                          setState(() {
+                            activeDay = weekday;
+                          });
+                        },
+                  style: TextButton.styleFrom(
+                    backgroundColor: weekday == activeDay ? context.theme.highlightColor : context.theme.cardColor,
                   ),
-                  Spacing.smallVertical(),
-                  if (groups[weekday]?.isNotEmpty ?? false)
-                    Wrap(
-                      spacing: Spacing.mediumSpacing,
-                      runSpacing: Spacing.mediumSpacing,
-                      children: [
-                        for (final slot in (groups[weekday] ?? <Slot>[]).query(searchController.text))
-                          SizedBox(
-                            key: ValueKey(slot),
-                            width: tileWidth,
-                            height: tileHeight,
-                            child: SlotMasterWidget(slot: slot),
-                          ),
-                      ].show(),
-                    ).stretch(),
-                ],
-              ),
-          ],
-        ),
+                  child: Text(
+                    weekday.translate(context),
+                    style: context.theme.textTheme.titleLarge,
+                  ),
+                ),
+            ],
+          ),
+          Spacing.mediumVertical(),
+          // TODO(mastermarcohd): add Timeunit subdivisions
+          SingleChildScrollView(
+            child: Column(
+              spacing: Spacing.largeSpacing,
+              children: [
+                // for (final weekday in Weekday.values)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextButton(
+                      onPressed: () => createSlot(activeDay),
+                      child: const Text('New slot'), // TODO(mastermarcohd): translate
+                    ),
+                    Spacing.smallVertical(),
+                    if (groups[activeDay]?.isNotEmpty ?? false)
+                      Wrap(
+                        spacing: Spacing.mediumSpacing,
+                        runSpacing: Spacing.mediumSpacing,
+                        children: [
+                          // TODO(mastermarcohd): sort slots by time
+                          for (final slot in (groups[activeDay] ?? <Slot>[]).query(searchController.text))
+                            SizedBox(
+                              key: ValueKey(slot),
+                              width: tileWidth,
+                              height: tileHeight,
+                              child: SlotMasterWidget(slot: slot),
+                            ),
+                        ].show(),
+                      ).stretch(),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

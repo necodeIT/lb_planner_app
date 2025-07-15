@@ -516,6 +516,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       );
                     },
                   ).expanded(),
+
+                  // TODO(mastermarcohd): make remove button
                   IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
@@ -561,6 +563,19 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                     ),
                 ].vSpaced(Spacing.smallSpacing),
               ).expanded(),
+              IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                onPressed: course == null || vintage == null || submitting
+                    ? null
+                    : () {
+                        addMapping(course!.id, vintage!);
+                        setCourse(null);
+                        setVintage(null);
+                      },
+                icon: const Icon(Icons.add),
+              ).stretch(),
             ],
           ).expanded(),
         ],
