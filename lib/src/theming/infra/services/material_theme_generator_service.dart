@@ -43,7 +43,7 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
           borderSide: BorderSide.none,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: themeBase.primaryColor,
         elevation: 6,
         margin: EdgeInsets.zero,

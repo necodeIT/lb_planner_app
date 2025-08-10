@@ -38,7 +38,7 @@ dependencies:
   flutter_modular: ^6.3.4
   flutter_single_instance: ^1.2.0
   flutter_staggered_animations: ^1.1.1
-  flutter_sticky_header: ^0.7.0
+  flutter_sticky_header: ^0.8.0
   flutter_svg: ^2.0.10+1
   flutter_utils:
     git:
@@ -65,7 +65,7 @@ dependencies:
       url: https://github.com/necodeIT/posthog_dart.git
   sentry_dio: ^8.13.0
   sentry_flutter: ^8.9.0
-  skeletonizer: ^1.4.2
+  skeletonizer: ^2.1.0+1
   sliver_tools: ^0.2.12
   sprung: ^3.0.1
   timeago: ^3.7.0
