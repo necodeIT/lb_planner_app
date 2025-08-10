@@ -21,9 +21,9 @@ dependencies:
   device_preview: ^1.2.0
   diffutil_dart: ^4.0.1
   dio: ^5.7.0
-  echidna_flutter:
-    git:
-      url: https://github.com/necodeIT/echidna_flutter.git
+  # echidna_flutter:
+  #   git:
+  #     url: https://github.com/necodeIT/echidna_flutter.git
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
   fl_chart: ^0.70.2

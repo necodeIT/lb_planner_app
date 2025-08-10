@@ -1,11 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
-import 'package:echidna_flutter/echidna_flutter.dart';
 import 'package:eduplanner/config/version.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:eduplanner/src/notifications/notifications.dart';
-import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -198,9 +196,9 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
     final (title, featureId) = Modular.tryGet<TitleBuilder>()?.call(context) ?? (null, null);
 
     final notifications = context.watch<NotificationsRepository>();
-    final license = context.watch<LicenseRepository>();
+    // final license = context.watch<LicenseRepository>();
 
-    final showLicenseBadge = featureId != null && license.state.data != null;
+    // final showLicenseBadge = featureId != null && license.state.data != null;
 
     return Column(
       children: [
@@ -233,27 +231,27 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                       ).fontSize(24),
                     ),
                   ),
-                  if (showLicenseBadge) Spacing.smallHorizontal(),
-                  if (showLicenseBadge)
-                    Container(
-                      padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
-                      decoration: ShapeDecoration(
-                        shape: squircle(
-                          radius: 5000,
-                          side: BorderSide(
-                            color: context.theme.colorScheme.primary,
-                          ),
-                        ),
-                        color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
-                      ),
-                      child: Text(
-                        license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                  if (showLicenseBadge) Spacing.smallHorizontal(),
+                  // if (showLicenseBadge) Spacing.smallHorizontal(),
+                  // if (showLicenseBadge)
+                  //   Container(
+                  //     padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                  //     decoration: ShapeDecoration(
+                  //       shape: squircle(
+                  //         radius: 5000,
+                  //         side: BorderSide(
+                  //           color: context.theme.colorScheme.primary,
+                  //         ),
+                  //       ),
+                  //       color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                  //     ),
+                  //     child: Text(
+                  //       license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
+                  //       style: context.textTheme.bodySmall?.copyWith(
+                  //         color: context.theme.colorScheme.primary,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // if (showLicenseBadge) Spacing.smallHorizontal(),
                   if (_trailing != null) _trailing!,
                 ],
               ),
@@ -351,9 +349,9 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
     final (title, featureId) = Modular.tryGet<TitleBuilder>()?.call(context) ?? (null, null);
 
     final notifications = context.watch<NotificationsRepository>();
-    final license = context.watch<LicenseRepository>();
+    // final license = context.watch<LicenseRepository>();
 
-    final showLicenseBadge = featureId != null && license.state.data != null;
+    // final showLicenseBadge = featureId != null && license.state.data != null;
 
     return Column(
       children: [
@@ -386,28 +384,28 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                       ).fontSize(24),
                     ),
                   ),
-                  if (showLicenseBadge) Spacing.smallHorizontal(),
-                  if (showLicenseBadge)
-                    Container(
-                      padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
-                      decoration: ShapeDecoration(
-                        shape: squircle(
-                          radius: 5000,
-                          side: BorderSide(
-                            color: context.theme.colorScheme.primary,
-                          ),
-                        ),
-                        color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
-                      ),
-                      child: Text(
-                        license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.primary,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-                  if (showLicenseBadge) Spacing.smallHorizontal(),
+                  // if (showLicenseBadge) Spacing.smallHorizontal(),
+                  // if (showLicenseBadge)
+                  //   Container(
+                  //     padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                  //     decoration: ShapeDecoration(
+                  //       shape: squircle(
+                  //         radius: 5000,
+                  //         side: BorderSide(
+                  //           color: context.theme.colorScheme.primary,
+                  //         ),
+                  //       ),
+                  //       color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                  //     ),
+                  //     child: Text(
+                  //       license.state.requireData.active ? context.t.app_titleBar_pro : context.t.app_titleBar_trial,
+                  //       style: context.textTheme.bodySmall?.copyWith(
+                  //         color: context.theme.colorScheme.primary,
+                  //         fontSize: 10,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // if (showLicenseBadge) Spacing.smallHorizontal(),
                   if (_trailing != null) _trailing!,
                 ],
               ),

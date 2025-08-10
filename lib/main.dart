@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:context_menus/context_menus.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:echidna_flutter/echidna_flutter.dart';
-import 'package:eduplanner/config/echidna.dart';
 import 'package:eduplanner/config/posthog.dart';
 import 'package:eduplanner/config/sentry.dart';
 import 'package:eduplanner/config/version.dart';
@@ -105,7 +103,7 @@ void main() async {
 
   setPathUrlStrategy();
 
-  initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
+  // initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
 
   for (final locale in AppLocalizations.supportedLocales) {
     await initializeDateFormatting(locale.languageCode);

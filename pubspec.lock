@@ -350,32 +350,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  dotenv:
-    dependency: transitive
-    description:
-      name: dotenv
-      sha256: "379e64b6fc82d3df29461d349a1796ecd2c436c480d4653f3af6872eccbc90e1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.0"
-  echidna_dto:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "259f5889208f5a73c9bb3dfe45091dc3a80f91be"
-      url: "https://github.com/necodeIT/echidna_dto.git"
-    source: git
-    version: "0.0.1"
-  echidna_flutter:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7421eedd6009324e60eb529c988fcc7c16e85398"
-      url: "https://github.com/necodeIT/echidna_flutter.git"
-    source: git
-    version: "0.0.2"
   either_dart:
     dependency: "direct main"
     description:
