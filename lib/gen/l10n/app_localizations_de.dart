@@ -59,7 +59,8 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get app_update_aur => 'Führe `yay -S lb-planner` aus, um auf die neueste Version zu aktualisieren.';
+  String get app_update_aur =>
+      'Führe `yay -S lb-planner` aus, um auf die neueste Version zu aktualisieren.';
 
   @override
   String app_update_download(String url) {
@@ -67,10 +68,12 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get app_update_web => 'Bitte aktualisiere die Seite mit `Strg + Shift + F5`, um auf die neueste Version zu aktualisieren.';
+  String get app_update_web =>
+      'Bitte aktualisiere die Seite mit `Strg + Shift + F5`, um auf die neueste Version zu aktualisieren.';
 
   @override
-  String get app_noMobile_message => 'Diese Seite ist nicht auf Mobilgeräten verfügbar.';
+  String get app_noMobile_message =>
+      'Diese Seite ist nicht auf Mobilgeräten verfügbar.';
 
   @override
   String get app_noMobile_goBack => 'Zurück';
@@ -101,7 +104,8 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get auth_dataCollectionConsent => 'Ich akzeptiere die Erhebung und Verarbeitung meiner Daten wie beschrieben in der ';
+  String get auth_dataCollectionConsent =>
+      'Ich akzeptiere die Erhebung und Verarbeitung meiner Daten wie beschrieben in der ';
 
   @override
   String get auth_dataCollectionConsentSuffix => '.';
@@ -119,7 +123,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calendar_tasksOverview_description_title => 'Was ist das?';
 
   @override
-  String get calendar_tasksOverview_description => 'Die Aufgabenübersicht zeigt die Verteilung der Aufgaben über die Monate basierend auf den von den Lehrkräften gesetzten Fristen.';
+  String get calendar_tasksOverview_description =>
+      'Die Aufgabenübersicht zeigt die Verteilung der Aufgaben über die Monate basierend auf den von den Lehrkräften gesetzten Fristen.';
 
   @override
   String get calendar_title => 'Kalender';
@@ -134,7 +139,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calendar_leave_title => 'Plan verlassen?';
 
   @override
-  String get calendar_leave_message => 'Bist du sicher, dass du diesen Plan verlassen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.\nKeine Sorge, eine Kopie des geteilten Plans wird in deinem Konto gespeichert und du kannst jederzeit wieder eingeladen werden.';
+  String get calendar_leave_message =>
+      'Bist du sicher, dass du diesen Plan verlassen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.\nKeine Sorge, eine Kopie des geteilten Plans wird in deinem Konto gespeichert und du kannst jederzeit wieder eingeladen werden.';
 
   @override
   String get calendar_invited => 'Eingeladen';
@@ -176,7 +182,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calendar_clearPlan_title => 'Plan leeren?';
 
   @override
-  String get calendar_clearPlan_message => 'Bist du sicher, dass du deinen Plan leeren möchtest? Dadurch werden alle geplanten Aufgaben entfernt und diese Aktion kann nicht rückgängig gemacht werden.';
+  String get calendar_clearPlan_message =>
+      'Bist du sicher, dass du deinen Plan leeren möchtest? Dadurch werden alle geplanten Aufgaben entfernt und diese Aktion kann nicht rückgängig gemacht werden.';
 
   @override
   String get calendar_tasks => 'Aufgaben';
@@ -206,7 +213,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dashboard_todaysTasks => 'Heutige Aufgaben';
 
   @override
-  String get dashboard_todaysTasks_noTasks => 'Du hast für heute nichts geplant';
+  String get dashboard_todaysTasks_noTasks =>
+      'Du hast für heute nichts geplant';
 
   @override
   String get dashboard_statusOverview => 'Statusübersicht';
@@ -215,7 +223,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dashboard_burnDownChart => 'Burndown-Diagramm';
 
   @override
-  String get dashboard_burnDownChart_plannedTrajectory => 'Geplante Entwicklung';
+  String get dashboard_burnDownChart_plannedTrajectory =>
+      'Geplante Entwicklung';
 
   @override
   String dashboard_burnDownChart_idealTrajectory(num count) {
@@ -229,16 +238,19 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get dashboard_burnDownChart_explanation_title => 'Was zum Teufel ist ein Burndown-Diagramm?';
+  String get dashboard_burnDownChart_explanation_title =>
+      'Was zum Teufel ist ein Burndown-Diagramm?';
 
   @override
-  String get dashboard_burnDownChart_explanation_message => 'Das **Burndown-Diagramm** hilft dir dabei, deinen Fortschritt bei der Erledigung von Aufgaben zu visualisieren.\n\n1. Die **ideale Entwicklung** (gerade Linie) zeigt, wie viele Aufgaben du an jedem Tag übrig haben solltest, wenn du deine Aufgaben ideal geplant hast, um eine gleichmäßige Arbeitsbelastung beizubehalten.\n2. Die **geplante Entwicklung** (gekrümmte Linie) zeigt, wie viele Aufgaben basierend auf deinem geplanten Abschluss übrig sein sollten.\n\t- Grün, wenn am Ende des Semesters keine Aufgaben mehr übrig sind.\n\t- Rot, wenn du nicht alle Module rechtzeitig abschließen wirst.\n\nDieses Diagramm verfolgt nicht, wann Aufgaben tatsächlich abgeschlossen werden – es vergleicht lediglich deinen Plan mit dem idealen Tempo, damit du auf Kurs bleibst!\n';
+  String get dashboard_burnDownChart_explanation_message =>
+      'Das **Burndown-Diagramm** hilft dir dabei, deinen Fortschritt bei der Erledigung von Aufgaben zu visualisieren.\n\n1. Die **ideale Entwicklung** (gerade Linie) zeigt, wie viele Aufgaben du an jedem Tag übrig haben solltest, wenn du deine Aufgaben ideal geplant hast, um eine gleichmäßige Arbeitsbelastung beizubehalten.\n2. Die **geplante Entwicklung** (gekrümmte Linie) zeigt, wie viele Aufgaben basierend auf deinem geplanten Abschluss übrig sein sollten.\n\t- Grün, wenn am Ende des Semesters keine Aufgaben mehr übrig sind.\n\t- Rot, wenn du nicht alle Module rechtzeitig abschließen wirst.\n\nDieses Diagramm verfolgt nicht, wann Aufgaben tatsächlich abgeschlossen werden – es vergleicht lediglich deinen Plan mit dem idealen Tempo, damit du auf Kurs bleibst!\n';
 
   @override
   String get dashboard_exams => 'Bevorstehende Prüfungen';
 
   @override
-  String get dashboard_exams_noExams => 'In naher Zukunft sind keine Prüfungen geplant';
+  String get dashboard_exams_noExams =>
+      'In naher Zukunft sind keine Prüfungen geplant';
 
   @override
   String get dashboard_title => 'Dashboard';
@@ -247,13 +259,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get dashboard_overdueTasks => 'Überfällige Aufgaben';
 
   @override
-  String get dashboard_noTasksOverdue => 'Alles bestens, keine Aufgaben sind überfällig!';
+  String get dashboard_noTasksOverdue =>
+      'Alles bestens, keine Aufgaben sind überfällig!';
 
   @override
   String get dashboard_slotsReservedToday => 'Heute reservierte Slots';
 
   @override
-  String get dashboard_noSlotsReservedToday => 'Für heute hast du keine Slots reserviert.';
+  String get dashboard_noSlotsReservedToday =>
+      'Für heute hast du keine Slots reserviert.';
 
   @override
   String get enum_taskStatus_done => 'Erledigt';
@@ -321,7 +335,8 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get notification_planRemoved => 'Du wurdest aus deinem geteilten Plan entfernt. Keine Sorge, eine Kopie des Plans wurde in deinem Konto gespeichert.';
+  String get notification_planRemoved =>
+      'Du wurdest aus deinem geteilten Plan entfernt. Keine Sorge, eine Kopie des Plans wurde in deinem Konto gespeichert.';
 
   @override
   String notification_planLeft(String username) {
@@ -351,10 +366,12 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get settings_feedback_error_title => 'Feedback konnte nicht gesendet werden';
+  String get settings_feedback_error_title =>
+      'Feedback konnte nicht gesendet werden';
 
   @override
-  String get settings_feedback_error_message => 'Beim Senden deines Feedbacks ist ein Fehler aufgetreten und der Fehler wurde den Entwicklern gemeldet. Bitte versuche es später noch einmal.';
+  String get settings_feedback_error_message =>
+      'Beim Senden deines Feedbacks ist ein Fehler aufgetreten und der Fehler wurde den Entwicklern gemeldet. Bitte versuche es später noch einmal.';
 
   @override
   String get settings_feedback_title => 'Feedback';
@@ -363,7 +380,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_feedback_description => 'Bitte beschreibe dein Problem.';
 
   @override
-  String get settings_feedback_consent => 'Ich stimme der Weitergabe meiner E-Mail-Adresse und meines Namens an die Entwickler gemäß unserer ';
+  String get settings_feedback_consent =>
+      'Ich stimme der Weitergabe meiner E-Mail-Adresse und meines Namens an die Entwickler gemäß unserer ';
 
   @override
   String get settings_feedback_consentSuffix => ' zu.';
@@ -404,7 +422,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settings_general_enableEK => 'EK-Module aktivieren';
 
   @override
-  String get settings_general_displayTaskCount => 'Anzahl der Aufgaben anzeigen';
+  String get settings_general_displayTaskCount =>
+      'Anzahl der Aufgaben anzeigen';
 
   @override
   String get settings_general_manageSubscription => 'Abonament verwalten';
@@ -445,12 +464,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get slots_slotmaster_newSlot => 'Neuer Slot';
 
   @override
-  String slots_slotmaster_deleteSlot_title(String room, String startUnit, String endUnit) {
+  String slots_slotmaster_deleteSlot_title(
+      String room, String startUnit, String endUnit) {
     return 'Slot $room $startUnit - $endUnit löschen?';
   }
 
   @override
-  String get slots_slotmaster_deleteSlot_message => 'Bist du sicher, dass du diesen Slot löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.';
+  String get slots_slotmaster_deleteSlot_message =>
+      'Bist du sicher, dass du diesen Slot löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.';
 
   @override
   String get slots_edit_editSlot => 'Slot bearbeiten';
@@ -492,7 +513,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get slots_reserve_error => 'Slot konnte nicht reserviert werden';
 
   @override
-  String get slots_unbook_error => 'Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.';
+  String get slots_unbook_error =>
+      'Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.';
 
   @override
   String get slots_weekday_monday => 'Montag';
@@ -530,5 +552,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get global_disclaimer_title => 'Öffentliche Beta';
 
   @override
-  String get global_disclaimer => 'Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️';
+  String get global_disclaimer =>
+      'Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️';
 }

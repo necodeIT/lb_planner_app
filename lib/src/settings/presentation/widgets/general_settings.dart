@@ -102,7 +102,7 @@ class _GeneralSettingsState extends State<GeneralSettings> with AdaptiveState {
       // iconItem(
       //   title: context.t.settings_general_manageSubscription,
       //   icon: FontAwesome5Solid.credit_card,
-      //   onPressed: () => Modular.to.pushNamed('/subscription'), // TODO(mcquenji): Implement subscription screen
+      //   onPressed: () => Modular.to.pushNamed('/subscription'),
       //   iconSize: 14,
       // ),
 
