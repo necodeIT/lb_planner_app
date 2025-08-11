@@ -70,7 +70,7 @@ dependencies:
   sprung: ^3.0.1
   timeago: ^3.7.0
   uicons_updated: ^0.0.5
-  url_launcher: ^6.3.1
+  url_launcher: ^6.3.2
   vector_graphics: any
   window_manager: ^0.4.3
 
