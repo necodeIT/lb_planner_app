@@ -12,7 +12,7 @@ dependencies:
   animations: ^2.0.11
   awesome_extensions: ^2.0.17
   bloc: ^8.1.4
-  carousel_slider: ^5.0.0
+  carousel_slider: ^5.1.1
   collection: any
   color_blindness: ^0.2.0
   context_menus: ^2.0.0+1
