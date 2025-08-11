@@ -77,7 +77,7 @@ dependencies:
 dev_dependencies:
   architecture_linter: ^0.3.0
   bloc_test: ^9.1.7
-  build_runner: ^2.4.11
+  build_runner: ^2.5.4
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
