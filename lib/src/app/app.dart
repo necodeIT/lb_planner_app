@@ -31,6 +31,7 @@ class AppModule extends Module {
         UpdaterModule(),
         MoodleModule(),
         CalendarModule(),
+        KanbanModule(),
       ];
 
   @override
@@ -66,6 +67,15 @@ class AppModule extends Module {
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
               // apparently having a guard in a child route will override the parent's guard so we need it here too
               // Important to have this guard last as the order of guards is reversed
+              AuthGuard(redirectTo: '/auth/'),
+            ],
+          ),
+          ModuleRoute(
+            '/kanban/',
+            module: KanbanModule(),
+            guards: [
+              // FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
               AuthGuard(redirectTo: '/auth/'),
             ],
           ),

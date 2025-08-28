@@ -36,7 +36,7 @@ Map<String, dynamic> _$$SlotImplToJson(_$SlotImpl instance) =>
       'fullness': instance.reservations,
       'forcuruser': instance.reserved,
       'supervisors': instance.supervisors,
-      'filters': instance.mappings.map((e) => e.toJson()).toList(),
+      'filters': instance.mappings,
     };
 
 const _$SlotTimeUnitEnumMap = {

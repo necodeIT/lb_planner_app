@@ -37,6 +37,15 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
                     icon: Icons.dashboard,
                   ),
                 if (capabilities.hasStudent)
+                  SidebarTarget(
+                    route: '/kanban/',
+                    icon: Icons.bar_chart_rounded,
+                    iconTransformer: (context, icon) => Transform.flip(
+                      flipY: true,
+                      child: icon,
+                    ),
+                  ),
+                if (capabilities.hasStudent)
                   const SidebarTarget(
                     route: '/calendar/plan/',
                     activeRoute: '/calendar/',

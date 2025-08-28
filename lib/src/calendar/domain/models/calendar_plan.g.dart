@@ -22,6 +22,6 @@ Map<String, dynamic> _$$CalendarPlanImplToJson(_$CalendarPlanImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'planid': instance.id,
-      'deadlines': instance.deadlines.map((e) => e.toJson()).toList(),
-      'members': instance.members.map((e) => e.toJson()).toList(),
+      'deadlines': instance.deadlines,
+      'members': instance.members,
     };

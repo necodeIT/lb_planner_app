@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:eduplanner/config/endpoints.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
@@ -128,6 +129,18 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
 
       return true;
     }).toList();
+  }
+
+  MoodleCourse? getById(int id) {
+    if (!state.hasData) {
+      log('Cannot get course: No data available.');
+
+      return null;
+    }
+
+    final courses = state.requireData;
+
+    return courses.firstWhereOrNull((element) => element.id == id);
   }
 
   @override
