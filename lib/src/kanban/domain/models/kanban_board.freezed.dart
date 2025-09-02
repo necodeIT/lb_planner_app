@@ -26,12 +26,8 @@ mixin _$KanbanBoard {
   List<int> get inProgress => throw _privateConstructorUsedError;
   List<int> get done => throw _privateConstructorUsedError;
 
-  /// Serializes this KanbanBoard to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of KanbanBoard
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $KanbanBoardCopyWith<KanbanBoard> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,8 +55,6 @@ class _$KanbanBoardCopyWithImpl<$Res, $Val extends KanbanBoard>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of KanbanBoard
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,8 +107,6 @@ class __$$KanbanBoardImplCopyWithImpl<$Res>
       _$KanbanBoardImpl _value, $Res Function(_$KanbanBoardImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of KanbanBoard
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -211,7 +203,7 @@ class _$KanbanBoardImpl extends _KanbanBoard {
             const DeepCollectionEquality().equals(other._done, _done));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -220,9 +212,7 @@ class _$KanbanBoardImpl extends _KanbanBoard {
       const DeepCollectionEquality().hash(_inProgress),
       const DeepCollectionEquality().hash(_done));
 
-  /// Create a copy of KanbanBoard
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$KanbanBoardImplCopyWith<_$KanbanBoardImpl> get copyWith =>
@@ -256,11 +246,8 @@ abstract class _KanbanBoard extends KanbanBoard {
   List<int> get inProgress;
   @override
   List<int> get done;
-
-  /// Create a copy of KanbanBoard
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$KanbanBoardImplCopyWith<_$KanbanBoardImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -69,12 +69,8 @@ mixin _$User {
   /// The vintage of the user
   Vintage? get vintage => throw _privateConstructorUsedError;
 
-  /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -113,8 +109,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -223,8 +217,6 @@ class __$$UserImplCopyWithImpl<$Res>
   __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -422,7 +414,7 @@ class _$UserImpl extends _User {
             (identical(other.vintage, vintage) || other.vintage == vintage));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -440,9 +432,7 @@ class _$UserImpl extends _User {
       displayTaskCount,
       vintage);
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
@@ -479,72 +469,70 @@ abstract class _User extends User {
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
-  /// The id of the user
   @override
+
+  /// The id of the user
   @JsonKey(name: 'userid')
   int get id;
+  @override
 
   /// The username of the user
-  @override
   String get username;
+  @override
 
   /// The firstname of the user
-  @override
   String get firstname;
+  @override
 
   /// The lastname of the user
-  @override
   String get lastname;
+  @override
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @override
   @JsonKey(name: 'ekenabled')
   @BoolConverterNullable()
   bool get optionalTasksEnabled;
+  @override
 
   /// The email address of the user
-  @override
   String get email;
+  @override
 
   /// A bitmask of the capabilities the user has
-  @override
   @JsonKey(name: 'capabilities')
   int get capabilitiesBitMask;
+  @override
 
   /// The name of the theme the user has selected
-  @override
   @JsonKey(name: 'theme')
   String get themeName;
+  @override
 
   /// The url of the profile image
-  @override
   @JsonKey(name: 'profileimageurl')
   String get profileImageUrl;
+  @override
 
   /// The id of the plan the user is assigned to
-  @override
   @JsonKey(name: 'planid')
   int get planId;
+  @override
 
   /// The color blindness of the user as a string
-  @override
   @JsonKey(name: 'colorblindness')
   String get colorBlindnessString;
+  @override
 
   /// Whether to display the task count in the calendar view
-  @override
   @JsonKey(name: 'displaytaskcount')
   @BoolConverterNullable()
   bool get displayTaskCount;
+  @override
 
   /// The vintage of the user
-  @override
   Vintage? get vintage;
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

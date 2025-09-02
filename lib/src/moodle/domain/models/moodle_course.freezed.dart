@@ -39,12 +39,8 @@ mixin _$MoodleCourse {
   @BoolConverter()
   bool get enabled => throw _privateConstructorUsedError;
 
-  /// Serializes this MoodleCourse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of MoodleCourse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $MoodleCourseCopyWith<MoodleCourse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,8 +69,6 @@ class _$MoodleCourseCopyWithImpl<$Res, $Val extends MoodleCourse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of MoodleCourse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,8 +127,6 @@ class __$$MoodleCourseImplCopyWithImpl<$Res>
       _$MoodleCourseImpl _value, $Res Function(_$MoodleCourseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MoodleCourse
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,14 +217,12 @@ class _$MoodleCourseImpl extends _MoodleCourse {
             (identical(other.enabled, enabled) || other.enabled == enabled));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, color, name, shortname, enabled);
 
-  /// Create a copy of MoodleCourse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MoodleCourseImplCopyWith<_$MoodleCourseImpl> get copyWith =>
@@ -258,34 +248,32 @@ abstract class _MoodleCourse extends MoodleCourse {
   factory _MoodleCourse.fromJson(Map<String, dynamic> json) =
       _$MoodleCourseImpl.fromJson;
 
-  /// The ID of this course.
   @override
+
+  /// The ID of this course.
   @JsonKey(name: 'courseid')
   int get id;
+  @override
 
   /// The color of this course in hexadecimal format.
-  @override
   @HexColorConverter()
   Color get color;
+  @override
 
   /// The name of this course.
-  @override
   String get name;
+  @override
 
   /// The shortname chosen by the user for this course.
   /// Limited to 5 characters.
-  @override
   String get shortname;
+  @override
 
   /// Whether the user want's the app to track this course.
-  @override
   @BoolConverter()
   bool get enabled;
-
-  /// Create a copy of MoodleCourse
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MoodleCourseImplCopyWith<_$MoodleCourseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

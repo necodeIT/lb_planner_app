@@ -32,12 +32,8 @@ mixin _$StatusAggregate {
   /// The number of tasks with [MoodleTaskStatus.late].
   int get late => throw _privateConstructorUsedError;
 
-  /// Serializes this StatusAggregate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of StatusAggregate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $StatusAggregateCopyWith<StatusAggregate> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -61,8 +57,6 @@ class _$StatusAggregateCopyWithImpl<$Res, $Val extends StatusAggregate>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of StatusAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -111,8 +105,6 @@ class __$$StatusAggregateImplCopyWithImpl<$Res>
       _$StatusAggregateImpl _value, $Res Function(_$StatusAggregateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of StatusAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -188,13 +180,11 @@ class _$StatusAggregateImpl extends _StatusAggregate {
             (identical(other.late, late) || other.late == late));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, done, pending, uploaded, late);
 
-  /// Create a copy of StatusAggregate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$StatusAggregateImplCopyWith<_$StatusAggregateImpl> get copyWith =>
@@ -220,26 +210,24 @@ abstract class _StatusAggregate extends StatusAggregate {
   factory _StatusAggregate.fromJson(Map<String, dynamic> json) =
       _$StatusAggregateImpl.fromJson;
 
-  /// The number of tasks with [MoodleTaskStatus.done].
   @override
+
+  /// The number of tasks with [MoodleTaskStatus.done].
   int get done;
+  @override
 
   /// The number of tasks with [MoodleTaskStatus.pending].
-  @override
   int get pending;
+  @override
 
   /// The number of tasks with [MoodleTaskStatus.uploaded].
-  @override
   int get uploaded;
+  @override
 
   /// The number of tasks with [MoodleTaskStatus.late].
-  @override
   int get late;
-
-  /// Create a copy of StatusAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$StatusAggregateImplCopyWith<_$StatusAggregateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
