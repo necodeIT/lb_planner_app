@@ -12,6 +12,7 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
   /// Repository for managing the Kanban board.
   KanbanRepository(this._datasource, this._auth, this._tasks) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    watchAsync(_tasks);
 
     _datasource.parent = this;
   }

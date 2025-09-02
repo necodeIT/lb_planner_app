@@ -13,7 +13,7 @@ class KanbanScreen extends StatefulWidget {
   State<KanbanScreen> createState() => _KanbanScreenState();
 }
 
-class _KanbanScreenState extends State<KanbanScreen> {
+class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobile {
   final animationDuration = 300.ms;
 
   bool showBacklog = false;
@@ -25,7 +25,7 @@ class _KanbanScreenState extends State<KanbanScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildDesktop(BuildContext context) {
     final repo = context.watch<KanbanRepository>();
 
     final board = repo.state.data ?? KanbanBoard.scaffold();
