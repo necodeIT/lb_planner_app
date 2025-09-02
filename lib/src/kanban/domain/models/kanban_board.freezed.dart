@@ -140,7 +140,7 @@ class __$$KanbanBoardImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$KanbanBoardImpl extends _KanbanBoard {
   const _$KanbanBoardImpl(
-      {required final List<int> backlog,
+      {final List<int> backlog = const [],
       required final List<int> todo,
       @JsonKey(name: 'inprogress') required final List<int> inProgress,
       required final List<int> done})
@@ -155,6 +155,7 @@ class _$KanbanBoardImpl extends _KanbanBoard {
 
   final List<int> _backlog;
   @override
+  @JsonKey()
   List<int> get backlog {
     if (_backlog is EqualUnmodifiableListView) return _backlog;
     // ignore: implicit_dynamic_type
@@ -228,7 +229,7 @@ class _$KanbanBoardImpl extends _KanbanBoard {
 
 abstract class _KanbanBoard extends KanbanBoard {
   const factory _KanbanBoard(
-      {required final List<int> backlog,
+      {final List<int> backlog,
       required final List<int> todo,
       @JsonKey(name: 'inprogress') required final List<int> inProgress,
       required final List<int> done}) = _$KanbanBoardImpl;

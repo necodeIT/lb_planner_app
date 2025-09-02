@@ -22,6 +22,7 @@ extension AnimateUtils on List<Widget> {
     double begin = 2,
     double end = 0,
     int limit = 16,
+    String? keyPrefex,
   }) {
     assert(limit >= 0, 'Limit must be positive');
 
@@ -54,7 +55,9 @@ extension AnimateUtils on List<Widget> {
 
       widgets.add(
         this[i]
-            .animate()
+            .animate(
+              key: keyPrefex != null ? ValueKey('$keyPrefex-$i') : null,
+            )
             .slideY(
               begin: begin,
               end: end,
@@ -83,8 +86,9 @@ extension AnimateX on Widget {
     AnimationStagger? stagger, {
     Duration duration = const Duration(milliseconds: 500),
     Duration delay = Duration.zero,
+    Key? key,
   }) {
-    return animate().scale(duration: duration, delay: stagger?.add() ?? delay, curve: Curves.easeOutCubic);
+    return animate(key: key).scale(duration: duration, delay: stagger?.add() ?? delay, curve: Curves.easeOutCubic);
   }
 
   /// Wraps this widget in [Static] to disable animations.

@@ -62,6 +62,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> wit
     Set<int>? courseIds,
     int? taskId,
     Set<int>? taskIds,
+    Set<int>? cmids,
     Duration? deadlineDiff,
     Duration? minDeadlineDiff,
     Duration? maxDeadlineDiff,
@@ -77,6 +78,7 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> wit
       courseIds: courseIds,
       taskId: taskId,
       taskIds: taskIds,
+      cmids: cmids,
       deadlineDiff: deadlineDiff,
       minDeadlineDiff: minDeadlineDiff,
       maxDeadlineDiff: maxDeadlineDiff,
@@ -115,6 +117,7 @@ extension TasksFilterX on Iterable<MoodleTask> {
     int? courseId,
     Set<int>? courseIds,
     int? taskId,
+    Set<int>? cmids,
     Set<int>? taskIds,
     Duration? deadlineDiff,
     Duration? minDeadlineDiff,
@@ -142,6 +145,7 @@ extension TasksFilterX on Iterable<MoodleTask> {
       if (query != null && !task.name.toLowerCase().contains(query.toLowerCase())) return false;
       if (courseIds != null && !courseIds.contains(task.courseId)) return false;
       if (taskIds != null && !taskIds.contains(task.id)) return false;
+      if (cmids != null && !cmids.contains(task.cmid)) return false;
 
       if (test != null && !test.call(task)) return false;
 

@@ -131,6 +131,7 @@ class MoodleCoursesRepository extends Repository<AsyncValue<List<MoodleCourse>>>
     }).toList();
   }
 
+  /// Gets a course by its [id].
   MoodleCourse? getById(int id) {
     if (!state.hasData) {
       log('Cannot get course: No data available.');

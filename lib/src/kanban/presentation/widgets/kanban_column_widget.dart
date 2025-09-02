@@ -1,5 +1,4 @@
 import 'package:awesome_extensions/awesome_extensions_flutter.dart';
-import 'package:collection/collection.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -44,10 +43,10 @@ class _KanbanColumnWidgetState extends State<KanbanColumnWidget> {
     final board = context.read<KanbanRepository>();
 
     return DragTarget<MoodleTask>(
-      onWillAcceptWithDetails: (details) => !widget.tasks.contains(details.data.id),
-      onAcceptWithDetails: (d) => board.move(taskId: d.data.id, to: widget.column),
+      onWillAcceptWithDetails: (details) => !widget.tasks.contains(details.data.cmid),
+      onAcceptWithDetails: (d) => board.move(taskId: d.data.cmid, to: widget.column),
       builder: (context, candiates, _) {
-        final tasks = tasksRepo.filter(taskIds: widget.tasks.toSet(), query: searchController.text);
+        final tasks = tasksRepo.filter(cmids: widget.tasks.toSet(), query: searchController.text);
 
         final tasksWithDropCandidates = [...candiates.nonNulls, ...tasks];
 
@@ -103,7 +102,6 @@ class _KanbanColumnWidgetState extends State<KanbanColumnWidget> {
                     ),
                     child: KanbanCard(
                       task: task,
-                      key: ValueKey(task.id),
                     ),
                   ).stretch();
                 },

@@ -122,9 +122,9 @@ class KanbanCard extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                       ],
-                    ).expanded()
+                    ).expanded(),
                   ],
                 ),
               ),

@@ -8,9 +8,10 @@ part of 'kanban_board.dart';
 
 _$KanbanBoardImpl _$$KanbanBoardImplFromJson(Map<String, dynamic> json) =>
     _$KanbanBoardImpl(
-      backlog: (json['backlog'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
-          .toList(),
+      backlog: (json['backlog'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [],
       todo: (json['todo'] as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),

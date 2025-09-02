@@ -7,19 +7,35 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable {
   final KanbanDatasource _datasource;
   final AuthRepository _auth;
+  final MoodleTasksRepository _tasks;
 
   /// Repository for managing the Kanban board.
-  KanbanRepository(this._datasource, this._auth) : super(AsyncValue.loading()) {
+  KanbanRepository(this._datasource, this._auth, this._tasks) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+
+    _datasource.parent = this;
   }
 
   @override
   FutureOr<void> build(Trigger trigger) async {
     final token = waitForData(_auth).pick(Webservice.lb_planner_api);
+    final tasks = waitForData(_tasks).map((e) => e.cmid).toList();
 
-    final board = await _datasource.getBoard(token);
+    log('Loading kanban board with ${tasks.length} backlog candidates');
 
-    data(board);
+    final transaction = startTransaction('loadKanbanBoard');
+
+    try {
+      final board = await _datasource.getBoard(token, backlogCandidates: tasks);
+
+      data(board);
+      log('Kanban board loaded');
+    } catch (e, s) {
+      log('Error loading kanban board', e, s);
+      transaction.internalError(e);
+    } finally {
+      await transaction.commit();
+    }
   }
 
   /// Moves the given [taskId] to the specified [to] column.
@@ -49,7 +65,7 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
         case KanbanColumn.todo:
           _board = _board.copyWith(todo: [..._board.todo, taskId]);
           break;
-        case KanbanColumn.inProgress:
+        case KanbanColumn.inprogress:
           _board = _board.copyWith(inProgress: [..._board.inProgress, taskId]);
           break;
         case KanbanColumn.done:
