@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:eduplanner/eduplanner.dart';
 import 'package:mcquenji_core/mcquenji_core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 /// Repository for managing the Kanban board.
 class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable {
@@ -40,13 +41,13 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
   }
 
   /// Moves the given [taskId] to the specified [to] column.
-  Future<void> move({required int taskId, required KanbanColumn to}) async {
+  Future<void> move({required int taskId, required KanbanColumn to, ISentrySpan? span}) async {
     if (!state.hasData) {
       log('Cannot move task: No board data available');
       return;
     }
 
-    final transaction = startTransaction('moveKanbanTask');
+    final transaction = span?.startChild('moveKanbanTask') ?? startTransaction('moveKanbanTask');
 
     final token = _auth.state.requireData.pick(Webservice.lb_planner_api);
 

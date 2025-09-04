@@ -36,15 +36,18 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
         spacing: Spacing.smallSpacing,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: toggleBacklog,
-              child: showBacklog
-                  ? const Icon(Icons.folder)
-                  : const Icon(
-                      Icons.folder_open,
-                    ),
+          Tooltip(
+            message: showBacklog ? 'Hide Backlog' : 'Show Backlog',
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: toggleBacklog,
+                child: showBacklog
+                    ? const Icon(Icons.folder)
+                    : const Icon(
+                        Icons.folder_open,
+                      ),
+              ),
             ),
           ),
           if (showBacklog)
