@@ -34,10 +34,13 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
     Data.of<TitleBarState>(context).setSearchController(searchController);
   }
 
-  void createSlot(Weekday weekday) {
+  void createSlot(Weekday weekday, SlotTimeUnit startUnit) {
     showAnimatedDialog(
       context: context,
-      pageBuilder: (_, __, ___) => EditSlotDialog(weekday: weekday),
+      pageBuilder: (_, __, ___) => EditSlotDialog(
+        weekday: weekday,
+        startUnit: startUnit,
+      ),
     );
   }
 
@@ -48,7 +51,9 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   Widget buildDesktop(BuildContext context) {
     final slots = context.watch<SlotMasterSlotsRepository>();
 
-    final groups = slots.group();
+    final groups = slots.groupByStartUnit();
+
+    final activeGroup = groups[activeDay] ?? <SlotTimeUnit, List<Slot>>{};
 
     return Padding(
       padding: PaddingAll(),
@@ -77,40 +82,48 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
             ],
           ),
           Spacing.mediumVertical(),
-          // TODO(mastermarcohd): add Timeunit subdivisions
           SingleChildScrollView(
             child: Column(
               spacing: Spacing.largeSpacing,
               children: [
-                // for (final weekday in Weekday.values)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextButton(
-                      onPressed: () => createSlot(activeDay),
-                      child: const Text('New slot'), // TODO(mastermarcohd): translate
-                    ),
-                    Spacing.smallVertical(),
-                    if (groups[activeDay]?.isNotEmpty ?? false)
-                      Wrap(
-                        spacing: Spacing.mediumSpacing,
-                        runSpacing: Spacing.mediumSpacing,
+                for (final timeUnit in SlotTimeUnit.values)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          // TODO(mastermarcohd): sort slots by time
-                          for (final slot in (groups[activeDay] ?? <Slot>[]).query(searchController.text))
-                            SizedBox(
-                              key: ValueKey(slot),
-                              width: tileWidth,
-                              height: tileHeight,
-                              child: SlotMasterWidget(slot: slot),
-                            ),
-                        ].show(),
-                      ).stretch(),
-                  ],
-                ),
+                          Text(
+                            timeUnit.humanReadable(),
+                            style: context.theme.textTheme.titleMedium,
+                          ),
+                          Spacing.xsHorizontal(),
+                          TextButton(
+                            onPressed: () => createSlot(activeDay, timeUnit),
+                            child: Text(context.t.slots_slotmaster_newSlot),
+                          ),
+                          Spacing.smallVertical(),
+                        ],
+                      ),
+                      if (activeGroup[timeUnit]?.isNotEmpty ?? false)
+                        Wrap(
+                          spacing: Spacing.mediumSpacing,
+                          runSpacing: Spacing.mediumSpacing,
+                          children: [
+                            // TODO(mastermarcohd): sort slots by roomnr
+                            for (final slot in (activeGroup[timeUnit] ?? <Slot>[]).query(searchController.text))
+                              SizedBox(
+                                key: ValueKey(slot),
+                                width: tileWidth,
+                                height: tileHeight,
+                                child: SlotMasterWidget(slot: slot),
+                              ),
+                          ].show(),
+                        ).stretch(),
+                    ],
+                  ),
               ],
             ),
-          ),
+          ).expanded(),
         ],
       ),
     );
