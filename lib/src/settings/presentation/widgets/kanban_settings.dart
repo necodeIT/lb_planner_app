@@ -1,14 +1,12 @@
 import 'package:eduplanner/src/auth/auth.dart';
 import 'package:eduplanner/src/kanban/kanban.dart';
 import 'package:eduplanner/src/settings/presentation/widgets/generic_settings.dart';
-import 'package:mcquenji_core/mcquenji_core.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
-import 'package:eduplanner/src/settings/settings.dart';
-import 'package:eduplanner/gen/assets/assets.gen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
+/// Settings ui for the kanban board
 class KanbanSettings extends StatelessWidget {
+  /// Settings ui for the kanban board
   const KanbanSettings({super.key});
 
   @override

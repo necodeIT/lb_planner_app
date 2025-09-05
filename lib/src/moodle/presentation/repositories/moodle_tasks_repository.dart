@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:eduplanner/config/endpoints.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
@@ -86,6 +87,20 @@ class MoodleTasksRepository extends Repository<AsyncValue<List<MoodleTask>>> wit
       type: type,
       test: test,
     );
+  }
+
+  /// Gets a task by its course module ID ([cmid]).
+  MoodleTask? getByCmid(int cmid) {
+    if (!state.hasData) return null;
+
+    return state.requireData.firstWhereOrNull((task) => task.cmid == cmid);
+  }
+
+  /// Gets a task by its [id].
+  MoodleTask? getById(int id) {
+    if (!state.hasData) return null;
+
+    return state.requireData.firstWhereOrNull((task) => task.id == id);
   }
 
   @override

@@ -13,7 +13,6 @@
 /// share a consistent look-and-feel.
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:eduplanner/eduplanner.dart';
-import 'package:eduplanner/src/theming/theming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 

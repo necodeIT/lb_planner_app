@@ -9,9 +9,10 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
   final KanbanDatasource _datasource;
   final AuthRepository _auth;
   final MoodleTasksRepository _tasks;
+  final UserRepository _user;
 
   /// Repository for managing the Kanban board.
-  KanbanRepository(this._datasource, this._auth, this._tasks) : super(AsyncValue.loading()) {
+  KanbanRepository(this._datasource, this._auth, this._tasks, this._user) : super(AsyncValue.loading()) {
     watchAsync(_auth);
     watchAsync(_tasks);
 
@@ -38,10 +39,14 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
     } finally {
       await transaction.commit();
     }
+
+    if (trigger is! _AutoMoveTrigger) {
+      await autoMove();
+    }
   }
 
   /// Moves the given [taskId] to the specified [to] column.
-  Future<void> move({required int taskId, required KanbanColumn to, ISentrySpan? span}) async {
+  Future<void> move({required int taskId, required KanbanColumn to, ISentrySpan? span, bool skipAnalytics = false, Trigger? trigger}) async {
     if (!state.hasData) {
       log('Cannot move task: No board data available');
       return;
@@ -87,20 +92,101 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
 
       log('Task $taskId moved to $to');
 
-      await captureEvent(
-        'kanban_task_moved',
-        properties: {
-          'taskId': taskId,
-          'to': to.name,
-        },
-      );
+      if (!skipAnalytics) {
+        await captureEvent(
+          'kanban_task_moved',
+          properties: {
+            'taskId': taskId,
+            'to': to.name,
+          },
+        );
+      }
 
-      await refresh(this);
+      await refresh(trigger ?? this);
     } catch (e, st) {
       transaction.internalError(e);
       log('Error moving task', e, st);
     } finally {
       await transaction.commit();
+    }
+  }
+
+  /// Automatically moves tasks based on user settings.
+  Future<void> autoMove() async {
+    if (_user.state.data == null) {
+      log('Cannot auto-move tasks: No user data available');
+      return;
+    }
+
+    if (!state.hasData) {
+      log('Cannot auto-move tasks: No board data available');
+      return;
+    }
+
+    log('Auto-moving tasks based on user settings');
+
+    final settings = _user.state.data!;
+    final board = state.requireData;
+
+    final mapping = {
+      MoodleTaskStatus.uploaded: settings.autoMoveSubmittedTasksTo,
+      MoodleTaskStatus.late: settings.autoMoveOverdueTasksTo,
+      MoodleTaskStatus.done: settings.autoMoveCompletedTasksTo,
+    };
+
+    final span = startTransaction('autoMoveTasks');
+
+    await Future.wait([
+      _autoMove(from: KanbanColumn.backlog, tasks: board.backlog, to: mapping, span: span),
+      _autoMove(from: KanbanColumn.todo, tasks: board.todo, to: mapping, span: span),
+      _autoMove(from: KanbanColumn.inprogress, tasks: board.inProgress, to: mapping, span: span),
+      _autoMove(from: KanbanColumn.done, tasks: board.done, to: mapping, span: span),
+    ]);
+  }
+
+  Future<void> _autoMove({
+    required KanbanColumn from,
+    required List<int> tasks,
+    required Map<MoodleTaskStatus, KanbanColumn?> to,
+    required ISentrySpan span,
+  }) async {
+    if (tasks.isEmpty) return;
+
+    final transaction = span.startChild('autoMoveFrom${from.name}');
+
+    log('Auto-moving tasks from $from: ${tasks.length} candidates');
+
+    try {
+      await Future.wait(
+        tasks.map(
+          (id) async {
+            final status = _tasks.getByCmid(id)?.status;
+
+            if (status == null) return;
+
+            final target = to[status];
+
+            if (target == null) return;
+
+            log('Auto-moving task $id from $from to $target due to status $status');
+
+            return move(
+              taskId: id,
+              to: target,
+              skipAnalytics: true,
+              span: transaction.startChild('autoMoveTask'),
+              trigger: _AutoMoveTrigger(),
+            );
+          },
+        ),
+      );
+
+      log('Auto-moving tasks from $from completed');
+    } catch (e, s) {
+      transaction.internalError(e);
+      log('Error auto-moving tasks from $from', e, s);
+    } finally {
+      await transaction.finish();
     }
   }
 
@@ -110,3 +196,5 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
     _datasource.dispose();
   }
 }
+
+class _AutoMoveTrigger extends Trigger {}

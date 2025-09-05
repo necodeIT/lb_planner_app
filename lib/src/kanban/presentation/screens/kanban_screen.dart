@@ -27,8 +27,15 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
   @override
   Widget buildDesktop(BuildContext context) {
     final repo = context.watch<KanbanRepository>();
+    final user = context.watch<UserRepository>();
 
     final board = repo.state.data ?? KanbanBoard.scaffold();
+
+    Color? applyColor(Color color) {
+      if (!(user.state.data?.showColumnColors ?? true)) return null;
+
+      return color;
+    }
 
     return Padding(
       padding: PaddingAll(),
@@ -54,26 +61,26 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
             KanbanColumnWidget(
               name: 'Backlog',
               tasks: board.backlog,
-              color: context.theme.taskStatusTheme.pendingColor,
+              color: applyColor(context.theme.taskStatusTheme.pendingColor),
               column: KanbanColumn.backlog,
             ),
           KanbanColumnWidget(
             name: 'To Do',
             tasks: board.todo,
-            color: context.theme.colorScheme.primary,
+            color: applyColor(context.theme.colorScheme.primary),
             column: KanbanColumn.todo,
           ).expanded(),
           KanbanColumnWidget(
             name: 'In Progress',
             tasks: board.inProgress,
             column: KanbanColumn.inprogress,
-            color: context.theme.taskStatusTheme.uploadedColor,
+            color: applyColor(context.theme.taskStatusTheme.uploadedColor),
           ).expanded(),
           KanbanColumnWidget(
             name: 'Done',
             tasks: board.done,
             column: KanbanColumn.done,
-            color: context.theme.taskStatusTheme.doneColor,
+            color: applyColor(context.theme.taskStatusTheme.doneColor),
           ).expanded(),
         ],
       ).expanded(),
