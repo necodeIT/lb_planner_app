@@ -48,6 +48,10 @@
     "@global_edit": {
         "description": "Global edit button label."
     },
+    "global_duplicate": "Duplicate",
+    "@global_duplicate": {
+        "description": "Global duplicate button label."
+    },
     "global_delete": "Delete",
     "@global_delete": {
         "description": "Global delete button label."

@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get global_edit;
 
+  /// Global duplicate button label.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get global_duplicate;
+
   /// Global delete button label.
   ///
   /// In en, this message translates to:

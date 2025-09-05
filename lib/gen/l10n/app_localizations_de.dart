@@ -45,6 +45,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get global_edit => 'Bearbeiten';
 
   @override
+  String get global_duplicate => 'Duplizieren';
+
+  @override
   String get global_delete => 'Löschen';
 
   @override

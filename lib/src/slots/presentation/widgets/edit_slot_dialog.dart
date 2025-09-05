@@ -11,7 +11,7 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class EditSlotDialog extends StatefulWidget {
   /// A dialog for editing or creating a slot.
   /// Edits a slot if [slot] is provided and creates a new slot if [weekday] is provided.
-  const EditSlotDialog({super.key, this.slot, this.weekday, this.startUnit})
+  const EditSlotDialog({super.key, this.slot, this.weekday, this.startUnit, this.duplicate = false})
       : assert(slot != null || weekday != null, 'Either slot or weekday must be provided');
 
   /// The weekday the slot will be created for.
@@ -22,6 +22,9 @@ class EditSlotDialog extends StatefulWidget {
 
   /// The slot to edit.
   final Slot? slot;
+
+  /// Whether the slot is being duplicated.
+  final bool duplicate;
 
   @override
   State<EditSlotDialog> createState() => _EditSlotDialogState();
@@ -51,7 +54,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
   void initState() {
     super.initState();
 
-    editing = widget.slot != null;
+    editing = widget.slot != null && widget.duplicate == false;
 
     weekday = widget.slot?.weekday ?? widget.weekday;
 
@@ -127,6 +130,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
     if (editing) {
       await repo.updateSlot(slot);
+    } else if (widget.duplicate) {
+      await repo.createSlot(slot.copyWith(id: -1));
     } else {
       await repo.createSlot(slot);
     }
