@@ -329,10 +329,6 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
       autoMoveOverdueTasksTo: column,
     );
 
-    data(
-      patch,
-    );
-
     final transaction = startTransaction('setAutoMoveOverdueTasksTo');
 
     log('Setting auto move overdue tasks to ${column?.name}');
