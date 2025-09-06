@@ -1040,6 +1040,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️'**
   String get global_disclaimer;
+
+  /// Display for when a task is due in the kanban board.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {dueDate}'**
+  String kanban_card_dueOn(String dueDate);
+
+  /// Display for when a task is planned in the kanban board
+  ///
+  /// In en, this message translates to:
+  /// **'Planned {plannedDate}'**
+  String kanban_card_plannedOn(String plannedDate);
+
+  /// Label for the hide backlog button.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Backlog'**
+  String get kanban_screen_hideBacklog;
+
+  /// Label for the show backlog button
+  ///
+  /// In en, this message translates to:
+  /// **'Show Backlog'**
+  String get kanban_screen_showBacklog;
+
+  /// Label for the backlog column.
+  ///
+  /// In en, this message translates to:
+  /// **'Backlog'**
+  String get kanban_screen_backlog;
+
+  /// Label for the to do column.
+  ///
+  /// In en, this message translates to:
+  /// **'To Do'**
+  String get kanban_screen_toDo;
+
+  /// Label for the in progress column.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get kanban_screen_inProgress;
+
+  /// Label for the done column.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get kanban_screen_done;
 }
 
 class _AppLocalizationsDelegate

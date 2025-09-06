@@ -88,7 +88,7 @@ class KanbanCard extends StatelessWidget {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Due ${format(task.deadline!, allowFromNow: true)}',
+                                      text: context.t.kanban_card_dueOn(format(task.deadline!, allowFromNow: true)),
                                     ),
                                     const TextSpan(text: ' ('),
                                     TextSpan(
@@ -110,7 +110,7 @@ class KanbanCard extends StatelessWidget {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Planned ${format(planned.end, allowFromNow: true)}',
+                                      text: context.t.kanban_card_plannedOn(format(planned.end, allowFromNow: true)),
                                     ),
                                     const TextSpan(text: ' ('),
                                     TextSpan(

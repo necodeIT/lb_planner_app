@@ -44,7 +44,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Tooltip(
-            message: showBacklog ? 'Hide Backlog' : 'Show Backlog',
+            message: showBacklog ? context.t.kanban_screen_hideBacklog : context.t.kanban_screen_showBacklog,
             child: MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
@@ -59,25 +59,25 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
           ),
           if (showBacklog)
             KanbanColumnWidget(
-              name: 'Backlog',
+              name: context.t.kanban_screen_backlog,
               tasks: board.backlog,
               color: applyColor(context.theme.taskStatusTheme.pendingColor),
               column: KanbanColumn.backlog,
             ),
           KanbanColumnWidget(
-            name: 'To Do',
+            name: context.t.kanban_screen_toDo,
             tasks: board.todo,
             color: applyColor(context.theme.colorScheme.primary),
             column: KanbanColumn.todo,
           ).expanded(),
           KanbanColumnWidget(
-            name: 'In Progress',
+            name: context.t.kanban_screen_inProgress,
             tasks: board.inProgress,
             column: KanbanColumn.inprogress,
             color: applyColor(context.theme.taskStatusTheme.uploadedColor),
           ).expanded(),
           KanbanColumnWidget(
-            name: 'Done',
+            name: context.t.kanban_screen_done,
             tasks: board.done,
             column: KanbanColumn.done,
             color: applyColor(context.theme.taskStatusTheme.doneColor),

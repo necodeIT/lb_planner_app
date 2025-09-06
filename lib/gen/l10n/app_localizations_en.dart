@@ -551,4 +551,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get global_disclaimer =>
       'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️';
+
+  @override
+  String kanban_card_dueOn(String dueDate) {
+    return 'Due $dueDate';
+  }
+
+  @override
+  String kanban_card_plannedOn(String plannedDate) {
+    return 'Planned $plannedDate';
+  }
+
+  @override
+  String get kanban_screen_hideBacklog => 'Hide Backlog';
+
+  @override
+  String get kanban_screen_showBacklog => 'Show Backlog';
+
+  @override
+  String get kanban_screen_backlog => 'Backlog';
+
+  @override
+  String get kanban_screen_toDo => 'To Do';
+
+  @override
+  String get kanban_screen_inProgress => 'In Progress';
+
+  @override
+  String get kanban_screen_done => 'Done';
 }
