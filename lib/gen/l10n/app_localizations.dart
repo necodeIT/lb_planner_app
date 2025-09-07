@@ -63,7 +63,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -86,16 +86,16 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('de'),
-    Locale('en')
+    Locale('en'),
   ];
 
   /// Global confirmation button label.
@@ -877,7 +877,10 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete slot {room} {startUnit} - {endUnit}?'**
   String slots_slotmaster_deleteSlot_title(
-      String room, String startUnit, String endUnit);
+    String room,
+    String startUnit,
+    String endUnit,
+  );
 
   /// Confirmation message for deleting a slot.
   ///
@@ -1088,6 +1091,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get kanban_screen_done;
+
+  /// Label for the kanban settings
+  ///
+  /// In en, this message translates to:
+  /// **'Kanban'**
+  String get kanban_settings_kanban;
+
+  /// Label for the disabled option.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get kanban_settings_disabled;
+
+  /// Label for the move submitted tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Submitted Tasks'**
+  String get kanban_settings_moveSubmittedTasks;
+
+  /// Label for the move overdue tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Overdue Tasks'**
+  String get kanban_settings_moveOverdueTasks;
+
+  /// Label for the move completed tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Completed Tasks'**
+  String get kanban_settings_moveCompletedTasks;
+
+  /// Label for the column colors setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Column Colors'**
+  String get kanban_settings_columnColors;
 }
 
 class _AppLocalizationsDelegate
@@ -1117,8 +1156,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

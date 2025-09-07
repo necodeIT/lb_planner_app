@@ -461,7 +461,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String slots_slotmaster_deleteSlot_title(
-      String room, String startUnit, String endUnit) {
+    String room,
+    String startUnit,
+    String endUnit,
+  ) {
     return 'Delete slot $room $startUnit - $endUnit?';
   }
 
@@ -579,4 +582,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kanban_screen_done => 'Done';
+
+  @override
+  String get kanban_settings_kanban => 'Kanban';
+
+  @override
+  String get kanban_settings_disabled => 'Disabled';
+
+  @override
+  String get kanban_settings_moveSubmittedTasks => 'Move Submitted Tasks';
+
+  @override
+  String get kanban_settings_moveOverdueTasks => 'Move Overdue Tasks';
+
+  @override
+  String get kanban_settings_moveCompletedTasks => 'Move Completed Tasks';
+
+  @override
+  String get kanban_settings_columnColors => 'Column Colors';
 }

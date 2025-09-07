@@ -771,5 +771,29 @@
     "kanban_screen_done": "Fertig",
     "@kanban_screen_done": {
         "description": "Label for the done column."
+    },
+    "kanban_settings_kanban": "Kanban",
+    "@kanban_settings_kanban": {
+        "description": "Label for the kanban settings"
+    },
+    "kanban_settings_disabled": "Deaktiviert",
+    "@kanban_settings_disabled": {
+        "description": "Label for the disabled option."
+    },
+    "kanban_settings_moveSubmittedTasks": "Abgegebene Aufgaben bewegen",
+    "@kanban_settings_moveSubmittedTasks": {
+        "description": "Label for the move submitted tasks setting."
+    },
+    "kanban_settings_moveOverdueTasks": "Überfällige Aufgaben bewegen",
+    "@kanban_settings_moveOverdueTasks": {
+        "description": "Label for the move overdue tasks setting."
+    },
+    "kanban_settings_moveCompletedTasks": "Erledigte Aufgaben bewegen",
+    "@kanban_settings_moveCompletedTasks": {
+        "description": "Label for the move completed tasks setting."
+    },
+    "kanban_settings_columnColors": "Spalten Farben",
+    "@kanban_settings_columnColors": {
+        "description": "Label for the column colors setting."
     }
 }

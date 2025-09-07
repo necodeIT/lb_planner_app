@@ -1,3 +1,4 @@
+import 'package:eduplanner/eduplanner.dart';
 import 'package:eduplanner/src/auth/auth.dart';
 import 'package:eduplanner/src/kanban/kanban.dart';
 import 'package:eduplanner/src/settings/presentation/widgets/generic_settings.dart';
@@ -17,15 +18,15 @@ class KanbanSettings extends StatelessWidget {
     String translateColumn(KanbanColumn? column) {
       switch (column) {
         case KanbanColumn.backlog:
-          return 'Backlog';
+          return context.t.kanban_screen_backlog;
         case KanbanColumn.todo:
-          return 'Todo';
+          return context.t.kanban_screen_toDo;
         case KanbanColumn.inprogress:
-          return 'In Progress';
+          return context.t.kanban_screen_inProgress;
         case KanbanColumn.done:
-          return 'Done';
+          return context.t.kanban_screen_done;
         case null:
-          return 'Disabled';
+          return context.t.kanban_settings_disabled;
       }
     }
 
@@ -44,22 +45,22 @@ class KanbanSettings extends StatelessWidget {
       title: 'Kanban',
       items: [
         autoMoveItem(
-          name: 'Move Submitted Tasks',
+          name: context.t.kanban_settings_moveSubmittedTasks,
           value: settings?.autoMoveSubmittedTasksTo,
           onChanged: user.setAutoMoveSubmittedTasksTo,
         ),
         autoMoveItem(
-          name: 'Move Overdue Tasks',
+          name: context.t.kanban_settings_moveOverdueTasks,
           value: settings?.autoMoveOverdueTasksTo,
           onChanged: user.setAutoMoveOverdueTasksTo,
         ),
         autoMoveItem(
-          name: 'Move Completed Tasks',
+          name: context.t.kanban_settings_moveCompletedTasks,
           value: settings?.autoMoveCompletedTasksTo,
           onChanged: user.setAutoMoveCompletedTasksTo,
         ),
         BooleanSettingsItem(
-          name: 'Column Colors',
+          name: context.t.kanban_settings_columnColors,
           value: settings?.showColumnColors ?? true,
           onChanged: user.setShowColumnColors,
         ),
