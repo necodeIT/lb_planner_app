@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   animations: ^2.0.11
-  awesome_extensions: ^2.0.17
+  awesome_extensions: ^2.0.25
   bloc: ^8.1.4
   carousel_slider: ^5.0.0
   collection: any
@@ -82,8 +82,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutterando_analysis: ^0.0.2
-  freezed: ^3.0.0-0.0.dev
-  json_serializable: ^6.9.4
+  freezed: any
+  json_serializable: any
   sentry_dart_plugin: ^2.1.0
   test: ^1.25.2
 

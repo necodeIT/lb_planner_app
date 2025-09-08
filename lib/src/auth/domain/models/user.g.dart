@@ -19,6 +19,19 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       planId: (json['planid'] as num?)?.toInt() ?? -1,
       colorBlindnessString: json['colorblindness'] as String? ?? '',
       displayTaskCount: json['displaytaskcount'] as bool? ?? false,
+      showColumnColors: json['showcolumncolors'] as bool? ?? true,
+      autoMoveCompletedTasksTo: _$JsonConverterFromJson<String, KanbanColumn?>(
+              json['automovecompletedtasks'],
+              const KanbanColumnConverter().fromJson) ??
+          null,
+      autoMoveSubmittedTasksTo: _$JsonConverterFromJson<String, KanbanColumn?>(
+              json['automovesubmittedtasks'],
+              const KanbanColumnConverter().fromJson) ??
+          null,
+      autoMoveOverdueTasksTo: _$JsonConverterFromJson<String, KanbanColumn?>(
+              json['automoveoverduetasks'],
+              const KanbanColumnConverter().fromJson) ??
+          null,
       vintage: $enumDecodeNullable(_$VintageEnumMap, json['vintage']),
     );
 
@@ -36,8 +49,21 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'planid': instance.planId,
       'colorblindness': instance.colorBlindnessString,
       'displaytaskcount': instance.displayTaskCount,
+      'showcolumncolors': instance.showColumnColors,
+      'automovecompletedtasks': const KanbanColumnConverter()
+          .toJson(instance.autoMoveCompletedTasksTo),
+      'automovesubmittedtasks': const KanbanColumnConverter()
+          .toJson(instance.autoMoveSubmittedTasksTo),
+      'automoveoverduetasks':
+          const KanbanColumnConverter().toJson(instance.autoMoveOverdueTasksTo),
       'vintage': _$VintageEnumMap[instance.vintage],
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
 
 const _$VintageEnumMap = {
   Vintage.$1: 1,

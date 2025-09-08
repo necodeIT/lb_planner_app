@@ -14,6 +14,6 @@ _$TaskAggregateImpl _$$TaskAggregateImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$TaskAggregateImplToJson(_$TaskAggregateImpl instance) =>
     <String, dynamic>{
-      'status': instance.status.toJson(),
-      'type': instance.type.toJson(),
+      'status': instance.status,
+      'type': instance.type,
     };

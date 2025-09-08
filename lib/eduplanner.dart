@@ -3,6 +3,7 @@ export 'src/auth/auth.dart';
 export 'src/calendar/calendar.dart';
 export 'src/course_overview/course_overview.dart';
 export 'src/dashboard/dashboard.dart';
+export 'src/kanban/kanban.dart';
 export 'src/moodle/moodle.dart';
 export 'src/notifications/notifications.dart';
 export 'src/settings/settings.dart';

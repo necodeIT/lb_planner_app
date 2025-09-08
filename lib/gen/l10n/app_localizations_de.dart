@@ -468,7 +468,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String slots_slotmaster_deleteSlot_title(
-      String room, String startUnit, String endUnit) {
+    String room,
+    String startUnit,
+    String endUnit,
+  ) {
     return 'Slot $room $startUnit - $endUnit löschen?';
   }
 
@@ -557,4 +560,51 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get global_disclaimer =>
       'Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️';
+
+  @override
+  String kanban_card_dueOn(String dueDate) {
+    return 'Fällig $dueDate';
+  }
+
+  @override
+  String kanban_card_plannedOn(String plannedDate) {
+    return 'Geplant $plannedDate';
+  }
+
+  @override
+  String get kanban_screen_hideBacklog => 'Backlog verstecken';
+
+  @override
+  String get kanban_screen_showBacklog => 'Backlog anzeigen';
+
+  @override
+  String get kanban_screen_backlog => 'Backlog';
+
+  @override
+  String get kanban_screen_toDo => 'To Do';
+
+  @override
+  String get kanban_screen_inProgress => 'In Arbeit';
+
+  @override
+  String get kanban_screen_done => 'Fertig';
+
+  @override
+  String get kanban_settings_kanban => 'Kanban';
+
+  @override
+  String get kanban_settings_disabled => 'Deaktiviert';
+
+  @override
+  String get kanban_settings_moveSubmittedTasks =>
+      'Abgegebene Aufgaben bewegen';
+
+  @override
+  String get kanban_settings_moveOverdueTasks => 'Überfällige Aufgaben bewegen';
+
+  @override
+  String get kanban_settings_moveCompletedTasks => 'Erledigte Aufgaben bewegen';
+
+  @override
+  String get kanban_settings_columnColors => 'Spalten Farben';
 }

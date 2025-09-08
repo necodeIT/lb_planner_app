@@ -39,12 +39,8 @@ mixin _$Reservation {
   @JsonKey(name: 'reserverid')
   int get reserverId => throw _privateConstructorUsedError;
 
-  /// Serializes this Reservation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of Reservation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ReservationCopyWith<Reservation> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -73,8 +69,6 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Reservation
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,8 +127,6 @@ class __$$ReservationImplCopyWithImpl<$Res>
       _$ReservationImpl _value, $Res Function(_$ReservationImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Reservation
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -225,14 +217,12 @@ class _$ReservationImpl extends _Reservation {
                 other.reserverId == reserverId));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, id, slotId, date, userId, reserverId);
 
-  /// Create a copy of Reservation
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ReservationImplCopyWith<_$ReservationImpl> get copyWith =>
@@ -259,34 +249,32 @@ abstract class _Reservation extends Reservation {
   factory _Reservation.fromJson(Map<String, dynamic> json) =
       _$ReservationImpl.fromJson;
 
-  /// Unique identifier of this reservation.
   @override
+
+  /// Unique identifier of this reservation.
   int get id;
+  @override
 
   /// The id of the slot this reservation is for.
-  @override
   @JsonKey(name: 'slotid')
   int get slotId;
+  @override
 
   /// The date of this reservation.
-  @override
   @ReservationDateTimeConverter()
   DateTime get date;
+  @override
 
   /// The id of this reservation is for.
-  @override
   @JsonKey(name: 'userid')
   int get userId;
+  @override
 
   /// The id of the user that made this reservation.
-  @override
   @JsonKey(name: 'reserverid')
   int get reserverId;
-
-  /// Create a copy of Reservation
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ReservationImplCopyWith<_$ReservationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

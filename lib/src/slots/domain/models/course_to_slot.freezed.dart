@@ -34,12 +34,8 @@ mixin _$CourseToSlot {
   /// The vintage a user must be in to attend this slot.
   Vintage get vintage => throw _privateConstructorUsedError;
 
-  /// Serializes this CourseToSlot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of CourseToSlot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $CourseToSlotCopyWith<CourseToSlot> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -67,8 +63,6 @@ class _$CourseToSlotCopyWithImpl<$Res, $Val extends CourseToSlot>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CourseToSlot
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,8 +115,6 @@ class __$$CourseToSlotImplCopyWithImpl<$Res>
       _$CourseToSlotImpl _value, $Res Function(_$CourseToSlotImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CourseToSlot
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -200,13 +192,11 @@ class _$CourseToSlotImpl extends _CourseToSlot {
             (identical(other.vintage, vintage) || other.vintage == vintage));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, courseId, slotId, vintage);
 
-  /// Create a copy of CourseToSlot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CourseToSlotImplCopyWith<_$CourseToSlotImpl> get copyWith =>
@@ -231,28 +221,26 @@ abstract class _CourseToSlot extends CourseToSlot {
   factory _CourseToSlot.fromJson(Map<String, dynamic> json) =
       _$CourseToSlotImpl.fromJson;
 
-  /// Unique identifier of this mapping.
   @override
+
+  /// Unique identifier of this mapping.
   int get id;
+  @override
 
   /// The id of the course.
-  @override
   @JsonKey(name: 'courseid')
   int get courseId;
+  @override
 
   /// The id of the slot.
-  @override
   @JsonKey(name: 'slotid')
   int get slotId;
+  @override
 
   /// The vintage a user must be in to attend this slot.
-  @override
   Vintage get vintage;
-
-  /// Create a copy of CourseToSlot
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CourseToSlotImplCopyWith<_$CourseToSlotImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

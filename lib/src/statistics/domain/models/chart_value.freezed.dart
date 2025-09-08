@@ -28,9 +28,7 @@ mixin _$ChartValue {
   /// The color of the value.
   Color get color => throw _privateConstructorUsedError;
 
-  /// Create a copy of ChartValue
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ChartValueCopyWith<ChartValue> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,8 +52,6 @@ class _$ChartValueCopyWithImpl<$Res, $Val extends ChartValue>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ChartValue
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -104,8 +100,6 @@ class __$$ChartValueImplCopyWithImpl<$Res>
       _$ChartValueImpl _value, $Res Function(_$ChartValueImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ChartValue
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -181,9 +175,7 @@ class _$ChartValueImpl extends _ChartValue {
   @override
   int get hashCode => Object.hash(runtimeType, name, value, percentage, color);
 
-  /// Create a copy of ChartValue
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ChartValueImplCopyWith<_$ChartValueImpl> get copyWith =>
@@ -198,26 +190,24 @@ abstract class _ChartValue extends ChartValue {
       required final Color color}) = _$ChartValueImpl;
   const _ChartValue._() : super._();
 
-  /// The name of the value.
   @override
+
+  /// The name of the value.
   String get name;
+  @override
 
   /// The value itself.
-  @override
   double get value;
+  @override
 
   /// The percentage of the value compared to the total.
-  @override
   double get percentage;
+  @override
 
   /// The color of the value.
-  @override
   Color get color;
-
-  /// Create a copy of ChartValue
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ChartValueImplCopyWith<_$ChartValueImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

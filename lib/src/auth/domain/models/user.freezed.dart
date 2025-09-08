@@ -66,15 +66,34 @@ mixin _$User {
   @BoolConverterNullable()
   bool get displayTaskCount => throw _privateConstructorUsedError;
 
+  /// Whether to show column colors in the kanban view.
+  @JsonKey(name: 'showcolumncolors')
+  @BoolConverterNullable()
+  bool get showColumnColors => throw _privateConstructorUsedError;
+
+  /// The column to auto-move completed tasks to
+  @JsonKey(name: 'automovecompletedtasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveCompletedTasksTo =>
+      throw _privateConstructorUsedError;
+
+  /// The column to auto-move submitted tasks to
+  @JsonKey(name: 'automovesubmittedtasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveSubmittedTasksTo =>
+      throw _privateConstructorUsedError;
+
+  /// The column to auto-move in-progress tasks to
+  @JsonKey(name: 'automoveoverduetasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveOverdueTasksTo =>
+      throw _privateConstructorUsedError;
+
   /// The vintage of the user
   Vintage? get vintage => throw _privateConstructorUsedError;
 
-  /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -100,6 +119,18 @@ abstract class $UserCopyWith<$Res> {
       @JsonKey(name: 'displaytaskcount')
       @BoolConverterNullable()
       bool displayTaskCount,
+      @JsonKey(name: 'showcolumncolors')
+      @BoolConverterNullable()
+      bool showColumnColors,
+      @JsonKey(name: 'automovecompletedtasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveCompletedTasksTo,
+      @JsonKey(name: 'automovesubmittedtasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveSubmittedTasksTo,
+      @JsonKey(name: 'automoveoverduetasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveOverdueTasksTo,
       Vintage? vintage});
 }
 
@@ -113,8 +144,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,6 +159,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? planId = null,
     Object? colorBlindnessString = null,
     Object? displayTaskCount = null,
+    Object? showColumnColors = null,
+    Object? autoMoveCompletedTasksTo = freezed,
+    Object? autoMoveSubmittedTasksTo = freezed,
+    Object? autoMoveOverdueTasksTo = freezed,
     Object? vintage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -181,6 +214,22 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.displayTaskCount
           : displayTaskCount // ignore: cast_nullable_to_non_nullable
               as bool,
+      showColumnColors: null == showColumnColors
+          ? _value.showColumnColors
+          : showColumnColors // ignore: cast_nullable_to_non_nullable
+              as bool,
+      autoMoveCompletedTasksTo: freezed == autoMoveCompletedTasksTo
+          ? _value.autoMoveCompletedTasksTo
+          : autoMoveCompletedTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
+      autoMoveSubmittedTasksTo: freezed == autoMoveSubmittedTasksTo
+          ? _value.autoMoveSubmittedTasksTo
+          : autoMoveSubmittedTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
+      autoMoveOverdueTasksTo: freezed == autoMoveOverdueTasksTo
+          ? _value.autoMoveOverdueTasksTo
+          : autoMoveOverdueTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
       vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
@@ -213,6 +262,18 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       @JsonKey(name: 'displaytaskcount')
       @BoolConverterNullable()
       bool displayTaskCount,
+      @JsonKey(name: 'showcolumncolors')
+      @BoolConverterNullable()
+      bool showColumnColors,
+      @JsonKey(name: 'automovecompletedtasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveCompletedTasksTo,
+      @JsonKey(name: 'automovesubmittedtasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveSubmittedTasksTo,
+      @JsonKey(name: 'automoveoverduetasks')
+      @KanbanColumnConverter()
+      KanbanColumn? autoMoveOverdueTasksTo,
       Vintage? vintage});
 }
 
@@ -223,8 +284,6 @@ class __$$UserImplCopyWithImpl<$Res>
   __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -240,6 +299,10 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? planId = null,
     Object? colorBlindnessString = null,
     Object? displayTaskCount = null,
+    Object? showColumnColors = null,
+    Object? autoMoveCompletedTasksTo = freezed,
+    Object? autoMoveSubmittedTasksTo = freezed,
+    Object? autoMoveOverdueTasksTo = freezed,
     Object? vintage = freezed,
   }) {
     return _then(_$UserImpl(
@@ -291,6 +354,22 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.displayTaskCount
           : displayTaskCount // ignore: cast_nullable_to_non_nullable
               as bool,
+      showColumnColors: null == showColumnColors
+          ? _value.showColumnColors
+          : showColumnColors // ignore: cast_nullable_to_non_nullable
+              as bool,
+      autoMoveCompletedTasksTo: freezed == autoMoveCompletedTasksTo
+          ? _value.autoMoveCompletedTasksTo
+          : autoMoveCompletedTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
+      autoMoveSubmittedTasksTo: freezed == autoMoveSubmittedTasksTo
+          ? _value.autoMoveSubmittedTasksTo
+          : autoMoveSubmittedTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
+      autoMoveOverdueTasksTo: freezed == autoMoveOverdueTasksTo
+          ? _value.autoMoveOverdueTasksTo
+          : autoMoveOverdueTasksTo // ignore: cast_nullable_to_non_nullable
+              as KanbanColumn?,
       vintage: freezed == vintage
           ? _value.vintage
           : vintage // ignore: cast_nullable_to_non_nullable
@@ -319,6 +398,18 @@ class _$UserImpl extends _User {
       @JsonKey(name: 'displaytaskcount')
       @BoolConverterNullable()
       this.displayTaskCount = false,
+      @JsonKey(name: 'showcolumncolors')
+      @BoolConverterNullable()
+      this.showColumnColors = true,
+      @JsonKey(name: 'automovecompletedtasks')
+      @KanbanColumnConverter()
+      this.autoMoveCompletedTasksTo = null,
+      @JsonKey(name: 'automovesubmittedtasks')
+      @KanbanColumnConverter()
+      this.autoMoveSubmittedTasksTo = null,
+      @JsonKey(name: 'automoveoverduetasks')
+      @KanbanColumnConverter()
+      this.autoMoveOverdueTasksTo = null,
       this.vintage})
       : super._();
 
@@ -384,13 +475,37 @@ class _$UserImpl extends _User {
   @BoolConverterNullable()
   final bool displayTaskCount;
 
+  /// Whether to show column colors in the kanban view.
+  @override
+  @JsonKey(name: 'showcolumncolors')
+  @BoolConverterNullable()
+  final bool showColumnColors;
+
+  /// The column to auto-move completed tasks to
+  @override
+  @JsonKey(name: 'automovecompletedtasks')
+  @KanbanColumnConverter()
+  final KanbanColumn? autoMoveCompletedTasksTo;
+
+  /// The column to auto-move submitted tasks to
+  @override
+  @JsonKey(name: 'automovesubmittedtasks')
+  @KanbanColumnConverter()
+  final KanbanColumn? autoMoveSubmittedTasksTo;
+
+  /// The column to auto-move in-progress tasks to
+  @override
+  @JsonKey(name: 'automoveoverduetasks')
+  @KanbanColumnConverter()
+  final KanbanColumn? autoMoveOverdueTasksTo;
+
   /// The vintage of the user
   @override
   final Vintage? vintage;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, optionalTasksEnabled: $optionalTasksEnabled, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCount: $displayTaskCount, vintage: $vintage)';
+    return 'User(id: $id, username: $username, firstname: $firstname, lastname: $lastname, optionalTasksEnabled: $optionalTasksEnabled, email: $email, capabilitiesBitMask: $capabilitiesBitMask, themeName: $themeName, profileImageUrl: $profileImageUrl, planId: $planId, colorBlindnessString: $colorBlindnessString, displayTaskCount: $displayTaskCount, showColumnColors: $showColumnColors, autoMoveCompletedTasksTo: $autoMoveCompletedTasksTo, autoMoveSubmittedTasksTo: $autoMoveSubmittedTasksTo, autoMoveOverdueTasksTo: $autoMoveOverdueTasksTo, vintage: $vintage)';
   }
 
   @override
@@ -419,10 +534,20 @@ class _$UserImpl extends _User {
                 other.colorBlindnessString == colorBlindnessString) &&
             (identical(other.displayTaskCount, displayTaskCount) ||
                 other.displayTaskCount == displayTaskCount) &&
+            (identical(other.showColumnColors, showColumnColors) ||
+                other.showColumnColors == showColumnColors) &&
+            (identical(
+                    other.autoMoveCompletedTasksTo, autoMoveCompletedTasksTo) ||
+                other.autoMoveCompletedTasksTo == autoMoveCompletedTasksTo) &&
+            (identical(
+                    other.autoMoveSubmittedTasksTo, autoMoveSubmittedTasksTo) ||
+                other.autoMoveSubmittedTasksTo == autoMoveSubmittedTasksTo) &&
+            (identical(other.autoMoveOverdueTasksTo, autoMoveOverdueTasksTo) ||
+                other.autoMoveOverdueTasksTo == autoMoveOverdueTasksTo) &&
             (identical(other.vintage, vintage) || other.vintage == vintage));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -438,11 +563,13 @@ class _$UserImpl extends _User {
       planId,
       colorBlindnessString,
       displayTaskCount,
+      showColumnColors,
+      autoMoveCompletedTasksTo,
+      autoMoveSubmittedTasksTo,
+      autoMoveOverdueTasksTo,
       vintage);
 
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
@@ -474,77 +601,111 @@ abstract class _User extends User {
       @JsonKey(name: 'displaytaskcount')
       @BoolConverterNullable()
       final bool displayTaskCount,
+      @JsonKey(name: 'showcolumncolors')
+      @BoolConverterNullable()
+      final bool showColumnColors,
+      @JsonKey(name: 'automovecompletedtasks')
+      @KanbanColumnConverter()
+      final KanbanColumn? autoMoveCompletedTasksTo,
+      @JsonKey(name: 'automovesubmittedtasks')
+      @KanbanColumnConverter()
+      final KanbanColumn? autoMoveSubmittedTasksTo,
+      @JsonKey(name: 'automoveoverduetasks')
+      @KanbanColumnConverter()
+      final KanbanColumn? autoMoveOverdueTasksTo,
       final Vintage? vintage}) = _$UserImpl;
   _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
-  /// The id of the user
   @override
+
+  /// The id of the user
   @JsonKey(name: 'userid')
   int get id;
+  @override
 
   /// The username of the user
-  @override
   String get username;
+  @override
 
   /// The firstname of the user
-  @override
   String get firstname;
+  @override
 
   /// The lastname of the user
-  @override
   String get lastname;
+  @override
 
   /// `true` if [MoodleTask]s of type [MoodleTaskType.optional] are enabled.
-  @override
   @JsonKey(name: 'ekenabled')
   @BoolConverterNullable()
   bool get optionalTasksEnabled;
+  @override
 
   /// The email address of the user
-  @override
   String get email;
+  @override
 
   /// A bitmask of the capabilities the user has
-  @override
   @JsonKey(name: 'capabilities')
   int get capabilitiesBitMask;
+  @override
 
   /// The name of the theme the user has selected
-  @override
   @JsonKey(name: 'theme')
   String get themeName;
+  @override
 
   /// The url of the profile image
-  @override
   @JsonKey(name: 'profileimageurl')
   String get profileImageUrl;
+  @override
 
   /// The id of the plan the user is assigned to
-  @override
   @JsonKey(name: 'planid')
   int get planId;
+  @override
 
   /// The color blindness of the user as a string
-  @override
   @JsonKey(name: 'colorblindness')
   String get colorBlindnessString;
+  @override
 
   /// Whether to display the task count in the calendar view
-  @override
   @JsonKey(name: 'displaytaskcount')
   @BoolConverterNullable()
   bool get displayTaskCount;
+  @override
+
+  /// Whether to show column colors in the kanban view.
+  @JsonKey(name: 'showcolumncolors')
+  @BoolConverterNullable()
+  bool get showColumnColors;
+  @override
+
+  /// The column to auto-move completed tasks to
+  @JsonKey(name: 'automovecompletedtasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveCompletedTasksTo;
+  @override
+
+  /// The column to auto-move submitted tasks to
+  @JsonKey(name: 'automovesubmittedtasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveSubmittedTasksTo;
+  @override
+
+  /// The column to auto-move in-progress tasks to
+  @JsonKey(name: 'automoveoverduetasks')
+  @KanbanColumnConverter()
+  KanbanColumn? get autoMoveOverdueTasksTo;
+  @override
 
   /// The vintage of the user
-  @override
   Vintage? get vintage;
-
-  /// Create a copy of User
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

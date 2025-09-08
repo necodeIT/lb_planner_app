@@ -1,6 +1,6 @@
 import 'package:eduplanner/src/theming/theming.dart';
 import 'package:figma_squircle/figma_squircle.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Theme;
 import 'package:mcquenji_core/mcquenji_core.dart';
 
 /// A service that generates a theme of type [Theme] based on a [ThemeBase].

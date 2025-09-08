@@ -16,7 +16,7 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
     return Container(
       width: 60,
       decoration: BoxDecoration(
-        color: context.surface,
+        color: context.theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
@@ -35,6 +35,15 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
                   const SidebarTarget(
                     route: '/dashboard/',
                     icon: Icons.dashboard,
+                  ),
+                if (capabilities.hasStudent)
+                  SidebarTarget(
+                    route: '/kanban/',
+                    icon: Icons.bar_chart_rounded,
+                    iconTransformer: (context, icon) => Transform.flip(
+                      flipY: true,
+                      child: icon,
+                    ),
                   ),
                 if (capabilities.hasStudent)
                   const SidebarTarget(
@@ -80,7 +89,7 @@ class Sidebar extends StatelessWidget with AdaptiveWidget {
     return Container(
       height: 60,
       decoration: BoxDecoration(
-        color: context.surface,
+        color: context.theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),

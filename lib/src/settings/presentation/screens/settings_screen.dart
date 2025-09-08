@@ -29,6 +29,10 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
                       Expanded(
                         child: const GeneralSettings().stretch(),
                       ).show(stagger),
+                      if (capabilities.hasStudent)
+                        Expanded(
+                          child: const KanbanSettings().stretch(),
+                        ).show(stagger),
                       Expanded(
                         child: const ThemesSettings().stretch(),
                       ).show(stagger),
