@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:collection/collection.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class SlotMasterScreen extends StatefulWidget {
   State<SlotMasterScreen> createState() => _SlotMasterScreenState();
 }
 
-class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState, NoMobile {
+class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState, TickerProviderStateMixin, NoMobile {
+  late final TabController _tabController;
   final searchController = TextEditingController();
 
   Weekday activeDay = Weekday.monday;
@@ -22,9 +24,17 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   void initState() {
     super.initState();
 
+    _tabController = TabController(length: 7, vsync: this);
+
     searchController.addListener(() {
       setState(() {});
     });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,79 +63,102 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
 
     final groups = slots.groupByStartUnit();
 
-    final activeGroup = groups[activeDay] ?? <SlotTimeUnit, List<Slot>>{};
+    // final activeGroup = groups[activeDay] ?? <SlotTimeUnit, List<Slot>>{};
 
     return Padding(
       padding: PaddingAll(),
-      child: Column(
-        children: [
-          Row(
-            spacing: Spacing.mediumSpacing,
-            children: [
-              for (final weekday in Weekday.values)
-                TextButton(
-                  onPressed: weekday == activeDay
-                      ? null
-                      : () {
-                          setState(() {
-                            activeDay = weekday;
-                          });
-                        },
-                  style: TextButton.styleFrom(
-                    backgroundColor: weekday == activeDay ? context.theme.highlightColor : context.theme.cardColor,
-                  ),
-                  child: Text(
-                    weekday.translate(context),
-                    style: context.theme.textTheme.titleLarge,
-                  ),
-                ),
-            ],
-          ),
-          Spacing.mediumVertical(),
-          SingleChildScrollView(
-            child: Column(
-              spacing: Spacing.largeSpacing,
-              children: [
-                for (final timeUnit in SlotTimeUnit.values)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            timeUnit.humanReadable(),
-                            style: context.theme.textTheme.titleMedium,
-                          ),
-                          Spacing.xsHorizontal(),
-                          TextButton(
-                            onPressed: () => createSlot(activeDay, timeUnit),
-                            child: Text(context.t.slots_slotmaster_newSlot),
-                          ),
-                          Spacing.smallVertical(),
-                        ],
-                      ),
-                      if (activeGroup[timeUnit]?.isNotEmpty ?? false)
-                        Wrap(
-                          spacing: Spacing.mediumSpacing,
-                          runSpacing: Spacing.mediumSpacing,
-                          children: [
-                            // TODO(mastermarcohd): sort slots by roomnr
-                            for (final slot in (activeGroup[timeUnit] ?? <Slot>[]).query(searchController.text))
-                              SizedBox(
-                                key: ValueKey(slot),
-                                width: tileWidth,
-                                height: tileHeight,
-                                child: SlotMasterWidget(slot: slot),
-                              ),
-                          ].show(),
-                        ).stretch(),
-                    ],
-                  ),
-              ],
-            ),
-          ).expanded(),
-        ],
+      child: Scaffold(
+        appBar: TabBar(
+          controller: _tabController,
+          tabs: [
+            for (final weekday in Weekday.values)
+              Tab(
+                text: weekday.translate(context),
+              ),
+          ],
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            for (final weekday in Weekday.values) slotTimeTable(groups[weekday] ?? <SlotTimeUnit, List<Slot>>{}, weekday),
+          ],
+        ),
       ),
     );
+    // Padding(
+    //   padding: PaddingAll(),
+    //   child: Column(
+    //     children: [
+    //       Row(
+    //         spacing: Spacing.mediumSpacing,
+    //         children: [
+    //           for (final weekday in Weekday.values)
+    //             TextButton(
+    //               onPressed: weekday == activeDay
+    //                   ? null
+    //                   : () {
+    //                       setState(() {
+    //                         activeDay = weekday;
+    //                       });
+    //                     },
+    //               style: TextButton.styleFrom(
+    //                 backgroundColor: weekday == activeDay ? context.theme.highlightColor : context.theme.cardColor,
+    //               ),
+    //               child: Text(
+    //                 weekday.translate(context),
+    //                 style: context.theme.textTheme.titleLarge,
+    //               ),
+    //             ),
+    //         ],
+    //       ),
+    //       Spacing.mediumVertical(),
+    //     ],
+    //   ),
+    // );
+  }
+
+  Widget slotTimeTable(Map<SlotTimeUnit, List<Slot>> activeGroup, Weekday weekday) {
+    return SingleChildScrollView(
+      child: Column(
+        spacing: Spacing.largeSpacing,
+        children: [
+          for (final timeUnit in SlotTimeUnit.values)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      timeUnit.humanReadable(),
+                      style: context.theme.textTheme.titleMedium,
+                    ),
+                    Spacing.xsHorizontal(),
+                    TextButton(
+                      onPressed: () => createSlot(weekday, timeUnit),
+                      child: Text(context.t.slots_slotmaster_newSlot),
+                    ),
+                    Spacing.smallVertical(),
+                  ],
+                ),
+                if (activeGroup[timeUnit]?.isNotEmpty ?? false)
+                  Wrap(
+                    spacing: Spacing.mediumSpacing,
+                    runSpacing: Spacing.mediumSpacing,
+                    children: [
+                      // TODO(mastermarcohd): implement more intelligent sorting to account for building and floor.
+                      for (final slot in (activeGroup[timeUnit] ?? <Slot>[]).query(searchController.text).sortedBy((s) => s.room))
+                        SizedBox(
+                          key: ValueKey(slot),
+                          width: tileWidth,
+                          height: tileHeight,
+                          child: SlotMasterWidget(slot: slot),
+                        ),
+                    ].show(),
+                  ).stretch(),
+              ],
+            ),
+        ],
+      ),
+    ).expanded();
   }
 }
