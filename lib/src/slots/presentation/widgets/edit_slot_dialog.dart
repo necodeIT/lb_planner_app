@@ -67,6 +67,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
     size = widget.slot?.size ?? 1;
     mappings = List.of(widget.slot?.mappings ?? []);
     courseMappings = mappings.map((m) => MappingElement(mappingId: m.id, courseId: m.courseId, vintage: m.vintage)).toList();
+    if (courseMappings.isEmpty) courseMappings.add(MappingElement());
 
     if (widget.slot != null) {
       roomController.text = widget.slot!.room;
@@ -433,7 +434,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.delete),
                         onPressed: () => removeSupervisor(supervisor.id),
                       ),
                     ],
@@ -529,23 +530,20 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                               courseMappings.removeWhere((e) => e.id == element.id);
                             });
                           },
-                          icon: const Icon(Icons.close),
+                          icon: const Icon(Icons.delete),
                         ),
                       ],
                     ),
                   Container(
                     padding: PaddingAll(Spacing.xsSpacing),
                     decoration: ShapeDecoration(shape: squircle(), color: context.theme.scaffoldBackgroundColor),
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
+                    child: TextButton(
+                      child: Text(context.t.slots_edit_addCourseMapping),
                       onPressed: () {
                         setState(() {
                           courseMappings.add(MappingElement());
                         });
                       },
-                      icon: const Icon(Icons.add),
                     ).stretch(),
                   ),
                 ].vSpaced(Spacing.smallSpacing),

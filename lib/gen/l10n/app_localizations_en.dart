@@ -464,10 +464,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String slots_slotmaster_deleteSlot_title(
-    String room,
-    String startUnit,
-    String endUnit,
-  ) {
+      String room, String startUnit, String endUnit) {
     return 'Delete slot $room $startUnit - $endUnit?';
   }
 
@@ -504,6 +501,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get slots_edit_courseMappings => 'Course Mappings';
+
+  @override
+  String get slots_edit_addCourseMapping => 'Add mapping';
 
   @override
   String get slots_edit_selectCourse => 'Select course';

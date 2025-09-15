@@ -673,6 +673,10 @@
     "@slots_edit_courseMappings": {
         "description": "Label for the course mappings section in slot editing."
     },
+    "slots_edit_addCourseMapping": "Add mapping",
+    "@slots_edit_addCourseMapping": {
+        "description": "Label for the add mapping button."
+    },
     "slots_edit_selectCourse": "Select course",
     "@slots_edit_selectCourse": {
         "description": "Prompt to select a course for slot mapping."
