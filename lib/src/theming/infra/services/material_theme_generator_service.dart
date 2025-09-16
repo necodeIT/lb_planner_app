@@ -69,6 +69,16 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         checkColor: WidgetStateProperty.all<Color>(themeBase.onAccentColor),
         side: BorderSide(color: themeBase.accentColor, width: 2),
       ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: themeBase.onAccentColor,
+        unselectedLabelColor: themeBase.textColor,
+        indicator: BoxDecoration(
+          color: themeBase.accentColor,
+          borderRadius: squircle(radius: 6).borderRadius,
+        ),
+        splashBorderRadius: squircle(radius: 6).borderRadius,
+        labelStyle: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.resolveWith((states) {

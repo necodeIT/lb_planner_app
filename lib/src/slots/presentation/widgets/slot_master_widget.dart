@@ -172,6 +172,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               children: [
                 TextButton(
                   onPressed: deleteSlot,
+                  style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
                   child: Text(context.t.global_delete),
                 ),
                 TextButton(

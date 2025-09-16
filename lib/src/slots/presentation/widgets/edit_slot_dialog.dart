@@ -434,7 +434,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
-                        icon: const Icon(Icons.delete),
+                        icon: const Icon(Icons.remove_circle_outline_rounded),
                         onPressed: () => removeSupervisor(supervisor.id),
                       ),
                     ],
@@ -534,18 +534,19 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         ),
                       ],
                     ),
-                  Container(
-                    padding: PaddingAll(Spacing.xsSpacing),
-                    decoration: ShapeDecoration(shape: squircle(), color: context.theme.scaffoldBackgroundColor),
-                    child: TextButton(
-                      child: Text(context.t.slots_edit_addCourseMapping),
-                      onPressed: () {
-                        setState(() {
-                          courseMappings.add(MappingElement());
-                        });
-                      },
-                    ).stretch(),
-                  ),
+                  // Container(
+                  //   padding: PaddingAll(Spacing.xsSpacing),
+                  //   decoration: ShapeDecoration(shape: squircle(), color: context.theme.scaffoldBackgroundColor),
+                  //   child: TextButton().stretch(),
+                  // ),
+                  FilledButton(
+                    onPressed: () {
+                      setState(() {
+                        courseMappings.add(MappingElement());
+                      });
+                    },
+                    child: Text(context.t.slots_edit_addCourseMapping),
+                  ).stretch()
                 ].vSpaced(Spacing.smallSpacing),
               ).expanded(),
             ],

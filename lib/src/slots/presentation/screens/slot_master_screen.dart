@@ -1,8 +1,9 @@
-import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:awesome_extensions/awesome_extensions.dart' hide NumExtension;
 import 'package:collection/collection.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 /// A screen for managing slots.
@@ -24,7 +25,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: Weekday.values.length, vsync: this, animationDuration: 500.ms);
 
     searchController.addListener(() {
       setState(() {});
@@ -77,11 +78,14 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
               ),
           ],
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            for (final weekday in Weekday.values) slotTimeTable(groups[weekday] ?? <SlotTimeUnit, List<Slot>>{}, weekday),
-          ],
+        body: Padding(
+          padding: PaddingTop(Spacing.mediumSpacing).Horizontal(Spacing.smallSpacing),
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              for (final weekday in Weekday.values) slotTimeTable(groups[weekday] ?? <SlotTimeUnit, List<Slot>>{}, weekday),
+            ],
+          ),
         ),
       ),
     );
@@ -124,6 +128,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
         children: [
           for (final timeUnit in SlotTimeUnit.values)
             Column(
+              spacing: Spacing.smallSpacing,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
