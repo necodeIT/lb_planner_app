@@ -103,6 +103,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
     final repo = context.read<SlotMasterSlotsRepository>();
 
+    mappings = [];
     for (final element in courseMappings) {
       addMapping(element);
     }
@@ -301,7 +302,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       return DropdownMenuEntry(
                         label: weekday.translate(context),
                         value: weekday,
-                        leadingIcon: const Icon(FontAwesome.calendar_check_o),
+                        leadingIcon: const Icon(FontAwesome5Solid.calendar_check),
                       );
                     }).toList(),
                   );
