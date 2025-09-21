@@ -329,19 +329,37 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       return Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: size.maxWidth,
+                          height: (options.length * 50.0).clamp(0, 200),
                           child: Card(
                             elevation: 8,
                             color: context.theme.scaffoldBackgroundColor,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                for (final option in options)
-                                  MenuItemButton(
-                                    child: Text(option),
-                                    onPressed: () => onSelected(option),
-                                  ),
-                              ],
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: options.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final option = options.elementAt(index);
+                                return HoverBuilder(
+                                  onTap: () {
+                                    onSelected(option);
+                                  },
+                                  builder: (context, hover) {
+                                    return Container(
+                                      height: 42,
+                                      padding: PaddingAll(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
+                                      decoration: ShapeDecoration(
+                                        shape: squircle(),
+                                        color: hover ? context.theme.colorScheme.primary : context.theme.scaffoldBackgroundColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          option,
+                                          style: TextStyle(color: hover ? context.theme.colorScheme.onPrimary : null, fontSize: 18),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ),
