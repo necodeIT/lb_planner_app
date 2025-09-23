@@ -70,9 +70,9 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
           'optional_tasks_enabled': user.optionalTasksEnabled,
           'display_task_count': user.displayTaskCount,
           'show_column_colors': user.showColumnColors,
-          'auto_move_completed_tasks': user.autoMoveCompletedTasksTo,
-          'auto_move_submitted_tasks': user.autoMoveSubmittedTasksTo,
-          'auto_move_overdue_tasks': user.autoMoveOverdueTasksTo,
+          'auto_move_completed_tasks': user.autoMoveCompletedTasksTo?.name,
+          'auto_move_submitted_tasks': user.autoMoveSubmittedTasksTo?.name,
+          'auto_move_overdue_tasks': user.autoMoveOverdueTasksTo?.name,
         },
       );
 
