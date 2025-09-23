@@ -22,7 +22,9 @@ extension AnimateUtils on List<Widget> {
     double begin = 2,
     double end = 0,
     int limit = 16,
-    String? keyPrefex,
+    String? keyPrefix,
+
+              key: keyPrefix != null ? ValueKey('$keyPrefix-$i') : null,
   }) {
     assert(limit >= 0, 'Limit must be positive');
 
