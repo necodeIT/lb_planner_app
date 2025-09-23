@@ -89,11 +89,15 @@ class MoodleUserDatasource extends UserDatasource {
         token: token,
         body: Map.fromEntries(
           user.toJson().entries.where(
-                (e) => [
+                (e) => const <String>[
                   'theme',
                   'colorblindness',
                   'displaytaskcount',
                   'ekenabled',
+                  'showcolumncolors',
+                  'automoveoverduetasks',
+                  'automovesubmittedtasks',
+                  'automovecompletedtasks',
                 ].contains(e.key),
               ),
         ),

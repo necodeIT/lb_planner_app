@@ -48,6 +48,18 @@ class User with _$User {
     /// Whether to display the task count in the calendar view
     @Default(false) @JsonKey(name: 'displaytaskcount') @BoolConverterNullable() bool displayTaskCount,
 
+    /// Whether to show column colors in the kanban view.
+    @Default(true) @JsonKey(name: 'showcolumncolors') @BoolConverterNullable() bool showColumnColors,
+
+    /// The column to auto-move completed tasks to
+    @Default(null) @JsonKey(name: 'automovecompletedtasks') @KanbanColumnConverter() KanbanColumn? autoMoveCompletedTasksTo,
+
+    /// The column to auto-move submitted tasks to
+    @Default(null) @JsonKey(name: 'automovesubmittedtasks') @KanbanColumnConverter() KanbanColumn? autoMoveSubmittedTasksTo,
+
+    /// The column to auto-move overdue tasks to
+    @Default(null) @JsonKey(name: 'automoveoverduetasks') @KanbanColumnConverter() KanbanColumn? autoMoveOverdueTasksTo,
+
     /// The vintage of the user
     Vintage? vintage,
   }) = _User;

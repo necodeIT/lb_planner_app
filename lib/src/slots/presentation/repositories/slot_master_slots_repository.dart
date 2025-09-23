@@ -346,6 +346,20 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
     );
   }
 
+  /// Groups all slots by their weekday and startunit.
+  Map<Weekday, Map<SlotTimeUnit, List<Slot>>> groupByStartUnit() {
+    if (!state.hasData) {
+      log('Cannot group slots: No data');
+      return {};
+    }
+
+    final byDay = state.requireData.groupListsBy((s) => s.weekday);
+
+    return {
+      for (final e in byDay.entries) e.key: e.value.groupListsBy((s) => s.startUnit),
+    };
+  }
+
   @override
   void dispose() {
     _datasource.dispose();

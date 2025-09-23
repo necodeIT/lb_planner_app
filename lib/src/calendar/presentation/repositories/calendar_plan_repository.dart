@@ -343,7 +343,7 @@ class CalendarPlanRepository extends Repository<AsyncValue<CalendarPlan>> with T
       final _start = DateTime(deadline.start.year, deadline.start.month, deadline.start.day);
       final _end = DateTime(deadline.end.year, deadline.end.month, deadline.end.day);
 
-      if (taskIds != null && taskIds.contains(deadline.id)) return false;
+      if (taskIds != null && !taskIds.contains(deadline.id)) return false;
       if (start != null && _start != start) return false;
       if (end != null && _end != end) return false;
 

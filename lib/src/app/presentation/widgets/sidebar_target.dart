@@ -21,8 +21,22 @@ class SidebarTarget extends StatefulWidget {
   /// Set this value if the target should be considered active when the route is not the same as the [route].
   final String? activeRoute;
 
+  /// Transforms the icon widget before displaying it.
+  ///
+  /// If omitted just returns the icon.
+  final Widget Function(BuildContext, Widget) iconTransformer;
+
+  static Widget _defaultIconTransformer(BuildContext context, Widget icon) => icon;
+
   /// A target in the [Sidebar] that navigates to a specific [route].
-  const SidebarTarget({super.key, required this.route, required this.icon, this.onTap, this.activeRoute});
+  const SidebarTarget({
+    super.key,
+    required this.route,
+    required this.icon,
+    this.onTap,
+    this.activeRoute,
+    this.iconTransformer = _defaultIconTransformer,
+  });
 
   @override
   State<SidebarTarget> createState() => _SidebarTargetState();
@@ -86,10 +100,13 @@ class _SidebarTargetState extends State<SidebarTarget> with AdaptiveState {
               ),
             ),
           ),
-          child: Icon(
-            widget.icon,
-            color: isActive ? context.theme.colorScheme.onPrimary : context.theme.colorScheme.onSurface,
-            size: 20,
+          child: widget.iconTransformer(
+            context,
+            Icon(
+              widget.icon,
+              color: isActive ? context.theme.colorScheme.onPrimary : context.theme.colorScheme.onSurface,
+              size: 20,
+            ),
           ),
         );
       },
@@ -100,10 +117,13 @@ class _SidebarTargetState extends State<SidebarTarget> with AdaptiveState {
   Widget buildMobile(BuildContext context) {
     return GestureDetector(
       onTap: _onTap,
-      child: Icon(
-        widget.icon,
-        color: isActive ? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
-        size: 25,
+      child: widget.iconTransformer(
+        context,
+        Icon(
+          widget.icon,
+          color: isActive ? context.theme.colorScheme.primary : context.theme.colorScheme.onSurface,
+          size: 25,
+        ),
       ),
     );
   }

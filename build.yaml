@@ -2,5 +2,11 @@ targets:
   $default:
     builders:
       json_serializable:
-        options:
-          explicit_to_json: true
+        generate_for:
+          - lib/src/*/domain/models/**
+      source_gen:combining_builder:
+        generate_for:
+          - lib/src/*/domain/models/**
+      freezed:
+        generate_for:
+          - lib/src/*/domain/models/**

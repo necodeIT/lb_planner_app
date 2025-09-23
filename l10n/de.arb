@@ -48,6 +48,10 @@
     "@global_edit": {
         "description": "Global edit button label."
     },
+    "global_duplicate": "Duplizieren",
+    "@global_duplicate": {
+        "description": "Global duplicate button label."
+    },
     "global_delete": "Löschen",
     "@global_delete": {
         "description": "Global delete button label."
@@ -595,7 +599,7 @@
             }
         }
     },
-    "slots_details_sizeCount": "Größe {count}",
+    "slots_details_sizeCount": "Schüler: {count}",
     "@slots_details_sizeCount": {
         "description": "Displays the size of the slot, using a count placeholder.",
         "placeholders": {
@@ -651,7 +655,7 @@
     "@slots_edit_room": {
         "description": "Label for the room input in slot editing."
     },
-    "slots_edit_size": "Größe",
+    "slots_edit_size": "Schüler",
     "@slots_edit_size": {
         "description": "Label for the size input in slot editing."
     },
@@ -666,6 +670,10 @@
     "slots_edit_courseMappings": "Kurszuordnungen",
     "@slots_edit_courseMappings": {
         "description": "Label for the course mappings section in slot editing."
+    },
+    "slots_edit_addCourseMapping": "Neue Zuordnung",
+    "@slots_edit_addCourseMapping": {
+        "description": "Label for the add mapping button."
     },
     "slots_edit_selectCourse": "Kurs auswählen",
     "@slots_edit_selectCourse": {
@@ -729,5 +737,75 @@
     "slots_unbook_error": "Ein unerwarteter Fehler ist bei der Stornierung deiner Reservierung aufgetreten. Bitte versuche es später erneut.",
     "@slots_unbook_error": {
         "description": "Error message displayed when unbooking a slot fails."
+    },
+    "kanban_title": "Kanban Board",
+    "@kanban_title": {
+        "description": "Title for the kanban board view."
+    },
+    "kanban_card_dueOn": "Fällig {dueDate}",
+    "@kanban_card_dueOn": {
+        "description": "Display for when a task is due in the kanban board.",
+        "placeholders": {
+            "dueDate": {
+                "type": "String"
+            }
+        }
+    },
+    "kanban_card_plannedOn": "Geplant {plannedDate}",
+    "@kanban_card_plannedOn": {
+        "description": "Display for when a task is planned in the kanban board",
+        "placeholders": {
+            "plannedDate": {
+                "type": "String"
+            }
+        }
+    },
+    "kanban_screen_hideBacklog": "Backlog ausblenden",
+    "@kanban_screen_hideBacklog": {
+        "description": "Label for the hide backlog button."
+    },
+    "kanban_screen_showBacklog": "Backlog einblenden",
+    "@kanban_screen_showBacklog": {
+        "description": "Label for the show backlog button"
+    },
+    "kanban_screen_backlog": "Backlog",
+    "@kanban_screen_backlog": {
+        "description": "Label for the backlog column."
+    },
+    "kanban_screen_toDo": "To Do",
+    "@kanban_screen_toDo": {
+        "description": "Label for the to do column."
+    },
+    "kanban_screen_inProgress": "In Arbeit",
+    "@kanban_screen_inProgress": {
+        "description": "Label for the in progress column."
+    },
+    "kanban_screen_done": "Fertig",
+    "@kanban_screen_done": {
+        "description": "Label for the done column."
+    },
+    "kanban_settings_kanban": "Kanban",
+    "@kanban_settings_kanban": {
+        "description": "Label for the kanban settings"
+    },
+    "kanban_settings_disabled": "Deaktiviert",
+    "@kanban_settings_disabled": {
+        "description": "Label for the disabled option."
+    },
+    "kanban_settings_moveSubmittedTasks": "Abgegebene Aufgaben bewegen",
+    "@kanban_settings_moveSubmittedTasks": {
+        "description": "Label for the move submitted tasks setting."
+    },
+    "kanban_settings_moveOverdueTasks": "Überfällige Aufgaben bewegen",
+    "@kanban_settings_moveOverdueTasks": {
+        "description": "Label for the move overdue tasks setting."
+    },
+    "kanban_settings_moveCompletedTasks": "Erledigte Aufgaben bewegen",
+    "@kanban_settings_moveCompletedTasks": {
+        "description": "Label for the move completed tasks setting."
+    },
+    "kanban_settings_columnColors": "Spaltenfarben",
+    "@kanban_settings_columnColors": {
+        "description": "Label for the column colors setting."
     }
 }

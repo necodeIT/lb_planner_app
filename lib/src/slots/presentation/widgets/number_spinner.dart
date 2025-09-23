@@ -51,6 +51,7 @@ class NumberSpinner<T extends num> extends StatefulWidget {
 class _NumberSpinnerState<T extends num> extends State<NumberSpinner<T>> {
   T _value = 0 as T;
   final TextEditingController controller = TextEditingController();
+  TextSelection? selection;
 
   set value(T value) {
     _value = value;
@@ -74,6 +75,7 @@ class _NumberSpinnerState<T extends num> extends State<NumberSpinner<T>> {
         value = widget.max!;
       }
 
+      selection = controller.selection;
       controller.text = value.toString();
     });
   }
@@ -86,6 +88,7 @@ class _NumberSpinnerState<T extends num> extends State<NumberSpinner<T>> {
         value = widget.min!;
       }
 
+      selection = controller.selection;
       controller.text = value.toString();
     });
   }
@@ -93,6 +96,14 @@ class _NumberSpinnerState<T extends num> extends State<NumberSpinner<T>> {
   @override
   Widget build(BuildContext context) {
     controller.text = value.toString();
+    // TODO(mastermarcohd): when the length of the input text increases in length through the increment button it takes on the wrong selection
+    if (selection != null) {
+      if (selection!.start <= controller.text.length && selection!.end <= controller.text.length) {
+        controller.selection = selection!;
+      } else {
+        controller.selection = TextSelection.collapsed(offset: controller.text.length);
+      }
+    }
 
     final enabled = widget.enabled ?? true;
 
@@ -134,6 +145,8 @@ class _NumberSpinnerState<T extends num> extends State<NumberSpinner<T>> {
           value = widget.min!;
           return;
         }
+
+        selection = controller.selection;
 
         setState(() {
           value = number as T;

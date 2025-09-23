@@ -62,7 +62,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,7 +84,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -166,6 +169,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit'**
   String get global_edit;
+
+  /// Global duplicate button label.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get global_duplicate;
 
   /// Global delete button label.
   ///
@@ -860,7 +869,7 @@ abstract class AppLocalizations {
   /// Displays the size of the slot, using a count placeholder.
   ///
   /// In en, this message translates to:
-  /// **'Size {count}'**
+  /// **'Students: {count}'**
   String slots_details_sizeCount(int count);
 
   /// Button label to create a new slot.
@@ -873,7 +882,8 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Delete slot {room} {startUnit} - {endUnit}?'**
-  String slots_slotmaster_deleteSlot_title(String room, String startUnit, String endUnit);
+  String slots_slotmaster_deleteSlot_title(
+      String room, String startUnit, String endUnit);
 
   /// Confirmation message for deleting a slot.
   ///
@@ -920,7 +930,7 @@ abstract class AppLocalizations {
   /// Label for the size input in slot editing.
   ///
   /// In en, this message translates to:
-  /// **'Size'**
+  /// **'Students'**
   String get slots_edit_size;
 
   /// Label for the supervisors section in slot editing.
@@ -940,6 +950,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Course Mappings'**
   String get slots_edit_courseMappings;
+
+  /// Label for the add mapping button.
+  ///
+  /// In en, this message translates to:
+  /// **'Add mapping'**
+  String get slots_edit_addCourseMapping;
 
   /// Prompt to select a course for slot mapping.
   ///
@@ -1036,9 +1052,100 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️'**
   String get global_disclaimer;
+
+  /// Title for the kanban board view.
+  ///
+  /// In en, this message translates to:
+  /// **'Kanban Board'**
+  String get kanban_title;
+
+  /// Display for when a task is due in the kanban board.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {dueDate}'**
+  String kanban_card_dueOn(String dueDate);
+
+  /// Display for when a task is planned in the kanban board
+  ///
+  /// In en, this message translates to:
+  /// **'Planned {plannedDate}'**
+  String kanban_card_plannedOn(String plannedDate);
+
+  /// Label for the hide backlog button.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide Backlog'**
+  String get kanban_screen_hideBacklog;
+
+  /// Label for the show backlog button
+  ///
+  /// In en, this message translates to:
+  /// **'Show Backlog'**
+  String get kanban_screen_showBacklog;
+
+  /// Label for the backlog column.
+  ///
+  /// In en, this message translates to:
+  /// **'Backlog'**
+  String get kanban_screen_backlog;
+
+  /// Label for the to do column.
+  ///
+  /// In en, this message translates to:
+  /// **'To Do'**
+  String get kanban_screen_toDo;
+
+  /// Label for the in progress column.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get kanban_screen_inProgress;
+
+  /// Label for the done column.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get kanban_screen_done;
+
+  /// Label for the kanban settings
+  ///
+  /// In en, this message translates to:
+  /// **'Kanban'**
+  String get kanban_settings_kanban;
+
+  /// Label for the disabled option.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get kanban_settings_disabled;
+
+  /// Label for the move submitted tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Submitted Tasks'**
+  String get kanban_settings_moveSubmittedTasks;
+
+  /// Label for the move overdue tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Overdue Tasks'**
+  String get kanban_settings_moveOverdueTasks;
+
+  /// Label for the move completed tasks setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Move Completed Tasks'**
+  String get kanban_settings_moveCompletedTasks;
+
+  /// Label for the column colors setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Column Colors'**
+  String get kanban_settings_columnColors;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -1047,25 +1154,25 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['de', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['de', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -30,50 +30,53 @@ class _PlanPopupState extends State<PlanPopup> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: PaddingAll(Spacing.smallSpacing),
-      decoration: ShapeDecoration(
-        color: context.theme.cardColor,
-        shape: squircle(),
-        shadows: kElevationToShadow[16],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              TabBar(
-                controller: controller,
-                tabs: [
-                  Tab(
-                    text: context.t.calendar_tasks,
-                  ),
-                  Tab(
-                    text: context.t.calendar_members,
-                  ),
-                ],
-                onTap: (index) {
-                  setState(() {
-                    controller.index = index;
-                  });
-                },
-              ).expanded(),
-              Spacing.smallHorizontal(),
-              IconButton(
-                icon: const Icon(Icons.close),
-                color: context.theme.colorScheme.error,
-                onPressed: widget.close,
-              ),
-            ],
-          ),
-          Padding(
-            padding: PaddingTop(Spacing.mediumSpacing),
-            child: controller.index == 0
-                ? PlanPopupTasks(
-                    dragWidth: widget.dragWidth,
-                  )
-                : const PlanPopupMembers(),
-          ).expanded(),
-        ],
+    return TabBarTheme(
+      data: const TabBarThemeData(),
+      child: Container(
+        padding: PaddingAll(Spacing.smallSpacing),
+        decoration: ShapeDecoration(
+          color: context.theme.cardColor,
+          shape: squircle(),
+          shadows: kElevationToShadow[16],
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                TabBar(
+                  controller: controller,
+                  tabs: [
+                    Tab(
+                      text: context.t.calendar_tasks,
+                    ),
+                    Tab(
+                      text: context.t.calendar_members,
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      controller.index = index;
+                    });
+                  },
+                ).expanded(),
+                Spacing.smallHorizontal(),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  color: context.theme.colorScheme.error,
+                  onPressed: widget.close,
+                ),
+              ],
+            ),
+            Padding(
+              padding: PaddingTop(Spacing.mediumSpacing),
+              child: controller.index == 0
+                  ? PlanPopupTasks(
+                      dragWidth: widget.dragWidth,
+                    )
+                  : const PlanPopupMembers(),
+            ).expanded(),
+          ],
+        ),
       ),
     );
   }

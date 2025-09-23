@@ -1,5 +1,4 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:collection/collection.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -12,13 +11,20 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class EditSlotDialog extends StatefulWidget {
   /// A dialog for editing or creating a slot.
   /// Edits a slot if [slot] is provided and creates a new slot if [weekday] is provided.
-  const EditSlotDialog({super.key, this.slot, this.weekday}) : assert(slot != null || weekday != null, 'Either slot or weekday must be provided');
+  const EditSlotDialog({super.key, this.slot, this.weekday, this.startUnit, this.duplicate = false})
+      : assert(slot != null || weekday != null, 'Either slot or weekday must be provided');
 
   /// The weekday the slot will be created for.
   final Weekday? weekday;
 
+  /// The timeunit in which the slot starts.
+  final SlotTimeUnit? startUnit;
+
   /// The slot to edit.
   final Slot? slot;
+
+  /// Whether the slot is being duplicated.
+  final bool duplicate;
 
   @override
   State<EditSlotDialog> createState() => _EditSlotDialogState();
@@ -27,8 +33,6 @@ class EditSlotDialog extends StatefulWidget {
 class _EditSlotDialogState extends State<EditSlotDialog> {
   final supervisorController = TextEditingController();
   final roomController = TextEditingController();
-  final courseController = TextEditingController();
-  final vintageController = TextEditingController();
   final roomFocusNode = FocusNode();
 
   Weekday? weekday;
@@ -42,6 +46,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
   List<int> supervisors = [];
   List<CourseToSlot> mappings = [];
+  List<MappingElement> courseMappings = [];
 
   bool submitting = false;
 
@@ -49,18 +54,20 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
   void initState() {
     super.initState();
 
-    editing = widget.slot != null;
+    editing = widget.slot != null && widget.duplicate == false;
 
     weekday = widget.slot?.weekday ?? widget.weekday;
 
     roomController.text = widget.slot?.room ?? '';
 
-    start = widget.slot?.startUnit;
+    start = widget.slot?.startUnit ?? widget.startUnit;
     end = widget.slot?.endUnit;
 
     supervisors = List.of(widget.slot?.supervisors ?? []);
     size = widget.slot?.size ?? 1;
     mappings = List.of(widget.slot?.mappings ?? []);
+    courseMappings = mappings.map((m) => MappingElement(mappingId: m.id, courseId: m.courseId, vintage: m.vintage)).toList();
+    if (courseMappings.isEmpty) courseMappings.add(MappingElement());
 
     if (widget.slot != null) {
       roomController.text = widget.slot!.room;
@@ -78,7 +85,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
       size != null &&
       roomController.text.isNotEmpty &&
       supervisors.isNotEmpty &&
-      mappings.isNotEmpty;
+      courseMappings.isNotEmpty &&
+      courseMappings.every((element) => element.isSubmitable() == true);
 
   void setSize(int value) {
     setState(() {
@@ -94,6 +102,11 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
     });
 
     final repo = context.read<SlotMasterSlotsRepository>();
+
+    mappings = [];
+    for (final element in courseMappings) {
+      addMapping(element);
+    }
 
     final slot = widget.slot?.copyWith(
           room: roomController.text,
@@ -119,6 +132,8 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
     if (editing) {
       await repo.updateSlot(slot);
+    } else if (widget.duplicate) {
+      await repo.createSlot(slot.copyWith(id: -1));
     } else {
       await repo.createSlot(slot);
     }
@@ -179,36 +194,17 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
     });
   }
 
-  void addMapping(int courseId, Vintage vintage) {
-    setState(() {
-      final mapping = CourseToSlot.noId(courseId: courseId, slotId: widget.slot?.id ?? -1, vintage: vintage);
+  void addMapping(MappingElement element) {
+    final CourseToSlot mapping;
+    final slotId = widget.slot?.id ?? -1;
 
-      mappings.add(mapping);
+    if (element.mappingId == null) {
+      mapping = CourseToSlot.noId(courseId: element.courseId!, slotId: slotId, vintage: element.vintage!);
+    } else {
+      mapping = CourseToSlot(id: element.mappingId!, courseId: element.courseId!, slotId: slotId, vintage: element.vintage!);
+    }
 
-      courseController.clear();
-      vintageController.clear();
-    });
-  }
-
-  void removeMapping(int courseId, Vintage vintage) {
-    setState(() {
-      mappings.removeWhere((mapping) => mapping.courseId == courseId && mapping.vintage == vintage);
-    });
-  }
-
-  Vintage? vintage;
-  MoodleCourse? course;
-
-  void setCourse(MoodleCourse? course) {
-    setState(() {
-      this.course = course;
-    });
-  }
-
-  void setVintage(Vintage? vintage) {
-    setState(() {
-      this.vintage = vintage;
-    });
+    mappings.add(mapping);
   }
 
   @override
@@ -221,7 +217,6 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
     final rooms = slots.state.data?.map((slot) => slot.room).toSet() ?? const Iterable<String>.empty();
 
     final courses = context.watch<SlotMasterCoursesRepository>();
-    final courseMappings = mappings.map((m) => (courses.filter(id: m.courseId).firstOrNull, m.vintage)).toList();
 
     return GenericDialog(
       shrinkWrap: false,
@@ -296,7 +291,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                     helperText: context.t.slots_edit_weekday,
                     enabled: !submitting,
 
-                    leadingIcon: const Icon(FontAwesome.calendar_check_o),
+                    leadingIcon: const Icon(FontAwesome5Solid.calendar_check),
                     trailingIcon: const Icon(
                       FontAwesome5Solid.chevron_down,
                       size: 13,
@@ -307,7 +302,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       return DropdownMenuEntry(
                         label: weekday.translate(context),
                         value: weekday,
-                        leadingIcon: const Icon(FontAwesome.calendar_check_o),
+                        leadingIcon: const Icon(FontAwesome5Solid.calendar_check),
                       );
                     }).toList(),
                   );
@@ -334,19 +329,37 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       return Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: size.maxWidth,
+                          height: (options.length * 50.0).clamp(0, 200),
                           child: Card(
                             elevation: 8,
                             color: context.theme.scaffoldBackgroundColor,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                for (final option in options)
-                                  MenuItemButton(
-                                    child: Text(option),
-                                    onPressed: () => onSelected(option),
-                                  ),
-                              ],
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: options.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final option = options.elementAt(index);
+                                return HoverBuilder(
+                                  onTap: () {
+                                    onSelected(option);
+                                  },
+                                  builder: (context, hover) {
+                                    return Container(
+                                      height: 42,
+                                      padding: PaddingAll(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
+                                      decoration: ShapeDecoration(
+                                        shape: squircle(),
+                                        color: hover ? context.theme.colorScheme.primary : context.theme.scaffoldBackgroundColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          option,
+                                          style: TextStyle(color: hover ? context.theme.colorScheme.onPrimary : null, fontSize: 18),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -440,7 +453,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         hoverColor: Colors.transparent,
-                        icon: const Icon(Icons.close),
+                        icon: const Icon(Icons.remove_circle_outline_rounded),
                         onPressed: () => removeSupervisor(supervisor.id),
                       ),
                     ],
@@ -456,109 +469,98 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                 style: context.theme.textTheme.titleMedium,
               ),
               Spacing.smallVertical(),
-              Row(
-                spacing: Spacing.mediumSpacing,
-                children: [
-                  LayoutBuilder(
-                    builder: (context, size) {
-                      return DropdownMenu<MoodleCourse>(
-                        initialSelection: course,
-                        onSelected: setCourse,
-                        enabled: !submitting,
-                        trailingIcon: const Icon(
-                          FontAwesome5Solid.chevron_down,
-                          size: 13,
-                        ),
-                        controller: courseController,
-                        leadingIcon: const Icon(Icons.book),
-                        width: size.maxWidth,
-                        filterCallback: (entries, filter) => entries.where((entry) => entry.label.containsIgnoreCase(filter)).toList(),
-                        enableSearch: false,
-                        enableFilter: true,
-                        hintText: context.t.slots_edit_selectCourse,
-                        menuHeight: 200,
-                        dropdownMenuEntries: [
-                          for (final course in courses.filter())
-                            DropdownMenuEntry(
-                              value: course,
-                              label: course.name,
-                              leadingIcon: CourseTag(course: course),
-                            ),
-                        ],
-                      );
-                    },
-                  ).expanded(),
-                  LayoutBuilder(
-                    builder: (context, size) {
-                      return DropdownMenu<Vintage>(
-                        width: size.maxWidth,
-                        enabled: !submitting,
-                        trailingIcon: const Icon(
-                          FontAwesome5Solid.chevron_down,
-                          size: 13,
-                        ),
-                        initialSelection: vintage,
-                        hintText: context.t.slots_edit_selectClass,
-                        leadingIcon: const Icon(Icons.school),
-                        menuHeight: 200,
-                        onSelected: setVintage,
-                        controller: vintageController,
-                        filterCallback: (entries, filter) => entries.where((entry) => entry.label.containsIgnoreCase(filter)).toList(),
-                        enableFilter: true,
-                        dropdownMenuEntries: [
-                          for (final vintage in Vintage.values.where((v) => v.suffix.isNotEmpty))
-                            DropdownMenuEntry(
-                              value: vintage,
-                              label: vintage.humanReadable,
-                              leadingIcon: const Icon(Icons.school),
-                            ),
-                        ],
-                      );
-                    },
-                  ).expanded(),
-                  IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onPressed: course == null || vintage == null || submitting
-                        ? null
-                        : () {
-                            addMapping(course!.id, vintage!);
-                            setCourse(null);
-                            setVintage(null);
-                          },
-                    icon: const Icon(Icons.add),
-                  ),
-                ],
-              ),
-              Spacing.mediumVertical(),
               ListView(
                 children: [
-                  for (final (course, vintage) in courseMappings)
-                    Container(
-                      padding: PaddingAll(Spacing.smallSpacing),
-                      decoration: ShapeDecoration(
-                        shape: squircle(),
-                        color: context.theme.scaffoldBackgroundColor,
-                      ),
-                      child: Row(
-                        children: [
-                          CourseTag(course: course!),
-                          Spacing.smallHorizontal(),
-                          Text(course.name),
-                          Spacing.smallHorizontal(),
-                          Text(vintage.humanReadable),
-                          const Spacer(),
-                          IconButton(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            onPressed: () => removeMapping(course.id, vintage),
-                            icon: const Icon(Icons.close),
-                          ),
-                        ],
-                      ),
+                  for (final element in courseMappings)
+                    Row(
+                      spacing: Spacing.mediumSpacing,
+                      children: [
+                        LayoutBuilder(
+                          builder: (context, size) {
+                            return DropdownMenu<int>(
+                              initialSelection: element.courseId,
+                              onSelected: (courseId) {
+                                setState(() {
+                                  element.courseId = courseId;
+                                });
+                              },
+                              enabled: !submitting,
+                              trailingIcon: const Icon(
+                                FontAwesome5Solid.chevron_down,
+                                size: 13,
+                              ),
+                              controller: element.courseController,
+                              leadingIcon: const Icon(Icons.book),
+                              width: size.maxWidth,
+                              filterCallback: (entries, filter) => entries.where((entry) => entry.label.containsIgnoreCase(filter)).toList(),
+                              enableSearch: false,
+                              enableFilter: true,
+                              hintText: context.t.slots_edit_selectCourse,
+                              menuHeight: 200,
+                              dropdownMenuEntries: [
+                                for (final course in courses.filter())
+                                  DropdownMenuEntry(
+                                    value: course.id,
+                                    label: course.name,
+                                    leadingIcon: CourseTag(course: course),
+                                  ),
+                              ],
+                            );
+                          },
+                        ).expanded(),
+                        LayoutBuilder(
+                          builder: (context, size) {
+                            return DropdownMenu<Vintage>(
+                              width: size.maxWidth,
+                              enabled: !submitting,
+                              trailingIcon: const Icon(
+                                FontAwesome5Solid.chevron_down,
+                                size: 13,
+                              ),
+                              initialSelection: element.vintage,
+                              hintText: context.t.slots_edit_selectClass,
+                              leadingIcon: const Icon(Icons.school),
+                              menuHeight: 200,
+                              onSelected: (vintage) {
+                                setState(() {
+                                  element.vintage = vintage;
+                                });
+                              },
+                              controller: element.vintageController,
+                              filterCallback: (entries, filter) => entries.where((entry) => entry.label.containsIgnoreCase(filter)).toList(),
+                              enableFilter: true,
+                              dropdownMenuEntries: [
+                                for (final vintage in Vintage.values.where((v) => v.suffix.isNotEmpty))
+                                  DropdownMenuEntry(
+                                    value: vintage,
+                                    label: vintage.humanReadable,
+                                    leadingIcon: const Icon(Icons.school),
+                                  ),
+                              ],
+                            );
+                          },
+                        ).expanded(),
+                        IconButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          onPressed: () {
+                            setState(() {
+                              courseMappings.removeWhere((e) => e.id == element.id);
+                            });
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
                     ),
+                  FilledButton(
+                    onPressed: () {
+                      setState(() {
+                        courseMappings.add(MappingElement());
+                      });
+                    },
+                    child: Text(context.t.slots_edit_addCourseMapping),
+                  ).stretch(),
                 ].vSpaced(Spacing.smallSpacing),
               ).expanded(),
             ],
@@ -576,5 +578,37 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
         ),
       ],
     );
+  }
+}
+
+/// Elements to keep track of mappings while editing.
+class MappingElement {
+  /// The current number of elements in the List.
+  static int currentlistId = 0;
+
+  /// Elements to keep track of mappings while editing.
+  MappingElement({this.mappingId, this.courseId, this.vintage});
+
+  /// The id of the element
+  final int id = currentlistId++;
+
+  /// The id of the mapping in the database.
+  int? mappingId;
+
+  /// The id of the corresponding course.
+  int? courseId;
+
+  /// TextEditingController to keep track of user input.
+  TextEditingController courseController = TextEditingController();
+
+  /// The vintage of the mapping.
+  Vintage? vintage;
+
+  /// TextEditingController to keep track of user input.
+  TextEditingController vintageController = TextEditingController();
+
+  /// Whether or not the mapping is valid for submitting.
+  bool isSubmitable() {
+    return courseId != null && vintage != null;
   }
 }

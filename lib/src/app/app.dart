@@ -1,8 +1,6 @@
 library lb_planner.modules.app;
 
 import 'package:animations/animations.dart';
-import 'package:echidna_flutter/echidna_flutter.dart';
-import 'package:eduplanner/config/echidna.dart';
 import 'package:eduplanner/config/version.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +31,7 @@ class AppModule extends Module {
         UpdaterModule(),
         MoodleModule(),
         CalendarModule(),
+        KanbanModule(),
       ];
 
   @override
@@ -72,12 +71,23 @@ class AppModule extends Module {
             ],
           ),
           ModuleRoute(
+            '/kanban/',
+            module: KanbanModule(),
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
+            guards: [
+              // FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
+              CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
+              AuthGuard(redirectTo: '/auth/'),
+            ],
+          ),
+          ModuleRoute(
             '/calendar/',
             module: CalendarModule(),
             transition: TransitionType.custom,
             customTransition: defaultTransition,
             guards: [
-              FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
+              // FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
               AuthGuard(redirectTo: '/auth/'),
             ],

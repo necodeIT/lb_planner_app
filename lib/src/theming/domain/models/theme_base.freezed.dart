@@ -58,9 +58,7 @@ mixin _$ThemeBase {
   /// Whether the theme uses Material 3.
   bool get usesMaterial3 => throw _privateConstructorUsedError;
 
-  /// Create a copy of ThemeBase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ThemeBaseCopyWith<ThemeBase> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -97,8 +95,6 @@ class _$ThemeBaseCopyWithImpl<$Res, $Val extends ThemeBase>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ThemeBase
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -211,8 +207,6 @@ class __$$ThemeBaseImplCopyWithImpl<$Res>
       _$ThemeBaseImpl _value, $Res Function(_$ThemeBaseImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ThemeBase
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -446,9 +440,7 @@ class _$ThemeBaseImpl extends _ThemeBase with DiagnosticableTreeMixin {
       brightness,
       usesMaterial3);
 
-  /// Create a copy of ThemeBase
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ThemeBaseImplCopyWith<_$ThemeBaseImpl> get copyWith =>
@@ -473,66 +465,64 @@ abstract class _ThemeBase extends ThemeBase {
       final bool usesMaterial3}) = _$ThemeBaseImpl;
   _ThemeBase._() : super._();
 
-  /// The color to use for the surface of components.
   @override
+
+  /// The color to use for the surface of components.
   Color get primaryColor;
+  @override
 
   /// The color to use for the background of the app.
-  @override
   Color get secondaryColor;
+  @override
 
   /// The color to use for separators and dividers.
-  @override
   Color get tertiaryColor;
+  @override
 
   /// The color to use for buttons and other interactive elements.
-  @override
   Color get accentColor;
+  @override
 
   /// The color to use for text on top of the primary color.
-  @override
   Color get onAccentColor;
+  @override
 
   /// The color to use to indicate errors.
-  @override
   Color get errorColor;
+  @override
 
   /// The color to use for modules that are completed.
-  @override
   Color get moduleDoneColor;
+  @override
 
   /// The color to use for modules that are pending.
-  @override
   Color get modulePendingColor;
+  @override
 
   /// The color to use for modules that have been uploaded.
-  @override
   Color get moduleUploadedColor;
+  @override
 
   /// The color to use for text.
-  @override
   Color get textColor;
+  @override
 
   /// The name of the theme.
-  @override
   String get name;
+  @override
 
   /// The icon of the theme.
-  @override
   IconData get icon;
+  @override
 
   /// The brightness of the theme.
-  @override
   Brightness get brightness;
+  @override
 
   /// Whether the theme uses Material 3.
-  @override
   bool get usesMaterial3;
-
-  /// Create a copy of ThemeBase
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ThemeBaseImplCopyWith<_$ThemeBaseImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

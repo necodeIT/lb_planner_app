@@ -26,12 +26,8 @@ mixin _$TaskAggregate {
   /// Aggregation by type.
   TypeAggregate get type => throw _privateConstructorUsedError;
 
-  /// Serializes this TaskAggregate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $TaskAggregateCopyWith<TaskAggregate> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -58,8 +54,6 @@ class _$TaskAggregateCopyWithImpl<$Res, $Val extends TaskAggregate>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -78,8 +72,6 @@ class _$TaskAggregateCopyWithImpl<$Res, $Val extends TaskAggregate>
     ) as $Val);
   }
 
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $StatusAggregateCopyWith<$Res> get status {
@@ -88,8 +80,6 @@ class _$TaskAggregateCopyWithImpl<$Res, $Val extends TaskAggregate>
     });
   }
 
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TypeAggregateCopyWith<$Res> get type {
@@ -123,8 +113,6 @@ class __$$TaskAggregateImplCopyWithImpl<$Res>
       _$TaskAggregateImpl _value, $Res Function(_$TaskAggregateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -175,13 +163,11 @@ class _$TaskAggregateImpl extends _TaskAggregate {
             (identical(other.type, type) || other.type == type));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, status, type);
 
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$TaskAggregateImplCopyWith<_$TaskAggregateImpl> get copyWith =>
@@ -204,18 +190,16 @@ abstract class _TaskAggregate extends TaskAggregate {
   factory _TaskAggregate.fromJson(Map<String, dynamic> json) =
       _$TaskAggregateImpl.fromJson;
 
-  /// Aggregation by status.
   @override
+
+  /// Aggregation by status.
   StatusAggregate get status;
+  @override
 
   /// Aggregation by type.
-  @override
   TypeAggregate get type;
-
-  /// Create a copy of TaskAggregate
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$TaskAggregateImplCopyWith<_$TaskAggregateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

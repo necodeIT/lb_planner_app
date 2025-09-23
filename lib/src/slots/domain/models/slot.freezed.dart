@@ -54,12 +54,8 @@ mixin _$Slot {
   @JsonKey(name: 'filters')
   List<CourseToSlot> get mappings => throw _privateConstructorUsedError;
 
-  /// Serializes this Slot to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of Slot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SlotCopyWith<Slot> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -91,8 +87,6 @@ class _$SlotCopyWithImpl<$Res, $Val extends Slot>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Slot
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -179,8 +173,6 @@ class __$$SlotImplCopyWithImpl<$Res>
   __$$SlotImplCopyWithImpl(_$SlotImpl _value, $Res Function(_$SlotImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Slot
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -347,7 +339,7 @@ class _$SlotImpl extends _Slot {
             const DeepCollectionEquality().equals(other._mappings, _mappings));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -362,9 +354,7 @@ class _$SlotImpl extends _Slot {
       const DeepCollectionEquality().hash(_supervisors),
       const DeepCollectionEquality().hash(_mappings));
 
-  /// Create a copy of Slot
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SlotImplCopyWith<_$SlotImpl> get copyWith =>
@@ -395,54 +385,52 @@ abstract class _Slot extends Slot {
 
   factory _Slot.fromJson(Map<String, dynamic> json) = _$SlotImpl.fromJson;
 
-  /// Unique identifier of this slot.
   @override
+
+  /// Unique identifier of this slot.
   int get id;
+  @override
 
   /// The start time of this slot.
-  @override
   @JsonKey(name: 'startunit')
   SlotTimeUnit get startUnit;
+  @override
 
   /// The duration of this slot interpreted as [SlotTimeUnit]s.
-  @override
   int get duration;
+  @override
 
   /// The weekday this slot takes place on.
-  @override
   Weekday get weekday;
+  @override
 
   /// The room this slot takes place in.
-  @override
   String get room;
+  @override
 
   /// The number of students that can attend this slot.
-  @override
   int get size;
+  @override
 
   /// The number of students that have already reserved this slot.
-  @override
   @JsonKey(name: 'fullness')
   int get reservations;
+  @override
 
   /// `true` if the current user has reserved this slot.
-  @override
   @JsonKey(name: 'forcuruser')
   bool get reserved;
+  @override
 
   /// The user ids of those supervising this slot.
-  @override
   List<int> get supervisors;
+  @override
 
   /// The course mappings of this slot.
-  @override
   @JsonKey(name: 'filters')
   List<CourseToSlot> get mappings;
-
-  /// Create a copy of Slot
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SlotImplCopyWith<_$SlotImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -52,6 +52,13 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
     }
   }
 
+  void duplicateSlot() {
+    showAnimatedDialog(
+      context: context,
+      pageBuilder: (_, __, ___) => EditSlotDialog(slot: widget.slot, duplicate: true),
+    );
+  }
+
   void editSlot() {
     showAnimatedDialog(
       context: context,
@@ -164,11 +171,16 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: deleteSlot,
+                  onPressed: isDeleting ? null : deleteSlot,
+                  style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
                   child: Text(context.t.global_delete),
                 ),
                 TextButton(
-                  onPressed: editSlot,
+                  onPressed: isDeleting ? null : duplicateSlot,
+                  child: Text(context.t.global_duplicate),
+                ),
+                TextButton(
+                  onPressed: isDeleting ? null : editSlot,
                   child: Text(context.t.global_edit),
                 ),
               ],

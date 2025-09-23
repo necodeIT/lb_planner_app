@@ -45,6 +45,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get global_edit => 'Edit';
 
   @override
+  String get global_duplicate => 'Duplicate';
+
+  @override
   String get global_delete => 'Delete';
 
   @override
@@ -59,7 +62,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get app_update_aur => 'Run `yay -S lb-planner` to update to the latest version.';
+  String get app_update_aur =>
+      'Run `yay -S lb-planner` to update to the latest version.';
 
   @override
   String app_update_download(String url) {
@@ -67,10 +71,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get app_update_web => 'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.';
+  String get app_update_web =>
+      'Please refresh the page with `Ctrl + Shift + F5` to update to the latest version.';
 
   @override
-  String get app_noMobile_message => 'This feature is not available on mobile devices.';
+  String get app_noMobile_message =>
+      'This feature is not available on mobile devices.';
 
   @override
   String get app_noMobile_goBack => 'Go back';
@@ -101,7 +107,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get auth_dataCollectionConsent => 'I accept the collection and processing of my data as described in the ';
+  String get auth_dataCollectionConsent =>
+      'I accept the collection and processing of my data as described in the ';
 
   @override
   String get auth_dataCollectionConsentSuffix => '.';
@@ -119,7 +126,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendar_tasksOverview_description_title => 'What is this?';
 
   @override
-  String get calendar_tasksOverview_description => 'The tasks overview shows the distribution of tasks over the months based on the deadlines set by the teachers.';
+  String get calendar_tasksOverview_description =>
+      'The tasks overview shows the distribution of tasks over the months based on the deadlines set by the teachers.';
 
   @override
   String get calendar_title => 'Calendar';
@@ -134,7 +142,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendar_leave_title => 'Leave plan?';
 
   @override
-  String get calendar_leave_message => 'Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.';
+  String get calendar_leave_message =>
+      'Are you sure you want to leave this plan? This action cannot be undone.\nBut no worries a copy of the shared plan will be saved to your account and you can be invited back at any time.';
 
   @override
   String get calendar_invited => 'Invited';
@@ -176,7 +185,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendar_clearPlan_title => 'Clear plan?';
 
   @override
-  String get calendar_clearPlan_message => 'Are you sure you want to clear your plan? This will remove all planned tasks and cannot be undone.';
+  String get calendar_clearPlan_message =>
+      'Are you sure you want to clear your plan? This will remove all planned tasks and cannot be undone.';
 
   @override
   String get calendar_tasks => 'Tasks';
@@ -206,7 +216,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard_todaysTasks => 'Today\'s tasks';
 
   @override
-  String get dashboard_todaysTasks_noTasks => 'You\'ve nothing planned for today';
+  String get dashboard_todaysTasks_noTasks =>
+      'You\'ve nothing planned for today';
 
   @override
   String get dashboard_statusOverview => 'Status overview';
@@ -229,10 +240,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get dashboard_burnDownChart_explanation_title => 'WTF is a burndown chart?';
+  String get dashboard_burnDownChart_explanation_title =>
+      'WTF is a burndown chart?';
 
   @override
-  String get dashboard_burnDownChart_explanation_message => 'The **burndown chart** helps you visualize your progress toward completing tasks.\n\n1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you\'ve planned your tasks in an ideal way to keep a steady workload.\n2. The **planned trajectory** (curved line) shows how many tasks you\'re expected to have left based on when you\'ve planned to complete them.\n\t- Green when no tasks are remaining by the end of the semester.\n\t- Becomes red if you will not complete all modules in time.\n\nThis chart doesn’t track when tasks are actually completed—it\'s all about comparing your plan to the ideal pace so you can stay on track!\n';
+  String get dashboard_burnDownChart_explanation_message =>
+      'The **burndown chart** helps you visualize your progress toward completing tasks.\n\n1. The **ideal trajectory** (straight line) shows how many tasks you should have left each day if you\'ve planned your tasks in an ideal way to keep a steady workload.\n2. The **planned trajectory** (curved line) shows how many tasks you\'re expected to have left based on when you\'ve planned to complete them.\n\t- Green when no tasks are remaining by the end of the semester.\n\t- Becomes red if you will not complete all modules in time.\n\nThis chart doesn’t track when tasks are actually completed—it\'s all about comparing your plan to the ideal pace so you can stay on track!\n';
 
   @override
   String get dashboard_exams => 'Upcoming exams';
@@ -247,13 +260,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dashboard_overdueTasks => 'Overdue tasks';
 
   @override
-  String get dashboard_noTasksOverdue => 'You\'re all good, no tasks are overdue!';
+  String get dashboard_noTasksOverdue =>
+      'You\'re all good, no tasks are overdue!';
 
   @override
   String get dashboard_slotsReservedToday => 'Slots reserved for today';
 
   @override
-  String get dashboard_noSlotsReservedToday => 'You don\'t have any slots reserved for today.';
+  String get dashboard_noSlotsReservedToday =>
+      'You don\'t have any slots reserved for today.';
 
   @override
   String get enum_taskStatus_done => 'Done';
@@ -321,7 +336,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get notification_planRemoved => 'You have been removed from your shared plan. But don\'t worry, we\'ve got you covered - a copy of the plan has been saved to your account.';
+  String get notification_planRemoved =>
+      'You have been removed from your shared plan. But don\'t worry, we\'ve got you covered - a copy of the plan has been saved to your account.';
 
   @override
   String notification_planLeft(String username) {
@@ -354,7 +370,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_feedback_error_title => 'Unable to send feedback';
 
   @override
-  String get settings_feedback_error_message => 'An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.';
+  String get settings_feedback_error_message =>
+      'An error occurred while sending your feedback and the error has been reported to the developers. Please try again later.';
 
   @override
   String get settings_feedback_title => 'Feedback';
@@ -363,7 +380,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings_feedback_description => 'Please describe your problem.';
 
   @override
-  String get settings_feedback_consent => 'I agree to sharing my email address and name with the developers in accordance with our ';
+  String get settings_feedback_consent =>
+      'I agree to sharing my email address and name with the developers in accordance with our ';
 
   @override
   String get settings_feedback_consentSuffix => '.';
@@ -438,19 +456,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String slots_details_sizeCount(int count) {
-    return 'Size $count';
+    return 'Students: $count';
   }
 
   @override
   String get slots_slotmaster_newSlot => 'New slot';
 
   @override
-  String slots_slotmaster_deleteSlot_title(String room, String startUnit, String endUnit) {
+  String slots_slotmaster_deleteSlot_title(
+      String room, String startUnit, String endUnit) {
     return 'Delete slot $room $startUnit - $endUnit?';
   }
 
   @override
-  String get slots_slotmaster_deleteSlot_message => 'Are you sure you want to delete this slot? This action cannot be undone.';
+  String get slots_slotmaster_deleteSlot_message =>
+      'Are you sure you want to delete this slot? This action cannot be undone.';
 
   @override
   String get slots_edit_editSlot => 'Edit slot';
@@ -471,7 +491,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slots_edit_room => 'Room';
 
   @override
-  String get slots_edit_size => 'Size';
+  String get slots_edit_size => 'Students';
 
   @override
   String get slots_edit_supervisors => 'Supervisors';
@@ -483,6 +503,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slots_edit_courseMappings => 'Course Mappings';
 
   @override
+  String get slots_edit_addCourseMapping => 'Add mapping';
+
+  @override
   String get slots_edit_selectCourse => 'Select course';
 
   @override
@@ -492,7 +515,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slots_reserve_error => 'Failed to reserve slot';
 
   @override
-  String get slots_unbook_error => 'An unexpected error occurred while canceling your reservation. Please try again later.';
+  String get slots_unbook_error =>
+      'An unexpected error occurred while canceling your reservation. Please try again later.';
 
   @override
   String get slots_weekday_monday => 'Monday';
@@ -521,7 +545,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get notFound => 'Sorry, we couldn\'t find the page you were looking for.';
+  String get notFound =>
+      'Sorry, we couldn\'t find the page you were looking for.';
 
   @override
   String get notFound_returnHome => 'Return to home';
@@ -530,5 +555,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get global_disclaimer_title => 'Public Beta';
 
   @override
-  String get global_disclaimer => 'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️';
+  String get global_disclaimer =>
+      'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️';
+
+  @override
+  String get kanban_title => 'Kanban Board';
+
+  @override
+  String kanban_card_dueOn(String dueDate) {
+    return 'Due $dueDate';
+  }
+
+  @override
+  String kanban_card_plannedOn(String plannedDate) {
+    return 'Planned $plannedDate';
+  }
+
+  @override
+  String get kanban_screen_hideBacklog => 'Hide Backlog';
+
+  @override
+  String get kanban_screen_showBacklog => 'Show Backlog';
+
+  @override
+  String get kanban_screen_backlog => 'Backlog';
+
+  @override
+  String get kanban_screen_toDo => 'To Do';
+
+  @override
+  String get kanban_screen_inProgress => 'In Progress';
+
+  @override
+  String get kanban_screen_done => 'Done';
+
+  @override
+  String get kanban_settings_kanban => 'Kanban';
+
+  @override
+  String get kanban_settings_disabled => 'Disabled';
+
+  @override
+  String get kanban_settings_moveSubmittedTasks => 'Move Submitted Tasks';
+
+  @override
+  String get kanban_settings_moveOverdueTasks => 'Move Overdue Tasks';
+
+  @override
+  String get kanban_settings_moveCompletedTasks => 'Move Completed Tasks';
+
+  @override
+  String get kanban_settings_columnColors => 'Column Colors';
 }
