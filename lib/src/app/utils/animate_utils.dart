@@ -26,7 +26,7 @@ extension AnimateUtils on List<Widget> {
 
               key: keyPrefix != null ? ValueKey('$keyPrefix-$i') : null,
   }) {
-    assert(limit >= 0, 'Limit must be positive');
+    assert(limit >= 0, 'Limit must be non-negative');
 
     stagger ??= AnimationStagger();
 
