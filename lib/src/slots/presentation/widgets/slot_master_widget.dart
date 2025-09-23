@@ -176,7 +176,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
                   child: Text(context.t.global_delete),
                 ),
                 TextButton(
-                  onPressed: duplicateSlot,
+                  onPressed: isDeleting ? null : duplicateSlot,
                   child: Text(context.t.global_duplicate),
                 ),
                 TextButton(
