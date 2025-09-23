@@ -73,6 +73,8 @@ class AppModule extends Module {
           ModuleRoute(
             '/kanban/',
             module: KanbanModule(),
+            transition: TransitionType.custom,
+            customTransition: defaultTransition,
             guards: [
               // FeatureGuard([kCalendarPlanFeatureID], redirectTo: '/settings/'),
               CapabilityGuard({UserCapability.student}, redirectTo: '/slots/'),
