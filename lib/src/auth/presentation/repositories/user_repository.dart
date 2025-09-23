@@ -247,6 +247,10 @@ class UserRepository extends Repository<AsyncValue<User>> with Tracable {
   /// If [value] is null, it defaults to true.
   // ignore: avoid_positional_boolean_parameters Using positional parameters here for ease of use in the UI.
   Future<void> setShowColumnColors(bool? value) async {
+    if (!state.hasData) {
+      log('Cannot set show column colors: No user loaded.');
+      return;
+    }
     final patch = state.requireData.copyWith(
       showColumnColors: value ?? true,
     );
