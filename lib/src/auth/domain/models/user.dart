@@ -57,7 +57,7 @@ class User with _$User {
     /// The column to auto-move submitted tasks to
     @Default(null) @JsonKey(name: 'automovesubmittedtasks') @KanbanColumnConverter() KanbanColumn? autoMoveSubmittedTasksTo,
 
-    /// The column to auto-move in-progress tasks to
+    /// The column to auto-move overdue tasks to
     @Default(null) @JsonKey(name: 'automoveoverduetasks') @KanbanColumnConverter() KanbanColumn? autoMoveOverdueTasksTo,
 
     /// The vintage of the user

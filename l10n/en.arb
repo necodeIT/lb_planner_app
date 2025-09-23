@@ -746,6 +746,10 @@
     "@global_disclaimer": {
         "description": "Disclaimer message for the beta version of the app."
     },
+    "kanban_title": "Kanban Board",
+    "@kanban_title": {
+        "description": "Title for the kanban board view."
+    },
     "kanban_card_dueOn": "Due {dueDate}",
     "@kanban_card_dueOn": {
         "description": "Display for when a task is due in the kanban board.",

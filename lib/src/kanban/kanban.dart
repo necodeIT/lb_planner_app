@@ -22,7 +22,7 @@ class KanbanModule extends Module {
   void binds(Injector i) {
     i
       ..add<KanbanDatasource>(MoodleKanbanDatasource.new)
-      ..add<TitleBuilder>(() => (BuildContext context) => ('Kanban Board', null))
+      ..add<TitleBuilder>(() => (BuildContext context) => (context.t.kanban_title, null))
       ..addRepository<KanbanRepository>(KanbanRepository.new);
   }
 

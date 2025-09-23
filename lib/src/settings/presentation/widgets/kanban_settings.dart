@@ -40,7 +40,7 @@ class KanbanSettings extends StatelessWidget {
     }
 
     return GenericSettings(
-      title: 'Kanban',
+      title: context.t.kanban_settings_kanban,
       items: [
         autoMoveItem(
           name: context.t.kanban_settings_moveSubmittedTasks,

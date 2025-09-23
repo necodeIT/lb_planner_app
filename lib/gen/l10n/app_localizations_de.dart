@@ -562,6 +562,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bitte beachte, dass diese App sich derzeit in der öffentlichen **Beta** befindet.\nDas bedeutet, dass es zu Fehlern und fehlenden Funktionen kommen kann.\nWenn du auf Probleme stößt, melde sie bitte an uns.\nAußerdem beachte, dass deine Fakultät noch **im Prozess der Migration** zu diesem neuen System ist.\nDas bedeutet, dass einige Daten **unvollständig oder fehlerhaft** sein können.\nBitte **verlasse dich noch nicht** auf diese App für kritische Informationen :)\n\nVielen Dank für dein Verständnis und deine Unterstützung! ❤️';
 
   @override
+  String get kanban_title => 'Kanban Board';
+
+  @override
   String kanban_card_dueOn(String dueDate) {
     return 'Fällig $dueDate';
   }
@@ -572,10 +575,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get kanban_screen_hideBacklog => 'Backlog verstecken';
+  String get kanban_screen_hideBacklog => 'Backlog ausblenden';
 
   @override
-  String get kanban_screen_showBacklog => 'Backlog anzeigen';
+  String get kanban_screen_showBacklog => 'Backlog einblenden';
 
   @override
   String get kanban_screen_backlog => 'Backlog';
@@ -606,5 +609,5 @@ class AppLocalizationsDe extends AppLocalizations {
   String get kanban_settings_moveCompletedTasks => 'Erledigte Aufgaben bewegen';
 
   @override
-  String get kanban_settings_columnColors => 'Spalten Farben';
+  String get kanban_settings_columnColors => 'Spaltenfarben';
 }

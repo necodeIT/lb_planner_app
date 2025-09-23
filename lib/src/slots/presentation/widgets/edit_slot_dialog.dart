@@ -291,7 +291,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                     helperText: context.t.slots_edit_weekday,
                     enabled: !submitting,
 
-                    leadingIcon: const Icon(FontAwesome.calendar_check_o),
+                    leadingIcon: const Icon(FontAwesome5Solid.calendar_check),
                     trailingIcon: const Icon(
                       FontAwesome5Solid.chevron_down,
                       size: 13,
@@ -553,11 +553,6 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                         ),
                       ],
                     ),
-                  // Container(
-                  //   padding: PaddingAll(Spacing.xsSpacing),
-                  //   decoration: ShapeDecoration(shape: squircle(), color: context.theme.scaffoldBackgroundColor),
-                  //   child: TextButton().stretch(),
-                  // ),
                   FilledButton(
                     onPressed: () {
                       setState(() {
@@ -565,7 +560,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                       });
                     },
                     child: Text(context.t.slots_edit_addCourseMapping),
-                  ).stretch()
+                  ).stretch(),
                 ].vSpaced(Spacing.smallSpacing),
               ).expanded(),
             ],

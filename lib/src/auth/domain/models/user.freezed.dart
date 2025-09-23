@@ -83,7 +83,7 @@ mixin _$User {
   KanbanColumn? get autoMoveSubmittedTasksTo =>
       throw _privateConstructorUsedError;
 
-  /// The column to auto-move in-progress tasks to
+  /// The column to auto-move overdue tasks to
   @JsonKey(name: 'automoveoverduetasks')
   @KanbanColumnConverter()
   KanbanColumn? get autoMoveOverdueTasksTo =>
@@ -493,7 +493,7 @@ class _$UserImpl extends _User {
   @KanbanColumnConverter()
   final KanbanColumn? autoMoveSubmittedTasksTo;
 
-  /// The column to auto-move in-progress tasks to
+  /// The column to auto-move overdue tasks to
   @override
   @JsonKey(name: 'automoveoverduetasks')
   @KanbanColumnConverter()
@@ -696,7 +696,7 @@ abstract class _User extends User {
   KanbanColumn? get autoMoveSubmittedTasksTo;
   @override
 
-  /// The column to auto-move in-progress tasks to
+  /// The column to auto-move overdue tasks to
   @JsonKey(name: 'automoveoverduetasks')
   @KanbanColumnConverter()
   KanbanColumn? get autoMoveOverdueTasksTo;

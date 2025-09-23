@@ -23,8 +23,6 @@ extension AnimateUtils on List<Widget> {
     double end = 0,
     int limit = 16,
     String? keyPrefix,
-
-              key: keyPrefix != null ? ValueKey('$keyPrefix-$i') : null,
   }) {
     assert(limit >= 0, 'Limit must be non-negative');
 
@@ -58,7 +56,7 @@ extension AnimateUtils on List<Widget> {
       widgets.add(
         this[i]
             .animate(
-              key: keyPrefex != null ? ValueKey('$keyPrefex-$i') : null,
+              key: keyPrefix != null ? ValueKey('$keyPrefix-$i') : null,
             )
             .slideY(
               begin: begin,

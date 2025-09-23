@@ -171,7 +171,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: deleteSlot,
+                  onPressed: isDeleting ? null : deleteSlot,
                   style: TextButton.styleFrom(foregroundColor: context.theme.colorScheme.error),
                   child: Text(context.t.global_delete),
                 ),
@@ -180,7 +180,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
                   child: Text(context.t.global_duplicate),
                 ),
                 TextButton(
-                  onPressed: editSlot,
+                  onPressed: isDeleting ? null : editSlot,
                   child: Text(context.t.global_edit),
                 ),
               ],

@@ -1053,6 +1053,12 @@ abstract class AppLocalizations {
   /// **'Please note that this app is currently in public **beta**. This means that there may be bugs and missing features. If you encounter any issues, please report them to us. Also, note that your faculty is still **in the process of migrating** to this new system. This means that some data may be **incomplete or incorrect**. Please **do not rely** on this app for any critical information just yet :)\n\nThank you for your understanding and support! ❤️'**
   String get global_disclaimer;
 
+  /// Title for the kanban board view.
+  ///
+  /// In en, this message translates to:
+  /// **'Kanban Board'**
+  String get kanban_title;
+
   /// Display for when a task is due in the kanban board.
   ///
   /// In en, this message translates to:

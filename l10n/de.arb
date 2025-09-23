@@ -738,6 +738,10 @@
     "@slots_unbook_error": {
         "description": "Error message displayed when unbooking a slot fails."
     },
+    "kanban_title": "Kanban Board",
+    "@kanban_title": {
+        "description": "Title for the kanban board view."
+    },
     "kanban_card_dueOn": "Fällig {dueDate}",
     "@kanban_card_dueOn": {
         "description": "Display for when a task is due in the kanban board.",
@@ -756,11 +760,11 @@
             }
         }
     },
-    "kanban_screen_hideBacklog": "Backlog verstecken",
+    "kanban_screen_hideBacklog": "Backlog ausblenden",
     "@kanban_screen_hideBacklog": {
         "description": "Label for the hide backlog button."
     },
-    "kanban_screen_showBacklog": "Backlog anzeigen",
+    "kanban_screen_showBacklog": "Backlog einblenden",
     "@kanban_screen_showBacklog": {
         "description": "Label for the show backlog button"
     },
@@ -800,7 +804,7 @@
     "@kanban_settings_moveCompletedTasks": {
         "description": "Label for the move completed tasks setting."
     },
-    "kanban_settings_columnColors": "Spalten Farben",
+    "kanban_settings_columnColors": "Spaltenfarben",
     "@kanban_settings_columnColors": {
         "description": "Label for the column colors setting."
     }

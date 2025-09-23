@@ -353,21 +353,11 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
       return {};
     }
 
-    final groupByDay = state.requireData.groupFoldBy<Weekday, List<Slot>>(
-      (s) => s.weekday,
-      (g, s) => [...?g, s],
-    );
+    final byDay = state.requireData.groupListsBy((s) => s.weekday);
 
-    final groupByStartUnit = <Weekday, Map<SlotTimeUnit, List<Slot>>>{};
-
-    for (final day in groupByDay.entries) {
-      groupByStartUnit[day.key] = day.value.groupFoldBy<SlotTimeUnit, List<Slot>>(
-        (s) => s.startUnit,
-        (g, s) => [...?g, s],
-      );
-    }
-
-    return groupByStartUnit;
+    return {
+      for (final e in byDay.entries) e.key: e.value.groupListsBy((s) => s.startUnit),
+    };
   }
 
   @override

@@ -19,8 +19,6 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   late final TabController _tabController;
   final searchController = TextEditingController();
 
-  Weekday activeDay = Weekday.monday;
-
   @override
   void initState() {
     super.initState();
@@ -35,6 +33,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   @override
   void dispose() {
     _tabController.dispose();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -64,8 +63,6 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
 
     final groups = slots.groupByStartUnit();
 
-    // final activeGroup = groups[activeDay] ?? <SlotTimeUnit, List<Slot>>{};
-
     return Padding(
       padding: PaddingAll(),
       child: Scaffold(
@@ -89,36 +86,6 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
         ),
       ),
     );
-    // Padding(
-    //   padding: PaddingAll(),
-    //   child: Column(
-    //     children: [
-    //       Row(
-    //         spacing: Spacing.mediumSpacing,
-    //         children: [
-    //           for (final weekday in Weekday.values)
-    //             TextButton(
-    //               onPressed: weekday == activeDay
-    //                   ? null
-    //                   : () {
-    //                       setState(() {
-    //                         activeDay = weekday;
-    //                       });
-    //                     },
-    //               style: TextButton.styleFrom(
-    //                 backgroundColor: weekday == activeDay ? context.theme.highlightColor : context.theme.cardColor,
-    //               ),
-    //               child: Text(
-    //                 weekday.translate(context),
-    //                 style: context.theme.textTheme.titleLarge,
-    //               ),
-    //             ),
-    //         ],
-    //       ),
-    //       Spacing.mediumVertical(),
-    //     ],
-    //   ),
-    // );
   }
 
   Widget slotTimeTable(Map<SlotTimeUnit, List<Slot>> activeGroup, Weekday weekday) {
@@ -142,7 +109,6 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
                       onPressed: () => createSlot(weekday, timeUnit),
                       child: Text(context.t.slots_slotmaster_newSlot),
                     ),
-                    Spacing.smallVertical(),
                   ],
                 ),
                 if (activeGroup[timeUnit]?.isNotEmpty ?? false)
