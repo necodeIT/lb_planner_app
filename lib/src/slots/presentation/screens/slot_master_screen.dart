@@ -130,6 +130,6 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
             ),
         ],
       ),
-    ).expanded();
+    );
   }
 }
