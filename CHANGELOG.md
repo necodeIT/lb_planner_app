@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.4.0](https://github.com/necodeIT/lb_planner_app/compare/1.2.0...1.4.0) (2025-09-24)
+
+
+### Features
+
+* Add mobile support ([#19](https://github.com/necodeIT/lb_planner_app/issues/19)) ([3f58a7d](https://github.com/necodeIT/lb_planner_app/commit/3f58a7d842892cc0254887a4a7fbd669e84f18ea))
+* Kanban board ([#41](https://github.com/necodeIT/lb_planner_app/issues/41)) ([7fbb608](https://github.com/necodeIT/lb_planner_app/commit/7fbb608b0e5a8c629f15286fb81143f948844c23))
+
+
+### Bug Fixes
+
+* allow child transactions ([8324080](https://github.com/necodeIT/lb_planner_app/commit/8324080d71b25361cb2938f9b080c6b075f82877))
+* correct option flag for Flutter web build in Dockerfile ([5766860](https://github.com/necodeIT/lb_planner_app/commit/576686002d02cfa87a0fa12a111ce14aee42ef59))
+* Resolve app not running on non web platforms ([#20](https://github.com/necodeIT/lb_planner_app/issues/20)) ([75977be](https://github.com/necodeIT/lb_planner_app/commit/75977be10dc6a11cb9fdea031c869089466300c1))
+* set web O level to 1 for better logs ([c540b23](https://github.com/necodeIT/lb_planner_app/commit/c540b23229b498aa2464c68996372357de2b3e1a))
+* update Dockerfile to allow root for FVM ([def43bd](https://github.com/necodeIT/lb_planner_app/commit/def43bdb68454423ddb91e0adffa2354c6c0ade8))
+
 ## [1.3.0](https://github.com/necodeIT/lb_planner_app/compare/1.2.0...1.3.0) (2025-03-07)
 
 
