@@ -51,6 +51,8 @@ RUN apt-get update && apt-get install -y curl git unzip && apt-get clean
 
 RUN chsh -s /bin/bash
 
+ENV FVM_ALLOW_ROOT=true
+
 # Install FVM
 RUN curl -fsSL https://fvm.app/install.sh | bash
 
@@ -91,7 +93,7 @@ RUN sed -i "s/RELEASE_DATE=.*/RELEASE_DATE=$(cat .release_date)/g" .env
 RUN fvm flutter pub get
 
 # Build the app without tree shaking icons because it currently crashes the build (idk if its a package issue or a flutter issue)
-RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env -O 1 --no-tree-shake-icons --base-href $(echo $BASE_HREF | tr -d '"') 
+RUN fvm flutter build web --release -o /usr/share/nginx/html --dart-define-from-file=.env --no-tree-shake-icons --base-href $(echo $BASE_HREF | tr -d '"') 
 
 RUN sed -i "s/secondsSinceEpoch/$(date +%s)/g" /usr/share/nginx/html/index.html
 
