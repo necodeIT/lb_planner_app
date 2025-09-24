@@ -112,6 +112,6 @@ class _KanbanColumnWidgetState extends State<KanbanColumnWidget> {
           ],
         );
       },
-    ).expanded();
+    );
   }
 }

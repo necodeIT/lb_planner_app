@@ -63,7 +63,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
               tasks: board.backlog,
               color: applyColor(context.theme.taskStatusTheme.pendingColor),
               column: KanbanColumn.backlog,
-            ),
+            ).expanded(),
           KanbanColumnWidget(
             name: context.t.kanban_screen_toDo,
             tasks: board.todo,
@@ -83,7 +83,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
             color: applyColor(context.theme.taskStatusTheme.doneColor),
           ).expanded(),
         ],
-      ).expanded(),
+      ),
     );
   }
 }
