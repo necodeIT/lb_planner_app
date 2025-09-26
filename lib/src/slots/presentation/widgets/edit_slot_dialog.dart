@@ -64,7 +64,7 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
     end = widget.slot?.endUnit;
 
     supervisors = List.of(widget.slot?.supervisors ?? []);
-    size = widget.slot?.size ?? 1;
+    size = widget.slot?.size ?? 18; //TODO(mastermarcohd): request default size from backend;
     mappings = List.of(widget.slot?.mappings ?? []);
     courseMappings = mappings.map((m) => MappingElement(mappingId: m.id, courseId: m.courseId, vintage: m.vintage)).toList();
     if (courseMappings.isEmpty) courseMappings.add(MappingElement());
