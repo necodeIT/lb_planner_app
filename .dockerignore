@@ -1,6 +1,5 @@
 analysis_options.yaml
 app_icon.svg
-build/
 dartdoc_options.yaml
 devtools_options.yaml
 dist/
