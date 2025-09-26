@@ -7,7 +7,15 @@ import 'package:flutter/services.dart';
 /// A generic dialog that can be used to display information to the user.
 class GenericDialog extends StatelessWidget with AdaptiveWidget {
   /// A generic dialog that can be used to display information to the user.
-  const GenericDialog({super.key, required this.title, required this.content, this.actions, this.shrinkWrap = true, this.shrinkWrapWidth = false});
+  const GenericDialog({
+    super.key,
+    required this.title,
+    required this.content,
+    this.actions,
+    this.shrinkWrap = true,
+    this.shrinkWrapWidth = false,
+    this.fullscreen = false,
+  });
 
   /// The title of the dialog.
   final Widget title;
@@ -24,8 +32,19 @@ class GenericDialog extends StatelessWidget with AdaptiveWidget {
   /// The actions that can be taken in the dialog.
   final List<DialogAction>? actions;
 
+  /// If true, the dialog will be displayed in fullscreen mode even on desktop.
+  /// This is useful for dialogs that require a lot of space, such as forms.
+  /// Defaults to false.
+  ///
+  /// Note: This property is ignored on mobile, where dialogs are always fullscreen.
+  final bool fullscreen;
+
   @override
   Widget buildDesktop(BuildContext context) {
+    if (fullscreen) {
+      return buildMobile(context);
+    }
+
     return KeyboardListener(
       focusNode: FocusNode(),
       onKeyEvent: (value) {

@@ -218,7 +218,98 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
 
     final courses = context.watch<SlotMasterCoursesRepository>();
 
+    final screenSize = MediaQuery.sizeOf(context);
+    final isOverflowing = screenSize.width < 1400;
+    final useFullScreen = screenSize.width < 1200;
+
+    final sizeSelector = NumberSpinner<int>(
+      decoration: InputDecoration(
+        hintText: context.t.slots_edit_size,
+        helperText: context.t.slots_edit_size,
+      ),
+      initialValue: size,
+      onChanged: setSize,
+      min: 1,
+      enabled: !submitting,
+    ).expanded();
+
+    final roomSelector = LayoutBuilder(
+      builder: (context, size) {
+        return RawAutocomplete<String>(
+          focusNode: roomFocusNode,
+          textEditingController: roomController,
+          optionsBuilder: (TextEditingValue textEditingValue) {
+            if (textEditingValue.text == '') {
+              return const Iterable<String>.empty();
+            }
+
+            return rooms.where((String option) {
+              return option.containsIgnoreCase(textEditingValue.text);
+            });
+          },
+          onSelected: (String value) {
+            roomController.text = value;
+          },
+          optionsViewBuilder: (context, onSelected, options) {
+            return Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                height: (options.length * 50.0).clamp(0, 200),
+                child: Card(
+                  elevation: 8,
+                  color: context.theme.scaffoldBackgroundColor,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: options.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final option = options.elementAt(index);
+                      return HoverBuilder(
+                        onTap: () {
+                          onSelected(option);
+                        },
+                        builder: (context, hover) {
+                          return Container(
+                            height: 42,
+                            padding: PaddingAll(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
+                            decoration: ShapeDecoration(
+                              shape: squircle(),
+                              color: hover ? context.theme.colorScheme.primary : context.theme.scaffoldBackgroundColor,
+                            ),
+                            child: Center(
+                              child: Text(
+                                option,
+                                style: TextStyle(color: hover ? context.theme.colorScheme.onPrimary : null, fontSize: 18),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            );
+          },
+          fieldViewBuilder: (context, controller, focusNode, callback) {
+            return TextField(
+              controller: controller,
+              focusNode: focusNode,
+              inputFormatters: [UpperCaseTextFormatter()],
+              maxLength: 7,
+              enabled: !submitting,
+              decoration: InputDecoration(
+                hintText: context.t.slots_edit_room,
+                helperText: context.t.slots_edit_room,
+                prefixIcon: const Icon(Icons.room),
+              ),
+            );
+          },
+        );
+      },
+    ).expanded();
+
     return GenericDialog(
+      fullscreen: useFullScreen,
       shrinkWrap: false,
       title: Text(editing ? context.t.slots_edit_editSlot : context.t.slots_edit_createSlot),
       content: Column(
@@ -308,92 +399,18 @@ class _EditSlotDialogState extends State<EditSlotDialog> {
                   );
                 },
               ).expanded(),
-              LayoutBuilder(
-                builder: (context, size) {
-                  return RawAutocomplete<String>(
-                    focusNode: roomFocusNode,
-                    textEditingController: roomController,
-                    optionsBuilder: (TextEditingValue textEditingValue) {
-                      if (textEditingValue.text == '') {
-                        return const Iterable<String>.empty();
-                      }
-
-                      return rooms.where((String option) {
-                        return option.containsIgnoreCase(textEditingValue.text);
-                      });
-                    },
-                    onSelected: (String value) {
-                      roomController.text = value;
-                    },
-                    optionsViewBuilder: (context, onSelected, options) {
-                      return Align(
-                        alignment: Alignment.topLeft,
-                        child: SizedBox(
-                          height: (options.length * 50.0).clamp(0, 200),
-                          child: Card(
-                            elevation: 8,
-                            color: context.theme.scaffoldBackgroundColor,
-                            child: ListView.builder(
-                              padding: const EdgeInsets.all(8),
-                              itemCount: options.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final option = options.elementAt(index);
-                                return HoverBuilder(
-                                  onTap: () {
-                                    onSelected(option);
-                                  },
-                                  builder: (context, hover) {
-                                    return Container(
-                                      height: 42,
-                                      padding: PaddingAll(Spacing.mediumSpacing).Vertical(Spacing.xsSpacing),
-                                      decoration: ShapeDecoration(
-                                        shape: squircle(),
-                                        color: hover ? context.theme.colorScheme.primary : context.theme.scaffoldBackgroundColor,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          option,
-                                          style: TextStyle(color: hover ? context.theme.colorScheme.onPrimary : null, fontSize: 18),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    fieldViewBuilder: (context, controller, focusNode, callback) {
-                      return TextField(
-                        controller: controller,
-                        focusNode: focusNode,
-                        inputFormatters: [UpperCaseTextFormatter()],
-                        maxLength: 7,
-                        enabled: !submitting,
-                        decoration: InputDecoration(
-                          hintText: context.t.slots_edit_room,
-                          helperText: context.t.slots_edit_room,
-                          prefixIcon: const Icon(Icons.room),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ).expanded(),
-              NumberSpinner<int>(
-                decoration: InputDecoration(
-                  hintText: context.t.slots_edit_size,
-                  helperText: context.t.slots_edit_size,
-                ),
-                initialValue: size,
-                onChanged: setSize,
-                min: 1,
-                enabled: !submitting,
-              ).expanded(),
+              if (!isOverflowing) roomSelector,
+              if (!isOverflowing) sizeSelector,
             ],
           ).stretch(),
+          if (isOverflowing)
+            Row(
+              spacing: Spacing.mediumSpacing,
+              children: [
+                roomSelector,
+                sizeSelector,
+              ],
+            ).stretch(),
           Spacing.largeVertical(),
           Text(
             context.t.slots_edit_supervisors,
