@@ -12,10 +12,14 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   final AuthRepository _auth;
   final SlotsDatasource _datasource;
+  final MoodleCoursesRepository _courses;
+  final UsersRepository _users;
 
   /// Provides data for the slot master screen.
-  SlotMasterSlotsRepository(this._auth, this._datasource) : super(AsyncValue.loading()) {
+  SlotMasterSlotsRepository(this._auth, this._datasource, this._courses, this._users) : super(AsyncValue.loading()) {
     watchAsync(_auth);
+    watchAsync(_courses);
+    watchAsync(_users);
 
     _datasource.parent = this;
   }
@@ -360,6 +364,42 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
     };
   }
 
+  /// Queries the slots for the given [query].
+  ///
+  /// A query matches a slot if the room, any course name, any vintage or any supervisor's name contains the query (case-insensitive).
+  List<Slot> query(String query, {Iterable<Slot>? slots}) {
+    final _slots = slots ?? state.data;
+
+    if (_slots == null) {
+      log('Cannot query slots: No data');
+      return [];
+    }
+
+    if (query.isEmpty) {
+      return _slots.toList();
+    }
+
+    return _slots.where((slot) {
+      if (slot.room.containsIgnoreCase(query)) {
+        return true;
+      }
+
+      if (slot.mappings.any((m) => m.vintage.humanReadable.containsIgnoreCase(query))) {
+        return true;
+      }
+
+      if (slot.mappings.any((m) => _courses.getById(m.courseId)?.name.containsIgnoreCase(query) ?? false)) {
+        return true;
+      }
+
+      if (_users.filter(ids: slot.supervisors).any((u) => u.fullname.containsIgnoreCase(query))) {
+        return true;
+      }
+
+      return false;
+    }).toList();
+  }
+
   @override
   void dispose() {
     _datasource.dispose();
@@ -368,6 +408,7 @@ class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with 
 }
 
 /// Adds a query method to the [Slot] iterable.
+@Deprecated('Use SlotsRepository.query instead')
 extension QueryX on Iterable<Slot> {
   /// Queries the slots for the given [query].
   List<Slot> query(String query) {

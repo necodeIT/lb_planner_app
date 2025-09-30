@@ -80,7 +80,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
           child: TabBarView(
             controller: _tabController,
             children: [
-              for (final weekday in Weekday.values) slotTimeTable(groups[weekday] ?? <SlotTimeUnit, List<Slot>>{}, weekday),
+              for (final weekday in Weekday.values) slotTimeTable(groups[weekday] ?? <SlotTimeUnit, List<Slot>>{}, weekday, slots),
             ],
           ),
         ),
@@ -88,7 +88,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
     );
   }
 
-  Widget slotTimeTable(Map<SlotTimeUnit, List<Slot>> activeGroup, Weekday weekday) {
+  Widget slotTimeTable(Map<SlotTimeUnit, List<Slot>> activeGroup, Weekday weekday, SlotMasterSlotsRepository repo) {
     return SingleChildScrollView(
       child: Column(
         spacing: Spacing.largeSpacing,
@@ -117,7 +117,7 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
                     runSpacing: Spacing.mediumSpacing,
                     children: [
                       // TODO(mastermarcohd): implement more intelligent sorting to account for building and floor.
-                      for (final slot in (activeGroup[timeUnit] ?? <Slot>[]).query(searchController.text).sortedBy((s) => s.room))
+                      for (final slot in repo.query(searchController.text, slots: activeGroup[timeUnit] ?? <Slot>[]).sortedBy((s) => s.room))
                         SizedBox(
                           key: ValueKey(slot),
                           width: tileWidth,
