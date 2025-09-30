@@ -12,7 +12,7 @@ import 'package:mcquenji_core/mcquenji_core.dart';
 class SlotMasterSlotsRepository extends Repository<AsyncValue<List<Slot>>> with Tracable {
   final AuthRepository _auth;
   final SlotsDatasource _datasource;
-  final MoodleCoursesRepository _courses;
+  final SlotMasterCoursesRepository _courses;
   final UsersRepository _users;
 
   /// Provides data for the slot master screen.
