@@ -1,5 +1,4 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -121,15 +120,8 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
             ),
             Padding(
               padding: PaddingLeft(Spacing.mediumSpacing),
-              child: CarouselSlider(
-                disableGesture: true,
-                options: CarouselOptions(
-                  autoPlay: true,
-                  enableInfiniteScroll: false,
-                  height: 50,
-                  scrollDirection: Axis.vertical,
-                ),
-                items: [
+              child: SlotDataPopOver(
+                contentList: [
                   for (final supervisor in supervisors) UserWidget(user: supervisor),
                 ],
               ),
@@ -143,17 +135,11 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
             ),
             Padding(
               padding: PaddingLeft(Spacing.mediumSpacing),
-              child: CarouselSlider(
-                disableGesture: true,
-                options: CarouselOptions(
-                  autoPlay: true,
-                  enableInfiniteScroll: false,
-                  scrollDirection: Axis.vertical,
-                  height: 50,
-                ),
-                items: [
+              child: SlotDataPopOver(
+                contentList: [
                   for (final (course, vintage) in courseVintage)
                     Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         CourseTag(course: course!),
                         Spacing.xsHorizontal(),
@@ -166,7 +152,6 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
                 ],
               ),
             ).expanded(),
-            // IconButton(onPressed: deleteSlot, icon: Icon(Icons.delete))
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
