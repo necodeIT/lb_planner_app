@@ -101,7 +101,7 @@ void main() async {
 
   Adaptive.ignoreHeight = true;
 
-  setPathUrlStrategy();
+  // setPathUrlStrategy();
 
   // initializeEchidnaApi(baseUrl: kEchidnaHost, clientKey: kEchidnaClientKey, clientId: kEchidnaClientID);
 
