@@ -59,6 +59,22 @@ class SlotMasterCoursesRepository extends Repository<AsyncValue<List<MoodleCours
     }).toList();
   }
 
+  /// Gets the course with the given [id], or null if no such course exists.
+
+  MoodleCourse? getById(int id) {
+    if (!state.hasData) {
+      log('Cannot get course by id: No data available.');
+
+      return null;
+    }
+
+    try {
+      return state.requireData.firstWhere((element) => element.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
