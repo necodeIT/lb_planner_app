@@ -131,7 +131,7 @@ enum Weekday {
     for (var i = 0; i < 7; i++) {
       final date = now.add(Duration(days: i));
       if (date.weekday == index + 1) {
-        return date;
+        return date.copyWith(hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
       }
     }
     throw StateError('Could not find next date for $this');
