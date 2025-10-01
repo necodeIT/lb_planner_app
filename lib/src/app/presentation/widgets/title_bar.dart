@@ -215,7 +215,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                   ConditionalWrapper(
                     condition: _parentRoute != null,
                     wrapper: (_, child) => TextButton(
-                      onPressed: () => Modular.to.navigate(_parentRoute!),
+                      onPressed: () => Modular.to.pushNamed(_parentRoute!),
                       child: Row(
                         children: [
                           const Icon(FontAwesome5Solid.angle_left),
@@ -368,7 +368,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                   ConditionalWrapper(
                     condition: _parentRoute != null,
                     wrapper: (_, child) => TextButton(
-                      onPressed: () => Modular.to.navigate(_parentRoute!),
+                      onPressed: () => Modular.to.pushNamed(_parentRoute!),
                       child: Row(
                         children: [
                           const Icon(FontAwesome5Solid.angle_left),
