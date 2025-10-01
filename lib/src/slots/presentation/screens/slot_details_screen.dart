@@ -46,7 +46,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveStat
 
     final courseVintage = slot.mappings
         .map((m) {
-          final course = courseRepository.filter(id: m.courseId).firstOrNull;
+          final course = courseRepository.getById(m.courseId);
           final vintage = m.vintage;
 
           return (course, vintage);
@@ -105,7 +105,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveStat
                             children: [
                               for (final supervisor in supervisors) UserWidget(user: supervisor),
                             ],
-                          ).stretch(),
+                          ).expanded(),
                         ],
                       ),
                     ),
@@ -123,20 +123,9 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveStat
                             spacing: Spacing.mediumSpacing,
                             runSpacing: Spacing.mediumSpacing,
                             children: [
-                              for (final (course, vintage) in courseVintage)
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CourseTag(course: course!),
-                                    Spacing.xsHorizontal(),
-                                    Text(course.name),
-                                    Spacing.smallHorizontal(),
-                                    Text(vintage.humanReadable),
-                                    Spacing.mediumHorizontal(),
-                                  ],
-                                ),
+                              for (final (course, vintage) in courseVintage) MappingWidget(course: course!, vintage: vintage),
                             ],
-                          ).stretch(),
+                          ).expanded(),
                         ],
                       ),
                     ),
@@ -182,7 +171,7 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveStat
                           ),
                       ],
                     ),
-                  ),
+                  ).stretch(),
                 ),
               ).expanded(flex: 6),
             ],
