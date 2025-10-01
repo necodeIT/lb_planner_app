@@ -41,7 +41,9 @@ class _SlotMasterScreenState extends State<SlotMasterScreen> with AdaptiveState,
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    Data.of<TitleBarState>(context).setSearchController(searchController);
+    Data.of<TitleBarState>(context)
+      ..setSearchController(searchController)
+      ..setTrailingWidget(const SlotsViewSwitcher());
   }
 
   void createSlot(Weekday weekday, SlotTimeUnit startUnit) {

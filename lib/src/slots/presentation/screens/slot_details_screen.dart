@@ -23,7 +23,9 @@ class _SlotDetailsScreenState extends State<SlotDetailsScreen> with AdaptiveStat
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    Data.of<TitleBarState>(context).setParentRoute('/slots/overview/');
+    Data.of<TitleBarState>(context)
+      ..setParentRoute('/slots/overview/')
+      ..setTrailingWidget(const SlotsViewSwitcher());
   }
 
   @override

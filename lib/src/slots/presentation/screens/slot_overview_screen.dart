@@ -1,18 +1,31 @@
 import 'dart:collection';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 /// Displays an overview of all slots for a supervisor.
-class SlotOverviewScreen extends StatelessWidget with AdaptiveWidget, NoMobile {
+class SlotOverviewScreen extends StatefulWidget {
   /// Displays an overview of all slots for a supervisor.
   const SlotOverviewScreen({super.key});
 
   /// The date formatter.
   static final formatter = DateFormat('dd.MM.yyyy');
+
+  @override
+  State<SlotOverviewScreen> createState() => _SlotOverviewScreenState();
+}
+
+class _SlotOverviewScreenState extends State<SlotOverviewScreen> with AdaptiveState, NoMobile {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Data.of<TitleBarState>(context).setTrailingWidget(const SlotsViewSwitcher());
+  }
 
   @override
   Widget buildDesktop(BuildContext context) {
@@ -34,7 +47,7 @@ class SlotOverviewScreen extends StatelessWidget with AdaptiveWidget, NoMobile {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${group.key.translate(context)} ${formatter.format(group.key.nextDate)}',
+                    '${group.key.translate(context)} ${SlotOverviewScreen.formatter.format(group.key.nextDate)}',
                     style: context.theme.textTheme.titleLarge,
                   ),
                   Spacing.mediumVertical(),
