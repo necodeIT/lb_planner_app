@@ -42,7 +42,8 @@ class SlotsViewSwitcher extends StatelessWidget {
       onSelected: (r) {
         if (r == null) return;
 
-        Modular.to.navigate(r.slotRoute);
+        /// Do not use `navigate` as this will replace all loaded repositories.
+        Modular.to.pushNamed(r.slotRoute);
       },
     );
   }
