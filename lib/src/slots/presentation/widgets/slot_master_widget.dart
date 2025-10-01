@@ -75,7 +75,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
 
     final courseVintage = widget.slot.mappings
         .map((m) {
-          final course = courseRepository.filter(id: m.courseId).firstOrNull;
+          final course = courseRepository.getById(m.courseId);
           final vintage = m.vintage;
 
           return (course, vintage);
@@ -136,20 +136,7 @@ class _SlotMasterWidgetState extends State<SlotMasterWidget> {
             Padding(
               padding: PaddingLeft(Spacing.mediumSpacing),
               child: SlotDataPopOver(
-                contentList: [
-                  for (final (course, vintage) in courseVintage)
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CourseTag(course: course!),
-                        Spacing.xsHorizontal(),
-                        Text(course.name),
-                        Spacing.smallHorizontal(),
-                        Text(vintage.humanReadable),
-                        Spacing.mediumHorizontal(),
-                      ],
-                    ),
-                ],
+                contentList: [for (final (course, vintage) in courseVintage) MappingWidget(course: course!, vintage: vintage)],
               ),
             ).expanded(),
             Row(

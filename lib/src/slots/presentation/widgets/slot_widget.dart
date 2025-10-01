@@ -285,7 +285,7 @@ class _SlotWidgetState extends State<SlotWidget> with AdaptiveState {
                           for (final supervisor in supervisors)
                             UserWidget(
                               user: supervisor,
-                              expand: true,
+                              flexible: true,
                             ),
                         ],
                       ).expanded(),

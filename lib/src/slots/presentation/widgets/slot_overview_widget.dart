@@ -1,5 +1,4 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -27,7 +26,7 @@ class _SlotOverviewWidgetState extends State<SlotOverviewWidget> {
 
     final courseVintage = widget.slot.mappings
         .map((m) {
-          final course = courseRepository.filter(id: m.courseId).firstOrNull;
+          final course = courseRepository.getById(m.courseId);
           final vintage = m.vintage;
 
           return (course, vintage);
@@ -73,29 +72,8 @@ class _SlotOverviewWidgetState extends State<SlotOverviewWidget> {
                     Text(context.t.slots_details_mappingsCount(courseVintage.length)),
                   ],
                 ),
-                CarouselSlider(
-                  disableGesture: true,
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    enableInfiniteScroll: false,
-                    height: 40,
-                    scrollDirection: Axis.vertical,
-                  ),
-                  items: [
-                    for (final (course, vintage) in courseVintage)
-                      Row(
-                        children: [
-                          CourseTag(course: course!),
-                          Spacing.xsHorizontal(),
-                          Text(
-                            course.name,
-                            overflow: TextOverflow.ellipsis,
-                          ).expanded(flex: 3),
-                          Spacing.smallHorizontal(),
-                          Text(vintage.humanReadable).expanded(),
-                        ],
-                      ),
-                  ],
+                SlotDataPopOver(
+                  contentList: [for (final (course, vintage) in courseVintage) MappingWidget(course: course!, vintage: vintage)],
                 ),
               ],
             ),

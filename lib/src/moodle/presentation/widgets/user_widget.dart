@@ -1,10 +1,11 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 
 /// Displays the user's profile image and name.
 class UserWidget extends StatelessWidget {
   /// Displays the user's profile image and name.
-  const UserWidget({super.key, required this.user, this.size = 20, this.style, this.expand = false});
+  const UserWidget({super.key, required this.user, this.size = 20, this.style, this.flexible = false});
 
   /// The user to display.
   final User user;
@@ -16,27 +17,23 @@ class UserWidget extends StatelessWidget {
   final TextStyle? style;
 
   /// If true the widget will expand to fill the available space.
-  final bool expand;
+  final bool flexible;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+      mainAxisSize: MainAxisSize.min,
       children: [
         UserProfileImage(
           userId: user.id,
           size: size,
         ),
         Spacing.smallHorizontal(),
-        ConditionalWrapper(
-          condition: expand,
-          wrapper: (context, child) => Expanded(child: child),
-          child: Text(
-            user.fullname,
-            style: style,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
+        Text(
+          user.fullname,
+          style: style,
+          overflow: TextOverflow.ellipsis,
+        ).flexible(),
       ],
     );
   }
