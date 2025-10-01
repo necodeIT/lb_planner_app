@@ -210,6 +210,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                spacing: Spacing.mediumSpacing,
                 children: [
                   ConditionalWrapper(
                     condition: _parentRoute != null,
@@ -314,7 +315,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                         if (user.vintage != null)
                           user.vintage!.humanReadable.text.color(context.theme.colorScheme.primary).color(context.theme.colorScheme.primary)
                         else if (user.capabilities.isNotEmpty)
-                          Text(user.capabilities.highest.translate(context)).color(context.theme.colorScheme.primary),
+                          Text(user.capabilities.map((c) => c.translate(context)).join(', ')).color(context.theme.colorScheme.primary),
                       ],
                     ),
                   ].show(),

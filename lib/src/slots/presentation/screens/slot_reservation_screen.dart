@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,12 +10,24 @@ import 'package:intl/intl.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 /// A screen for reserving slots.
-class SlotReservationScreen extends StatelessWidget with AdaptiveWidget {
+class SlotReservationScreen extends StatefulWidget {
   /// A screen for reserving slots.
   const SlotReservationScreen({super.key});
 
   /// The date formatter.
   static final formatter = DateFormat('dd.MM.yyyy');
+
+  @override
+  State<SlotReservationScreen> createState() => _SlotReservationScreenState();
+}
+
+class _SlotReservationScreenState extends State<SlotReservationScreen> with AdaptiveState {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Data.of<TitleBarState>(context).setTrailingWidget(const SlotsViewSwitcher());
+  }
 
   @override
   Widget buildDesktop(BuildContext context) {
@@ -41,7 +54,7 @@ class SlotReservationScreen extends StatelessWidget with AdaptiveWidget {
                     Padding(
                       padding: PaddingLeft(),
                       child: Text(
-                        '${group.key.translate(context)} ${formatter.format(group.key.nextDate)}',
+                        '${group.key.translate(context)} ${SlotReservationScreen.formatter.format(group.key.nextDate)}',
                         style: context.theme.textTheme.titleMedium,
                       ).bold(),
                     ),
@@ -107,7 +120,7 @@ class SlotReservationScreen extends StatelessWidget with AdaptiveWidget {
                 padding: PaddingLeft().Vertical(Spacing.smallSpacing),
                 color: context.theme.scaffoldBackgroundColor,
                 child: Text(
-                  '${group.key.translate(context)} ${formatter.format(group.key.nextDate)}',
+                  '${group.key.translate(context)} ${SlotReservationScreen.formatter.format(group.key.nextDate)}',
                   style: context.theme.textTheme.titleMedium,
                 ).bold(),
               ).show(stagger),

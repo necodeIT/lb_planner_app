@@ -166,7 +166,7 @@ class MaterialThemeGeneratorService extends ThemeGeneratorService<ThemeData> {
         menuStyle: MenuStyle(
           padding: WidgetStatePropertyAll(PaddingAll(Spacing.smallSpacing).Vertical(Spacing.mediumSpacing)),
           backgroundColor: WidgetStatePropertyAll(themeBase.secondaryColor),
-          shape: WidgetStatePropertyAll(squircle()),
+          shape: WidgetStatePropertyAll(squircle(side: BorderSide(color: themeBase.tertiaryColor))),
           elevation: const WidgetStatePropertyAll(8),
         ),
       ),
