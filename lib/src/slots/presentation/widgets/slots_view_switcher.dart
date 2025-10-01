@@ -30,12 +30,18 @@ class SlotsViewSwitcher extends StatelessWidget {
           DropdownMenuEntry(
             value: r,
             label: r.translateSlotRoute(context),
+            labelWidget: Text(r.translateSlotRoute(context)),
+            leadingIcon: Icon(r.slotIcon, size: 16),
           ),
       ],
 
       trailingIcon: const Icon(
         FontAwesome5Solid.chevron_down,
         size: 13,
+      ),
+      leadingIcon: Icon(
+        SlotUserCapabilityX.capabilityFromRoute(currentRoute).slotIcon,
+        size: 16,
       ),
       requestFocusOnTap: false, // disable text input
       initialSelection: SlotUserCapabilityX.capabilityFromRoute(currentRoute),
@@ -85,6 +91,15 @@ extension SlotUserCapabilityX on UserCapability {
       UserCapability.teacher => 'View Reservations',
       UserCapability.student => 'Book Slots',
       UserCapability.slotMaster => 'Manage Slots',
+    };
+  }
+
+  /// The icon used to represent this view in the dropdown.
+  IconData get slotIcon {
+    return switch (this) {
+      UserCapability.teacher => FontAwesome5Solid.chalkboard_teacher,
+      UserCapability.student => FontAwesome5Solid.book,
+      UserCapability.slotMaster => FontAwesome5Solid.cogs,
     };
   }
 }
