@@ -19,7 +19,7 @@ mixin NoMobile on Adaptive {
               image: Assets.mobile,
             ).expanded(),
             ElevatedButton(
-              onPressed: () => Modular.to.navigate('/dashboard/'),
+              onPressed: () => Modular.to.pushNamed('/dashboard/'),
               child: Text(context.t.app_noMobile_goBack),
             ),
           ],
