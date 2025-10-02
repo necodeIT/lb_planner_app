@@ -162,7 +162,7 @@ class _CourseOverviewScreenState extends State<CourseOverviewScreen> with Adapti
             ).toList(),
           ),
         ),
-      ),
+      ).greedy(),
     );
   }
 }

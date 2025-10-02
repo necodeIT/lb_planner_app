@@ -40,6 +40,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> with Adap
     return Padding(
       padding: PaddingAll(),
       child: SingleChildScrollView(
+        clipBehavior: Clip.none,
         child: Wrap(
           runSpacing: Spacing.mediumSpacing,
           spacing: Spacing.mediumSpacing,
@@ -51,7 +52,7 @@ class _CoursesOverviewScreenState extends State<CoursesOverviewScreen> with Adap
               ),
           ].show(),
         ),
-      ),
+      ).greedy(),
     );
   }
 }
