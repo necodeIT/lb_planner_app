@@ -49,7 +49,7 @@ class _SidebarTargetState extends State<SidebarTarget> with AdaptiveState {
     if (Modular.to.isActive(route)) return;
 
     widget.onTap?.call();
-    Modular.to.pushNamed(widget.route);
+    Modular.to.navigate(widget.route);
 
     setState(() {
       isActive = true;
