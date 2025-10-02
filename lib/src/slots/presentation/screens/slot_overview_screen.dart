@@ -38,47 +38,50 @@ class _SlotOverviewScreenState extends State<SlotOverviewScreen> with AdaptiveSt
 
     return Padding(
       padding: PaddingAll(),
-      child: SingleChildScrollView(
-        child: Column(
-          spacing: Spacing.largeSpacing,
-          children: [
-            for (final group in groups.entries)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${group.key.translate(context)} ${SlotOverviewScreen.formatter.format(group.key.nextDate)}',
-                    style: context.theme.textTheme.titleLarge,
-                  ),
-                  Spacing.mediumVertical(),
-                  for (final timespan in group.value.entries)
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.access_time),
-                            Spacing.xsHorizontal(),
-                            Text('${timespan.key.$1.humanReadable()} - ${timespan.key.$2.humanReadable()}'),
-                          ],
-                        ),
-                        Spacing.smallVertical(),
-                        Wrap(
-                          spacing: Spacing.mediumSpacing,
-                          runSpacing: Spacing.mediumSpacing,
-                          children: [
-                            for (final slot in timespan.value)
-                              SizedBox(
-                                key: ValueKey(slot),
-                                width: 300,
-                                child: SlotOverviewWidget(slot: slot),
-                              ),
-                          ],
-                        ).stretch(),
-                      ],
-                    ).paddingOnly(bottom: Spacing.largeSpacing),
-                ],
-              ),
-          ],
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: Spacing.largeSpacing,
+            children: [
+              for (final group in groups.entries)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${group.key.translate(context)} ${SlotOverviewScreen.formatter.format(group.key.nextDate)}',
+                      style: context.theme.textTheme.titleLarge,
+                    ),
+                    Spacing.mediumVertical(),
+                    for (final timespan in group.value.entries)
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.access_time),
+                              Spacing.xsHorizontal(),
+                              Text('${timespan.key.$1.humanReadable()} - ${timespan.key.$2.humanReadable()}'),
+                            ],
+                          ),
+                          Spacing.smallVertical(),
+                          Wrap(
+                            spacing: Spacing.mediumSpacing,
+                            runSpacing: Spacing.mediumSpacing,
+                            children: [
+                              for (final slot in timespan.value)
+                                SizedBox(
+                                  key: ValueKey(slot),
+                                  width: 300,
+                                  child: SlotOverviewWidget(slot: slot),
+                                ),
+                            ],
+                          ).stretch(),
+                        ],
+                      ).paddingOnly(bottom: Spacing.largeSpacing),
+                  ],
+                ),
+            ],
+          ),
         ),
       ),
     );
