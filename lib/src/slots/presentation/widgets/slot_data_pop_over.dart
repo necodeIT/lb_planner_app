@@ -34,6 +34,10 @@ class _SlotDataPopOverState extends State<SlotDataPopOver> {
       builder: (context, isHovering) {
         parentHover = isHovering;
         Future.delayed(const Duration(milliseconds: 300), closePopUp);
+        if (widget.contentList.isEmpty) {
+          closePopUp(forceClose: true);
+          return const SizedBox.shrink();
+        }
         return Row(
           children: [
             Expanded(
