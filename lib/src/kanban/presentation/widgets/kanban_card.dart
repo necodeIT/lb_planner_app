@@ -60,7 +60,8 @@ class KanbanCard extends StatelessWidget {
                         ),
                         Text(
                           task.name,
-                        ).bold(),
+                          overflow: TextOverflow.ellipsis,
+                        ).bold().flexible(),
                       ],
                     ).stretch(),
                     Spacing.xsVertical(),
@@ -76,7 +77,10 @@ class KanbanCard extends StatelessWidget {
                               size: 12,
                               color: context.theme.taskStatusTheme.colorOf(task.status),
                             ),
-                            Text(task.status.translate(context)),
+                            Text(
+                              task.status.translate(context),
+                              overflow: TextOverflow.ellipsis,
+                            ).flexible(),
                           ],
                         ).stretch(),
                         if (task.deadline != null)
@@ -85,6 +89,7 @@ class KanbanCard extends StatelessWidget {
                             children: [
                               const Icon(Icons.calendar_month, size: 16),
                               Text.rich(
+                                overflow: TextOverflow.ellipsis,
                                 TextSpan(
                                   children: [
                                     TextSpan(
@@ -98,7 +103,7 @@ class KanbanCard extends StatelessWidget {
                                     const TextSpan(text: ')'),
                                   ],
                                 ),
-                              ),
+                              ).flexible(),
                             ],
                           ),
                         if (planned != null)
@@ -107,6 +112,7 @@ class KanbanCard extends StatelessWidget {
                             children: [
                               const Icon(Icons.timelapse_rounded, size: 16),
                               Text.rich(
+                                overflow: TextOverflow.ellipsis,
                                 TextSpan(
                                   children: [
                                     TextSpan(
@@ -120,7 +126,7 @@ class KanbanCard extends StatelessWidget {
                                     const TextSpan(text: ')'),
                                   ],
                                 ),
-                              ),
+                              ).flexible(),
                             ],
                           ),
                       ],
