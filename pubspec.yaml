@@ -25,7 +25,7 @@ dependencies:
   #   git:
   #     url: https://github.com/necodeIT/echidna_flutter.git
   either_dart: ^1.0.0
-  figma_squircle: ^0.5.3
+  figma_squircle: ^0.6.3
   fl_chart: ^0.70.2
   flutter:
     sdk: flutter
@@ -35,7 +35,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.7.5
-  flutter_modular: ^6.3.4
+  flutter_modular: ^6.4.1
   flutter_single_instance: ^1.2.0
   flutter_staggered_animations: ^1.1.1
   flutter_sticky_header: ^0.8.0
@@ -63,8 +63,8 @@ dependencies:
   posthog_dart:
     git:
       url: https://github.com/necodeIT/posthog_dart.git
-  sentry_dio: ^8.13.0
-  sentry_flutter: ^8.9.0
+  sentry_dio: ^9.6.0
+  sentry_flutter: ^9.6.0
   skeletonizer: ^2.1.0+1
   sliver_tools: ^0.2.12
   sprung: ^3.0.1
