@@ -1,4 +1,5 @@
 import 'package:awesome_extensions/awesome_extensions_flutter.dart';
+import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -25,6 +26,22 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    Data.of<TitleBarState>(context).setTrailingWidget(
+      _BacklogToggle(
+        initialValue: showBacklog,
+        onChanged: (value) {
+          setState(() {
+            showBacklog = value;
+          });
+        },
+      ),
+    );
+  }
+
+  @override
   Widget buildDesktop(BuildContext context) {
     final repo = context.watch<KanbanRepository>();
     final user = context.watch<UserRepository>();
@@ -43,20 +60,6 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
         spacing: Spacing.smallSpacing,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Tooltip(
-            message: showBacklog ? context.t.kanban_screen_hideBacklog : context.t.kanban_screen_showBacklog,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: toggleBacklog,
-                child: showBacklog
-                    ? const Icon(Icons.folder)
-                    : const Icon(
-                        Icons.folder_open,
-                      ),
-              ),
-            ),
-          ),
           if (showBacklog)
             KanbanColumnWidget(
               name: context.t.kanban_screen_backlog,
@@ -84,6 +87,37 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
           ).expanded(),
         ],
       ),
+    );
+  }
+}
+
+class _BacklogToggle extends StatefulWidget {
+  const _BacklogToggle({super.key, this.onChanged, required this.initialValue});
+
+  // ignore: avoid_positional_boolean_parameters
+  final Function(bool value)? onChanged;
+
+  final bool initialValue;
+
+  @override
+  State<_BacklogToggle> createState() => __BacklogToggleState();
+}
+
+class __BacklogToggleState extends State<_BacklogToggle> {
+  late bool showBacklog = widget.initialValue;
+
+  void toggleBacklog() {
+    setState(() {
+      showBacklog = !showBacklog;
+      widget.onChanged?.call(showBacklog);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: toggleBacklog,
+      child: Text(showBacklog ? context.t.kanban_screen_hideBacklog : context.t.kanban_screen_showBacklog),
     );
   }
 }
