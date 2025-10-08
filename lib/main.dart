@@ -200,9 +200,9 @@ void main() async {
       ..release = kInstalledRelease.version.toString()
       ..tracesSampleRate = 1
       ..tracePropagationTargets.clear()
-      ..debug = kDebugMode
-      ..logger = (SentryLevel level, String message, {String? logger, Object? exception, StackTrace? stackTrace}) =>
-          Logger('Sentry${logger != null ? '.$logger' : ''}').finest(message, exception, stackTrace),
+      ..debug = kDebugMode,
+    // ..logger = (SentryLevel level, String message, {String? logger, Object? exception, StackTrace? stackTrace}) =>
+    //     Logger('Sentry${logger != null ? '.$logger' : ''}').finest(message, exception, stackTrace),
     appRunner: () async {
       WidgetsFlutterBinding.ensureInitialized();
 
@@ -253,7 +253,7 @@ void main() async {
         ModularApp(
           module: AppModule(),
           debugMode: false,
-          child: const SentryScreenshotWidget(child: AppWidget()),
+          child: SentryScreenshotWidget(child: const AppWidget()),
         ),
       );
     },
