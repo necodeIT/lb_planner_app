@@ -197,10 +197,12 @@ void main() async {
     (options) => options
       ..dsn = kDebugMode ? '' : kSentryDSN
       ..environment = kInstalledRelease.channel.name
-      ..release = kInstalledRelease.version.toString()
+      ..release = kInstalledRelease.version.copyWith(build: 0).toString()
       ..tracesSampleRate = 1
       ..tracePropagationTargets.clear()
-      ..debug = kDebugMode,
+      ..debug = kDebugMode
+      ..dist = kInstalledRelease.version.build.toString(),
+
     // ..logger = (SentryLevel level, String message, {String? logger, Object? exception, StackTrace? stackTrace}) =>
     //     Logger('Sentry${logger != null ? '.$logger' : ''}').finest(message, exception, stackTrace),
     appRunner: () async {
