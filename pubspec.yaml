@@ -63,8 +63,8 @@ dependencies:
   posthog_dart:
     git:
       url: https://github.com/necodeIT/posthog_dart.git
-  sentry_dio: ^8.13.0
-  sentry_flutter: ^8.9.0
+  sentry_dio: ^9.7.0
+  sentry_flutter: ^9.7.0
   skeletonizer: ^2.1.0+1
   sliver_tools: ^0.2.12
   sprung: ^3.0.1
@@ -84,7 +84,7 @@ dev_dependencies:
   flutterando_analysis: ^0.0.2
   freezed: any
   json_serializable: any
-  sentry_dart_plugin: ^2.1.0
+  sentry_dart_plugin: ^3.1.1
   test: ^1.25.2
 
 dependency_overrides:
