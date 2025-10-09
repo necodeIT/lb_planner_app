@@ -9,7 +9,7 @@ environment:
   sdk: ">=3.4.3 <4.0.0"
 
 dependencies:
-  animations: ^2.0.11
+  animations: ^2.1.0
   awesome_extensions: ^2.0.25
   bloc: ^8.1.4
   carousel_slider: ^5.0.0
