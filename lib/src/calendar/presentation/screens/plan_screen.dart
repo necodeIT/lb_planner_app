@@ -260,7 +260,8 @@ class _PlanScreenState extends State<PlanScreen> with WindowListener, AdaptiveSt
 
     // fill in the days of the current month
     for (var i = 0; i < lastDay.day; i++) {
-      days.add(currentMonth.add(Duration(days: i)));
+      // we have to copy with instead of just adding days because of daylight saving time
+      days.add(currentMonth.copyWith(day: i + 1));
     }
 
     // get the weekday of the last day of the month and fill in the days of the next month
