@@ -1,20 +1,33 @@
+import 'dart:async';
+
 import 'package:awesome_extensions/awesome_extensions_flutter.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular_widget/flutter_modular_widget.dart';
 
 /// Shows all kanban columns and their tasks.
-class KanbanScreen extends StatefulWidget {
+class KanbanScreen extends ModularWidget<(KanbanBoard, User)> with StatefulContent, GenericErrorBuilder, SkeletonLoaderBuilder {
   /// Shows all kanban columns and their tasks.
   const KanbanScreen({super.key});
 
   @override
-  State<KanbanScreen> createState() => _KanbanScreenState();
+  ModularState<(KanbanBoard, User)> createContentState() => _KanbanScreenState();
+
+  @override
+  FutureOr<(KanbanBoard, User)> query(RepoAccessor watch) {
+    final repo = watch<KanbanRepository>();
+    final user = watch<UserRepository>().state.requireData;
+
+    return (repo.state.data!, user);
+  }
+
+  @override
+  (KanbanBoard, User) get skeletonData => (KanbanBoard.scaffold(), User(id: -1, username: '', firstname: '', lastname: ''));
 }
 
-class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobile {
+class _KanbanScreenState extends ModularState<(KanbanBoard, User)> with AdaptiveState, NoMobile {
   final animationDuration = 300.ms;
 
   bool showBacklog = false;
@@ -33,6 +46,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
       _BacklogToggle(
         initialValue: showBacklog,
         onChanged: (value) {
+          if (!mounted) return;
           setState(() {
             showBacklog = value;
           });
@@ -43,13 +57,10 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
 
   @override
   Widget buildDesktop(BuildContext context) {
-    final repo = context.watch<KanbanRepository>();
-    final user = context.watch<UserRepository>();
-
-    final board = repo.state.data ?? KanbanBoard.scaffold();
+    final (board, user) = widget.data;
 
     Color? applyColor(Color color) {
-      if (!(user.state.data?.showColumnColors ?? true)) return null;
+      if (!user.showColumnColors) return null;
 
       return color;
     }
@@ -92,7 +103,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
 }
 
 class _BacklogToggle extends StatefulWidget {
-  const _BacklogToggle({super.key, this.onChanged, required this.initialValue});
+  const _BacklogToggle({this.onChanged, required this.initialValue});
 
   // ignore: avoid_positional_boolean_parameters
   final Function(bool value)? onChanged;

@@ -19,7 +19,7 @@ class MappingWidget extends StatelessWidget {
         Spacing.xsHorizontal(),
         Text(course.name, overflow: TextOverflow.ellipsis).flexible(flex: 3),
         Spacing.smallHorizontal(),
-        Text(vintage.humanReadable, overflow: TextOverflow.ellipsis).flexible(flex: 1),
+        Text(vintage.humanReadable, overflow: TextOverflow.ellipsis).flexible(),
         // Spacing.mediumHorizontal(),
       ],
     );

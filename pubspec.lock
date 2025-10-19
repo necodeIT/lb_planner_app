@@ -478,6 +478,15 @@ packages:
       url: "https://github.com/necodeIT/modular.git"
     source: git
     version: "6.3.4"
+  flutter_modular_widget:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: f4b9f723217660c73499082d6c2f8c69e1beaab6
+      url: "https://github.com/necodeIT/flutter_modular_widget"
+    source: git
+    version: "0.0.1"
   flutter_shaders:
     dependency: transitive
     description:

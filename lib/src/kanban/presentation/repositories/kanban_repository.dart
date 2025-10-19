@@ -36,6 +36,8 @@ class KanbanRepository extends Repository<AsyncValue<KanbanBoard>> with Tracable
     } catch (e, s) {
       log('Error loading kanban board', e, s);
       transaction.internalError(e);
+
+      error(e, s);
     } finally {
       await transaction.commit();
     }

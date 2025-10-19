@@ -36,6 +36,9 @@ dependencies:
     sdk: flutter
   flutter_markdown: ^0.7.5
   flutter_modular: ^6.3.4
+  flutter_modular_widget:
+    git:
+      url: https://github.com/necodeIT/flutter_modular_widget
   flutter_single_instance: ^1.2.0
   flutter_staggered_animations: ^1.1.1
   flutter_sticky_header: ^0.8.0
@@ -117,6 +120,7 @@ flutter:
     - assets/404.svg
     - assets/mobile.svg
     - assets/no-results.svg
+    - assets/generic-error.svg
     - assets/auth/
     - assets/moodle/
     - assets/dashboard/

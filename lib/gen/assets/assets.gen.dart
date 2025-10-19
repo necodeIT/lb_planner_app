@@ -62,13 +62,16 @@ class Assets {
   static const SvgGenImage a404 = SvgGenImage('assets/404.svg');
   static const $AssetsAuthGen auth = $AssetsAuthGen();
   static const $AssetsDashboardGen dashboard = $AssetsDashboardGen();
+  static const SvgGenImage genericError =
+      SvgGenImage('assets/generic-error.svg');
   static const SvgGenImage logo = SvgGenImage('assets/logo.svg');
   static const SvgGenImage mobile = SvgGenImage('assets/mobile.svg');
   static const $AssetsMoodleGen moodle = $AssetsMoodleGen();
   static const SvgGenImage noResults = SvgGenImage('assets/no-results.svg');
 
   /// List of all assets
-  static List<SvgGenImage> get values => [a404, logo, mobile, noResults];
+  static List<SvgGenImage> get values =>
+      [a404, genericError, logo, mobile, noResults];
 }
 
 class SvgGenImage {

@@ -17,16 +17,19 @@ class ImageMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: [
-          image.themed(context).expanded(),
-          Spacing.mediumVertical(),
-          Text(
-            message,
-            style: context.theme.textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-        ],
+      child: Padding(
+        padding: PaddingAll(),
+        child: Column(
+          children: [
+            image.themed(context).expanded(),
+            Spacing.mediumVertical(),
+            Text(
+              message,
+              style: context.theme.textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
