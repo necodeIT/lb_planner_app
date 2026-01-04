@@ -48,7 +48,6 @@ class _SlotReservationScreenState extends State<SlotReservationScreen> with Adap
             children: [
               for (final group in groups.entries)
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(

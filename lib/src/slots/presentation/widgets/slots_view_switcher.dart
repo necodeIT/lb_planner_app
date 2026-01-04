@@ -62,7 +62,7 @@ extension SlotUserCapabilityX on UserCapability {
     return switch (this) {
       UserCapability.teacher => '/slots/overview/',
       UserCapability.student => '/slots/book/',
-      UserCapability.slotMaster => '/slots/',
+      UserCapability.slotmaster => '/slots/',
     };
   }
 
@@ -76,8 +76,8 @@ extension SlotUserCapabilityX on UserCapability {
     if (route.startsWith(UserCapability.student.slotRoute)) {
       return UserCapability.student;
     }
-    if (route.startsWith(UserCapability.slotMaster.slotRoute)) {
-      return UserCapability.slotMaster;
+    if (route.startsWith(UserCapability.slotmaster.slotRoute)) {
+      return UserCapability.slotmaster;
     }
 
     throw ArgumentError.value(route, 'route', 'Unkown route');
@@ -85,12 +85,10 @@ extension SlotUserCapabilityX on UserCapability {
 
   /// Returns a human readable name for the items in the dropdown menu.
   String translateSlotRoute(BuildContext context) {
-    // TODO(mastermarcohd): localize values
-
     return switch (this) {
-      UserCapability.teacher => 'View Reservations',
-      UserCapability.student => 'Book Slots',
-      UserCapability.slotMaster => 'Manage Slots',
+      UserCapability.student => context.t.slots_viewSwitcher_viewStudent,
+      UserCapability.teacher => context.t.slots_viewSwitcher_viewTeacher,
+      UserCapability.slotmaster => context.t.slots_viewSwitcher_viewSlotMaster,
     };
   }
 
@@ -99,7 +97,7 @@ extension SlotUserCapabilityX on UserCapability {
     return switch (this) {
       UserCapability.teacher => FontAwesome5Solid.chalkboard_teacher,
       UserCapability.student => FontAwesome5Solid.book,
-      UserCapability.slotMaster => FontAwesome5Solid.cogs,
+      UserCapability.slotmaster => FontAwesome5Solid.cogs,
     };
   }
 }

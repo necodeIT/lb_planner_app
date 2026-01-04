@@ -41,8 +41,22 @@ class $AssetsDashboardGen {
       const SvgGenImage('assets/dashboard/nothing-planned-for-today.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [noExams, noOverdueTasks, noReservationsForToday, nothingPlannedForToday];
+  List<SvgGenImage> get values => [
+    noExams,
+    noOverdueTasks,
+    noReservationsForToday,
+    nothingPlannedForToday,
+  ];
+}
+
+class $AssetsDemoGen {
+  const $AssetsDemoGen();
+
+  /// File path: assets/demo/users.yml
+  String get users => 'assets/demo/users.yml';
+
+  /// List of all assets
+  List<String> get values => [users];
 }
 
 class $AssetsMoodleGen {
@@ -57,11 +71,12 @@ class $AssetsMoodleGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const SvgGenImage a404 = SvgGenImage('assets/404.svg');
   static const $AssetsAuthGen auth = $AssetsAuthGen();
   static const $AssetsDashboardGen dashboard = $AssetsDashboardGen();
+  static const $AssetsDemoGen demo = $AssetsDemoGen();
   static const SvgGenImage logo = SvgGenImage('assets/logo.svg');
   static const SvgGenImage mobile = SvgGenImage('assets/mobile.svg');
   static const $AssetsMoodleGen moodle = $AssetsMoodleGen();
@@ -72,17 +87,11 @@ class Assets {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -136,7 +145,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

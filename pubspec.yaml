@@ -21,9 +21,6 @@ dependencies:
   device_preview: ^1.2.0
   diffutil_dart: ^4.0.1
   dio: ^5.7.0
-  # echidna_flutter:
-  #   git:
-  #     url: https://github.com/necodeIT/echidna_flutter.git
   either_dart: ^1.0.0
   figma_squircle: ^0.5.3
   fl_chart: ^0.70.2
@@ -73,6 +70,7 @@ dependencies:
   url_launcher: ^6.3.1
   vector_graphics: any
   window_manager: ^0.4.3
+  yaml: ^3.1.3
 
 dev_dependencies:
   architecture_linter: ^0.3.0
@@ -120,6 +118,7 @@ flutter:
     - assets/auth/
     - assets/moodle/
     - assets/dashboard/
+    - assets/demo/
 
 flutter_gen:
   output: lib/gen/assets/
@@ -127,7 +126,6 @@ flutter_gen:
 
   integrations:
     flutter_svg: true
-    flare_flutter: false
     rive: false
     lottie: false
 

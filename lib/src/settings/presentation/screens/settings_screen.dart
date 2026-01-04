@@ -1,9 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:eduplanner/config/version.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:eduplanner/src/moodle/moodle.dart';
 import 'package:eduplanner/src/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 
 /// Renders the settings screen.
 class SettingsScreen extends StatelessWidget with AdaptiveWidget {
@@ -47,10 +49,11 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
               ].vSpaced(Spacing.mediumSpacing),
             ),
           ),
-          const Expanded(
-            flex: 2,
-            child: FeedbackWidget(),
-          ).show(stagger),
+          if (kInstalledRelease.channel != ReleaseChannel.demo)
+            const Expanded(
+              flex: 2,
+              child: FeedbackWidget(),
+            ).show(stagger),
         ].hSpaced(Spacing.mediumSpacing),
       ),
     );
@@ -86,21 +89,22 @@ class SettingsScreen extends StatelessWidget with AdaptiveWidget {
                     ).alignAtCenterLeft().stretch(),
                   ],
                 ),
-              Column(
-                children: [
-                  Text(
-                    context.t.settings_feedback_title,
-                    style: context.textTheme.titleMedium?.bold,
-                  ).alignAtTopLeft(),
-                  Spacing.mediumVertical(),
-                  GestureDetector(
-                    onTap: () async {
-                      await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const FeedbackWidget());
-                    },
-                    child: Text(context.t.settings_feedback_title).stretch(),
-                  ).alignAtCenterLeft().stretch(),
-                ],
-              ),
+              if (kInstalledRelease.channel != ReleaseChannel.demo)
+                Column(
+                  children: [
+                    Text(
+                      context.t.settings_feedback_title,
+                      style: context.textTheme.titleMedium?.bold,
+                    ).alignAtTopLeft(),
+                    Spacing.mediumVertical(),
+                    GestureDetector(
+                      onTap: () async {
+                        await showAnimatedDialog(context: context, pageBuilder: (_, __, ___) => const FeedbackWidget());
+                      },
+                      child: Text(context.t.settings_feedback_title).stretch(),
+                    ).alignAtCenterLeft().stretch(),
+                  ],
+                ),
             ].vSpaced(Spacing.mediumSpacing).show(),
           ),
         ),

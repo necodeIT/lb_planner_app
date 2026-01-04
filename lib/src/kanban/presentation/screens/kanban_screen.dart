@@ -92,7 +92,7 @@ class _KanbanScreenState extends State<KanbanScreen> with AdaptiveState, NoMobil
 }
 
 class _BacklogToggle extends StatefulWidget {
-  const _BacklogToggle({super.key, this.onChanged, required this.initialValue});
+  const _BacklogToggle({this.onChanged, required this.initialValue});
 
   // ignore: avoid_positional_boolean_parameters
   final Function(bool value)? onChanged;

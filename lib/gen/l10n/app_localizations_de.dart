@@ -117,6 +117,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get auth_privacyPolicy => 'Datenschutzerklärung';
 
   @override
+  String get auth_demoUserSelector_noUserError =>
+      'Konnte keine Demo-Benutzer finden.';
+
+  @override
+  String get auth_demoUserSelector_selectUser =>
+      'Wähle einen Demo-Benutzer aus:';
+
+  @override
   String get calendar_plan => 'Plan';
 
   @override
@@ -542,6 +550,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get slots_weekday_sunday => 'Sonntag';
+
+  @override
+  String get slots_viewSwitcher_viewStudent => 'Slots buchen';
+
+  @override
+  String get slots_viewSwitcher_viewTeacher => 'Buchungen Ansehen';
+
+  @override
+  String get slots_viewSwitcher_viewSlotMaster => 'Slots verwalten';
 
   @override
   String mobile(String appname) {

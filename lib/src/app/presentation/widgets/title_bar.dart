@@ -1,12 +1,11 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:eduplanner/config/version.dart';
-import 'package:eduplanner/src/app/app.dart';
-import 'package:eduplanner/src/moodle/moodle.dart';
-import 'package:eduplanner/src/notifications/notifications.dart';
+import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 import 'package:popover/popover.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:window_manager/window_manager.dart';
@@ -232,6 +231,7 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                       ).fontSize(24),
                     ),
                   ),
+
                   // if (showLicenseBadge) Spacing.smallHorizontal(),
                   // if (showLicenseBadge)
                   //   Container(
@@ -281,6 +281,26 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                 enabled: user.id == -1,
                 child: Row(
                   children: [
+                    if (kInstalledRelease.channel == ReleaseChannel.demo)
+                      Container(
+                        padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                        decoration: ShapeDecoration(
+                          shape: squircle(
+                            radius: 5000,
+                            side: BorderSide(
+                              color: context.theme.colorScheme.primary,
+                            ),
+                          ),
+                          color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                        ),
+                        child: Text(
+                          'Demo',
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: context.theme.colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    Spacing.xsHorizontal(),
                     Builder(
                       builder: (context) {
                         return IconButton(
@@ -414,6 +434,25 @@ class TitleBarState extends State<TitleBar> with WindowListener, RouteAware, Ada
                 enabled: user.id == -1,
                 child: Row(
                   children: [
+                    if (kInstalledRelease.channel == ReleaseChannel.demo)
+                      Container(
+                        padding: PaddingAll(Spacing.xsSpacing).Horizontal(Spacing.smallSpacing),
+                        decoration: ShapeDecoration(
+                          shape: squircle(
+                            radius: 5000,
+                            side: BorderSide(
+                              color: context.theme.colorScheme.primary,
+                            ),
+                          ),
+                          color: context.theme.colorScheme.primary.withValues(alpha: 0.1),
+                        ),
+                        child: Text(
+                          'Demo',
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: context.theme.colorScheme.primary,
+                          ),
+                        ),
+                      ),
                     Builder(
                       builder: (context) {
                         return IconButton(

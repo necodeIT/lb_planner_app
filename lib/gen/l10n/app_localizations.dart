@@ -290,6 +290,18 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get auth_privacyPolicy;
 
+  /// Error message displayed when no demo users are found.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, could not find any demo users.'**
+  String get auth_demoUserSelector_noUserError;
+
+  /// Prompt to select a demo user for login.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a demo user to log in:'**
+  String get auth_demoUserSelector_selectUser;
+
   /// Label for the calendar plan section.
   ///
   /// In en, this message translates to:
@@ -1022,6 +1034,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sunday'**
   String get slots_weekday_sunday;
+
+  /// Button label to switch to the slot booking view.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Slots'**
+  String get slots_viewSwitcher_viewStudent;
+
+  /// Button label to switch to the reservations view.
+  ///
+  /// In en, this message translates to:
+  /// **'View Reservations'**
+  String get slots_viewSwitcher_viewTeacher;
+
+  /// Button label to switch to the slot management view.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Slots'**
+  String get slots_viewSwitcher_viewSlotMaster;
 
   /// Error message displayed when the user tries to access the app on a mobile device.
   ///

@@ -3,9 +3,12 @@ import 'package:eduplanner/eduplanner.dart';
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 
+/// Tooltip-like pop-over to show slot data when there are multiple items.
 class SlotDataPopOver extends StatefulWidget {
+  /// Tooltip-like pop-over to show slot data when there are multiple items.
   const SlotDataPopOver({super.key, required this.contentList});
 
+  /// The list of widgets to show in the pop-over.
   final List<Widget> contentList;
 
   @override
@@ -85,10 +88,7 @@ class _SlotDataPopOverState extends State<SlotDataPopOver> {
                           arrowHeight: 0,
                           arrowWidth: 0,
                           allowClicksOnBackground: true,
-                          direction: PopoverDirection.bottom,
                           transition: PopoverTransition.other,
-                          // contentDxOffset: -width + (context.size?.width ?? 0),
-                          barrierDismissible: true,
                           barrierColor: Colors.transparent,
                           backgroundColor: Colors.transparent,
                           transitionDuration: const Duration(milliseconds: 300),

@@ -58,6 +58,6 @@ abstract class SlotsDatasource extends Datasource with Tracable {
 
   /// Fetches all slots.
   ///
-  /// Note: User associated with [token] must have the [UserCapability.slotMaster].
+  /// Note: User associated with [token] must have the [UserCapability.slotmaster].
   Future<List<Slot>> getAllSlots(String token);
 }

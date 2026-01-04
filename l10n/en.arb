@@ -144,6 +144,14 @@
     "@auth_privacyPolicy": {
         "description": "Label for the privacy policy link."
     },
+    "auth_demoUserSelector_noUserError": "Sorry, could not find any demo users.",
+    "@auth_demoUserSelector_noUserError": {
+        "description": "Error message displayed when no demo users are found."
+    },
+    "auth_demoUserSelector_selectUser": "Select a demo user to log in:",
+    "@auth_demoUserSelector_selectUser": {
+        "description": "Prompt to select a demo user for login."
+    },
     "calendar_plan": "Plan",
     "@calendar_plan": {
         "description": "Label for the calendar plan section."
@@ -720,6 +728,18 @@
     "slots_weekday_sunday": "Sunday",
     "@slots_weekday_sunday": {
         "description": "Label for Sunday in slot editing."
+    },
+    "slots_viewSwitcher_viewStudent": "Book Slots",
+    "@slots_viewSwitcher_viewStudent": {
+        "description": "Button label to switch to the slot booking view."
+    },
+    "slots_viewSwitcher_viewTeacher": "View Reservations",
+    "@slots_viewSwitcher_viewTeacher": {
+        "description": "Button label to switch to the reservations view."
+    },
+    "slots_viewSwitcher_viewSlotMaster": "Manage Slots",
+    "@slots_viewSwitcher_viewSlotMaster": {
+        "description": "Button label to switch to the slot management view."
     },
     "mobile": "Sorry, {appname} is currently only available on desktop devices. Please try again on a desktop device.",
     "@mobile": {

@@ -1,8 +1,10 @@
+import 'package:eduplanner/config/version.dart';
 import 'package:eduplanner/src/app/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
+import 'package:mcquenji_versioning/mcquenji_versioning.dart';
 
 /// A screen that wraps its children in a [Sidebar].
 class SidebarScreen extends StatefulWidget {
@@ -17,6 +19,7 @@ class _SidebarScreenState extends State<SidebarScreen> with AdaptiveState {
   bool showedDisclaimer = false;
 
   void showDisclaimerDialog() {
+    if (kInstalledRelease.channel == ReleaseChannel.demo) return;
     showMarkdownDialog(
       context,
       title: context.t.global_disclaimer_title,

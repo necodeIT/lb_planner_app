@@ -116,7 +116,7 @@ enum UserCapability {
   /// Users with this capability are recognized as slot masters.
   ///
   /// They have access to features that allow them to e.g. manage and create time slots.
-  slotMaster(_slotMaster, 16);
+  slotmaster(_slotMaster, 16);
 
   const UserCapability(this.translate, this.value);
 
@@ -142,8 +142,8 @@ extension UserCapabilitiesExtension on Iterable<UserCapability> {
   /// Returns `true` if the list contains all of the given [capabilities]. Otherwise `false`.
   bool has(List<UserCapability> capabilities) => capabilities.every(contains);
 
-  /// Returns `true` if the list contains [UserCapability.slotMaster]. Otherwise `false`.
-  bool get hasSlotMaster => contains(UserCapability.slotMaster);
+  /// Returns `true` if the list contains [UserCapability.slotmaster]. Otherwise `false`.
+  bool get hasSlotMaster => contains(UserCapability.slotmaster);
 
   /// Returns the highest [UserCapability] in the list.
   ///
@@ -159,8 +159,8 @@ extension UserCapabilityExtension on UserCapability {
   /// Returns `true` if this capability is [UserCapability.student]. Otherwise `false`.
   bool get isStudent => this == UserCapability.student;
 
-  /// Returns `true` if this capability is [UserCapability.slotMaster]. Otherwise `false`.
-  bool get isSlotMaster => this == UserCapability.slotMaster;
+  /// Returns `true` if this capability is [UserCapability.slotmaster]. Otherwise `false`.
+  bool get isSlotMaster => this == UserCapability.slotmaster;
 }
 
 /// Represents a "Jahrgang" (grade level or class year) in a high school context.

@@ -38,7 +38,7 @@ class SlotsModule extends Module {
         transition: TransitionType.custom,
         customTransition: defaultTransition,
         guards: [
-          CapabilityGuard({UserCapability.slotMaster}, redirectTo: '/slots/overview/'),
+          CapabilityGuard({UserCapability.slotmaster}, redirectTo: '/slots/overview/'),
         ],
       )
       ..child(
